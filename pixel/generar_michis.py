@@ -109,12 +109,14 @@ CUERPOS = {
 # --- cara: identica en los cinco ---
 OREJA_INTERIOR = [(2, 6, 8), (3, 6, 9), (2, 23, 25), (3, 22, 25)]
 RAYAS_FRENTE = [(5, 11, 13), (5, 16, 18), (5, 21, 23), (6, 12, 12), (6, 22, 22)]
-HOCICO = [(11, 12, 19), (12, 13, 18), (13, 14, 17)]
-OJOS = [(7, 9, 11), (8, 9, 11), (9, 9, 11), (7, 20, 22), (8, 20, 22), (9, 20, 22)]
-BRILLO = [(7, 9, 9), (7, 20, 20)]
+HOCICO = [(11, 12, 19), (12, 13, 18), (13, 14, 17), (14, 15, 16)]
+OJOS = [(6, 9, 12), (7, 9, 12), (8, 9, 12), (9, 10, 12),
+        (6, 19, 22), (7, 19, 22), (8, 19, 22), (9, 19, 21)]
+BRILLO = [(6, 10, 11), (7, 10, 10), (6, 20, 21), (7, 20, 20)]
 NARIZ = [(11, 15, 16)]
 BOCA = [(12, 14, 14), (12, 17, 17), (13, 15, 16)]
-MOFLETES = [(9, 5, 7), (10, 5, 7), (9, 24, 26), (10, 24, 26)]
+MOFLETES = [(9, 5, 7), (10, 5, 7), (11, 6, 7),
+            (9, 24, 26), (10, 24, 26), (11, 24, 25)]
 
 
 def pintar(g, bandas, char):
@@ -228,4 +230,23 @@ if __name__ == "__main__":
     hoja.save("michi-hoja.png")
 
     exportar_js()
+
+    # PNG a 320 px para la app, con vecino mas proximo: los bordes del
+    # pixel tienen que quedar duros, no suavizados.
+    import os
+    destino = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                           "..", "public", "michi")
+    os.makedirs(destino, exist_ok=True)
+    for nombre in ORDEN:
+        g = construir(nombre)
+        im = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+        px = im.load()
+        for y in range(H):
+            for x in range(W):
+                col = PALETA[g[y][x]]
+                if col is not None:
+                    px[x, y] = (*col, 255)
+        im = im.resize((320, 320), Image.NEAREST)
+        im.save(os.path.join(destino, f"{nombre}.png"), optimize=True)
+
     print("generados:", ", ".join(ORDEN))

@@ -14,19 +14,15 @@ import { useState } from 'react';
 import Tamagotchi from './Tamagotchi.jsx';
 import './tamagotchi.css';
 
-/* Geometría, en porcentaje de la carcasa. Sale del componente SVG
-   (viewBox 220x300): la pantalla ocupa x 46..174, y 66..228. */
-const PANTALLA = {
-  left: (46 / 220) * 100,
-  top: (66 / 300) * 100,
-  width: (128 / 220) * 100,
-  height: (162 / 300) * 100,
-};
-/* Zona útil del michi: la pantalla menos la banda de iconos y la del pie. */
-const ZONA = {
-  top: (16 / 162) * 100,
-  height: ((162 - 16 - 19) / 162) * 100,
-};
+/* Geometría medida sobre el PNG del huevo (660x900): el hueco de la
+   pantalla es transparente, así que se detecta solo. Si cambias el
+   dibujo, vuelve a medirlo con pixel/medir_huevo.py. */
+const PANTALLA = { left: 23.79, top: 29.78, width: 52.58, height: 43.89 };
+
+/* Zona útil del michi dentro de la pantalla: se deja aire arriba para la
+   barra de puntos. El aparato de Alberto no tiene bandas dibujadas, así
+   que la pantalla es toda del michi. */
+const ZONA = { top: 14, height: 84 };
 
 const RUTA = '/michi';
 
@@ -44,7 +40,7 @@ export default function TamagotchiPNG({
   /* Cadena de respaldo: si no existe la imagen del estado exacto, se usa
      el michi base; si tampoco, se dibuja el aparato en SVG. Así se pueden
      ir subiendo las imágenes de una en una sin que nada se rompa. */
-  const candidatos = [`${RUTA}/${estado}.png`, `${RUTA}/bebe_paseando.png`];
+  const candidatos = [`${RUTA}/${estado}.png`, `${RUTA}/kawaii.png`];
   const src = candidatos[intento];
 
   /* Dos respaldos independientes. Si falta la carcasa se dibuja en SVG,
@@ -90,7 +86,6 @@ export default function TamagotchiPNG({
           )}
         </div>
 
-        {!sinHuevo && <div className="mf-tamapng-pie">FIT</div>}
       </div>
     </div>
   );

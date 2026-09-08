@@ -1,10 +1,10 @@
 Imágenes del michi
 ==================
 
-huevo.png   660 x 900   la carcasa del tamagotchi.
-                        Transparente por fuera Y en el hueco de pantalla.
+huevo.png   660 x 900   la carcasa. El hueco de la pantalla va TRANSPARENTE.
+                        (ya está: es el Huevo_transparente.png de Alberto)
 
-Michis, 360 x 360 cada uno, fondo transparente:
+Michis, 320 x 320, fondo transparente, apoyados abajo:
 
   esqueletico.png     abandono prolongado
   gordo.png           comiendo de más y moviéndose poco
@@ -12,7 +12,15 @@ Michis, 360 x 360 cada uno, fondo transparente:
   fit.png             cumpliendo el pacto
   hipertrofiado.png   cumpliendo con creces, con entrenos de fuerza
 
-Plantillas para dibujarlos: pixel/plantilla-huevo.png y pixel/plantilla-michi.png
+Cómo se generan
+---------------
+Los de ahora son pixel art hecho por código:
+    cd pixel && python generar_michis.py
 
-Mientras falte alguna imagen, la app dibuja el aparato en SVG como hasta
-ahora. No se rompe nada por subirlas de una en una.
+Para sustituirlos por ilustraciones, guarda una HOJA DE PERSONAJE con
+todos los michis en UNA sola imagen (así salen consistentes entre sí) y:
+    cd pixel && python recortar_hoja.py ../IMG/cuerpos.png
+
+El recortador separa los gatos del texto de las etiquetas, los recorta,
+los cuadra y los comprime. Si el orden no cuadra, se ajusta la lista
+ORDEN dentro del script.
