@@ -6,9 +6,6 @@
       `usuario.github.io/repo/` la app saldría en blanco sin esto.
 
 ## Después
-- [ ] **Pantalla de Karma**: portar de `../2026_APP_MICHIFIN/MichiFinanzas.jsx`
-      (línea 2230) la pantalla de apoyo al proyecto. Bloqueada hasta decidir la
-      cuenta de donaciones — ver `ASK.md`.
 - [ ] Registro de comidas con macros (informativas, no cuentan).
 - [ ] Que las acciones de Inicio abran un campo en vez de sumar a saltos fijos.
 - [ ] Importador del export de Garmin Connect.
@@ -21,6 +18,8 @@
 - [ ] Que los tres botones del aparato hagan algo (mirar, cuidar, cancelar).
 
 ## Ideas / quizás algún día
+- [ ] Michi propio para la pantalla de Karma: el actual viene de Michi
+      Finanzas y lleva traje.
 - [ ] En la gráfica, la historia queda comprimida cuando la meta está muy
       lejos (28 días de datos contra 165 de previsión). Se leería mejor con
       un eje partido o limitando el horizonte visible.
@@ -28,6 +27,7 @@
 - [ ] Marcar en la gráfica los tramos con pocos datos.
 
 ## Hecho
+- [x] 2026-09-08 — Pantalla de Karma, con la cuenta de Michi Finanzas.
 - [x] 2026-09-08 — Pantalla de Progreso: gráfica de peso con previsión,
       calendario del pacto y registro de días pasados.
 - [x] 2026-09-08 — Desplegada en https://michifit.vercel.app

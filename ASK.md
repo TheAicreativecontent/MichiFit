@@ -1,13 +1,10 @@
 # ASK.md — Preguntas pendientes (para Alberto)
 
 ## Decisiones pendientes
-- [ ] **Karma: ¿qué cuenta de donaciones?** MichiFinanzas apunta a
-      `buymeacoffee.com/MichiFinanzas`. ¿MichiFit usa la misma o se abre una
-      propia? Sin esto no se puede portar la pantalla.
-- [ ] **Publicar en GitHub.** Hoy ninguna carpeta es siquiera un repositorio
-      git. Hace falta: `git init`, crear el repo, `base: '/<repo>/'` en
-      `vite.config.js` y activar Pages. Lo hace Alberto: es su cuenta y es
-      irreversible.
+- [ ] **¿Despliegue automático desde GitHub?** Ahora se despliega con
+      `vercel deploy --prod` desde la carpeta local. Para que cada `git push`
+      despliegue solo hay que conectar el repo en Settings → Git del proyecto
+      de Vercel. Lo tiene que hacer Alberto.
 - [ ] **Flecos de la mecanica** (ver final de `MECANICA.md`): si la semana
       empieza en lunes o es movil, que ve el usuario al gastar un comodin, si el
       pacto lleva calorias diarias, y si los add-ons se pierden al bajar nivel.

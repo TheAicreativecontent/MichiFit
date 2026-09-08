@@ -10,6 +10,7 @@ import Inicio from './pantallas/Inicio.jsx';
 import Pacto from './pantallas/Pacto.jsx';
 import Progreso from './pantallas/Progreso.jsx';
 import Simulador from './pantallas/Simulador.jsx';
+import Karma from './pantallas/Karma.jsx';
 import Ajustes from './pantallas/Ajustes.jsx';
 import { calcularEstado } from './engine/michi.js';
 import { hoyISO } from './engine/pacto.js';
@@ -21,6 +22,7 @@ const PESTANAS = [
   { id: 'pacto', icono: '🤝', t: 'Mi pacto' },
   { id: 'progreso', icono: '📈', t: 'Progreso' },
   { id: 'simular', icono: '🎯', t: 'Simular' },
+  { id: 'karma', icono: '💌', t: 'Karma' },
   { id: 'ajustes', icono: '⚙️', t: 'Ajustes' },
 ];
 
@@ -101,6 +103,7 @@ export default function App() {
                     onRegistrar={registrar} />
         )}
         {pestana === 'simular' && <Simulador perfil={datos.perfil} pacto={datos.pacto} />}
+        {pestana === 'karma' && <Karma />}
         {pestana === 'ajustes' && (
           <Ajustes perfil={datos.perfil} entradas={datos.entradas}
                    onCambiar={(p) => setDatos((d) => ({ ...d, perfil: p }))}

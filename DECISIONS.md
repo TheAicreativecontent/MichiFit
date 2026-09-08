@@ -1,5 +1,17 @@
 # DECISIONS.md — Decisiones de diseno y su razon
 
+## 2026-09-08 — Karma comparte cuenta con Michi Finanzas
+- Decision: MichiFit usa **la misma** cuenta de donaciones que Michi Finanzas
+  (`buymeacoffee.com/MichiFinanzas`) y el mismo LNURL de Lightning.
+- Regla que no cambia: apoyar es voluntario y **no desbloquea nada**. Ni
+  michis, ni niveles, ni accesorios. Si algun dia una donacion diera ventaja,
+  deja de ser karma y pasa a ser una compra.
+- El michi de la pantalla viene de Michi Finanzas; se le recorto la taza que
+  ponia "MICHI FINANZAS", pero **sigue llevando traje**. Si molesta, hay que
+  generar uno propio de MichiFit (con cinta del pelo en vez de traje).
+- El QR de Lightning se copia SIN recomprimir con perdida: es el LNURL real
+  y un artefacto de compresion podria hacerlo ilegible.
+
 ## 2026-09-08 — La paleta se copia, no se interpreta
 - Contexto: al "alinear" la paleta con Michi Finanzas inventé unos marrones
   para el modo oscuro y unas sombras marrones. La app salia tenida de marron.
