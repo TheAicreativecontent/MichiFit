@@ -19,9 +19,6 @@
 ## Ideas / quizás algún día
 - [ ] En la ventana de cada día del pacto, poder apuntar **qué entreno toca**
       (pecho, piernas, cardio...). El hueco ya está preparado.
-- [ ] **Icono propio para "Logros"**: ahora usa provisionalmente el
-      `ICO_BTC` de Michi Finanzas (una moneda), que no pega. Iría bien una
-      medalla o una copa en ese mismo estilo.
 - [ ] Más escenarios: cocina para las comidas, parque, cama para dormir.
 - [ ] Michi propio para la pantalla de Karma: el actual viene de Michi
       Finanzas y lleva traje.
@@ -32,6 +29,7 @@
 - [ ] Marcar en la gráfica los tramos con pocos datos.
 
 ## Hecho
+- [x] 2026-09-08 — Icono propio de Logros (medalla).
 - [x] 2026-09-08 — Pantalla de Logros y hitos en el motor (no existían en
       esta app: se quedaron fuera al crearla). Iconos de Michi Finanzas
       siempre a color, escenarios sin deformar.
