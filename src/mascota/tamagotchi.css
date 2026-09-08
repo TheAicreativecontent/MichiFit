@@ -81,3 +81,42 @@
 /* Cuando la carcasa es el SVG dibujado, ocupa el mismo hueco que el PNG */
 .mf-tamapng-huevo > .mf-tama { width: 100%; height: 100%; }
 .mf-tamapng-pantalla { pointer-events: none; }
+
+/* --- botones del aparato --- */
+.mf-tamapng-boton {
+  position: absolute; transform: translate(-50%, -50%);
+  width: 15%; height: 11%;           /* area de toque, mayor que el dibujo */
+  border: none; background: transparent; border-radius: 50%;
+  cursor: pointer; padding: 0; z-index: 3;
+  -webkit-tap-highlight-color: transparent;
+}
+.mf-tamapng-boton:active { transform: translate(-50%, -50%) scale(.9); }
+
+/* --- mimos: corazones que suben --- */
+.mf-tamapng-mimos { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
+.mf-tamapng-mimos i {
+  position: absolute; bottom: 30%; left: 50%; width: 9px; height: 8px;
+  /* corazón dibujado con sombras: sin emojis, para que se vea igual en
+     todos los móviles */
+  background: #E8543A;
+  clip-path: polygon(50% 100%, 0 40%, 0 15%, 25% 0, 50% 20%, 75% 0, 100% 15%, 100% 40%);
+  animation: mf-mimo 1.6s ease-out infinite;
+}
+.mf-tamapng-mimos i:nth-child(2) { left: 36%; }
+.mf-tamapng-mimos i:nth-child(3) { left: 62%; }
+@keyframes mf-mimo {
+  0%   { opacity: 0; transform: translateY(0) scale(.6); }
+  25%  { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-46px) scale(1.1); }
+}
+
+/* --- dormido: la pantalla se apaga --- */
+.mf-tamapng-apagada {
+  position: absolute; inset: 0; background: rgba(20, 26, 16, .55);
+  pointer-events: none; z-index: 2;
+}
+.mf-tamapng-zzz2 {
+  position: absolute; top: 8%; right: 8%; z-index: 3;
+  font-family: 'Press Start 2P', monospace; font-size: 8px; color: #FFF6EC;
+  letter-spacing: 2px; animation: mf-tama-zzz 2.6s steps(3, end) infinite;
+}

@@ -5,12 +5,26 @@
    presentada como cuidado. Acariciar no da XP a propósito.
    ============================================================ */
 
+import { useState } from 'react';
 import Tamagotchi from '../mascota/TamagotchiPNG.jsx';
 import Marcador from './Marcador.jsx';
 import { estadoVisual } from '../engine/michi.js';
 import { hoyISO } from '../engine/pacto.js';
 
 export default function Inicio({ estado, entradas, pacto }) {
+  /* Los tres botones del aparato. Ninguno toca tus datos: son vida, no
+     mecánica. Mimar no da experiencia a propósito — si diera, dejaría de
+     ser cariño. */
+  const [gesto, setGesto] = useState(null);   // 'mimar' | 'estado' | null
+  const [durmiendo, setDurmiendo] = useState(false);
+
+  const pulsar = (id) => {
+    if (id === 'dormir') { setDurmiendo((d) => !d); setGesto(null); return; }
+    setDurmiendo(false);
+    setGesto(id);
+    if (id === 'mimar') setTimeout(() => setGesto((g) => (g === 'mimar' ? null : g)), 2600);
+  };
+
   const visual = estadoVisual(estado, entradas, pacto);
   const hoy = estado.hoy;
   const entradaHoy = entradas[hoyISO()] ?? {};
@@ -24,7 +38,9 @@ export default function Inicio({ estado, entradas, pacto }) {
           estado={visual.cuerpo}
           pose={visual.pose}
           cara={visual.cara}
-          dormido={estado.dormido}
+          dormido={durmiendo || estado.dormido}
+          mimando={gesto === 'mimar'}
+          onBoton={pulsar}
           size={300}
           puntos={estado.nivel.progreso}
           escenario={
@@ -39,7 +55,7 @@ export default function Inicio({ estado, entradas, pacto }) {
             { id: 'sueno', emoji: '🌙', activo: entradaHoy.suenoHoras != null },
           ]}
         />
-        <p className="mf-globo">{frase(estado, pendientes)}</p>
+        <p className="mf-globo">{frase(estado, pendientes, gesto, durmiendo)}</p>
 
         <div className="mf-nivel">
           <span>{estado.nivel.emoji} {estado.nivel.nombre}</span>
@@ -84,7 +100,10 @@ export default function Inicio({ estado, entradas, pacto }) {
   );
 }
 
-function frase(estado, pendientes) {
+function frase(estado, pendientes, gesto, durmiendo) {
+  if (durmiendo) return 'Zzz… hasta mañana 🌙';
+  if (gesto === 'mimar') return '¡Prrrr! 💛';
+  if (gesto === 'estado') return resumen(estado, pendientes);
   if (estado.dormido) return '¡Has vuelto! Estaba echando una siesta 😴';
   if (estado.abandono >= 10) return 'Te he echado de menos… ¿empezamos otra vez?';
   if (!pendientes.length) return '¡Pacto cumplido! Hoy has hecho lo que dijiste 🎉';
@@ -93,4 +112,25 @@ function frase(estado, pendientes) {
   if (p.id === 'entreno') return 'Hoy tocaba entrenar. ¡Cuando quieras!';
   if (p.id === 'comida') return 'Aún no me has contado qué has comido.';
   return 'Vamos poco a poco.';
+}
+
+/* Lo que cuenta el michi al pulsar el botón azul: cómo va la cosa hoy. */
+function resumen(estado, pendientes) {
+  const trozos = [];
+  if (estado.racha > 0) {
+    trozos.push(`Llevamos ${estado.racha} ${estado.racha === 1 ? 'día' : 'días'} de racha`);
+  } else {
+    trozos.push('Hoy empezamos de cero');
+  }
+  if (estado.comodines > 0) {
+    trozos.push(`tengo ${estado.comodines} ${estado.comodines === 1 ? 'comodín' : 'comodines'} guardados`);
+  }
+  if (estado.descansosRotos >= 2) {
+    trozos.push('y me vendría bien descansar');
+  } else if (!pendientes.length) {
+    trozos.push('y hoy ya está todo hecho');
+  } else {
+    trozos.push(`y hoy falta ${pendientes.map((p) => p.etiqueta.toLowerCase()).join(' y ')}`);
+  }
+  return trozos.join(', ') + ' 🐾';
 }

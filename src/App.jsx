@@ -23,9 +23,10 @@ import './estilos.css';
    la misma casa. Simular no tiene icono propio todavía: lleva emoji. */
 const PESTANAS = [
   { id: 'inicio', img: '/iconos/inicio.png', t: 'Inicio' },
-  { id: 'logros', img: '/iconos/logros.png', t: 'Logros' },
   { id: 'pacto', img: '/iconos/pacto.png', t: 'Mi pacto' },
   { id: 'progreso', img: '/iconos/progreso.png', t: 'Progreso' },
+  // — aquí va el "+" —
+  { id: 'logros', img: '/iconos/logros.png', t: 'Logros' },
   { id: 'simular', img: '/iconos/simular.png', t: 'Simular' },
   { id: 'karma', img: '/iconos/karma.png', t: 'Karma' },
 ];

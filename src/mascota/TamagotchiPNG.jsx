@@ -31,6 +31,16 @@ const RUTA = '/michi';
    mirar al michi cada día. */
 const ESCENARIOS = { gimnasio: '/fondos/gimnasio.png', calle: '/fondos/calle.png', casa: '/fondos/casa.png' };
 
+/* Los tres botones del aparato, medidos sobre el PNG escaneando la fila
+   que los cruza. El area de toque es mayor que el dibujo: un dedo no
+   acierta un circulo de 27 px. */
+const BOTONES = [
+  { id: 'mimar',  cx: 24.8, titulo: 'Mimar' },
+  { id: 'estado', cx: 49.9, titulo: 'Cómo va' },
+  { id: 'dormir', cx: 75.0, titulo: 'Dormir' },
+];
+const BOTON_Y = 86.5;
+
 export default function TamagotchiPNG({
   estado = 'kawaii',
   size = 230,
@@ -38,6 +48,8 @@ export default function TamagotchiPNG({
   puntos = 0,
   dormido = false,
   escenario = 'casa',
+  mimando = false,
+  onBoton,
   ...resto
 }) {
   const [sinHuevo, setSinHuevo] = useState(false);
@@ -93,9 +105,29 @@ export default function TamagotchiPNG({
             <img className="mf-tamapng-michi" src={src} alt=""
                  onError={() => setIntento((i) => i + 1)} />
           )}
+
+          {mimando && (
+            <div className="mf-tamapng-mimos" aria-hidden="true">
+              {[0, 1, 2].map((i) => (
+                <i key={i} style={{ animationDelay: `${i * 0.3}s` }} />
+              ))}
+            </div>
+          )}
+
+          {dormido && <span className="mf-tamapng-zzz2" aria-hidden="true">z z z</span>}
         </div>
 
+        {dormido && <div className="mf-tamapng-apagada" />}
       </div>
+
+      {/* Botones del aparato. Van encima del PNG, con área de toque
+          generosa: el dibujo es un círculo de 27 px y un dedo no acierta. */}
+      {onBoton && !sinHuevo && BOTONES.map((b) => (
+        <button key={b.id} className={`mf-tamapng-boton ${b.id}`}
+                style={{ left: `${b.cx}%`, top: `${BOTON_Y}%` }}
+                onClick={() => onBoton(b.id)}
+                aria-label={b.titulo} title={b.titulo} />
+      ))}
     </div>
   );
 }

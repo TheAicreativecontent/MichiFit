@@ -1,5 +1,19 @@
 # DECISIONS.md — Decisiones de diseno y su razon
 
+## 2026-09-08 — Que hacen los tres botones del huevo
+- 🟡 **Mimar**: acariciar. Ronronea y salen corazones. **No da XP**, a
+  proposito: si diera, dejaria de ser cariño.
+- 🔵 **Como va**: el michi cuenta en el bocadillo la racha, los comodines y
+  lo que falta hoy.
+- 🔴 **Dormir**: apaga la pantalla y el michi se duerme. Se vuelve a pulsar
+  para despertarlo.
+- **Ninguno toca los datos.** Son vida, no mecanica. "Dar de comer" o
+  "beber" quedaron descartados: si un boton alimenta al michi sin que hayas
+  comido, el michi deja de reflejar tu vida y pasa a ser un juguete aparte.
+- Las coordenadas de los botones salen de escanear la fila que los cruza en
+  el PNG (24,8% · 49,9% · 75%). El area de toque es mucho mayor que el
+  dibujo: son circulos de 27 px y un dedo no los acierta.
+
 ## 2026-09-08 — Los escenarios se recortan, no se estiran
 - Las escenas son 2,7:1 (muy apaisadas) y la pantalla del huevo es 0,87:1
   (mas alta que ancha). Estirarlas achataba las pesas del gimnasio.
