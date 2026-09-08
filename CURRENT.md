@@ -1,0 +1,38 @@
+# CURRENT.md — Estado actual
+
+## En qué estoy trabajando
+Acaba de arrancar la app definitiva. Funciona de punta a punta con cuatro
+pantallas y el motor entero.
+
+## Estado
+- Última acción (2026-09-07): proyecto creado, motor recalculado según
+  `MECANICA.md`, cuatro pantallas funcionando y verificadas en navegador.
+- Próximo paso: pantalla de registro de días pasados, y configurar `base` en
+  `vite.config.js` antes de publicar en GitHub Pages. La ventana de 3 días
+  existe en el motor pero no hay interfaz para usarla, y sin ella media
+  mecánica de comodines no se puede aprovechar.
+- Bloqueadores: ninguno.
+
+## Verificado en navegador
+- Simulador da los mismos números que la app original: 2602 de gasto total,
+  −595 de déficit, 377 quemado moviéndote, −0,54 kg/semana.
+- Ajustes da el mismo IMC: 26,2 actual, 21,5 meta.
+- Pantalla de pacto muestra el pacto real de Alberto.
+- Build de producción OK, sin errores de consola.
+
+## Notas rápidas
+- **La app es pública y multiusuario.** No lleva datos de nadie: arranca vacía y
+  cada usuario rellena lo suyo en el primer arranque.
+- Los días de entreno sugeridos son L/X/V, pero se eligen en el asistente.
+- El simulador parte del **peso actual**: si no se actualiza, la previsión sale
+  larga porque sigue midiendo desde el peso inicial.
+- El michi es **pixel art naranja dentro de un tamagotchi SVG**. El componente
+  vectorial antiguo (`mascota/Michi.jsx`) ya no se usa en ninguna pantalla;
+  se conserva por si hiciera falta.
+- El fondo ya está: `public/fondo.png` (880x1186). Se pinta como en Michi
+  Finanzas: capa fija, `cover`, centrado, opacidad .15.
+- **No ponerlo en mosaico**: la imagen no es repetible sin costura (bordes con
+  19 y 40 de diferencia). Se vería la línea de corte.
+- Aviso al revisar: el panel de vista previa del navegador **lava toda la
+  página** cuando hay una capa fija con opacidad, aunque esté vacía. Es un
+  artefacto del panel, no de la CSS. Juzgar el fondo en un navegador de verdad.

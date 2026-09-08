@@ -1,0 +1,287 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap');
+
+:root {
+  /* Paleta compartida con Michi Finanzas y MichiMind. Mismos valores,
+     para que las tres se reconozcan como de la misma casa.
+     Lo propio de MichiFit es el NARANJA del logo, donde MichiFin usa
+     azul y MichiMind rosa. */
+  --rosa: #F2650F;          /* color de marca de MichiFit */
+  --rosa-suave: #FFE2CE;
+  --menta: #6FBBEF;         /* azul compartido */
+  --menta-suave: #DCEFFC;
+  --sol: #FFC93C;
+  --bien: #5FCD96;          /* verde compartido */
+  --mal: #F9799B;           /* rosa compartido */
+
+  --fondo: #FDF1E4;
+  --papel: #FFFFFF;
+  --tinta: #4A3541;
+  --tinta-flojo: #9C8890;
+  --linea: #F3E2D2;
+  --chip: #FBEFE2;
+
+  /* Sombras neutras. Las tenía en marrón y teñían toda la app. */
+  --sombra: 0 10px 26px rgba(74, 53, 65, .14);
+  --sombra-sm: 0 6px 16px rgba(74, 53, 65, .09);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Ciruela, como MichiMind. No marron. */
+    --fondo: #2B2131; --papel: #3A2D42; --tinta: #FBEFF2;
+    --tinta-flojo: #B5A0B0; --linea: #4A3A52; --chip: #463753;
+    --rosa-suave: #5A3A49; --menta-suave: #31435A;
+    --bien: #72DBA4; --mal: #FF8FAD;
+    --sombra: 0 10px 26px rgba(0,0,0,.38); --sombra-sm: 0 6px 16px rgba(0,0,0,.3);
+  }
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body, #root { min-height: 100%; }
+body {
+  margin: 0; color: var(--tinta); background: var(--fondo);
+  font-family: 'Nunito', system-ui, sans-serif; -webkit-font-smoothing: antialiased;
+}
+
+/* Fondo: una sola imagen, igual que en Michi Finanzas
+   (`.mf-phone::before` allí). Capa fija detrás de todo y a baja
+   opacidad: a plena opacidad se come el contenido.
+
+   Va con `cover`, no en mosaico, porque la imagen NO es repetible sin
+   costura (los bordes no casan: 19 de diferencia en izq/der y 40 en
+   arriba/abajo). En mosaico se verían las líneas de corte. */
+.mf-app::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: url('/fondo.jpg') no-repeat center center;
+  background-size: cover;
+  opacity: .15;
+}
+@media (prefers-color-scheme: dark) {
+  .mf-app::before { opacity: .10; }
+}
+
+/* El contenido va por encima de la capa del fondo, explícitamente.
+   Dejarlo al orden natural de pintado da resultados distintos según el
+   navegador. */
+.mf-app {
+  max-width: 520px; margin: 0 auto; padding-bottom: 88px;
+  min-height: 100vh; position: relative; z-index: 1;
+}
+
+/* --- cabecera --- */
+.mf-cabecera {
+  position: sticky; top: 0; z-index: 20;
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 18px 10px;
+  background: color-mix(in srgb, var(--fondo) 88%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--linea);
+}
+.mf-marca h1 { font-family: 'Baloo 2', cursive; font-size: 23px; margin: 0; line-height: 1; }
+.mf-marca h1 b { color: var(--rosa); }
+.mf-marca small { font-size: 11px; color: var(--tinta-flojo); font-weight: 700; }
+.mf-racha {
+  margin-left: auto; background: var(--papel); border-radius: 14px;
+  padding: 7px 12px; font-family: 'Baloo 2', cursive; font-weight: 800;
+  box-shadow: var(--sombra-sm);
+}
+
+/* --- estructura --- */
+.mf-pagina { padding: 16px 18px 8px; animation: entra .3s ease both; }
+@keyframes entra { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+.mf-h2 { font-family: 'Baloo 2', cursive; font-size: 19px; margin: 4px 0 4px; }
+.mf-h3 { font-family: 'Baloo 2', cursive; font-size: 15px; margin: 0 0 10px; }
+.mf-sub { font-size: 12px; color: var(--tinta-flojo); font-weight: 700; margin: 0 0 14px; }
+.mf-nota { font-size: 11.5px; color: var(--tinta-flojo); font-weight: 600; line-height: 1.5; margin: 10px 0 0; }
+.mf-pie { font-size: 11px; color: var(--tinta-flojo); font-weight: 600; line-height: 1.5; text-align: center; margin: 18px 0; }
+
+.mf-tarjeta {
+  background: var(--papel); border-radius: 22px; padding: 16px 18px;
+  box-shadow: var(--sombra-sm); margin-bottom: 14px;
+}
+
+/* --- escena del michi --- */
+.mf-escena {
+  background: var(--papel); border-radius: 26px; padding: 10px 18px 18px;
+  box-shadow: var(--sombra); display: flex; flex-direction: column;
+  align-items: center; margin-bottom: 14px;
+}
+.mf-globo {
+  background: var(--rosa-suave); border-radius: 16px 16px 16px 5px;
+  padding: 11px 14px; font-weight: 700; font-size: 13.5px;
+  margin: 0 0 12px; text-align: center; line-height: 1.4;
+}
+.mf-nivel { width: 100%; text-align: center; }
+.mf-nivel > span { font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 16px; }
+.mf-nivel small { display: block; margin-top: 4px; font-size: 11px; color: var(--tinta-flojo); font-weight: 700; }
+.mf-xp { height: 9px; background: var(--rosa-suave); border-radius: 99px; overflow: hidden; margin-top: 7px; }
+.mf-xp > div { height: 100%; background: linear-gradient(90deg, var(--rosa), var(--menta)); transition: width .5s ease; }
+
+/* --- rejillas de datos --- */
+.mf-rejilla { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+.mf-celda { background: var(--papel); border-radius: 18px; padding: 12px 14px; box-shadow: var(--sombra-sm); }
+.mf-celda b { font-family: 'Baloo 2', cursive; font-size: 22px; display: block; line-height: 1.1; }
+.mf-celda b.bien { color: var(--bien); }
+.mf-celda b.mal { color: var(--mal); }
+.mf-celda small { font-size: 10.5px; color: var(--tinta-flojo); font-weight: 700; }
+
+.mf-resumen { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; text-align: center; }
+.mf-dato .ic { font-size: 17px; display: block; }
+.mf-dato b { font-family: 'Baloo 2', cursive; font-size: 19px; display: block; }
+.mf-dato small { font-size: 9.5px; color: var(--tinta-flojo); font-weight: 700; line-height: 1.2; display: block; }
+
+/* --- la semana del pacto --- */
+.mf-semana { display: flex; flex-direction: column; gap: 8px; }
+.mf-dia { border-radius: 16px; padding: 10px 12px; background: var(--fondo); border: 2px solid transparent; }
+.mf-dia.entreno { border-color: var(--rosa); }
+.mf-dia.descanso { border-color: var(--menta); }
+.mf-dia-cab { display: flex; align-items: center; justify-content: space-between; margin-bottom: 7px; }
+.mf-dia-cab b { font-family: 'Baloo 2', cursive; font-size: 14px; }
+.mf-toggle {
+  border: none; border-radius: 99px; padding: 5px 11px; font-size: 11px;
+  font-weight: 800; cursor: pointer; background: var(--menta-suave); color: var(--tinta);
+  font-family: 'Nunito', sans-serif;
+}
+.mf-toggle.on { background: var(--rosa-suave); }
+.mf-dia-campos { display: flex; gap: 8px; }
+.mf-dia-campos label { flex: 1; display: flex; flex-direction: column; gap: 3px; }
+.mf-dia-campos span { font-size: 10.5px; font-weight: 700; color: var(--tinta-flojo); }
+
+input[type=number] {
+  width: 100%; border: 2px solid var(--linea); background: var(--papel);
+  color: var(--tinta); border-radius: 11px; padding: 7px 10px;
+  font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 14px;
+}
+input[type=number]:focus { outline: none; border-color: var(--rosa); }
+
+.mf-campo { display: grid; grid-template-columns: 1fr 120px; align-items: center; gap: 10px; margin-bottom: 9px; }
+.mf-campo > span { font-size: 12.5px; font-weight: 700; }
+.mf-campo small { color: var(--tinta-flojo); font-weight: 600; }
+
+/* --- macros --- */
+.mf-macros { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 12px; text-align: center; }
+.mf-macro { background: var(--fondo); border-radius: 14px; padding: 10px; }
+.mf-macro b { font-family: 'Baloo 2', cursive; font-size: 17px; display: block; }
+.mf-macro small { font-size: 10px; color: var(--tinta-flojo); font-weight: 700; }
+
+/* --- tira de días --- */
+.mf-tira { display: flex; gap: 5px; }
+.mf-cuadro {
+  flex: 1; aspect-ratio: 1; border-radius: 10px; display: grid; place-items: center;
+  font-size: 11px; font-weight: 800; color: #fff;
+}
+.mf-cuadro.ok { background: var(--bien); }
+.mf-cuadro.fallo { background: var(--mal); }
+.mf-cuadro.abierto { background: var(--linea); color: var(--tinta-flojo); }
+.mf-leyenda { margin-top: 9px; font-size: 10.5px; color: var(--tinta-flojo); font-weight: 700; }
+.mf-leyenda i { display: inline-block; width: 9px; height: 9px; border-radius: 3px; vertical-align: middle; }
+.mf-leyenda i.ok { background: var(--bien); }
+.mf-leyenda i.fallo { background: var(--mal); }
+.mf-leyenda i.abierto { background: var(--linea); }
+
+/* --- objetivos de hoy --- */
+.mf-obj { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--linea); font-size: 13px; font-weight: 700; }
+.mf-obj:last-child { border: none; }
+.mf-obj b { font-family: 'Baloo 2', cursive; }
+.mf-obj.ok { color: var(--bien); }
+
+/* --- acciones --- */
+.mf-acciones { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+.mf-accion {
+  background: var(--fondo); border: 2px solid transparent; border-radius: 15px;
+  padding: 10px 4px; cursor: pointer; display: flex; flex-direction: column;
+  align-items: center; gap: 3px; font-family: 'Nunito', sans-serif;
+  color: var(--tinta); transition: transform .12s ease;
+}
+.mf-accion:active { transform: scale(.94); }
+.mf-accion.hecho { border-color: var(--bien); background: var(--menta-suave); }
+.mf-accion span { font-size: 19px; }
+.mf-accion small { font-size: 8.5px; font-weight: 800; line-height: 1.15; text-align: center; }
+
+/* --- simulador --- */
+.mf-desliza { display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; margin-bottom: 14px; }
+.mf-desliza > span { font-size: 12.5px; font-weight: 800; }
+.mf-desliza > b { font-family: 'Baloo 2', cursive; color: var(--rosa); font-size: 15px; }
+.mf-desliza input { grid-column: 1 / -1; }
+input[type=range] {
+  -webkit-appearance: none; appearance: none; width: 100%; height: 7px;
+  background: var(--rosa-suave); border-radius: 99px; outline: none;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%;
+  background: var(--rosa); border: 3px solid var(--papel); box-shadow: var(--sombra-sm); cursor: pointer;
+}
+input[type=range]::-moz-range-thumb {
+  width: 16px; height: 16px; border-radius: 50%; background: var(--rosa);
+  border: 3px solid var(--papel); cursor: pointer;
+}
+
+.mf-meta {
+  background: linear-gradient(135deg, var(--menta-suave), var(--rosa-suave));
+  border-radius: 22px; padding: 18px; text-align: center; margin-bottom: 14px;
+}
+.mf-meta b { font-family: 'Baloo 2', cursive; font-size: 44px; color: var(--rosa); display: block; line-height: 1; }
+.mf-meta small { font-size: 12px; font-weight: 700; color: var(--tinta); display: block; }
+.mf-fecha { margin-top: 8px; font-size: 12.5px; font-weight: 800; }
+
+/* --- avisos --- */
+.mf-aviso {
+  background: #FFF3D6; color: #7A5A10; border-radius: 16px; padding: 11px 14px;
+  font-size: 12px; font-weight: 700; line-height: 1.45; margin-bottom: 12px;
+}
+.mf-aviso.suave { background: var(--menta-suave); color: var(--tinta); }
+@media (prefers-color-scheme: dark) { .mf-aviso { background: #453A1C; color: #FFE9B0; } }
+
+/* --- calculado --- */
+.mf-linea { display: flex; justify-content: space-between; align-items: center; padding: 7px 0; border-bottom: 1px solid var(--linea); font-size: 12.5px; font-weight: 700; }
+.mf-linea:last-child { border: none; }
+.mf-linea b { font-family: 'Baloo 2', cursive; font-size: 13.5px; }
+
+/* --- botones --- */
+.mf-boton {
+  width: 100%; border: none; border-radius: 15px; padding: 12px;
+  background: var(--rosa-suave); color: var(--tinta); font-family: 'Nunito', sans-serif;
+  font-weight: 800; font-size: 13px; cursor: pointer; margin-bottom: 8px;
+}
+.mf-boton.peligro { background: transparent; color: var(--mal); }
+
+/* --- navegación --- */
+.mf-nav {
+  position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 100%; max-width: 520px; display: grid; grid-template-columns: repeat(4, 1fr);
+  background: var(--papel); border-top: 1px solid var(--linea);
+  padding: 8px 0 max(8px, env(safe-area-inset-bottom));
+}
+.mf-nav button {
+  background: none; border: none; cursor: pointer; display: flex;
+  flex-direction: column; align-items: center; gap: 2px;
+  color: var(--tinta-flojo); font-family: 'Nunito', sans-serif;
+}
+.mf-nav button span { font-size: 19px; filter: grayscale(1); opacity: .55; }
+.mf-nav button small { font-size: 9.5px; font-weight: 800; }
+.mf-nav button.activa { color: var(--rosa); }
+.mf-nav button.activa span { filter: none; opacity: 1; }
+
+/* --- primer arranque --- */
+.mf-sexo, .mf-dias { display: flex; gap: 6px; margin-bottom: 12px; }
+.mf-sexo button, .mf-dias button {
+  flex: 1; border: 2px solid var(--linea); background: var(--papel);
+  color: var(--tinta-flojo); border-radius: 12px; padding: 9px 4px;
+  font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 12px; cursor: pointer;
+}
+.mf-dias button { padding: 10px 0; font-size: 13px; }
+.mf-sexo button.sel, .mf-dias button.sel {
+  border-color: var(--rosa); background: var(--rosa-suave); color: var(--tinta);
+}
+.mf-boton.principal {
+  background: var(--rosa); color: #fff; font-size: 15px; padding: 15px;
+  border-radius: 18px; box-shadow: var(--sombra);
+}
+.mf-boton.principal:disabled {
+  background: var(--linea); color: var(--tinta-flojo); box-shadow: none; cursor: not-allowed;
+}

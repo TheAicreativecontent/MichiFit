@@ -1,0 +1,42 @@
+/* Animaciones del aparato. El michi respira dentro de la pantalla:
+   se mueve de píxel en píxel, nunca a medio píxel, para que no se
+   emborrone el pixel art. */
+
+.mf-tama { display: block; overflow: visible; }
+
+@keyframes mf-tama-respira {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-3px); }
+}
+@keyframes mf-tama-dormita {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(3px); }
+}
+.mf-tama-michi { animation: mf-tama-respira 2.4s steps(2, end) infinite; }
+.mf-tama.dormido .mf-tama-michi { animation: mf-tama-dormita 4s steps(2, end) infinite; }
+
+@keyframes mf-tama-zzz {
+  0%   { opacity: 0; transform: translate(0, 3px); }
+  40%  { opacity: 1; }
+  100% { opacity: 0; transform: translate(4px, -7px); }
+}
+.mf-tama-zzz { animation: mf-tama-zzz 3s steps(4, end) infinite; }
+
+/* Parpadeo suave del cristal, como un LCD real bajo la luz */
+@keyframes mf-tama-lcd {
+  0%, 96%, 100% { opacity: .25; }
+  98%           { opacity: .4; }
+}
+
+.mf-tama-boton { cursor: default; }
+
+@media (prefers-reduced-motion: reduce) {
+  .mf-tama *, .mf-tama { animation: none !important; }
+}
+
+/* La marca va en Baloo 2, que es la fuente de la familia michi */
+.mf-tama-marca {
+  font-family: 'Baloo 2', cursive;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
