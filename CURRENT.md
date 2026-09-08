@@ -7,8 +7,11 @@ pantallas y el motor entero.
 ## Estado
 - Última acción (2026-09-07): proyecto creado, motor recalculado según
   `MECANICA.md`, cuatro pantallas funcionando y verificadas en navegador.
+- Última acción (2026-09-08): tres poses de michi listas y enchufadas —
+  dormido, comiendo y entrenando. Al apuntar entreno el michi levanta
+  pesas; si apuntas entreno y comida a la vez, manda el entreno.
 - Próximo paso: pantalla de Karma (bloqueada: falta decidir la cuenta de
-  donaciones) y más estados de michi (dormido, comiendo, entrenando).
+  donaciones) y más poses (celebrando, triste).
 - Bloqueadores: ninguno.
 - **Desplegada en https://michifit.vercel.app** (proyecto Vercel
   `the-ai-creative-content/michifit`, enlazado con la CLI).

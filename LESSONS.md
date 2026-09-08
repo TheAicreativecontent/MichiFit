@@ -58,3 +58,19 @@
   cambios puntuales usar edicion con verificacion, no sustitucion ciega.
 
 ---
+
+
+## Recortar una hoja de sprites donde los michis se tocan
+La hoja de `entrenando` traía a los cinco pegados: las mancuernas de uno
+invaden al vecino, así que el truco de siempre —quedarse con la mancha
+conexa más grande— devolvía el bloque entero.
+
+Cortar por una columna recta (el valle del perfil vertical) sí los separa,
+pero parte mancuernas por la mitad: cada michi acababa con dos medias
+pesas. La solución es cortar con **costuras**: un camino vertical que baja
+de fila en fila moviéndose como mucho un píxel a los lados y elige la ruta
+que cruza menos píxeles pintados (`costura()` en `pixel/recortar_poses.py`).
+Cuando hay hueco entre dos michis, pasa por él sin tocar nada.
+
+**Regla:** antes de dar por buena una hoja recortada, monta el contacto
+(`revision-<pose>.png`) y míralo. Los tamaños de archivo no dicen nada.
