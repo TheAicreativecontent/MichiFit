@@ -1,5 +1,15 @@
 # DECISIONS.md — Decisiones de diseno y su razon
 
+## 2026-09-08 — Iconos y escenarios
+- Los iconos del menu vienen de Michi Finanzas: casa, fijos (aqui "mi pacto"),
+  resumen (aqui "progreso"), corazon (karma) y el "+". Misma casa visual.
+  **Simular no tiene icono propio**: lleva emoji hasta que se dibuje uno.
+- La pantalla del huevo lleva **escenario de pixel art**, y cambia con lo que
+  hiciste hoy: gimnasio si entrenaste, calle si andaste, casa si no.
+  Da un motivo mas para mirar al michi cada dia.
+- El michi se dibuja al 58% de la altura de la pantalla: mas pequeño que antes
+  a proposito, para que se vea el escenario detras.
+
 ## 2026-09-08 — Sin modo oscuro
 - Contexto: la app se veia LILA en el movil de Alberto. Era el modo oscuro
   que yo habia copiado de MichiMind.

@@ -17,6 +17,9 @@
 - [ ] Que los tres botones del aparato hagan algo (mirar, cuidar, cancelar).
 
 ## Ideas / quizás algún día
+- [ ] Icono propio para "Simular" en el estilo de los de Michi Finanzas
+      (una diana, por ejemplo). Ahora lleva emoji y desentona.
+- [ ] Más escenarios: cocina para las comidas, parque, cama para dormir.
 - [ ] Michi propio para la pantalla de Karma: el actual viene de Michi
       Finanzas y lleva traje.
 - [ ] En la gráfica, la historia queda comprimida cuando la meta está muy

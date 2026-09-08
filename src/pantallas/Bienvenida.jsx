@@ -62,7 +62,7 @@ export default function Bienvenida({ onEmpezar }) {
   return (
     <div className="mf-pagina">
       <div className="mf-escena">
-        <Tamagotchi estado="kawaii" cara="feliz" size={170} />
+        <Tamagotchi estado="kawaii" cara="feliz" size={210} escenario="casa" />
         <p className="mf-globo">
           ¡Hola! Soy tu michi. Cuéntame algo de ti y pactamos cómo nos cuidamos 🐾
         </p>

@@ -18,13 +18,21 @@ import { hoyISO } from './engine/pacto.js';
 import { leer, guardar, reiniciar } from './datos/almacen.js';
 import './estilos.css';
 
+/* Iconos traídos de Michi Finanzas, para que las dos apps se sientan
+   la misma casa. Simular no tiene icono propio todavía: lleva emoji. */
 const PESTANAS = [
-  { id: 'inicio', icono: '🏠', t: 'Inicio' },
-  { id: 'pacto', icono: '🤝', t: 'Mi pacto' },
-  { id: 'progreso', icono: '📈', t: 'Progreso' },
+  { id: 'inicio', img: '/iconos/inicio.png', t: 'Inicio' },
+  { id: 'pacto', img: '/iconos/pacto.png', t: 'Mi pacto' },
+  { id: 'progreso', img: '/iconos/progreso.png', t: 'Progreso' },
   { id: 'simular', icono: '🎯', t: 'Simular' },
-  { id: 'karma', icono: '💌', t: 'Karma' },
+  { id: 'karma', img: '/iconos/karma.png', t: 'Karma' },
 ];
+
+function Icono({ p }) {
+  return p.img
+    ? <img src={p.img} alt="" className="mf-nav-ico" />
+    : <span>{p.icono}</span>;
+}
 /* Ajustes vive en la cabecera, no en la barra de abajo: así el menú
    queda despejado, como en Michi Finanzas. */
 
@@ -116,15 +124,17 @@ export default function App() {
         {PESTANAS.slice(0, 2).map((p) => (
           <button key={p.id} className={pestana === p.id ? 'activa' : ''}
                   onClick={() => setPestana(p.id)}>
-            <span>{p.icono}</span><small>{p.t}</small>
+            <Icono p={p} /><small>{p.t}</small>
           </button>
         ))}
         <button className="mf-mas" onClick={() => setRegistrando(true)}
-                aria-label="Registrar de hoy">+</button>
+                aria-label="Registrar de hoy">
+          <img src="/iconos/mas.png" alt="" />
+        </button>
         {PESTANAS.slice(2).map((p) => (
           <button key={p.id} className={pestana === p.id ? 'activa' : ''}
                   onClick={() => setPestana(p.id)}>
-            <span>{p.icono}</span><small>{p.t}</small>
+            <Icono p={p} /><small>{p.t}</small>
           </button>
         ))}
       </nav>

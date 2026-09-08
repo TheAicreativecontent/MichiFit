@@ -26,12 +26,18 @@ const ZONA = { top: 14, height: 84 };
 
 const RUTA = '/michi';
 
+/* El escenario cambia con lo que has hecho hoy: si entrenaste sale el
+   gimnasio, si andaste la calle, y si no, casa. Da un motivo más para
+   mirar al michi cada día. */
+const ESCENARIOS = { gimnasio: '/fondos/gimnasio.png', calle: '/fondos/calle.png', casa: '/fondos/casa.png' };
+
 export default function TamagotchiPNG({
   estado = 'kawaii',
   size = 230,
   iconos = [],
   puntos = 0,
   dormido = false,
+  escenario = 'casa',
   ...resto
 }) {
   const [sinHuevo, setSinHuevo] = useState(false);
@@ -72,6 +78,9 @@ export default function TamagotchiPNG({
           ))}
         </div>
         )}
+
+        <img className="mf-tamapng-escena"
+             src={ESCENARIOS[escenario] ?? ESCENARIOS.casa} alt="" />
 
         <div className="mf-tamapng-zona"
              style={{ top: `${ZONA.top}%`, height: `${ZONA.height}%` }}>

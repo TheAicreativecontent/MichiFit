@@ -25,8 +25,13 @@ export default function Inicio({ estado, entradas, pacto }) {
           pose={visual.pose}
           cara={visual.cara}
           dormido={estado.dormido}
-          size={250}
+          size={300}
           puntos={estado.nivel.progreso}
+          escenario={
+            (entradaHoy.entrenoMin ?? 0) > 0 ? 'gimnasio'
+              : (entradaHoy.pasos ?? 0) > 0 ? 'calle'
+              : 'casa'
+          }
           iconos={[
             { id: 'pasos', emoji: '👟', activo: hoy?.objetivos.find((o) => o.id === 'pasos')?.cumplido },
             { id: 'entreno', emoji: '🏋️', activo: (entradaHoy.entrenoMin ?? 0) > 0 },

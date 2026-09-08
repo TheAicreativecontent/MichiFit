@@ -52,16 +52,15 @@
   position: absolute;
   display: flex; flex-direction: column;
   overflow: hidden;
-  /* El huevo es pixel art y ya trae su propio marco dibujado. Aquí NO se
-     pinta ningún recuadro: se deja ver el fondo de la app a través del
-     hueco, como pidió Alberto. */
+  /* El huevo trae su propio marco dibujado. El escenario va dentro como
+     imagen, no como fondo CSS, para que se pueda cambiar al vuelo. */
   background: transparent;
 }
 .mf-tamapng-iconos {
   height: 15%; display: flex; align-items: center; justify-content: space-around;
   font-size: 11px; line-height: 1;
 }
-.mf-tamapng-zona { position: absolute; left: 0; right: 0; }
+.mf-tamapng-zona { position: absolute; left: 0; right: 0; z-index: 1; }
 .mf-tamapng-michi {
   /* Centrado con márgenes, NO con transform: la animación de respiración
      define su propio transform y borraría el translateX. */
