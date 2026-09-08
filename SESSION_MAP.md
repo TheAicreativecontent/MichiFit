@@ -54,3 +54,22 @@
   push disparó el despliegue automático. Confirmado que funciona.
 - Descartados: la API de Garmin (exige desarrollador certificado) y pagar
   Gemini. IndexedDB se descarta por innecesario, no por falta de tiempo.
+
+## 2026-09-08 (noche) — Una sola carpeta y el progreso rescatado
+
+- **Carpetas ordenadas.** `_ARCHIVO/` con la MichiFit original y Michigochi,
+  enteras y con un `LEEME.md` que cuenta qué hay en cada una, qué sobrevive
+  en la app nueva y cómo levantarlas si hiciera falta. Esta carpeta pasa a
+  ser `2026_APP_MICHIFIT`, la única.
+- No se pudo mover la carpeta con `mv`: la bloqueaba la propia sesión de
+  Claude Code, que la tenía de directorio de trabajo. Se resolvió moviendo
+  el **contenido** en vez de la carpeta. Apuntado en `LESSONS.md`.
+- **Importador del CSV** de la app antigua, en Ajustes. Enseña qué va a
+  entrar antes de tocar nada y fusiona sin pisar. Probado con el CSV real
+  de Alberto: 72 días, 28 → 85 entradas, cero campos pisados.
+- La columna `sueno` de ese CSV **no son horas** (44 a 85: es la puntuación
+  de Garmin). Se guarda en `importado.suenoPuntos` en vez de inventar horas.
+- Los meses importados quedan fuera de la ventana del motor (arranca en
+  `pacto.creado`), así que alimentan la gráfica sin tocar racha ni nivel.
+- Los CSV de datos personales al `.gitignore`: el repo es público.
+
