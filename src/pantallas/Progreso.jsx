@@ -16,6 +16,7 @@ import { useMemo, useState } from 'react';
 import { hoyISO, diasDesde, evaluarDia } from '../engine/pacto.js';
 import EditorDia from './EditorDia.jsx';
 import { simular } from '../engine/calculos.js';
+import { Titulo } from './Ayuda.jsx';
 
 const MESES = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio',
   'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
@@ -77,7 +78,20 @@ export default function Progreso({ perfil, pacto, entradas, onRegistrar }) {
 
   return (
     <div className="mf-pagina">
-      <h2 className="mf-h2">📈 Tu progreso</h2>
+      <Titulo ayuda={<>
+          <p>
+            La gráfica junta tu <b>peso real</b> con la previsión que sale
+            de tu ritmo actual. La línea de previsión se recalcula sola: si
+            bajas más rápido, se acorta.
+          </p>
+          <p>
+            En el calendario puedes tocar cualquier día para apuntar o
+            corregir datos. Los días de hace más de tres se cierran para el
+            pacto, pero el <b>peso</b> siempre se puede corregir.
+          </p>
+        </>}>
+        📈 Tu progreso
+      </Titulo>
 
       <div className="mf-rejilla">
         <Celda n={pesoActual != null ? pesoActual.toFixed(1) : '—'} u="kg" etiqueta="Peso actual" />

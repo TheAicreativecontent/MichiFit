@@ -9,6 +9,7 @@
    ============================================================ */
 
 import { HITOS, XP_POR_HITO, NIVELES } from '../engine/constantes.js';
+import { Titulo } from './Ayuda.jsx';
 
 export default function Logros({ estado }) {
   const conseguidos = new Set(estado.hitosDesbloqueados ?? []);
@@ -16,7 +17,18 @@ export default function Logros({ estado }) {
 
   return (
     <div className="mf-pagina">
-      <h2 className="mf-h2">🏅 Tus logros</h2>
+      <Titulo ayuda={<>
+          <p>
+            Hitos que se consiguen una vez y <b>no se pierden nunca</b>,
+            aunque falles después. Cada uno suma experiencia al michi.
+          </p>
+          <p>
+            Se comprueban contra todo tu historial, así que si apuntas un
+            día antiguo que cumplía un hito, se desbloquea igual.
+          </p>
+        </>}>
+        🏅 Tus logros
+      </Titulo>
       <p className="mf-sub">
         {conseguidos.size} de {total} · cada uno suma {XP_POR_HITO} XP
       </p>

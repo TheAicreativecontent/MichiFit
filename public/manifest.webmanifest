@@ -1,0 +1,19 @@
+{
+  "name": "MichiFit",
+  "short_name": "MichiFit",
+  "description": "Tu peso ideal, paso a pasito. Un michi que cuida de ti mientras tú cuidas de él.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FDF1E4",
+  "theme_color": "#F2650F",
+  "lang": "es",
+  "categories": ["health", "fitness", "lifestyle"],
+  "icons": [
+    { "src": "/iconos-app/icono-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/iconos-app/icono-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/iconos-app/icono-mask-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/iconos-app/icono-mask-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

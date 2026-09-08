@@ -6,6 +6,24 @@
 
 import { useMemo, useState } from 'react';
 import { simular, avisosDeSeguridad } from '../engine/calculos.js';
+import { Titulo } from './Ayuda.jsx';
+
+/* La misma ayuda en los dos estados de la pantalla (con perfil y sin
+   él): definida una vez para que no se separen al tocar una. */
+const AYUDA = (
+  <>
+          <p>
+            Para probar escenarios sin tocar nada: cambia los pasos, el
+            entreno o las calorías y mira cuánto tardarías en llegar a tu
+            meta. <b>No guarda nada</b>.
+          </p>
+          <p>
+            Los números salen de fórmulas estándar (Mifflin-St Jeor y
+            7700 kcal por kilo de grasa). Son una estimación, no una
+            promesa: tu cuerpo no es una hoja de cálculo.
+          </p>
+        </>
+);
 
 export default function Simulador({ perfil, pacto }) {
   const [pasos, setPasos] = useState(pacto?.dias?.mar?.pasos ?? 6000);
@@ -25,7 +43,7 @@ export default function Simulador({ perfil, pacto }) {
   if (!r) {
     return (
       <div className="mf-pagina">
-        <h2 className="mf-h2">🎯 Simulador «¿y si...?»</h2>
+        <Titulo ayuda={AYUDA}>🎯 Simulador «¿y si...?»</Titulo>
         <div className="mf-tarjeta">
           <p>Rellena tu perfil en Ajustes para poder simular.</p>
         </div>
@@ -35,7 +53,7 @@ export default function Simulador({ perfil, pacto }) {
 
   return (
     <div className="mf-pagina">
-      <h2 className="mf-h2">🎯 Simulador «¿y si...?»</h2>
+      <Titulo ayuda={AYUDA}>🎯 Simulador «¿y si...?»</Titulo>
 
       <div className="mf-tarjeta">
         <p className="mf-globo">

@@ -3,8 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="theme-color" content="#FF6B9D" />
+    <!-- El naranja de la marca: es lo que tiñe la barra del navegador -->
+    <meta name="theme-color" content="#F2650F" />
+    <meta name="description" content="Tu peso ideal, paso a pasito. Un michi que cuida de ti mientras tú cuidas de él." />
+
     <title>MichiFit</title>
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+
+    <!-- iOS no lee el manifest: necesita sus propias etiquetas para que
+         "Añadir a pantalla de inicio" abra la app sin barra del navegador -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="MichiFit" />
+    <link rel="apple-touch-icon" href="/iconos-app/icono-192.png" />
   </head>
   <body>
     <div id="root"></div>

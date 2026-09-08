@@ -14,6 +14,7 @@ import { useState } from 'react';
 import { DIAS, DIAS_INICIAL, DIAS_LARGO } from '../engine/constantes.js';
 import { macros } from '../engine/calculos.js';
 import { EditorEjercicios } from './Ejercicios.jsx';
+import { Titulo } from './Ayuda.jsx';
 
 export default function Pacto({ pacto, perfil, estado, onCambiar }) {
   const [editando, setEditando] = useState(null);
@@ -32,7 +33,25 @@ export default function Pacto({ pacto, perfil, estado, onCambiar }) {
 
   return (
     <div className="mf-pagina">
-      <h2 className="mf-h2">🤝 Mi pacto</h2>
+      <Titulo ayuda={<>
+          <p>
+            El pacto es lo que <b>tú</b> decides hacer cada semana: cuántos
+            pasos, qué días entrenas y cuánto. El michi no te pone metas,
+            solo te recuerda las tuyas.
+          </p>
+          <p>
+            Toca un día para ajustarlo. Los días de entreno piden menos
+            pasos a propósito: pedirte entrenar <em>y</em> andar mucho el
+            mismo día es un pacto que se incumple solo.
+          </p>
+          <p>
+            En los días de entreno puedes apuntar los <b>ejercicios</b> que
+            tocan. No cuentan para el pacto: son una chuleta para el
+            gimnasio, y los marcas desde el botón «+».
+          </p>
+        </>}>
+        🤝 Mi pacto
+      </Titulo>
       <p className="mf-sub">
         Esto es lo que tú decidiste. El michi no te juzga: te lo recuerda.
       </p>

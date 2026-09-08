@@ -1,5 +1,5 @@
 {
-  "name": "2026-app-michifit-v2",
+  "name": "michifit",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -19,5 +19,6 @@
     "@vitejs/plugin-react": "^6.1.0",
     "oxlint": "^1.79.0",
     "vite": "^8.2.2"
-  }
+  },
+  "description": "Tu peso ideal, paso a pasito. Seguimiento de peso con un michi que cuida de ti."
 }

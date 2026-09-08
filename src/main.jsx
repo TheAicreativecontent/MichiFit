@@ -7,3 +7,15 @@ createRoot(document.getElementById('root')).render(
     <App />
   </StrictMode>
 );
+
+/* Service worker: hace que la app se abra sin cobertura y se pueda
+   instalar en la pantalla de inicio. Solo en producción — en desarrollo
+   se quedaría sirviendo módulos viejos y volvería loco a cualquiera.
+
+   Si falla, no pasa nada: la app funciona igual, solo que necesitando
+   red para arrancar. */
+if (import.meta.env.PROD && 'serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch(() => {});
+  });
+}

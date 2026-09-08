@@ -616,3 +616,30 @@ input[type=time]:focus { outline: none; border-color: var(--rosa); }
 }
 .mf-ej-check.hecho .marca { background: #5FCD96; border-color: #5FCD96; }
 .mf-ej-check.hecho .nombre { text-decoration: line-through; color: var(--tinta-flojo); }
+
+
+/* ---- botón de ayuda ("?") junto al título de cada pantalla ---------- */
+.mf-titulo {
+  display: grid; grid-template-columns: 1fr auto; align-items: center;
+  gap: 8px; margin-bottom: 2px;
+}
+.mf-titulo .mf-h2 { margin: 0; }
+.mf-ayuda-btn {
+  width: 26px; height: 26px; flex: 0 0 auto;
+  border: 2px solid var(--linea); border-radius: 50%;
+  background: var(--papel); color: var(--tinta-flojo);
+  font-family: inherit; font-size: 14px; font-weight: 900; line-height: 1;
+  cursor: pointer; padding: 0;
+}
+.mf-ayuda-btn.activa {
+  background: var(--rosa); border-color: var(--rosa); color: #FFF;
+}
+/* El panel ocupa las dos columnas: cae debajo del título, no al lado. */
+.mf-ayuda {
+  grid-column: 1 / -1; margin: 6px 0 2px; padding: 11px 13px;
+  border: 1px solid var(--linea); border-radius: 12px;
+  background: var(--chip); color: var(--tinta);
+  font-size: 13px; line-height: 1.5;
+}
+.mf-ayuda p { margin: 0 0 8px; }
+.mf-ayuda p:last-child { margin-bottom: 0; }
