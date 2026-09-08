@@ -4,11 +4,14 @@
    truco: si tienes reloj, tus medias reales mandan sobre la fórmula.
    ============================================================ */
 
+import { useState } from 'react';
 import { imc, tmb, reposoEfectivo, macros, avisosDeSeguridad, pesoParaIMC } from '../engine/calculos.js';
 import { IMC_MINIMO_SANO } from '../engine/constantes.js';
 import { aCSV, descargar } from '../datos/almacen.js';
+import { leerCSV, fusionar } from '../datos/importar.js';
+import { Titulo } from './Ayuda.jsx';
 
-export default function Ajustes({ perfil, entradas, onCambiar, onReiniciar }) {
+export default function Ajustes({ perfil, entradas, onCambiar, onReiniciar, onImportar }) {
   const set = (campo) => (e) => {
     const v = e.target.value;
     onCambiar({ ...perfil, [campo]: v === '' ? null : Number(v) });
@@ -28,7 +31,19 @@ export default function Ajustes({ perfil, entradas, onCambiar, onReiniciar }) {
 
   return (
     <div className="mf-pagina">
-      <h2 className="mf-h2">⚙️ Ajustes</h2>
+      <Titulo ayuda={<>
+        <p>
+          Aquí van tus datos y tus objetivos. Si tienes reloj, pon tus medias
+          reales de gasto: son más exactas que cualquier fórmula.
+        </p>
+        <p>
+          Todo lo que apuntas se guarda <b>en este dispositivo</b>, no en
+          ningún servidor. Descarga la copia en CSV de vez en cuando: si
+          borras los datos del navegador, se van con ellos.
+        </p>
+      </>}>
+        ⚙️ Ajustes
+      </Titulo>
 
       <div className="mf-tarjeta">
         <h3 className="mf-h3">Sobre ti</h3>
@@ -91,6 +106,8 @@ export default function Ajustes({ perfil, entradas, onCambiar, onReiniciar }) {
         </div>
       )}
 
+      <Importador entradas={entradas} onImportar={onImportar} />
+
       <div className="mf-tarjeta">
         <button className="mf-boton" onClick={() => descargar('michifit.csv', aCSV(entradas))}>
           ⬇️ Descargar copia (CSV)
@@ -108,6 +125,87 @@ export default function Ajustes({ perfil, entradas, onCambiar, onReiniciar }) {
       <p className="mf-pie">
         MichiFit es una herramienta de motivación, no consejo médico. Si tienes
         dudas de salud, consulta con un profesional. 💛
+      </p>
+    </div>
+  );
+}
+
+/* --- traer el progreso de la MichiFit antigua ---
+   Dos pasos a propósito: primero se lee el archivo y se enseña QUÉ va a
+   entrar, y solo después se toca nada. Un import a ciegas sobre meses de
+   datos da demasiado miedo como para pulsarlo. */
+function Importador({ entradas, onImportar }) {
+  const [previo, setPrevio] = useState(null);   // { entradas, resumen }
+  const [hecho, setHecho] = useState(null);
+  const [error, setError] = useState(null);
+
+  const elegir = async (e) => {
+    const archivo = e.target.files?.[0];
+    e.target.value = '';                        // permite reelegir el mismo
+    if (!archivo) return;
+    setError(null); setHecho(null);
+    try {
+      const leido = leerCSV(await archivo.text());
+      if (!leido.resumen.ok) {
+        setError(leido.resumen.aviso ?? 'No he encontrado ningún día con datos en ese archivo.');
+        setPrevio(null);
+        return;
+      }
+      setPrevio(leido);
+    } catch {
+      setError('No he podido leer el archivo. ¿Seguro que es un CSV?');
+    }
+  };
+
+  const confirmar = () => {
+    const r = fusionar(entradas, previo.entradas);
+    onImportar(r.entradas);
+    setHecho(r);
+    setPrevio(null);
+  };
+
+  return (
+    <div className="mf-tarjeta">
+      <h3 className="mf-h3">📥 Traer datos de la MichiFit antigua</h3>
+      <p className="mf-nota">
+        Descarga el CSV desde la app antigua y súbelo aquí. Se traen peso,
+        pasos, comida, macros y minutos de entreno. <b>Nunca pisa</b> lo que
+        ya tengas apuntado: solo rellena huecos.
+      </p>
+
+      <label className="mf-boton comoBoton">
+        📄 Elegir archivo CSV
+        <input type="file" accept=".csv,text/csv" onChange={elegir} hidden />
+      </label>
+
+      {error && <div className="mf-aviso">⚠️ {error}</div>}
+
+      {previo && (
+        <div className="mf-aviso suave">
+          <b>{previo.resumen.dias} días</b> con datos, del {previo.resumen.desde} al{' '}
+          {previo.resumen.hasta} · {previo.resumen.pesos} pesadas.
+          {previo.resumen.descartadas > 0 && (
+            <> Se saltan {previo.resumen.descartadas} filas vacías.</>
+          )}
+          <div className="mf-hoja-pie" style={{ marginTop: 8 }}>
+            <button className="mf-boton" onClick={() => setPrevio(null)}>Cancelar</button>
+            <button className="mf-boton principal" onClick={confirmar}>Importar</button>
+          </div>
+        </div>
+      )}
+
+      {hecho && (
+        <div className="mf-aviso suave">
+          ✅ Listo: <b>{hecho.nuevos} días nuevos</b>
+          {hecho.completados > 0 && <>, {hecho.completados} completados</>}
+          {hecho.sinTocar > 0 && <>, {hecho.sinTocar} ya los tenías</>}.
+        </div>
+      )}
+
+      <p className="mf-nota">
+        La <b>puntuación de sueño</b> del reloj no se importa como horas
+        dormidas: son cosas distintas y decir que dormiste 66 horas sería
+        peor que no decir nada. Se guarda aparte, por si algún día sirve.
       </p>
     </div>
   );

@@ -1,10 +1,12 @@
 # CLAUDE.md — MichiFit · punto de entrada
 
-App de seguimiento fitness con mascota. **Esta es la app buena**: la que se
-queda. Nace de fusionar dos proyectos anteriores, ya congelados:
+App de seguimiento fitness con mascota, en React + Vite. Desde el 2026-09-08
+es la **unica** app del proyecto: el tamagotchi del michi kawaii es
+oficialmente MichiFit.
 
-- `../2026_APP_MICHIFIT` — la original. Números maduros, sin build. Congelada.
-- `../2026_APP_MICHIGOCHI` — el tamagochi. Motor y mascota. Cantera, congelada.
+Las dos versiones anteriores estan archivadas en `../_ARCHIVO/`, enteras y
+sin tocar (ver su `LEEME.md`): la MichiFit original de una sola pagina y el
+tamagotchi que se llamaba Michigochi. Son historia, no codigo vivo.
 
 Antes de hacer nada, lee en este orden:
 1. `PROTOCOL.md` — reglas fijas de cómo trabajamos

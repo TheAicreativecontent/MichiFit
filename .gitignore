@@ -7,3 +7,8 @@ IMG/
 
 .vercel
 .env*
+
+# Exportaciones de datos personales. El repo es PUBLICO: el peso, las
+# comidas y el sueno de nadie tienen por que acabar en GitHub.
+*-progreso.csv
+michifit.csv

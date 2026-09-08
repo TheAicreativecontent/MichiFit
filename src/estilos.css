@@ -643,3 +643,11 @@ input[type=time]:focus { outline: none; border-color: var(--rosa); }
 }
 .mf-ayuda p { margin: 0 0 8px; }
 .mf-ayuda p:last-child { margin-bottom: 0; }
+
+
+/* Un <label> que parece un botón: es la forma de disfrazar un
+   <input type="file">, que no se puede estilar por dentro. */
+.mf-boton.comoBoton {
+  display: inline-flex; align-items: center; justify-content: center;
+  cursor: pointer;
+}

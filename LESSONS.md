@@ -74,3 +74,26 @@ Cuando hay hueco entre dos michis, pasa por él sin tocar nada.
 
 **Regla:** antes de dar por buena una hoja recortada, monta el contacto
 (`revision-<pose>.png`) y míralo. Los tamaños de archivo no dicen nada.
+
+
+## No se puede mover la carpeta desde la que corre la sesion
+Al archivar las apps viejas, `mv 2026_APP_MICHIFIT _ARCHIVO/` fallaba con
+«Device or resource busy», y desde PowerShell con «esta siendo utilizado en
+otro proceso». La culpa era de la propia sesion de Claude Code: Windows
+bloquea el directorio de trabajo de un proceso vivo, y ese era.
+
+**La salida es mover el CONTENIDO, no la carpeta.** Se vacia hacia el
+destino (`Get-ChildItem -Force` para llevarse tambien `.git`, `.vercel` y
+demas ocultos), y luego se mete dentro el contenido de la carpeta nueva. La
+carpeta bloqueada nunca se toca: solo cambia lo que hay dentro. El resultado
+es identico y el cwd de la sesion sigue siendo valido todo el rato.
+
+## Una columna que se llama "sueno" no tiene por que ser horas
+El CSV de la MichiFit antigua trae `sueno` con valores de 44 a 85. Es la
+**puntuacion** de sueño de Garmin, no horas dormidas. Mapearla a
+`sueno.horas` habria dicho que Alberto durmio 66 horas, y el motor lo habria
+dado por bueno.
+
+**Regla:** antes de mapear una columna de un archivo ajeno, mira su rango
+real. `min` y `max` cuestan una linea y descartan la mitad de las
+interpretaciones erroneas.

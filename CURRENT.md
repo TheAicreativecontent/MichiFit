@@ -11,8 +11,11 @@ pantallas y el motor entero.
   worker: se abre sin cobertura). Ejercicios por día de entreno, macros
   opcionales, botones de ayuda "?", panel de pruebas oculto tras siete
   toques en el logo, y los cuatro flecos de la mecánica resueltos.
-- Próximo paso: poses que faltan (celebrando, triste, paseando) y decidir
-  qué pasa con las carpetas al renombrar todo a MichiFit (ver `ASK.md`).
+- Última acción (2026-09-08, noche): **carpetas ordenadas**. Esta carpeta,
+  `2026_APP_MICHIFIT`, es ya la única app del proyecto. Las dos anteriores
+  están en `../_ARCHIVO/` con un `LEEME.md` que explica qué hay en cada una.
+  Y el **importador de CSV** trae el progreso de la MichiFit antigua.
+- Próximo paso: poses que faltan (celebrando, triste, paseando).
 - Bloqueadores: ninguno.
 - **Desplegada en https://michifit.vercel.app** (proyecto Vercel
   `the-ai-creative-content/michifit`).
@@ -33,6 +36,16 @@ pantallas y el motor entero.
   desde el MCP fallaba: el proyecto no era visible con el ámbito del token.
 - `.vercel/` y `.env.local` están en `.gitignore`: el segundo lleva un token
   OIDC que la CLI descarga. **No subirlos nunca.**
+
+## Traer datos de la app antigua
+Ajustes → «Traer datos de la MichiFit antigua». Se sube el CSV que exporta
+la app vieja (la de `synastry.site/michifit/`) y se fusiona **sin pisar**
+nada de lo que ya haya apuntado: solo rellena huecos. El parser está en
+`src/datos/importar.js`.
+
+Ojo con la columna `sueno` de ese CSV: **no son horas**, es la puntuación de
+sueño de Garmin (va de 44 a 85). Se guarda en `entrada.importado.suenoPuntos`
+y NO se convierte a `sueno.horas`.
 
 ## Cómo se abre el panel de pruebas
 Siete toques seguidos en el logo de la cabecera (con menos de segundo y

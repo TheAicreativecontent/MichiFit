@@ -1,9 +1,6 @@
 # TODO.md — Backlog
 
 ## Ahora
-- [ ] **Renombrar las carpetas a MichiFit.** Bloqueado: Windows no distingue
-      mayúsculas y `2026_APP_MichiFit` chocaría con la carpeta original
-      `2026_APP_MICHIFIT`. Ver `ASK.md`.
 - [ ] **Si algún día se publica en GitHub Pages**: poner `base:
       '/<nombre-repo>/'` en `vite.config.js`. Vite compila con rutas absolutas
       desde `/`, y en `usuario.github.io/repo/` la app saldría en blanco.
@@ -40,6 +37,10 @@
 - [ ] Marcar en la gráfica los tramos con pocos datos.
 
 ## Hecho
+- [x] 2026-09-08 — Carpetas ordenadas: las dos apps anteriores a `_ARCHIVO/`
+      con su `LEEME.md`, y esta pasa a llamarse `2026_APP_MICHIFIT`.
+- [x] 2026-09-08 — Importador del CSV de la MichiFit antigua, en Ajustes.
+      Fusiona sin pisar. 72 días importados y verificados.
 - [x] 2026-09-08 — PWA instalable: manifest, service worker (abre sin
       cobertura) e iconos generados del logo. Botones de ayuda "?" en
       Mi pacto, Progreso, Logros y Simular.

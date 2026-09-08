@@ -1,14 +1,7 @@
 # ASK.md — Preguntas pendientes (para Alberto)
 
 ## Decisiones pendientes
-- [ ] **Como quedan las carpetas al renombrar a MichiFit.** Windows NO
-      distingue mayusculas, asi que `2026_APP_MichiFit` y la carpeta que ya
-      existe, `2026_APP_MICHIFIT` (la app original de una sola pagina), son
-      el MISMO nombre para el sistema: no pueden convivir. Antes de renombrar
-      `2026_APP_MICHIFIT_V2` hay que decidir que pasa con la original y con
-      `2026_APP_MICHIGOCHI`: archivarlas (`_ARCHIVO/`), borrarlas o
-      fusionarlas. Es cosa de Alberto, porque implica mover o perder
-      historial.
+- [ ] (ninguna)
 
 - [ ] **Cuando renombrar Michigochi -> MichiFit en el codigo.** Ahora hay
       incoherencia entre el nombre del producto y el del codigo.
@@ -17,6 +10,9 @@
 - [ ] (ninguna)
 
 ## Cerradas
+- 2026-09-08 **Carpetas**: archivadas en `../_ARCHIVO/` (la original y
+  Michigochi, enteras) y esta pasa a ser `2026_APP_MICHIFIT`. Decision de
+  Alberto: una sola app, y es el tamagotchi del michi kawaii.
 - 2026-09-08 **Despliegue automatico desde GitHub**: hecho. El repo esta
   conectado en Vercel -> Settings -> Git, asi que cada `git push` despliega.
 - 2026-09-08 **Flecos de la mecanica**: los cuatro resueltos, ver seccion 11

@@ -167,6 +167,7 @@ export default function App() {
         {pestana === 'ajustes' && (
           <Ajustes perfil={datos.perfil} entradas={datos.entradas}
                    onCambiar={(p) => setDatos((d) => ({ ...d, perfil: p }))}
+                   onImportar={(entradas) => setDatos((d) => ({ ...d, entradas }))}
                    onReiniciar={() => setDatos(reiniciar())} />
         )}
       </main>
