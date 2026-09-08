@@ -253,7 +253,7 @@ input[type=range]::-moz-range-thumb {
 /* --- navegación --- */
 .mf-nav {
   position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
-  width: 100%; max-width: 520px; display: grid; grid-template-columns: repeat(4, 1fr);
+  width: 100%; max-width: 520px; display: grid; grid-template-columns: repeat(5, 1fr);
   background: var(--papel); border-top: 1px solid var(--linea);
   padding: 8px 0 max(8px, env(safe-area-inset-bottom));
 }
@@ -285,3 +285,49 @@ input[type=range]::-moz-range-thumb {
 .mf-boton.principal:disabled {
   background: var(--linea); color: var(--tinta-flojo); box-shadow: none; cursor: not-allowed;
 }
+
+/* --- calendario --- */
+.mf-calnav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.mf-calnav b { font-family: 'Baloo 2', cursive; font-size: 16px; }
+.mf-calnav button {
+  border: none; background: var(--chip); color: var(--tinta);
+  width: 34px; height: 34px; border-radius: 12px; font-size: 19px;
+  cursor: pointer; font-weight: 800; line-height: 1;
+}
+.mf-cal { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+.mf-caldow {
+  text-align: center; font-size: 10px; font-weight: 800;
+  color: var(--tinta-flojo); padding-bottom: 4px;
+}
+.mf-caldia {
+  position: relative; aspect-ratio: 1; border: 2px solid transparent;
+  border-radius: 11px; background: var(--chip); color: var(--tinta);
+  font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 13px;
+  cursor: pointer; padding: 0;
+}
+.mf-caldia.ok      { background: var(--bien); color: #17402C; }
+.mf-caldia.parcial { background: var(--sol); color: #5A4400; }
+.mf-caldia.fallo   { background: var(--mal); color: #5A1020; }
+.mf-caldia.abierto { background: var(--menta-suave); }
+.mf-caldia.hoy     { border-color: var(--rosa); }
+.mf-caldia.futuro  { opacity: .35; cursor: default; }
+.mf-caldia .peso {
+  position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%);
+  width: 5px; height: 5px; border-radius: 50%; background: var(--rosa);
+}
+.mf-caldia .meta { position: absolute; top: -2px; right: 1px; font-size: 10px; }
+.mf-real { color: var(--bien); font-weight: 800; }
+
+/* --- hoja emergente para editar un día --- */
+.mf-hoja {
+  position: fixed; inset: 0; z-index: 50; display: flex; align-items: flex-end;
+  justify-content: center; background: rgba(40, 30, 40, .45); padding: 0;
+  animation: entra .2s ease both;
+}
+.mf-hoja-caja {
+  background: var(--papel); width: 100%; max-width: 520px;
+  border-radius: 24px 24px 0 0; padding: 20px 18px calc(20px + env(safe-area-inset-bottom));
+  box-shadow: var(--sombra); max-height: 88vh; overflow-y: auto;
+}
+.mf-hoja-pie { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 14px; }
+.mf-hoja-pie .mf-boton { margin: 0; }

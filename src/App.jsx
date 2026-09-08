@@ -8,6 +8,7 @@ import { useEffect, useMemo, useState } from 'react';
 import Bienvenida from './pantallas/Bienvenida.jsx';
 import Inicio from './pantallas/Inicio.jsx';
 import Pacto from './pantallas/Pacto.jsx';
+import Progreso from './pantallas/Progreso.jsx';
 import Simulador from './pantallas/Simulador.jsx';
 import Ajustes from './pantallas/Ajustes.jsx';
 import { calcularEstado } from './engine/michi.js';
@@ -18,6 +19,7 @@ import './estilos.css';
 const PESTANAS = [
   { id: 'inicio', icono: '🏠', t: 'Inicio' },
   { id: 'pacto', icono: '🤝', t: 'Mi pacto' },
+  { id: 'progreso', icono: '📈', t: 'Progreso' },
   { id: 'simular', icono: '🎯', t: 'Simular' },
   { id: 'ajustes', icono: '⚙️', t: 'Ajustes' },
 ];
@@ -34,6 +36,17 @@ export default function App() {
     () => (listo ? calcularEstado({ pacto: datos.pacto, entradas: datos.entradas }) : null),
     [listo, datos.pacto, datos.entradas]
   );
+
+  /* Registrar en cualquier fecha; `undefined` no pisa lo que ya había. */
+  const registrar = (fecha, campos) =>
+    setDatos((d) => {
+      const limpio = Object.fromEntries(
+        Object.entries(campos).filter(([, v]) => v !== undefined));
+      return {
+        ...d,
+        entradas: { ...d.entradas, [fecha]: { ...(d.entradas[fecha] ?? {}), ...limpio } },
+      };
+    });
 
   const registrarHoy = (campos) =>
     setDatos((d) => ({
@@ -82,6 +95,10 @@ export default function App() {
         {pestana === 'pacto' && (
           <Pacto pacto={datos.pacto} perfil={datos.perfil} estado={estado}
                  onCambiar={(p) => setDatos((d) => ({ ...d, pacto: p }))} />
+        )}
+        {pestana === 'progreso' && (
+          <Progreso perfil={datos.perfil} pacto={datos.pacto} entradas={datos.entradas}
+                    onRegistrar={registrar} />
         )}
         {pestana === 'simular' && <Simulador perfil={datos.perfil} pacto={datos.pacto} />}
         {pestana === 'ajustes' && (

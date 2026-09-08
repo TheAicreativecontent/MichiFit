@@ -4,14 +4,8 @@
 - [ ] **Antes de publicar en GitHub Pages**: poner `base: '/<nombre-repo>/'` en
       `vite.config.js`. Vite compila con rutas absolutas desde `/`, y en
       `usuario.github.io/repo/` la app saldría en blanco sin esto.
-- [ ] **Pantalla de registro de días pasados.** El motor ya tiene la ventana de
-      3 días (`VENTANA_RETRO`) y la respeta, pero no hay interfaz para rellenar
-      ayer. Sin esto, media mecánica de comodines no se puede usar de verdad.
 
 ## Después
-- [ ] **Pantalla de Progreso**: portar de `../2026_APP_MICHIFIT/MichiFit.jsx`
-      (líneas 818-905) el calendario mensual y las gráficas `WeightChart` y
-      `ForecastChart`. Son SVG a medida, sin librerías: se portan limpias.
 - [ ] **Pantalla de Karma**: portar de `../2026_APP_MICHIFIN/MichiFinanzas.jsx`
       (línea 2230) la pantalla de apoyo al proyecto. Bloqueada hasta decidir la
       cuenta de donaciones — ver `ASK.md`.
@@ -27,10 +21,16 @@
 - [ ] Que los tres botones del aparato hagan algo (mirar, cuidar, cancelar).
 
 ## Ideas / quizás algún día
+- [ ] En la gráfica, la historia queda comprimida cuando la meta está muy
+      lejos (28 días de datos contra 165 de previsión). Se leería mejor con
+      un eje partido o limitando el horizonte visible.
 - [ ] Avisar de sobreentrenamiento cuando se rompen muchos días de descanso.
 - [ ] Marcar en la gráfica los tramos con pocos datos.
 
 ## Hecho
+- [x] 2026-09-08 — Pantalla de Progreso: gráfica de peso con previsión,
+      calendario del pacto y registro de días pasados.
+- [x] 2026-09-08 — Desplegada en https://michifit.vercel.app
 - [x] 2026-09-07 — Proyecto nuevo con motor recalculado y cuatro pantallas.
 - [x] 2026-09-07 — Mecánica de motivación diseñada (`MECANICA.md`).
 - [x] 2026-09-07 — Asistente de primer arranque; app sin datos precargados.

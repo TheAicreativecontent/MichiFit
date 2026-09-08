@@ -7,10 +7,8 @@ pantallas y el motor entero.
 ## Estado
 - Última acción (2026-09-07): proyecto creado, motor recalculado según
   `MECANICA.md`, cuatro pantallas funcionando y verificadas en navegador.
-- Próximo paso: pantalla de registro de días pasados, y configurar `base` en
-  `vite.config.js` antes de publicar en GitHub Pages. La ventana de 3 días
-  existe en el motor pero no hay interfaz para usarla, y sin ella media
-  mecánica de comodines no se puede aprovechar.
+- Próximo paso: pantalla de Karma (bloqueada: falta decidir la cuenta de
+  donaciones) y más estados de michi (dormido, comiendo, entrenando).
 - Bloqueadores: ninguno.
 - **Desplegada en https://michifit.vercel.app** (proyecto Vercel
   `the-ai-creative-content/michifit`, enlazado con la CLI).
