@@ -79,12 +79,26 @@ export default function Inicio({ estado, entradas, pacto, onCarino }) {
 
       <div className="mf-tarjeta">
         <h3 className="mf-h3">Hoy</h3>
-        {hoy?.objetivos.map((o) => (
-          <div key={o.id} className={`mf-obj ${o.cumplido ? 'ok' : ''}`}>
-            <span>{o.cumplido ? '✅' : '⬜'} {o.etiqueta}</span>
-            <b>{o.valor ?? '—'}{o.objetivo ? ` / ${o.objetivo}` : ''}</b>
-          </div>
-        ))}
+        {hoy?.objetivos.map((o) => {
+          /* El día de descanso no tiene objetivo numérico: enseñar su
+             `valor` a secas mostraba los minutos entrenados sin decir de
+             qué eran. Aquí se cuenta con palabras. */
+          if (o.id === 'descanso') {
+            const min = o.valor ?? 0;
+            return (
+              <div key={o.id} className={`mf-obj sueno ${o.respetado ? 'ok' : ''}`}>
+                <span>{o.respetado ? '✅' : '💪'} Día de descanso</span>
+                <b>{o.respetado ? 'sin entrenar, bien' : `entrenaste ${min} min`}</b>
+              </div>
+            );
+          }
+          return (
+            <div key={o.id} className={`mf-obj ${o.cumplido ? 'ok' : ''}`}>
+              <span>{o.cumplido ? '✅' : '⬜'} {o.etiqueta}</span>
+              <b>{o.valor ?? '—'}{o.objetivo ? ` / ${o.objetivo}` : ''}</b>
+            </div>
+          );
+        })}
         {(() => {
           const s = consejoSueno(entradaHoy.sueno?.horas ?? entradaHoy.suenoHoras);
           return (

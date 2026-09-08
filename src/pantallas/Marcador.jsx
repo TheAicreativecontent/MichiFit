@@ -121,7 +121,10 @@ export default function Marcador({ estado, entradaHoy = {}, pacto }) {
         <Barra valor={pctPasos} color="#F5C518" />
       </Fila>
 
-      <Fila etiqueta="DESCANSO" num={horas ? `${horas}h` : '—'}>
+      {/* "SUEÑO", no "DESCANSO": el descanso del pacto es no entrenar, y
+          son dos cosas distintas. Comprobado que la Ñ existe en Press
+          Start 2P antes de usarla. */}
+      <Fila etiqueta="SUEÑO" num={horas ? `${horas}h` : '—'}>
         <Barra valor={pctSueno} exceso={excesoSueno} color="#7CC3F2" colorExceso="#E8543A" />
       </Fila>
 
