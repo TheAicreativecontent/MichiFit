@@ -23,6 +23,20 @@ LADO = 320
 
 # (x0, y0, x1, y1) medidos sobre cada hoja de 903x1024
 HOJAS = {
+    'entrenando': {
+        'archivo': '../IMG/Tipos_de_Michi_entrenando.jpg',
+        # Aquí los cinco michis se TOCAN entre sí: las mancuernas de uno
+        # invaden al vecino, así que forman una sola mancha y no hay
+        # componentes que separar. Se cortan con COSTURAS: un camino
+        # vertical que baja esquivando píxeles pintados (ver `costura`).
+        # Un corte recto partía mancuernas por la mitad; la costura las
+        # rodea y cada michi se queda con las suyas enteras.
+        'blanco': True,
+        'franja': (391, 757),
+        'bordes': (26, 972),        # dónde empieza y acaba la fila entera
+        'costuras': [199, 386, 578, 725],   # los cuatro valles, como pista
+        'orden': ['esqueletico', 'gordo', 'kawaii', 'fit', 'hipertrofiado'],
+    },
     'comiendo': {
         'archivo': '../IMG/Michis_comiendo.png',
         'cajas': {
@@ -44,6 +58,86 @@ HOJAS = {
         },
     },
 }
+
+
+def sin_blanco(im, umbral=228):
+    """El blanco del JPG pasa a transparente. Umbral generoso: la
+    compresión deja halos y con uno estricto queda un borde sucio."""
+    px = im.load()
+    for y in range(im.height):
+        for x in range(im.width):
+            r, g, b, a = px[x, y]
+            if r > umbral and g > umbral and b > umbral:
+                px[x, y] = (r, g, b, 0)
+    return im
+
+
+BANDA = 52     # cuánto puede apartarse la costura del valle
+DESVIO = 0.6   # peaje por moverse de lado, para que no serpentee de más
+
+
+def costura(mascara, x0, y0, y1, ancho, xc):
+    """Camino vertical de y0 a y1 que cruza el menor número posible de
+    píxeles pintados. Se resuelve con programación dinámica: cada fila
+    solo puede moverse un píxel a los lados respecto de la anterior.
+
+    Devuelve una lista con la x del corte para cada fila. Si entre dos
+    michis hay hueco libre, la costura pasa por él sin tocar nada; si se
+    solapan de verdad, corta por donde menos daño hace."""
+    izq, der = max(0, xc - BANDA), min(ancho, xc + BANDA + 1)
+    cols = list(range(izq, der))
+    inf = float('inf')
+
+    coste = [1.0 if mascara[y0][x] else 0.0 for x in cols]
+    padres = []
+    for y in range(y0 + 1, y1):
+        nuevo, padre = [], []
+        for i, x in enumerate(cols):
+            mejor, de = inf, i
+            for d in (-1, 0, 1):
+                j = i + d
+                if 0 <= j < len(cols):
+                    c = coste[j] + (DESVIO if d else 0)
+                    if c < mejor:
+                        mejor, de = c, j
+            nuevo.append(mejor + (1.0 if mascara[y][x] else 0.0))
+            padre.append(de)
+        coste, _ = nuevo, None
+        padres.append(padre)
+
+    i = min(range(len(cols)), key=lambda k: coste[k])
+    camino = [cols[i]]
+    for padre in reversed(padres):
+        i = padre[i]
+        camino.append(cols[i])
+    camino.reverse()
+    return camino
+
+
+def recortar_costuras(hoja, cfg):
+    """Parte una fila de michis pegados usando costuras entre cada par."""
+    y0, y1 = cfg['franja']
+    xa, xb = cfg['bordes']
+    a = hoja.getchannel('A').load()
+    ancho = hoja.width
+    mascara = [[a[x, y] >= 40 for x in range(ancho)] for y in range(y1)]
+
+    limites = [[xa] * (y1 - y0)]
+    for xc in cfg['costuras']:
+        limites.append(costura(mascara, 0, y0, y1, ancho, xc))
+    limites.append([xb] * (y1 - y0))
+
+    piezas = {}
+    for i, cuerpo in enumerate(cfg['orden']):
+        trozo = Image.new('RGBA', (ancho, y1 - y0), (0, 0, 0, 0))
+        origen, destino = hoja.load(), trozo.load()
+        for k in range(y1 - y0):
+            for x in range(limites[i][k], limites[i + 1][k]):
+                if mascara[y0 + k][x]:
+                    destino[x, k] = origen[x, y0 + k]
+        caja = trozo.getbbox()
+        piezas[cuerpo] = trozo.crop(caja) if caja else trozo
+    return piezas
 
 
 def recortar(hoja, caja):
@@ -96,7 +190,6 @@ def comprimir(im, ruta, colores=96):
     q.putalpha(alfa)
     q.quantize(colors=colores).save(ruta, optimize=True)
 
-
 if __name__ == '__main__':
     aqui = os.path.dirname(os.path.abspath(__file__))
     destino = os.path.join(aqui, '..', 'public', 'michi')
@@ -104,9 +197,12 @@ if __name__ == '__main__':
 
     for pose, cfg in HOJAS.items():
         hoja = Image.open(os.path.join(aqui, cfg['archivo'])).convert('RGBA')
+        if cfg.get('blanco'):
+            hoja = sin_blanco(hoja)
         print(f"\n{pose}:")
-        for cuerpo, caja in cfg['cajas'].items():
-            im = encuadrar(recortar(hoja, caja))
+        piezas = (recortar_costuras(hoja, cfg) if 'costuras' in cfg
+                  else {c: recortar(hoja, k) for c, k in cfg['cajas'].items()})
+        for cuerpo, pieza in piezas.items():
             ruta = os.path.join(destino, f'{cuerpo}_{pose}.png')
-            comprimir(im, ruta)
+            comprimir(encuadrar(pieza), ruta)
             print(f"  {cuerpo}_{pose}.png  {os.path.getsize(ruta) // 1024} KB")

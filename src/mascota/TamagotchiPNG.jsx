@@ -52,7 +52,7 @@ export default function TamagotchiPNG({
   nivel = null,        // { emoji, nombre, progreso, xp, xpSiguiente }
   felicidad = null,    // 0-100, o null para no pintar la barra
   denoche = false,     // de noche la barra se congela y se dice
-  pose = null,         // 'dormido' | 'comiendo' | null (pose manda sobre el cuerpo)
+  pose = null,         // 'dormido' | 'comiendo' | 'entrenando' | null (manda sobre el cuerpo)
   mensaje = null,      // texto que sale en la pantalla al pulsar "cómo va"
   onBoton,
   ...resto

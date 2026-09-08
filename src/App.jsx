@@ -42,9 +42,10 @@ export default function App() {
   const [datos, setDatos] = useState(leer);
   const [pestana, setPestana] = useState('inicio');
   const [registrando, setRegistrando] = useState(false);
-  /* Cuando apuntas una comida, el michi come. La acción no inventa datos:
-     es la misma información contada como cuidado. */
-  const [comiendo, setComiendo] = useState(false);
+  /* Lo que apuntas, el michi lo hace: si registras comida se pone a
+     comer, si registras entreno se pone a levantar pesas. La animación no
+     inventa datos, es la misma información contada como cuidado. */
+  const [accion, setAccion] = useState(null);   // 'comiendo' | 'entrenando'
   /* La felicidad baja con las horas, así que hay que volver a pintarla
      cada tanto aunque el usuario no toque nada. */
   const [tic, setTic] = useState(0);
@@ -68,9 +69,15 @@ export default function App() {
     setDatos((d) => ({ ...d, carino: podarCarino([...(d.carino ?? []), Date.now()]) }));
 
   const registrar = (fecha, campos) => {
-    if (campos.comidaKcal != null && fecha === hoyISO()) {
-      setComiendo(true);
-      setTimeout(() => setComiendo(false), 4000);
+    if (fecha === hoyISO()) {
+      /* El entreno manda sobre la comida: si apuntas las dos cosas de una
+         vez, ver al michi con las mancuernas cuenta mejor el día. */
+      const hace = campos.entrenoMin ? 'entrenando'
+                 : campos.comidaKcal != null ? 'comiendo' : null;
+      if (hace) {
+        setAccion(hace);
+        setTimeout(() => setAccion((a) => (a === hace ? null : a)), 4000);
+      }
     }
     setDatos((d) => {
       const limpio = Object.fromEntries(
@@ -123,7 +130,7 @@ export default function App() {
       <main>
         {pestana === 'inicio' && (
           <Inicio estado={estado} entradas={datos.entradas} pacto={datos.pacto}
-                  onCarino={registrarCarino} comiendo={comiendo} />
+                  onCarino={registrarCarino} accion={accion} />
         )}
         {pestana === 'pacto' && (
           <Pacto pacto={datos.pacto} perfil={datos.perfil} estado={estado}
