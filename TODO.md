@@ -1,24 +1,31 @@
 # TODO.md — Backlog
 
 ## Ahora
-- [ ] **Quitar el panel de PRUEBAS** de la pantalla de Inicio: la constante
-      `PRUEBAS` y el bloque `.mf-pruebas` (en `pantallas/Inicio.jsx` y al
-      final de `estilos.css`). Es andamio para revisar los dibujos del michi.
-- [ ] **Antes de publicar en GitHub Pages**: poner `base: '/<nombre-repo>/'` en
-      `vite.config.js`. Vite compila con rutas absolutas desde `/`, y en
-      `usuario.github.io/repo/` la app saldría en blanco sin esto.
+- [ ] **Renombrar las carpetas a MichiFit.** Bloqueado: Windows no distingue
+      mayúsculas y `2026_APP_MichiFit` chocaría con la carpeta original
+      `2026_APP_MICHIFIT`. Ver `ASK.md`.
+- [ ] **Si algún día se publica en GitHub Pages**: poner `base:
+      '/<nombre-repo>/'` en `vite.config.js`. Vite compila con rutas absolutas
+      desde `/`, y en `usuario.github.io/repo/` la app saldría en blanco.
+      Con Vercel no hace falta: sirve desde la raíz del dominio.
 
 ## Después
-- [ ] Registro de comidas con macros (informativas, no cuentan).
-- [ ] Importador del export de Garmin Connect.
 - [ ] Add-ons cosméticos al llegar a nivel 5 (batidos, mancuernas, gafas).
-- [ ] Cambiar `localStorage` por IndexedDB (solo toca `datos/almacen.js`).
-- [ ] PWA: manifest + iconos desde el logo real.
+      Se pierden al bajar de nivel y se recuperan al volver a subir.
 - [ ] Poses que faltan: **celebrando** (al subir de nivel) y **triste**
       (tras fallar una semana). El sistema ya las admite: basta dejar el
       PNG en `public/michi/` con el nombre `<cuerpo>_<pose>.png`.
 - [ ] **Pose de pasear**: la escena "PASEANDO" usa el michi de pie, porque
       no hay dibujo propio.
+
+## Descartado
+- ~~Importador del export de Garmin Connect~~ — la API de Garmin exige ser
+  desarrollador certificado, no basta con una clave (Alberto, 2026-09-08).
+- ~~`localStorage` → IndexedDB~~ — **no hace falta**. IndexedDB sirve para
+  datos grandes o consultas complejas; aquí son unos pocos KB de un solo
+  usuario, que caben de sobra en el límite de 5 MB. Cambiarlo añadiría código
+  asíncrono a cambio de nada. Si algún día se guardan fotos, se reabre: solo
+  toca `datos/almacen.js`.
 
 ## Ideas / quizás algún día
 - [ ] En la ventana de cada día del pacto, poder apuntar **qué entreno toca**
@@ -33,6 +40,15 @@
 - [ ] Marcar en la gráfica los tramos con pocos datos.
 
 ## Hecho
+- [x] 2026-09-08 — PWA instalable: manifest, service worker (abre sin
+      cobertura) e iconos generados del logo. Botones de ayuda "?" en
+      Mi pacto, Progreso, Logros y Simular.
+- [x] 2026-09-08 — Ejercicios por día de entreno (nombre, reps, peso) y
+      macros opcionales al registrar el día. Ninguno cuenta para el pacto.
+- [x] 2026-09-08 — Flecos de la mecánica resueltos (MECANICA.md §11).
+- [x] 2026-09-08 — Panel de pruebas oculto tras siete toques en el logo.
+- [x] 2026-09-08 — Aviso de sobreentrenamiento: ya estaba, salta al romper
+      dos o más días de descanso en la semana.
 - [x] 2026-09-08 — Botón azul del aparato = acción: cicla escena y pose
       (casa, comer, gimnasio, calle, dormir) con rótulo dentro de la
       pantalla. "Cómo va" pasa a tocar el cristal. Panel de PRUEBAS.

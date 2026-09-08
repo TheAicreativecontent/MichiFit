@@ -184,9 +184,41 @@ subir de nivel a mantenerlo y coleccionar.
 - No premia comer menos de lo sano ni bajar de un IMC seguro.
 - No deja que el michi muera. Nunca.
 
+## 11 · Flecos resueltos (Alberto, 2026-09-08)
+
+Las cuatro preguntas que quedaban abiertas, ya decididas.
+
+**La semana empieza en lunes.** Sin opción de cambiarlo: quien empiece en
+domingo tendrá que vivir con ello. Ya era así en el código (`DIAS` arranca en
+`lun`), ahora además es una decisión y no una casualidad.
+
+Ojo con no confundir dos cosas que conviven: la **semana tipo** del pacto va de
+lunes a domingo, pero la **racha** mira los últimos 7 días naturales hacia
+atrás. Son distintas a propósito: una racha que se reiniciara cada lunes
+castigaría empezar en jueves.
+
+**Al gastar un comodín, el corazón se ve partido y gris.** El día de racha
+salvado no se pinta como cumplido, porque no lo fue: la racha sigue viva y a la
+vez se ve que ahí hubo un rescate. La alternativa —pintarlo entero— sería
+mentirle al usuario sobre su propio historial.
+
+**El pacto lleva calorías diarias, pero pasarse pesa menos que faltar al
+gimnasio.** Un día comiendo de más se compensa solo; un entreno perdido no
+vuelve. Traducido a números (`constantes.js`):
+
+| Cuánto te pasas | Qué ocurre |
+|---|---|
+| hasta +10 % | objetivo cumplido |
+| hasta +30 % | el michi lo nota (pesa 0,5 en su ánimo), pero el día sigue valiendo |
+| más de +30 % | el día se rompe, como cualquier otro objetivo |
+
+Los demás objetivos pesan 1 y rompen el día siempre. La palanca es
+`PESO_OBJETIVO` y la marca `rompeElDia` de cada objetivo.
+
+**Los add-ons se pierden al bajar de nivel.** Se ganan al subir, así que
+mantenerlos al bajar no tendría sentido: serían un premio sin nivel que lo
+sostenga. Se recuperan al volver a subir, no hay que ganarlos otra vez.
+
 ## Preguntas abiertas
 
-- ¿La semana empieza en lunes o es móvil (últimos 7 días)?
-- ¿Qué ve el usuario exactamente al gastar un comodín?
-- ¿El pacto puede tener objetivo de calorías por día, o solo pasos y entrenos?
-- ¿Los add-ons se pierden si baja de nivel, o son para siempre?
+- (ninguna)
