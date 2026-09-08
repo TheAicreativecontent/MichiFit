@@ -14,6 +14,7 @@ import {
 } from './constantes.js';
 import { evaluarDias, evaluarSemana, hoyISO, diasAtras, diasDesde } from './pacto.js';
 import { clamp } from './calculos.js';
+import { calcularFelicidad } from './felicidad.js';
 
 /* ---------- 1 · Energía (0-100) ----------
    Actividad reciente. Cae si paras, pero no de golpe: los últimos
@@ -185,7 +186,7 @@ function rachaDesde(evaluaciones) {
 }
 
 /* ---------- 6 · Estado completo ---------- */
-export function calcularEstado({ pacto, entradas, perfil, hoy = hoyISO() }) {
+export function calcularEstado({ pacto, entradas, perfil, carino = [], ahora = Date.now(), hoy = hoyISO() }) {
   // Nunca mirar más atrás del día en que se creó el pacto: antes de existir
   // no se podía incumplir. Sin esto, un usuario nuevo arranca con semanas
   // falladas a la espalda.
@@ -196,6 +197,7 @@ export function calcularEstado({ pacto, entradas, perfil, hoy = hoyISO() }) {
   const forma = calcularForma(evaluaciones);
   const animo = calcularAnimo({ evaluaciones, entradas, energia, forma });
   const rachas = calcularRachaYComodines(evaluaciones);
+  const felicidad = calcularFelicidad({ evaluaciones, entradas, carino, ahora });
   const hitosDesbloqueados = calcularHitos({ evaluaciones, entradas, perfil });
   const nivel = calcularNivel({ pacto, entradas, evaluaciones, hoy, hitos: hitosDesbloqueados });
 
@@ -211,6 +213,8 @@ export function calcularEstado({ pacto, entradas, perfil, hoy = hoyISO() }) {
     descansosRotos: animo.descansosRotos,
     ...rachas,
     nivel,
+    felicidad: felicidad.valor,
+    felicidadDetalle: felicidad.detalle,
     hitosDesbloqueados,
     abandono,
     dormido: abandono >= 2,

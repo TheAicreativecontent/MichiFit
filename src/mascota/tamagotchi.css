@@ -125,11 +125,13 @@
 }
 
 /* --- franja de nivel dentro de la pantalla --- */
-.mf-tamapng-nivel {
+.mf-tamapng-cabecera {
   position: absolute; top: 0; left: 0; right: 0; z-index: 2;
-  display: grid; grid-template-columns: auto 1fr; align-items: center;
-  gap: 5px; padding: 4% 5% 0;
-  font-family: 'Press Start 2P', monospace;
+  display: flex; flex-direction: column; gap: 3px; padding: 4% 5% 0;
+}
+.mf-tamapng-nivel {
+  display: grid; grid-template-columns: 46px 1fr; align-items: center;
+  gap: 5px; font-family: 'Press Start 2P', monospace;
 }
 .mf-tamapng-nivel .et { font-size: 6px; color: #3A2D24; white-space: nowrap;
                         text-transform: uppercase; }
@@ -141,6 +143,10 @@
 .mf-tamapng-nivel .barra i {
   display: block; height: 100%; background: #F2650F; transition: width .4s ease;
 }
+/* La felicidad va en rosa: es la única barra que sube por cariño y no
+   por esfuerzo, y conviene que se distinga de un vistazo. */
+.mf-tamapng-nivel.feliz .barra i { background: #F0568C; }
+.mf-tamapng-nivel.feliz.denoche .barra i { background: #7C86C8; }
 
 /* --- diálogo del botón azul, dentro de la pantalla --- */
 .mf-tamapng-dialogo {

@@ -21,6 +21,7 @@ const VACIO = {
   },
   pacto: null,
   entradas: {},         // { 'AAAA-MM-DD': { pasos, entrenoMin, comidaKcal, ... } }
+  carino: [],           // marcas de tiempo de los mimos, para la felicidad
 };
 
 export function leer() {
@@ -60,6 +61,7 @@ function estructuraCompleta(d) {
     ...d,
     perfil: { ...VACIO.perfil, ...(d.perfil ?? {}) },
     entradas: d.entradas ?? {},
+    carino: Array.isArray(d.carino) ? d.carino : [],
   };
 }
 

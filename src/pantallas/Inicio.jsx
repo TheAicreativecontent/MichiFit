@@ -16,7 +16,7 @@ import { estadoVisual } from '../engine/michi.js';
 import { hoyISO } from '../engine/pacto.js';
 import { sonidos, despertarAudio } from '../mascota/sonido.js';
 
-export default function Inicio({ estado, entradas, pacto }) {
+export default function Inicio({ estado, entradas, pacto, onCarino }) {
   const [gesto, setGesto] = useState(null);      // 'mimar' | 'estado' | null
   const [durmiendo, setDurmiendo] = useState(false);
 
@@ -35,6 +35,7 @@ export default function Inicio({ estado, entradas, pacto }) {
     setDurmiendo(false);
     setGesto(id);
     sonidos[id]?.();
+    if (id === 'mimar') onCarino?.();
     // los dos gestos se deshacen solos: son un momento, no un modo
     setTimeout(() => setGesto((g) => (g === id ? null : g)), id === 'mimar' ? 2600 : 5000);
   };
@@ -48,6 +49,8 @@ export default function Inicio({ estado, entradas, pacto }) {
           dormido={durmiendo || estado.dormido}
           mimando={gesto === 'mimar'}
           nivel={estado.nivel}
+          felicidad={estado.felicidad}
+          denoche={estado.felicidadDetalle?.denoche}
           mensaje={gesto === 'estado' ? resumen(estado, pendientes) : null}
           onBoton={pulsar}
           escenario={

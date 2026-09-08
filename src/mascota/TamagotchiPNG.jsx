@@ -50,6 +50,8 @@ export default function TamagotchiPNG({
   escenario = 'casa',
   mimando = false,
   nivel = null,        // { emoji, nombre, progreso, xp, xpSiguiente }
+  felicidad = null,    // 0-100, o null para no pintar la barra
+  denoche = false,     // de noche la barra se congela y se dice
   mensaje = null,      // texto que sale en la pantalla al pulsar "cómo va"
   onBoton,
   ...resto
@@ -88,12 +90,22 @@ export default function TamagotchiPNG({
         {/* Franja de arriba: el nivel del michi y su barra de experiencia.
             Va DENTRO de la pantalla, como en un tamagotchi de verdad. */}
         {!sinHuevo && nivel && (
-          <div className="mf-tamapng-nivel">
-            <span className="et">{nivel.nombre.replace('Michi ', '')}</span>
-            <div className="barra">
-              <i style={{ width: `${Math.round((nivel.progreso ?? 0) * 100)}%` }} />
+          <div className="mf-tamapng-cabecera">
+            <div className="mf-tamapng-nivel">
+              <span className="et">{nivel.nombre.replace('Michi ', '')}</span>
+              <div className="barra">
+                <i style={{ width: `${Math.round((nivel.progreso ?? 0) * 100)}%` }} />
+              </div>
             </div>
 
+            {felicidad != null && (
+              <div className={`mf-tamapng-nivel feliz ${denoche ? 'denoche' : ''}`}>
+                <span className="et">{denoche ? 'ZZZ' : 'HAPPY'}</span>
+                <div className="barra">
+                  <i style={{ width: `${Math.round(felicidad)}%` }} />
+                </div>
+              </div>
+            )}
           </div>
         )}
 

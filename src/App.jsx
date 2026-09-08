@@ -16,6 +16,7 @@ import EditorDia from './pantallas/EditorDia.jsx';
 import Ajustes from './pantallas/Ajustes.jsx';
 import { calcularEstado } from './engine/michi.js';
 import { hoyISO } from './engine/pacto.js';
+import { podarCarino } from './engine/felicidad.js';
 import { leer, guardar, reiniciar } from './datos/almacen.js';
 import './estilos.css';
 
@@ -41,17 +42,28 @@ export default function App() {
   const [datos, setDatos] = useState(leer);
   const [pestana, setPestana] = useState('inicio');
   const [registrando, setRegistrando] = useState(false);
+  /* La felicidad baja con las horas, así que hay que volver a pintarla
+     cada tanto aunque el usuario no toque nada. */
+  const [tic, setTic] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setTic((t) => t + 1), 60_000);
+    return () => clearInterval(id);
+  }, []);
 
   useEffect(() => { guardar(datos); }, [datos]);
 
   const listo = Boolean(datos.pacto && datos.perfil?.altura && datos.perfil?.pesoMeta);
 
   const estado = useMemo(
-    () => (listo ? calcularEstado({ pacto: datos.pacto, entradas: datos.entradas, perfil: datos.perfil }) : null),
-    [listo, datos.pacto, datos.entradas, datos.perfil]
+    () => (listo ? calcularEstado({ pacto: datos.pacto, entradas: datos.entradas,
+                       perfil: datos.perfil, carino: datos.carino }) : null),
+    [listo, datos.pacto, datos.entradas, datos.perfil, datos.carino, tic]
   );
 
   /* Registrar en cualquier fecha; `undefined` no pisa lo que ya había. */
+  const registrarCarino = () =>
+    setDatos((d) => ({ ...d, carino: podarCarino([...(d.carino ?? []), Date.now()]) }));
+
   const registrar = (fecha, campos) =>
     setDatos((d) => {
       const limpio = Object.fromEntries(
@@ -102,7 +114,8 @@ export default function App() {
 
       <main>
         {pestana === 'inicio' && (
-          <Inicio estado={estado} entradas={datos.entradas} pacto={datos.pacto} />
+          <Inicio estado={estado} entradas={datos.entradas} pacto={datos.pacto}
+                  onCarino={registrarCarino} />
         )}
         {pestana === 'pacto' && (
           <Pacto pacto={datos.pacto} perfil={datos.perfil} estado={estado}

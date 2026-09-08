@@ -139,6 +139,31 @@ No inventan datos: son la misma información presentada como cuidado.
 
 Acariciar no da XP a propósito. Si diera, dejaría de ser cariño.
 
+## 8b · La barra HAPPY
+
+Va dentro de la pantalla, bajo la del nivel. Es lo único del motor que
+depende de la **hora**, no solo del día.
+
+| Aporta | Cuánto |
+|---|---|
+| Cómo fue **ayer** | 72 si cumpliste · 58 si el día sigue abierto · 30 si no |
+| Lo hecho **hoy** del pacto | hasta +24 |
+| **Mimos** recientes (12 h) | hasta +22, con rendimiento decreciente |
+| **Desgaste** por horas sin cuidarlo | −2,2 por hora, tope −32 |
+
+Dos decisiones que la sostienen:
+
+- **Los mimos suben poco y cada vez menos.** Da gusto darle al botón, pero
+  no se puede tener al michi feliz solo a base de caricias. Si bastara con
+  eso, la app dejaría de hablar de tu vida.
+- **De noche la barra se congela** (23:00 a 07:00). Nadie debe levantarse de
+  madrugada a pulsar un botón: eso convertiría el cariño en obligación, que
+  es justo lo contrario de lo que se busca. El desgaste cuenta solo horas de
+  vigilia (`horasDespierto()`).
+
+Apuntar datos cuenta como cuidado igual que un mimo: lo que baja la barra es
+el abandono, no el reloj.
+
 ## 9 · Add-ons (después del máximo)
 
 Al llegar a N5 se abren **cosméticos**: batidos de proteínas, mancuernas
