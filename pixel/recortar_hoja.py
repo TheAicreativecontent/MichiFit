@@ -26,10 +26,9 @@ from PIL import Image
 
 # Posición en la hoja -> nombre de archivo. None se descarta.
 ORDEN = [
-    "esqueletico",     # muy delgado
+    "esqueletico",     # delgado
     "gordo",           # gordito
     "kawaii",          # normal
-    None,              # (repetido / etiqueta con errata)
     "fit",             # atlético
     "hipertrofiado",   # muy musculado
 ]
@@ -38,7 +37,9 @@ LADO = 320
 MIN_AREA = 0.012   # una mancha menor que esto (en % del total) es texto
 
 
-def sin_fondo(im, umbral=238):
+def sin_fondo(im, umbral=232):
+    """Los JPG no tienen el blanco puro: la compresión deja halos, así que
+    el umbral es más generoso que con un PNG."""
     im = im.convert("RGBA")
     px = im.load()
     for y in range(im.height):
@@ -50,7 +51,10 @@ def sin_fondo(im, umbral=238):
 
 
 def manchas(im):
-    """Componentes conexas por barrido de filas, sin recursión."""
+    """Componentes conexas, sin recursión. Devuelve, por cada una, su caja
+    y sus píxeles: hace falta la lista de píxeles porque las cajas de gatos
+    contiguos se solapan (bigotes y colas se meten en la del vecino) y
+    recortar por rectángulo arrastraría trozos ajenos."""
     w, h = im.size
     a = im.getchannel("A").load()
     visto = [[False] * w for _ in range(h)]
@@ -63,10 +67,10 @@ def manchas(im):
             visto[y0][x0] = True
             xi = xf = x0
             yi = yf = y0
-            n = 0
+            puntos = []
             while pila:
                 x, y = pila.pop()
-                n += 1
+                puntos.append((x, y))
                 xi, xf = min(xi, x), max(xf, x)
                 yi, yf = min(yi, y), max(yf, y)
                 for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
@@ -74,7 +78,7 @@ def manchas(im):
                     if 0 <= nx < w and 0 <= ny < h and not visto[ny][nx] and a[nx, ny] >= 40:
                         visto[ny][nx] = True
                         pila.append((nx, ny))
-            cajas.append(((xi, yi, xf + 1, yf + 1), n))
+            cajas.append(((xi, yi, xf + 1, yf + 1), puntos))
     return cajas
 
 
@@ -117,17 +121,23 @@ def main(origen):
 
     hoja = sin_fondo(Image.open(origen))
     total = hoja.width * hoja.height
-    grandes = [c for c, n in manchas(hoja) if n > total * MIN_AREA]
-    grandes = agrupar_en_filas(grandes)
+    piezas = [(c, p) for c, p in manchas(hoja) if len(p) > total * MIN_AREA]
+    por_caja = {c: p for c, p in piezas}
+    grandes = agrupar_en_filas([c for c, _ in piezas])
 
     print(f"encontradas {len(grandes)} figuras grandes (se esperaban {len(ORDEN)})")
     if len(grandes) != len(ORDEN):
         print("!! el número no cuadra. Revisa MIN_AREA o el ORDEN.")
 
+    origen_px = hoja.load()
     for caja, nombre in zip(grandes, ORDEN):
         if nombre is None:
             continue
-        trozo = hoja.crop(caja)
+        x0, y0, x1, y1 = caja
+        trozo = Image.new("RGBA", (x1 - x0, y1 - y0), (0, 0, 0, 0))
+        tp = trozo.load()
+        for x, y in por_caja[caja]:      # solo los píxeles de ESTE gato
+            tp[x - x0, y - y0] = origen_px[x, y]
         recorte = trozo.getbbox()
         if recorte:
             trozo = trozo.crop(recorte)

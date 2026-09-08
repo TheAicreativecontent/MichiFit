@@ -65,7 +65,7 @@
   /* Centrado con márgenes, NO con transform: la animación de respiración
      define su propio transform y borraría el translateX. */
   position: absolute; bottom: 2%; left: 0; right: 0; margin: 0 auto;
-  height: 88%; width: auto;
+  height: 95%; width: auto;
   /* Sin suavizado: es pixel art, tiene que verse duro */
   image-rendering: pixelated;
   animation: mf-tama-respira 2.4s steps(2, end) infinite;
