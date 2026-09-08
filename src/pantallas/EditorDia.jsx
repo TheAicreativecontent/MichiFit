@@ -6,6 +6,7 @@
 
 import { useState } from 'react';
 import { dentroDeVentana } from '../engine/pacto.js';
+import Hoja from './Hoja.jsx';
 
 /* ---------------- editor de un día ---------------- */
 export default function EditorDia({ fecha, entrada, onGuardar, onCerrar }) {
@@ -20,8 +21,8 @@ export default function EditorDia({ fecha, entrada, onGuardar, onCerrar }) {
   const num = (x) => (x === '' ? null : Number(x));
 
   return (
-    <div className="mf-hoja" onClick={onCerrar}>
-      <div className="mf-hoja-caja" onClick={(e) => e.stopPropagation()}>
+    <Hoja onCerrar={onCerrar}>
+      <>
         <h3 className="mf-h3">{fecha}</h3>
         {!abierto && (
           <div className="mf-aviso suave">
@@ -42,8 +43,8 @@ export default function EditorDia({ fecha, entrada, onGuardar, onCerrar }) {
             sueno: v.suenoHoras === '' ? undefined : { horas: Number(v.suenoHoras) },
           })}>Guardar</button>
         </div>
-      </div>
-    </div>
+      </>
+    </Hoja>
   );
 }
 

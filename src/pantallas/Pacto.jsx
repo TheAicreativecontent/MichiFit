@@ -1,8 +1,10 @@
 /* ============================================================
    Pantalla "Mi pacto"
    La semana tipo de un vistazo: siete columnas, como un calendario.
-   Tocando un día se abre una ventana flotante para ajustarlo — hora
-   del entreno, minutos y pasos.
+   Tocando un día se despliega su ficha JUSTO DEBAJO de la fila, con una
+   flecha apuntando al día — como en Google Calendar. Nada de hoja
+   inferior: obligaba a bajar la vista y perdías de referencia el día
+   que estabas tocando.
 
    Las macros salen, pero NO cuentan para el cumplimiento: son
    orientativas. Lo que se mira son entrenos, pasos, descanso y comida.
@@ -58,6 +60,17 @@ export default function Pacto({ pacto, perfil, estado, onCambiar }) {
             );
           })}
         </div>
+
+        {editando && (
+          <EditorPacto
+            dia={editando}
+            indice={DIAS.indexOf(editando)}
+            valor={pacto.dias[editando]}
+            onGuardar={(campos) => { guardarDia(editando, campos); setEditando(null); }}
+            onCerrar={() => setEditando(null)}
+          />
+        )}
+
         <p className="mf-nota">
           Toca un día para ajustarlo. Fíjate en que los días de entreno piden
           menos pasos: pedirte entrenar <em>y</em> andar mucho el mismo día
@@ -108,17 +121,12 @@ export default function Pacto({ pacto, perfil, estado, onCambiar }) {
         </div>
       )}
 
-      {editando && (
-        <EditorPacto dia={editando} valor={pacto.dias[editando]}
-                     onGuardar={(campos) => { guardarDia(editando, campos); setEditando(null); }}
-                     onCerrar={() => setEditando(null)} />
-      )}
     </div>
   );
 }
 
-/* --- ventana flotante de un día --- */
-function EditorPacto({ dia, valor, onGuardar, onCerrar }) {
+/* --- ficha del día, desplegada bajo la fila --- */
+function EditorPacto({ dia, indice, valor, onGuardar, onCerrar }) {
   const [v, setV] = useState({
     entreno: valor.entreno,
     hora: valor.hora ?? '19:00',
@@ -127,8 +135,10 @@ function EditorPacto({ dia, valor, onGuardar, onCerrar }) {
   });
 
   return (
-    <div className="mf-hoja" onClick={onCerrar}>
-      <div className="mf-hoja-caja" onClick={(e) => e.stopPropagation()}>
+    <div className="mf-ficha">
+      {/* la flecha apunta al centro de la columna que has tocado */}
+      <i className="mf-ficha-flecha" style={{ left: `${((indice + 0.5) / 7) * 100}%` }} />
+      <div className="mf-ficha-cuerpo">
         <h3 className="mf-h3">{DIAS_LARGO[dia]}</h3>
 
         <div className="mf-sexo">

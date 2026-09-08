@@ -32,4 +32,17 @@
 - Como evitarlo: revisar los `open()` de cualquier script Python de terceros
   antes de ejecutarlo. Volvera si se actualiza la skill.
 
+## Un `transform` en un padre rompe `position: fixed`
+- Que paso: al tocar un dia del pacto "no se abria" la ventana. Si se abria,
+  pero colocada fuera de la pantalla.
+- Causa real: `.mf-pagina` tiene una animacion de entrada con `transform`, y
+  **un elemento con transform se convierte en el marco de referencia de sus
+  hijos `position: fixed`**. La ventana se colocaba respecto a la pagina, no
+  respecto a la pantalla: empezaba en y=87 con 849 px de alto sobre un
+  viewport de 812, asi que los botones de guardar caian fuera.
+- Solucion: las ventanas emergentes se cuelgan del `<body>` con un portal
+  (`pantallas/Hoja.jsx`). Inmune tambien a `filter` y `backdrop-filter`.
+- Como evitarlo: si algo `fixed` aparece en un sitio raro, mirar si algun
+  padre tiene transform, filter o backdrop-filter antes de tocar el z-index.
+
 ---
