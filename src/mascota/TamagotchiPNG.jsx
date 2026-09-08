@@ -39,7 +39,13 @@ export default function TamagotchiPNG({
   ...resto
 }) {
   const [sinHuevo, setSinHuevo] = useState(false);
-  const [sinMichi, setSinMichi] = useState(false);
+  const [intento, setIntento] = useState(0);
+
+  /* Cadena de respaldo: si no existe la imagen del estado exacto, se usa
+     el michi base; si tampoco, se dibuja el aparato en SVG. Así se pueden
+     ir subiendo las imágenes de una en una sin que nada se rompa. */
+  const candidatos = [`${RUTA}/${estado}.png`, `${RUTA}/bebe_paseando.png`];
+  const src = candidatos[intento];
 
   // Mientras no estén las imágenes, se usa el aparato dibujado.
   if (sinHuevo) {
@@ -71,9 +77,9 @@ export default function TamagotchiPNG({
           <div className="mf-tamapng-barra">
             <i style={{ width: `${Math.max(0, Math.min(1, puntos)) * 100}%` }} />
           </div>
-          {!sinMichi && (
-            <img className="mf-tamapng-michi" src={`${RUTA}/${estado}.png`} alt=""
-                 onError={() => setSinMichi(true)} />
+          {src && (
+            <img className="mf-tamapng-michi" src={src} alt=""
+                 onError={() => setIntento((i) => i + 1)} />
           )}
         </div>
 
