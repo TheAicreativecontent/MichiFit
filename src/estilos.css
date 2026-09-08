@@ -1,6 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&family=Press+Start+2P&display=swap');
 
 :root {
+  color-scheme: light;
   /* Paleta compartida con Michi Finanzas y MichiMind. Mismos valores,
      para que las tres se reconozcan como de la misma casa.
      Lo propio de MichiFit es el NARANJA del logo, donde MichiFin usa
@@ -25,16 +26,10 @@
   --sombra-sm: 0 6px 16px rgba(74, 53, 65, .09);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    /* Ciruela, como MichiMind. No marron. */
-    --fondo: #2B2131; --papel: #3A2D42; --tinta: #FBEFF2;
-    --tinta-flojo: #B5A0B0; --linea: #4A3A52; --chip: #463753;
-    --rosa-suave: #5A3A49; --menta-suave: #31435A;
-    --bien: #72DBA4; --mal: #FF8FAD;
-    --sombra: 0 10px 26px rgba(0,0,0,.38); --sombra-sm: 0 6px 16px rgba(0,0,0,.3);
-  }
-}
+/* Sin modo oscuro, a propósito: Michi Finanzas tampoco lo tiene, y en
+   oscuro la app se veía lila en vez de pastel. La identidad de la familia
+   michi es el crema, no un tema que cambia con el móvil. */
+
 
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 html, body, #root { min-height: 100%; }
@@ -60,9 +55,6 @@ body {
   background-size: cover;
   opacity: .15;
 }
-@media (prefers-color-scheme: dark) {
-  .mf-app::before { opacity: .10; }
-}
 
 /* El contenido va por encima de la capa del fondo, explícitamente.
    Dejarlo al orden natural de pintado da resultados distintos según el
@@ -75,19 +67,20 @@ body {
 /* --- cabecera --- */
 .mf-cabecera {
   position: sticky; top: 0; z-index: 20;
-  display: flex; align-items: center; gap: 12px;
+  display: flex; align-items: center; gap: 10px;
   padding: 14px 18px 10px;
   background: color-mix(in srgb, var(--fondo) 88%, transparent);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--linea);
 }
-.mf-marca h1 { font-family: 'Baloo 2', cursive; font-size: 23px; margin: 0; line-height: 1; }
-.mf-marca h1 b { color: var(--rosa); }
-.mf-marca small { font-size: 11px; color: var(--tinta-flojo); font-weight: 700; }
+.mf-marca-txt h1 { font-family: 'Baloo 2', cursive; font-size: 21px; margin: 0; line-height: 1; }
+.mf-marca-txt h1 b { color: var(--rosa); }
+.mf-marca-txt small { font-size: 10px; color: var(--tinta-flojo); font-weight: 700; line-height: 1.25; display: block; }
 .mf-racha {
-  margin-left: auto; background: var(--papel); border-radius: 14px;
-  padding: 7px 12px; font-family: 'Baloo 2', cursive; font-weight: 800;
-  box-shadow: var(--sombra-sm);
+  background: var(--papel); border-radius: 14px; height: 38px;
+  padding: 0 12px; font-family: 'Baloo 2', cursive; font-weight: 800;
+  box-shadow: var(--sombra-sm); display: flex; align-items: center; gap: 4px;
+  white-space: nowrap;
 }
 
 /* --- estructura --- */
@@ -106,17 +99,22 @@ body {
 }
 
 /* --- escena del michi --- */
+/* Sin tarjeta detrás del huevo: el hueco de la pantalla es transparente y
+   lo que tiene que verse a través es el fondo de la app, no un rectángulo
+   blanco. */
 .mf-escena {
-  background: var(--papel); border-radius: 26px; padding: 10px 18px 18px;
-  box-shadow: var(--sombra); display: flex; flex-direction: column;
-  align-items: center; margin-bottom: 14px;
+  padding: 4px 0 12px; display: flex; flex-direction: column;
+  align-items: center; margin-bottom: 10px;
 }
 .mf-globo {
   background: var(--rosa-suave); border-radius: 16px 16px 16px 5px;
   padding: 11px 14px; font-weight: 700; font-size: 13.5px;
   margin: 0 0 12px; text-align: center; line-height: 1.4;
 }
-.mf-nivel { width: 100%; text-align: center; }
+.mf-nivel {
+  width: 100%; text-align: center; background: var(--papel);
+  border-radius: 18px; padding: 12px 16px; box-shadow: var(--sombra-sm);
+}
 .mf-nivel > span { font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 16px; }
 .mf-nivel small { display: block; margin-top: 4px; font-size: 11px; color: var(--tinta-flojo); font-weight: 700; }
 .mf-xp { height: 9px; background: var(--rosa-suave); border-radius: 99px; overflow: hidden; margin-top: 7px; }
@@ -235,7 +233,6 @@ input[type=range]::-moz-range-thumb {
   font-size: 12px; font-weight: 700; line-height: 1.45; margin-bottom: 12px;
 }
 .mf-aviso.suave { background: var(--menta-suave); color: var(--tinta); }
-@media (prefers-color-scheme: dark) { .mf-aviso { background: #453A1C; color: #FFE9B0; } }
 
 /* --- calculado --- */
 .mf-linea { display: flex; justify-content: space-between; align-items: center; padding: 7px 0; border-bottom: 1px solid var(--linea); font-size: 12.5px; font-weight: 700; }
@@ -253,7 +250,8 @@ input[type=range]::-moz-range-thumb {
 /* --- navegación --- */
 .mf-nav {
   position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
-  width: 100%; max-width: 520px; display: grid; grid-template-columns: repeat(6, 1fr);
+  width: 100%; max-width: 520px; display: grid; grid-template-columns: 1fr 1fr 62px 1fr 1fr;
+  align-items: center;
   background: var(--papel); border-top: 1px solid var(--linea);
   padding: 8px 0 max(8px, env(safe-area-inset-bottom));
 }
@@ -262,8 +260,8 @@ input[type=range]::-moz-range-thumb {
   flex-direction: column; align-items: center; gap: 2px;
   color: var(--tinta-flojo); font-family: 'Nunito', sans-serif;
 }
-.mf-nav button span { font-size: 17px; filter: grayscale(1); opacity: .55; }
-.mf-nav button small { font-size: 8.5px; font-weight: 800; }
+.mf-nav button span { font-size: 19px; filter: grayscale(1); opacity: .55; }
+.mf-nav button small { font-size: 9.5px; font-weight: 800; }
 .mf-nav button.activa { color: var(--rosa); }
 .mf-nav button.activa span { filter: none; opacity: 1; }
 
@@ -362,3 +360,47 @@ input[type=range]::-moz-range-thumb {
 }
 .mf-karma-michi { display: flex; justify-content: center; margin-top: 18px; }
 .mf-karma-michi img { width: 78%; max-width: 280px; opacity: .94; }
+
+
+/* --- marcador estilo videojuego --- */
+.mf-marcador {
+  background: var(--papel); border-radius: 20px; padding: 14px 16px;
+  box-shadow: var(--sombra-sm); margin-bottom: 14px;
+  display: flex; flex-direction: column; gap: 9px;
+}
+.mf-mk-fila { display: grid; grid-template-columns: 62px 1fr 34px; align-items: center; gap: 8px; }
+.mf-mk-et {
+  font-family: 'Press Start 2P', monospace; font-size: 7px;
+  color: var(--tinta-flojo); letter-spacing: -.5px;
+}
+.mf-mk-num {
+  font-family: 'Press Start 2P', monospace; font-size: 9px;
+  text-align: right; color: var(--tinta);
+}
+.mf-mk-iconos { display: flex; gap: 3px; align-items: center; }
+.mf-mk-icono { display: block; }
+.mf-mk-barra { display: flex; gap: 2px; }
+.mf-mk-barra i {
+  flex: 1; height: 11px; border: 1.5px solid var(--linea); border-radius: 1px;
+}
+
+/* La cabecera lleva el logo y, a la derecha, racha y ajustes. */
+
+.mf-logo { width: 34px; height: 34px; object-fit: contain; flex-shrink: 0; }
+.mf-cab-acciones { margin-left: auto; display: flex; align-items: center; gap: 7px; }
+.mf-gear {
+  background: var(--papel); border: none; border-radius: 14px;
+  width: 38px; height: 38px; font-size: 17px; cursor: pointer;
+  box-shadow: var(--sombra-sm); line-height: 1;
+}
+.mf-gear.activa { background: var(--rosa-suave); }
+
+/* El "+" del centro: abre el registro de hoy con entrada numérica */
+.mf-mas {
+  justify-self: center; width: 50px; height: 50px; border-radius: 50%;
+  border: none; background: var(--rosa); color: #fff;
+  font-size: 28px; font-weight: 700; line-height: 1; cursor: pointer;
+  box-shadow: var(--sombra); margin-top: -18px;
+  font-family: 'Nunito', sans-serif;
+}
+.mf-mas:active { transform: scale(.93); }

@@ -7,7 +7,6 @@
 
 ## Después
 - [ ] Registro de comidas con macros (informativas, no cuentan).
-- [ ] Que las acciones de Inicio abran un campo en vez de sumar a saltos fijos.
 - [ ] Importador del export de Garmin Connect.
 - [ ] Add-ons cosméticos al llegar a nivel 5 (batidos, mancuernas, gafas).
 - [ ] Cambiar `localStorage` por IndexedDB (solo toca `datos/almacen.js`).
@@ -27,6 +26,9 @@
 - [ ] Marcar en la gráfica los tramos con pocos datos.
 
 ## Hecho
+- [x] 2026-09-08 — Paleta pastel siempre (fuera el modo oscuro), logo en la
+      cabecera, ajustes arriba, huevo de pixel art sin recuadro, marcador
+      estilo videojuego y "+" de registro numerico.
 - [x] 2026-09-08 — Pantalla de Karma, con la cuenta de Michi Finanzas.
 - [x] 2026-09-08 — Pantalla de Progreso: gráfica de peso con previsión,
       calendario del pacto y registro de días pasados.

@@ -1,5 +1,22 @@
 # DECISIONS.md — Decisiones de diseno y su razon
 
+## 2026-09-08 — Sin modo oscuro
+- Contexto: la app se veia LILA en el movil de Alberto. Era el modo oscuro
+  que yo habia copiado de MichiMind.
+- Comprobado: **Michi Finanzas no tiene modo oscuro** (cero apariciones de
+  `prefers-color-scheme` en su codigo).
+- Decision: MichiFit tampoco. Paleta pastel siempre, con `color-scheme: light`
+  para que el navegador no pinte controles oscuros.
+- Razon: la identidad de la familia michi es el crema kawaii. Un tema que
+  cambia solo segun el movil rompe esa identidad justo en la mitad de los
+  usuarios.
+
+## 2026-09-08 — El registro es numerico, no por incrementos
+- Antes: botones de "cuidar del michi" que sumaban de 1000 en 1000 pasos.
+- Ahora: un boton **"+"** en el centro de la barra abre el editor del dia y
+  se escribe el numero. El mismo editor que usa el calendario de Progreso.
+- Razon: sumar a saltos fijos no permite apuntar 7.431 pasos.
+
 ## 2026-09-08 — Karma comparte cuenta con Michi Finanzas
 - Decision: MichiFit usa **la misma** cuenta de donaciones que Michi Finanzas
   (`buymeacoffee.com/MichiFinanzas`) y el mismo LNURL de Lightning.

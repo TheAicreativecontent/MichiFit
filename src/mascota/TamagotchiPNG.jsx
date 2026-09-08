@@ -14,10 +14,10 @@ import { useState } from 'react';
 import Tamagotchi from './Tamagotchi.jsx';
 import './tamagotchi.css';
 
-/* Geometría medida sobre el PNG del huevo (660x900): el hueco de la
-   pantalla es transparente, así que se detecta solo. Si cambias el
-   dibujo, vuelve a medirlo con pixel/medir_huevo.py. */
-const PANTALLA = { left: 23.79, top: 29.78, width: 52.58, height: 43.89 };
+/* Geometría medida sobre el PNG del huevo (751x1024, pixel art): el
+   hueco de la pantalla es transparente, así que se detecta solo.
+   Si cambias el dibujo, vuelve a medirlo con pixel/medir_huevo.py. */
+const PANTALLA = { left: 25.03, top: 30.27, width: 49.93, height: 42.29 };
 
 /* Zona útil del michi dentro de la pantalla: se deja aire arriba para la
    barra de puntos. El aparato de Alberto no tiene bandas dibujadas, así
@@ -48,7 +48,7 @@ export default function TamagotchiPNG({
      `huevo.png` escondía también las ilustraciones. */
   return (
     <div className={`mf-tamapng ${dormido ? 'dormido' : ''}`}
-         style={{ width: size, height: size * (300 / 220) }}>
+         style={{ width: size, height: size * (1024 / 751) }}>
       {sinHuevo ? (
         <div className="mf-tamapng-huevo">
           <Tamagotchi estado={estado} size={size} iconos={iconos}

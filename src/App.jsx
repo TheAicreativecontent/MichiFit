@@ -11,6 +11,7 @@ import Pacto from './pantallas/Pacto.jsx';
 import Progreso from './pantallas/Progreso.jsx';
 import Simulador from './pantallas/Simulador.jsx';
 import Karma from './pantallas/Karma.jsx';
+import EditorDia from './pantallas/EditorDia.jsx';
 import Ajustes from './pantallas/Ajustes.jsx';
 import { calcularEstado } from './engine/michi.js';
 import { hoyISO } from './engine/pacto.js';
@@ -23,12 +24,14 @@ const PESTANAS = [
   { id: 'progreso', icono: '📈', t: 'Progreso' },
   { id: 'simular', icono: '🎯', t: 'Simular' },
   { id: 'karma', icono: '💌', t: 'Karma' },
-  { id: 'ajustes', icono: '⚙️', t: 'Ajustes' },
 ];
+/* Ajustes vive en la cabecera, no en la barra de abajo: así el menú
+   queda despejado, como en Michi Finanzas. */
 
 export default function App() {
   const [datos, setDatos] = useState(leer);
   const [pestana, setPestana] = useState('inicio');
+  const [registrando, setRegistrando] = useState(false);
 
   useEffect(() => { guardar(datos); }, [datos]);
 
@@ -50,22 +53,15 @@ export default function App() {
       };
     });
 
-  const registrarHoy = (campos) =>
-    setDatos((d) => ({
-      ...d,
-      entradas: {
-        ...d.entradas,
-        [hoyISO()]: { ...(d.entradas[hoyISO()] ?? {}), ...campos },
-      },
-    }));
 
   if (!listo) {
     return (
       <div className="mf-app">
         <header className="mf-cabecera">
-          <div className="mf-marca">
+          <img className="mf-logo" src="/logo.png" alt="" />
+          <div className="mf-marca-txt">
             <h1>Michi<b>Fit</b></h1>
-            <small>tu peso ideal, paso a pasito 🐾</small>
+            <small>tu peso ideal, paso a pasito, suave suavecito 🐾</small>
           </div>
         </header>
         <main>
@@ -82,17 +78,22 @@ export default function App() {
   return (
     <div className="mf-app">
       <header className="mf-cabecera">
-        <div className="mf-marca">
+        <img className="mf-logo" src="/logo.png" alt="" />
+        <div className="mf-marca-txt">
           <h1>Michi<b>Fit</b></h1>
-          <small>tu peso ideal, paso a pasito 🐾</small>
+          <small>tu peso ideal, paso a pasito, suave suavecito 🐾</small>
         </div>
-        <div className="mf-racha">🔥 {estado.racha}</div>
+        <div className="mf-cab-acciones">
+          <div className="mf-racha">🔥 {estado.racha}</div>
+          <button className={`mf-gear ${pestana === 'ajustes' ? 'activa' : ''}`}
+                  onClick={() => setPestana(pestana === 'ajustes' ? 'inicio' : 'ajustes')}
+                  aria-label="Ajustes">⚙️</button>
+        </div>
       </header>
 
       <main>
         {pestana === 'inicio' && (
-          <Inicio estado={estado} entradas={datos.entradas} pacto={datos.pacto}
-                  onRegistrar={registrarHoy} />
+          <Inicio estado={estado} entradas={datos.entradas} pacto={datos.pacto} />
         )}
         {pestana === 'pacto' && (
           <Pacto pacto={datos.pacto} perfil={datos.perfil} estado={estado}
@@ -112,15 +113,29 @@ export default function App() {
       </main>
 
       <nav className="mf-nav">
-        {PESTANAS.map((p) => (
-          <button key={p.id}
-                  className={pestana === p.id ? 'activa' : ''}
+        {PESTANAS.slice(0, 2).map((p) => (
+          <button key={p.id} className={pestana === p.id ? 'activa' : ''}
                   onClick={() => setPestana(p.id)}>
-            <span>{p.icono}</span>
-            <small>{p.t}</small>
+            <span>{p.icono}</span><small>{p.t}</small>
+          </button>
+        ))}
+        <button className="mf-mas" onClick={() => setRegistrando(true)}
+                aria-label="Registrar de hoy">+</button>
+        {PESTANAS.slice(2).map((p) => (
+          <button key={p.id} className={pestana === p.id ? 'activa' : ''}
+                  onClick={() => setPestana(p.id)}>
+            <span>{p.icono}</span><small>{p.t}</small>
           </button>
         ))}
       </nav>
+
+      {registrando && (
+        <EditorDia
+          fecha={hoyISO()} entrada={datos.entradas[hoyISO()] ?? {}}
+          onGuardar={(campos) => { registrar(hoyISO(), campos); setRegistrando(false); }}
+          onCerrar={() => setRegistrando(false)}
+        />
+      )}
     </div>
   );
 }

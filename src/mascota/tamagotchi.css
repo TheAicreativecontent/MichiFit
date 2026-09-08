@@ -45,20 +45,21 @@
 .mf-tamapng { position: relative; }
 .mf-tamapng-huevo {
   width: 100%; height: 100%; display: block;
-  image-rendering: auto;
+  /* Sin suavizado: el huevo es pixel art y hay que ver el píxel duro */
+  image-rendering: pixelated;
 }
 .mf-tamapng-pantalla {
   position: absolute;
   display: flex; flex-direction: column;
   overflow: hidden;
-  /* El hueco del PNG ya es transparente y con su propio marco, así que
-     aquí solo va el cristal de color. */
-  background: #C9DCEF;
-  border-radius: 6%;
+  /* El huevo es pixel art y ya trae su propio marco dibujado. Aquí NO se
+     pinta ningún recuadro: se deja ver el fondo de la app a través del
+     hueco, como pidió Alberto. */
+  background: transparent;
 }
 .mf-tamapng-iconos {
-  height: 13%; display: flex; align-items: center; justify-content: space-around;
-  font-size: 10px; line-height: 1;
+  height: 15%; display: flex; align-items: center; justify-content: space-around;
+  font-size: 11px; line-height: 1;
 }
 .mf-tamapng-zona { position: absolute; left: 0; right: 0; }
 .mf-tamapng-michi {
@@ -72,8 +73,9 @@
 }
 .mf-tamapng.dormido .mf-tamapng-michi { animation: mf-tama-dormita 4s steps(2, end) infinite; }
 .mf-tamapng-barra {
-  position: absolute; top: -11%; right: 6%; width: 46%; height: 6%;
-  background: #fff; border: 1px solid #7C8CA0; border-radius: 2px; overflow: hidden;
+  position: absolute; top: -13%; right: 4%; width: 44%; height: 6%;
+  background: rgba(255,255,255,.55); border: 1px solid var(--tinta-flojo);
+  border-radius: 2px; overflow: hidden;
 }
 .mf-tamapng-barra i { display: block; height: 100%; background: #F2650F; transition: width .4s ease; }
 
