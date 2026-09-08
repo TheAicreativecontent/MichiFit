@@ -17,8 +17,9 @@
 - [ ] Que los tres botones del aparato hagan algo (mirar, cuidar, cancelar).
 
 ## Ideas / quizás algún día
-- [ ] Icono propio para "Simular" en el estilo de los de Michi Finanzas
-      (una diana, por ejemplo). Ahora lleva emoji y desentona.
+- [ ] **Icono propio para "Logros"**: ahora usa provisionalmente el
+      `ICO_BTC` de Michi Finanzas (una moneda), que no pega. Iría bien una
+      medalla o una copa en ese mismo estilo.
 - [ ] Más escenarios: cocina para las comidas, parque, cama para dormir.
 - [ ] Michi propio para la pantalla de Karma: el actual viene de Michi
       Finanzas y lleva traje.
@@ -29,6 +30,9 @@
 - [ ] Marcar en la gráfica los tramos con pocos datos.
 
 ## Hecho
+- [x] 2026-09-08 — Pantalla de Logros y hitos en el motor (no existían en
+      esta app: se quedaron fuera al crearla). Iconos de Michi Finanzas
+      siempre a color, escenarios sin deformar.
 - [x] 2026-09-08 — Paleta pastel siempre (fuera el modo oscuro), logo en la
       cabecera, ajustes arriba, huevo de pixel art sin recuadro, marcador
       estilo videojuego y "+" de registro numerico.

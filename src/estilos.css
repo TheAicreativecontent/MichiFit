@@ -250,7 +250,7 @@ input[type=range]::-moz-range-thumb {
 /* --- navegación --- */
 .mf-nav {
   position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
-  width: 100%; max-width: 520px; display: grid; grid-template-columns: repeat(2, 1fr) 58px repeat(3, 1fr);
+  width: 100%; max-width: 520px; display: grid; grid-template-columns: repeat(3, 1fr) 58px repeat(3, 1fr);
   align-items: center;
   background: var(--papel); border-top: 1px solid var(--linea);
   padding: 8px 0 max(8px, env(safe-area-inset-bottom));
@@ -260,10 +260,16 @@ input[type=range]::-moz-range-thumb {
   flex-direction: column; align-items: center; gap: 2px;
   color: var(--tinta-flojo); font-family: 'Nunito', sans-serif;
 }
-.mf-nav button span { font-size: 19px; filter: grayscale(1); opacity: .5; }
-.mf-nav-ico { width: 25px; height: 25px; object-fit: contain;
-              filter: grayscale(1); opacity: .5; transition: all .15s ease; }
-.mf-nav button.activa .mf-nav-ico { filter: none; opacity: 1; }
+.mf-nav button span { font-size: 19px; }
+/* Siempre a color: en gris parecían deshabilitados. Lo activo se marca
+   con el color del texto y un puntito, no apagando el icono. */
+.mf-nav-ico { width: 25px; height: 25px; object-fit: contain; transition: transform .15s ease; }
+.mf-nav button.activa .mf-nav-ico { transform: translateY(-2px) scale(1.1); }
+.mf-nav button.activa small { position: relative; }
+.mf-nav button.activa small::after {
+  content: ''; position: absolute; left: 50%; bottom: -5px; transform: translateX(-50%);
+  width: 4px; height: 4px; border-radius: 50%; background: var(--rosa);
+}
 .mf-nav button small { font-size: 8.5px; font-weight: 800; }
 .mf-nav button.activa { color: var(--rosa); }
 .mf-nav button.activa span { filter: none; opacity: 1; }
@@ -407,3 +413,25 @@ input[type=range]::-moz-range-thumb {
 }
 .mf-mas img { width: 30px; height: 30px; object-fit: contain; }
 .mf-mas:active { transform: scale(.93); }
+
+/* --- logros --- */
+.mf-nivel-fila { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+.mf-nivel-fila span { font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 16px; }
+.mf-escalera { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; margin-top: 12px; }
+.mf-peldano { text-align: center; opacity: .35; }
+.mf-peldano.ok { opacity: 1; }
+.mf-peldano span { font-size: 18px; display: block; }
+.mf-peldano small { font-size: 8px; font-weight: 800; color: var(--tinta-flojo); line-height: 1.1; display: block; }
+
+.mf-logros { display: flex; flex-direction: column; gap: 8px; }
+.mf-logro {
+  display: flex; align-items: center; gap: 12px; background: var(--papel);
+  border-radius: 16px; padding: 12px 14px; box-shadow: var(--sombra-sm);
+  border: 2px solid transparent;
+}
+.mf-logro.ok { border-color: var(--bien); }
+.mf-logro .ic { font-size: 22px; width: 26px; text-align: center; }
+.mf-logro b { display: block; font-family: 'Baloo 2', cursive; font-size: 14px; }
+.mf-logro small { font-size: 11px; color: var(--tinta-flojo); font-weight: 600; }
+.mf-logro:not(.ok) b, .mf-logro:not(.ok) small { opacity: .55; }
+.mf-logro .tick { margin-left: auto; color: var(--bien); font-weight: 900; font-style: normal; }

@@ -10,6 +10,7 @@ import {
   XP_DIA_CUMPLIDO, XP_SEMANA_COMPLETA,
   NIVELES, NIVEL_SUELO,
   DIAS_PARA_COMODIN, MAX_COMODINES,
+  HITOS, XP_POR_HITO,
 } from './constantes.js';
 import { evaluarDias, evaluarSemana, hoyISO, diasAtras, diasDesde } from './pacto.js';
 import { clamp } from './calculos.js';
@@ -112,9 +113,10 @@ export function calcularRachaYComodines(evaluaciones) {
    Se recalcula entero desde el historial, no se acumula: así editar
    un día pasado no descuadra nada.
    Fallar una semana entera baja un nivel, con suelo.               */
-export function calcularNivel({ pacto, entradas, evaluaciones, hoy = hoyISO() }) {
+export function calcularNivel({ pacto, entradas, evaluaciones, hoy = hoyISO(), hitos = [] }) {
   const cerrados = evaluaciones.filter((d) => !d.abierto);
-  let xp = cerrados.filter((d) => d.cumple).length * XP_DIA_CUMPLIDO;
+  let xp = cerrados.filter((d) => d.cumple).length * XP_DIA_CUMPLIDO
+         + hitos.length * XP_POR_HITO;
 
   // bonus por semanas completas y penalización por semanas perdidas.
   // Solo se miran semanas enteras que caben dentro del historial cerrado:
@@ -152,8 +154,38 @@ export function calcularNivel({ pacto, entradas, evaluaciones, hoy = hoyISO() })
   };
 }
 
+/* ---------- 5b · Hitos ----------
+   Un hito conseguido no se pierde nunca: basta con que se cumpliera en
+   CUALQUIER día del historial. Por eso se recorre entero en vez de mirar
+   solo hoy.                                                            */
+export function calcularHitos({ evaluaciones, entradas, perfil }) {
+  const logrados = new Set();
+  evaluaciones.forEach((d, i) => {
+    const contexto = {
+      entrada: entradas[d.fecha],
+      cumple: d.cumple,
+      racha: rachaDesde(evaluaciones.slice(i)),
+      usuario: perfil,
+    };
+    HITOS.forEach((h) => {
+      try { if (h.check(contexto)) logrados.add(h.id); } catch { /* nada */ }
+    });
+  });
+  return [...logrados];
+}
+
+function rachaDesde(evaluaciones) {
+  let n = 0;
+  for (const d of evaluaciones) {
+    if (d.abierto) continue;
+    if (!d.cumple) break;
+    n++;
+  }
+  return n;
+}
+
 /* ---------- 6 · Estado completo ---------- */
-export function calcularEstado({ pacto, entradas, hoy = hoyISO() }) {
+export function calcularEstado({ pacto, entradas, perfil, hoy = hoyISO() }) {
   // Nunca mirar más atrás del día en que se creó el pacto: antes de existir
   // no se podía incumplir. Sin esto, un usuario nuevo arranca con semanas
   // falladas a la espalda.
@@ -164,7 +196,8 @@ export function calcularEstado({ pacto, entradas, hoy = hoyISO() }) {
   const forma = calcularForma(evaluaciones);
   const animo = calcularAnimo({ evaluaciones, entradas, energia, forma });
   const rachas = calcularRachaYComodines(evaluaciones);
-  const nivel = calcularNivel({ pacto, entradas, evaluaciones, hoy });
+  const hitosDesbloqueados = calcularHitos({ evaluaciones, entradas, perfil });
+  const nivel = calcularNivel({ pacto, entradas, evaluaciones, hoy, hitos: hitosDesbloqueados });
 
   const indice = evaluaciones.findIndex((d) => d.hayDatos);
   const abandono = indice === -1 ? evaluaciones.length : indice;
@@ -178,6 +211,7 @@ export function calcularEstado({ pacto, entradas, hoy = hoyISO() }) {
     descansosRotos: animo.descansosRotos,
     ...rachas,
     nivel,
+    hitosDesbloqueados,
     abandono,
     dormido: abandono >= 2,
   };

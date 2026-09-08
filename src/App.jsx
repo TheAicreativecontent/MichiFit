@@ -10,6 +10,7 @@ import Inicio from './pantallas/Inicio.jsx';
 import Pacto from './pantallas/Pacto.jsx';
 import Progreso from './pantallas/Progreso.jsx';
 import Simulador from './pantallas/Simulador.jsx';
+import Logros from './pantallas/Logros.jsx';
 import Karma from './pantallas/Karma.jsx';
 import EditorDia from './pantallas/EditorDia.jsx';
 import Ajustes from './pantallas/Ajustes.jsx';
@@ -22,16 +23,15 @@ import './estilos.css';
    la misma casa. Simular no tiene icono propio todavía: lleva emoji. */
 const PESTANAS = [
   { id: 'inicio', img: '/iconos/inicio.png', t: 'Inicio' },
+  { id: 'logros', img: '/iconos/logros.png', t: 'Logros' },
   { id: 'pacto', img: '/iconos/pacto.png', t: 'Mi pacto' },
   { id: 'progreso', img: '/iconos/progreso.png', t: 'Progreso' },
-  { id: 'simular', icono: '🎯', t: 'Simular' },
+  { id: 'simular', img: '/iconos/simular.png', t: 'Simular' },
   { id: 'karma', img: '/iconos/karma.png', t: 'Karma' },
 ];
 
 function Icono({ p }) {
-  return p.img
-    ? <img src={p.img} alt="" className="mf-nav-ico" />
-    : <span>{p.icono}</span>;
+  return <img src={p.img} alt="" className="mf-nav-ico" />;
 }
 /* Ajustes vive en la cabecera, no en la barra de abajo: así el menú
    queda despejado, como en Michi Finanzas. */
@@ -46,8 +46,8 @@ export default function App() {
   const listo = Boolean(datos.pacto && datos.perfil?.altura && datos.perfil?.pesoMeta);
 
   const estado = useMemo(
-    () => (listo ? calcularEstado({ pacto: datos.pacto, entradas: datos.entradas }) : null),
-    [listo, datos.pacto, datos.entradas]
+    () => (listo ? calcularEstado({ pacto: datos.pacto, entradas: datos.entradas, perfil: datos.perfil }) : null),
+    [listo, datos.pacto, datos.entradas, datos.perfil]
   );
 
   /* Registrar en cualquier fecha; `undefined` no pisa lo que ya había. */
@@ -107,6 +107,7 @@ export default function App() {
           <Pacto pacto={datos.pacto} perfil={datos.perfil} estado={estado}
                  onCambiar={(p) => setDatos((d) => ({ ...d, pacto: p }))} />
         )}
+        {pestana === 'logros' && <Logros estado={estado} />}
         {pestana === 'progreso' && (
           <Progreso perfil={datos.perfil} pacto={datos.pacto} entradas={datos.entradas}
                     onRegistrar={registrar} />
@@ -121,7 +122,7 @@ export default function App() {
       </main>
 
       <nav className="mf-nav">
-        {PESTANAS.slice(0, 2).map((p) => (
+        {PESTANAS.slice(0, 3).map((p) => (
           <button key={p.id} className={pestana === p.id ? 'activa' : ''}
                   onClick={() => setPestana(p.id)}>
             <Icono p={p} /><small>{p.t}</small>
@@ -131,7 +132,7 @@ export default function App() {
                 aria-label="Registrar de hoy">
           <img src="/iconos/mas.png" alt="" />
         </button>
-        {PESTANAS.slice(2).map((p) => (
+        {PESTANAS.slice(3).map((p) => (
           <button key={p.id} className={pestana === p.id ? 'activa' : ''}
                   onClick={() => setPestana(p.id)}>
             <Icono p={p} /><small>{p.t}</small>

@@ -1,5 +1,18 @@
 # DECISIONS.md — Decisiones de diseno y su razon
 
+## 2026-09-08 — Los escenarios se recortan, no se estiran
+- Las escenas son 2,7:1 (muy apaisadas) y la pantalla del huevo es 0,87:1
+  (mas alta que ancha). Estirarlas achataba las pesas del gimnasio.
+- Decision: `object-fit: cover` anclado abajo. Se ve el tercio central de la
+  escena, sin deformar, con el suelo a la vista para que el michi se apoye.
+- **Si se quiere ver la escena entera, hay que generarla en vertical.**
+  Con estas proporciones no cabe de otra manera.
+
+## 2026-09-08 — Iconos del menu siempre a color
+- Antes los inactivos iban en gris: parecian deshabilitados.
+- Ahora todos a color; lo activo se marca con el texto en naranja, un
+  puntito debajo y un pequeño salto del icono.
+
 ## 2026-09-08 — Iconos y escenarios
 - Los iconos del menu vienen de Michi Finanzas: casa, fijos (aqui "mi pacto"),
   resumen (aqui "progreso"), corazon (karma) y el "+". Misma casa visual.

@@ -63,3 +63,62 @@ export const NIVELES = [
 export const DIAS_FORMA = 14;      // cumplimiento sostenido
 export const DIAS_ENERGIA = 3;     // actividad reciente
 export const DIAS_ABANDONO = 10;   // sin nada -> esquelético
+
+/* --- hitos ------------------------------------------------
+   Definidos en MECANICA.md. `check` recibe { entrada, racha, usuario,
+   pesoActual } y devuelve si se cumple ESE día. Un hito conseguido no
+   se pierde: se evalúa contra todo el historial. */
+export const XP_POR_HITO = 100;
+
+export const HITOS = [
+  {
+    id: 'primer-dia',
+    nombre: 'El primer paso',
+    desc: 'Cumplir el pacto un día',
+    emoji: '🐾',
+    check: ({ cumple }) => cumple,
+  },
+  {
+    id: 'pasos-10k',
+    nombre: 'Diez mil',
+    desc: '10.000 pasos en un solo día',
+    emoji: '👟',
+    check: ({ entrada }) => (entrada?.pasos ?? 0) >= 10000,
+  },
+  {
+    id: 'entreno-60',
+    nombre: 'Sesión larga',
+    desc: '60 minutos de entreno en un día',
+    emoji: '🏋️',
+    check: ({ entrada }) => (entrada?.entrenoMin ?? 0) >= 60,
+  },
+  {
+    id: 'sueno-7h',
+    nombre: 'Bien dormido',
+    desc: 'Dormir 7 horas o más',
+    emoji: '🌙',
+    check: ({ entrada }) => (entrada?.sueno?.horas ?? 0) >= 7,
+  },
+  {
+    id: 'racha-7',
+    nombre: 'Una semana',
+    desc: '7 días seguidos cumpliendo',
+    emoji: '📅',
+    check: ({ racha }) => racha >= 7,
+  },
+  {
+    id: 'racha-30',
+    nombre: 'Un mes entero',
+    desc: '30 días seguidos cumpliendo',
+    emoji: '👑',
+    check: ({ racha }) => racha >= 30,
+  },
+  {
+    id: 'meta-peso',
+    nombre: 'Meta alcanzada',
+    desc: 'Llegar a tu peso objetivo',
+    emoji: '🏆',
+    check: ({ entrada, usuario }) =>
+      entrada?.peso != null && usuario?.pesoMeta != null && entrada.peso <= usuario.pesoMeta,
+  },
+];
