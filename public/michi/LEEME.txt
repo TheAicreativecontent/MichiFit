@@ -10,16 +10,23 @@ CUERPOS · 320 x 320, fondo transparente, michi apoyado abajo
   fit.png             cumpliendo el pacto
   hipertrofiado.png   cumpliendo con creces, con entrenos de fuerza
 
-POSES · mismo tamaño. Mandan sobre el cuerpo mientras duran, así que
-basta UNA imagen por pose, no una por cada combinación.
-  dormido.png         al pulsar el botón rojo o tras días sin aparecer
-  comiendo.png        al apuntar una comida (dura 4 segundos)
+POSES · <cuerpo>_<pose>.png, mismo tamaño. Hay una por cada cuerpo:
+  <cuerpo>_dormido.png    al pulsar el botón rojo o tras días sin aparecer
+  <cuerpo>_comiendo.png   al apuntar una comida (dura 4 segundos)
 
-Orden de respaldo: pose -> cuerpo -> kawaii -> aparato dibujado en SVG.
+También vale una pose genérica <pose>.png sin cuerpo, como respaldo.
+
+Orden de respaldo, de lo específico a lo general:
+  cuerpo_pose -> pose -> cuerpo -> kawaii -> aparato dibujado en SVG.
 Se pueden subir de una en una sin que nada se rompa.
 
 Cómo se generan
 ---------------
 De una hoja de personaje con todos juntos (así salen consistentes):
-    cd pixel && python recortar_hoja.py ../IMG/<hoja>.png
-Ajustando la lista ORDEN del script a lo que traiga la hoja.
+    cd pixel && python recortar_hoja.py ../IMG/<hoja>.png     (fila ordenada)
+    cd pixel && python recortar_poses.py                      (cajas fijas)
+
+El segundo lleva las coordenadas escritas: la hoja de dormir tiene los
+michis desperdigados y un título en medio, y ordenarlos por filas era
+adivinar. Si regeneras una hoja, hay que volver a medir las cajas — el
+propio script explica cómo.

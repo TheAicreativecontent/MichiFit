@@ -60,12 +60,15 @@ export default function TamagotchiPNG({
   const [sinHuevo, setSinHuevo] = useState(false);
   const [intento, setIntento] = useState(0);
 
-  /* Cadena de respaldo, en orden: la pose (dormido, comiendo...), luego el
-     tipo de cuerpo, y por último el michi base. Así basta con dibujar UNA
-     imagen por pose en vez de una por cada combinación de pose y cuerpo:
-     mientras duerme o come, la postura importa más que la silueta.
-     Si no existe ninguna, se dibuja el aparato en SVG. */
+  /* Cadena de respaldo, de lo más específico a lo más general:
+       1. este cuerpo en esta pose   (gordo_dormido.png)
+       2. la pose sin cuerpo         (dormido.png)
+       3. este cuerpo de pie         (gordo.png)
+       4. el michi base              (kawaii.png)
+     Y si no hay ninguna, el aparato dibujado en SVG. Así se pueden ir
+     añadiendo dibujos sin que falte nada por el camino. */
   const candidatos = [
+    pose && `${RUTA}/${estado}_${pose}.png`,
     pose && `${RUTA}/${pose}.png`,
     `${RUTA}/${estado}.png`,
     `${RUTA}/kawaii.png`,
