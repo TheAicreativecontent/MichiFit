@@ -7,15 +7,18 @@ pantallas y el motor entero.
 ## Estado
 - Última acción (2026-09-07): proyecto creado, motor recalculado según
   `MECANICA.md`, cuatro pantallas funcionando y verificadas en navegador.
-- Última acción (2026-09-08): tres poses de michi listas y enchufadas —
-  dormido, comiendo y entrenando. Al apuntar entreno el michi levanta
-  pesas; si apuntas entreno y comida a la vez, manda el entreno.
-- Próximo paso: pantalla de Karma (bloqueada: falta decidir la cuenta de
-  donaciones) y más poses (celebrando, triste).
+- Última acción (2026-09-08): la app ya es **instalable** (PWA con service
+  worker: se abre sin cobertura). Ejercicios por día de entreno, macros
+  opcionales, botones de ayuda "?", panel de pruebas oculto tras siete
+  toques en el logo, y los cuatro flecos de la mecánica resueltos.
+- Próximo paso: poses que faltan (celebrando, triste, paseando) y decidir
+  qué pasa con las carpetas al renombrar todo a MichiFit (ver `ASK.md`).
 - Bloqueadores: ninguno.
 - **Desplegada en https://michifit.vercel.app** (proyecto Vercel
-  `the-ai-creative-content/michifit`, enlazado con la CLI).
-  Para volver a desplegar: `vercel deploy --prod --yes` desde la carpeta.
+  `the-ai-creative-content/michifit`).
+  El repo YA está conectado en Vercel → Settings → Git: **cada `git push`
+  a `main` despliega solo**. `vercel deploy --prod --yes` sigue valiendo
+  para desplegar sin pasar por GitHub.
 
 ## Verificado en navegador
 - Simulador da los mismos números que la app original: 2602 de gasto total,
@@ -30,6 +33,11 @@ pantallas y el motor entero.
   desde el MCP fallaba: el proyecto no era visible con el ámbito del token.
 - `.vercel/` y `.env.local` están en `.gitignore`: el segundo lleva un token
   OIDC que la CLI descarga. **No subirlos nunca.**
+
+## Cómo se abre el panel de pruebas
+Siete toques seguidos en el logo de la cabecera (con menos de segundo y
+medio entre toque y toque). Deja cambiar el cuerpo, la pose y la escena
+del michi para revisar los dibujos sin apuntar datos reales.
 
 ## Notas rápidas
 - **La app es pública y multiusuario.** No lleva datos de nadie: arranca vacía y
