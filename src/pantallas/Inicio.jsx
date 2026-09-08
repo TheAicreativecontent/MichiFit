@@ -14,6 +14,7 @@ import Tamagotchi from '../mascota/TamagotchiPNG.jsx';
 import Marcador from './Marcador.jsx';
 import { estadoVisual } from '../engine/michi.js';
 import { hoyISO } from '../engine/pacto.js';
+import { sonidos, despertarAudio } from '../mascota/sonido.js';
 
 export default function Inicio({ estado, entradas, pacto }) {
   const [gesto, setGesto] = useState(null);      // 'mimar' | 'estado' | null
@@ -25,9 +26,15 @@ export default function Inicio({ estado, entradas, pacto }) {
   const pendientes = hoy?.objetivos.filter((o) => !o.cumplido && o.id !== 'descanso') ?? [];
 
   const pulsar = (id) => {
-    if (id === 'dormir') { setDurmiendo((d) => !d); setGesto(null); return; }
+    despertarAudio();
+    if (id === 'dormir') {
+      setDurmiendo((d) => { sonidos.dormir(!d); return !d; });
+      setGesto(null);
+      return;
+    }
     setDurmiendo(false);
     setGesto(id);
+    sonidos[id]?.();
     // los dos gestos se deshacen solos: son un momento, no un modo
     setTimeout(() => setGesto((g) => (g === id ? null : g)), id === 'mimar' ? 2600 : 5000);
   };

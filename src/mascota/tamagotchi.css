@@ -85,7 +85,9 @@
 /* --- botones del aparato --- */
 .mf-tamapng-boton {
   position: absolute; transform: translate(-50%, -50%);
-  width: 15%; height: 11%;           /* area de toque, mayor que el dibujo */
+  width: 21%; height: 15%;           /* area de toque, MUY por encima del
+                                        dibujo: son circulos de 27 px y con el
+                                        dedo no se acierta */
   border: none; background: transparent; border-radius: 50%;
   cursor: pointer; padding: 0; z-index: 3;
   -webkit-tap-highlight-color: transparent;
@@ -95,24 +97,25 @@
 /* --- mimos: corazones que suben --- */
 .mf-tamapng-mimos { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
 .mf-tamapng-mimos i {
-  position: absolute; bottom: 30%; left: 50%; width: 9px; height: 8px;
+  position: absolute; bottom: 26%; left: 50%; width: 26px; height: 23px;
   /* corazón dibujado con sombras: sin emojis, para que se vea igual en
      todos los móviles */
   background: #E8543A;
   clip-path: polygon(50% 100%, 0 40%, 0 15%, 25% 0, 50% 20%, 75% 0, 100% 15%, 100% 40%);
   animation: mf-mimo 1.6s ease-out infinite;
 }
-.mf-tamapng-mimos i:nth-child(2) { left: 36%; }
-.mf-tamapng-mimos i:nth-child(3) { left: 62%; }
+.mf-tamapng-mimos i:nth-child(2) { left: 26%; width: 19px; height: 17px; }
+.mf-tamapng-mimos i:nth-child(3) { left: 66%; width: 22px; height: 20px; }
 @keyframes mf-mimo {
-  0%   { opacity: 0; transform: translateY(0) scale(.6); }
-  25%  { opacity: 1; }
-  100% { opacity: 0; transform: translateY(-46px) scale(1.1); }
+  0%   { opacity: 0; transform: translateY(6px) scale(.4); }
+  20%  { opacity: 1; transform: translateY(0) scale(1.15); }
+  35%  { transform: translateY(-8px) scale(1); }
+  100% { opacity: 0; transform: translateY(-72px) scale(1.25); }
 }
 
 /* --- dormido: la pantalla se apaga --- */
 .mf-tamapng-apagada {
-  position: absolute; inset: 0; background: rgba(20, 26, 16, .55);
+  position: absolute; inset: 0; background: rgba(12, 16, 10, .82);
   pointer-events: none; z-index: 2;
 }
 .mf-tamapng-zzz2 {
