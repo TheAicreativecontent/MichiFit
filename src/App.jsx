@@ -42,6 +42,9 @@ export default function App() {
   const [datos, setDatos] = useState(leer);
   const [pestana, setPestana] = useState('inicio');
   const [registrando, setRegistrando] = useState(false);
+  /* Cuando apuntas una comida, el michi come. La acción no inventa datos:
+     es la misma información contada como cuidado. */
+  const [comiendo, setComiendo] = useState(false);
   /* La felicidad baja con las horas, así que hay que volver a pintarla
      cada tanto aunque el usuario no toque nada. */
   const [tic, setTic] = useState(0);
@@ -64,7 +67,11 @@ export default function App() {
   const registrarCarino = () =>
     setDatos((d) => ({ ...d, carino: podarCarino([...(d.carino ?? []), Date.now()]) }));
 
-  const registrar = (fecha, campos) =>
+  const registrar = (fecha, campos) => {
+    if (campos.comidaKcal != null && fecha === hoyISO()) {
+      setComiendo(true);
+      setTimeout(() => setComiendo(false), 4000);
+    }
     setDatos((d) => {
       const limpio = Object.fromEntries(
         Object.entries(campos).filter(([, v]) => v !== undefined));
@@ -73,6 +80,7 @@ export default function App() {
         entradas: { ...d.entradas, [fecha]: { ...(d.entradas[fecha] ?? {}), ...limpio } },
       };
     });
+  };
 
 
   if (!listo) {
@@ -115,7 +123,7 @@ export default function App() {
       <main>
         {pestana === 'inicio' && (
           <Inicio estado={estado} entradas={datos.entradas} pacto={datos.pacto}
-                  onCarino={registrarCarino} />
+                  onCarino={registrarCarino} comiendo={comiendo} />
         )}
         {pestana === 'pacto' && (
           <Pacto pacto={datos.pacto} perfil={datos.perfil} estado={estado}

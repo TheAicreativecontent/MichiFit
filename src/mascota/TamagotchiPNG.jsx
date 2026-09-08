@@ -10,7 +10,7 @@
    Los nombres de estado los define ESTADOS_IMAGEN (abajo).
    ============================================================ */
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Tamagotchi from './Tamagotchi.jsx';
 import './tamagotchi.css';
 
@@ -52,6 +52,7 @@ export default function TamagotchiPNG({
   nivel = null,        // { emoji, nombre, progreso, xp, xpSiguiente }
   felicidad = null,    // 0-100, o null para no pintar la barra
   denoche = false,     // de noche la barra se congela y se dice
+  pose = null,         // 'dormido' | 'comiendo' | null (pose manda sobre el cuerpo)
   mensaje = null,      // texto que sale en la pantalla al pulsar "cómo va"
   onBoton,
   ...resto
@@ -59,11 +60,21 @@ export default function TamagotchiPNG({
   const [sinHuevo, setSinHuevo] = useState(false);
   const [intento, setIntento] = useState(0);
 
-  /* Cadena de respaldo: si no existe la imagen del estado exacto, se usa
-     el michi base; si tampoco, se dibuja el aparato en SVG. Así se pueden
-     ir subiendo las imágenes de una en una sin que nada se rompa. */
-  const candidatos = [`${RUTA}/${estado}.png`, `${RUTA}/kawaii.png`];
+  /* Cadena de respaldo, en orden: la pose (dormido, comiendo...), luego el
+     tipo de cuerpo, y por último el michi base. Así basta con dibujar UNA
+     imagen por pose en vez de una por cada combinación de pose y cuerpo:
+     mientras duerme o come, la postura importa más que la silueta.
+     Si no existe ninguna, se dibuja el aparato en SVG. */
+  const candidatos = [
+    pose && `${RUTA}/${pose}.png`,
+    `${RUTA}/${estado}.png`,
+    `${RUTA}/kawaii.png`,
+  ].filter(Boolean);
   const src = candidatos[intento];
+
+  /* Al cambiar de pose se vuelve a intentar desde arriba: si no, una
+     imagen que faltó una vez quedaría descartada para siempre. */
+  useEffect(() => { setIntento(0); }, [pose, estado]);
 
   /* Dos respaldos independientes. Si falta la carcasa se dibuja en SVG,
      pero el michi de la imagen se sigue viendo encima: sin esto, faltar

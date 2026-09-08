@@ -1,26 +1,25 @@
 Imágenes del michi
 ==================
 
-huevo.png   660 x 900   la carcasa. El hueco de la pantalla va TRANSPARENTE.
-                        (ya está: es el Huevo_transparente.png de Alberto)
+huevo.png   751 x 1024   la carcasa. El hueco de la pantalla va TRANSPARENTE.
 
-Michis, 320 x 320, fondo transparente, apoyados abajo:
-
+CUERPOS · 320 x 320, fondo transparente, michi apoyado abajo
   esqueletico.png     abandono prolongado
   gordo.png           comiendo de más y moviéndose poco
   kawaii.png          estado base
   fit.png             cumpliendo el pacto
   hipertrofiado.png   cumpliendo con creces, con entrenos de fuerza
 
+POSES · mismo tamaño. Mandan sobre el cuerpo mientras duran, así que
+basta UNA imagen por pose, no una por cada combinación.
+  dormido.png         al pulsar el botón rojo o tras días sin aparecer
+  comiendo.png        al apuntar una comida (dura 4 segundos)
+
+Orden de respaldo: pose -> cuerpo -> kawaii -> aparato dibujado en SVG.
+Se pueden subir de una en una sin que nada se rompa.
+
 Cómo se generan
 ---------------
-Los de ahora son pixel art hecho por código:
-    cd pixel && python generar_michis.py
-
-Para sustituirlos por ilustraciones, guarda una HOJA DE PERSONAJE con
-todos los michis en UNA sola imagen (así salen consistentes entre sí) y:
-    cd pixel && python recortar_hoja.py ../IMG/cuerpos.png
-
-El recortador separa los gatos del texto de las etiquetas, los recorta,
-los cuadra y los comprime. Si el orden no cuadra, se ajusta la lista
-ORDEN dentro del script.
+De una hoja de personaje con todos juntos (así salen consistentes):
+    cd pixel && python recortar_hoja.py ../IMG/<hoja>.png
+Ajustando la lista ORDEN del script a lo que traiga la hoja.

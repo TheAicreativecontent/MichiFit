@@ -17,6 +17,9 @@
 - [ ] Que los tres botones del aparato hagan algo (mirar, cuidar, cancelar).
 
 ## Ideas / quizás algún día
+- [ ] Más poses del michi: celebrando (al subir de nivel), entrenando
+      (al apuntar un entreno), triste (tras fallar una semana). El
+      sistema de poses ya las admite: basta dejar el PNG.
 - [ ] En la ventana de cada día del pacto, poder apuntar **qué entreno toca**
       (pecho, piernas, cardio...). El hueco ya está preparado.
 - [ ] Más escenarios: cocina para las comidas, parque, cama para dormir.

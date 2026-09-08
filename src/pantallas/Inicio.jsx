@@ -16,7 +16,7 @@ import { estadoVisual } from '../engine/michi.js';
 import { hoyISO } from '../engine/pacto.js';
 import { sonidos, despertarAudio } from '../mascota/sonido.js';
 
-export default function Inicio({ estado, entradas, pacto, onCarino }) {
+export default function Inicio({ estado, entradas, pacto, onCarino, comiendo }) {
   const [gesto, setGesto] = useState(null);      // 'mimar' | 'estado' | null
   const [durmiendo, setDurmiendo] = useState(false);
 
@@ -47,6 +47,7 @@ export default function Inicio({ estado, entradas, pacto, onCarino }) {
           estado={visual.cuerpo}
           size={300}
           dormido={durmiendo || estado.dormido}
+          pose={durmiendo || estado.dormido ? 'dormido' : comiendo ? 'comiendo' : null}
           mimando={gesto === 'mimar'}
           nivel={estado.nivel}
           felicidad={estado.felicidad}
