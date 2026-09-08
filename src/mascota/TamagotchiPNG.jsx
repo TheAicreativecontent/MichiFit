@@ -49,6 +49,8 @@ export default function TamagotchiPNG({
   dormido = false,
   escenario = 'casa',
   mimando = false,
+  nivel = null,        // { emoji, nombre, progreso, xp, xpSiguiente }
+  mensaje = null,      // texto que sale en la pantalla al pulsar "cómo va"
   onBoton,
   ...resto
 }) {
@@ -83,12 +85,16 @@ export default function TamagotchiPNG({
              width: `${PANTALLA.width}%`, height: `${PANTALLA.height}%`,
              background: sinHuevo ? 'transparent' : undefined,
            }}>
-        {!sinHuevo && (
-        <div className="mf-tamapng-iconos">
-          {iconos.map((ic) => (
-            <span key={ic.id} style={{ opacity: ic.activo ? 1 : 0.3 }}>{ic.emoji}</span>
-          ))}
-        </div>
+        {/* Franja de arriba: el nivel del michi y su barra de experiencia.
+            Va DENTRO de la pantalla, como en un tamagotchi de verdad. */}
+        {!sinHuevo && nivel && (
+          <div className="mf-tamapng-nivel">
+            <span className="et">{nivel.nombre.replace('Michi ', '')}</span>
+            <div className="barra">
+              <i style={{ width: `${Math.round((nivel.progreso ?? 0) * 100)}%` }} />
+            </div>
+
+          </div>
         )}
 
         <img className="mf-tamapng-escena"
@@ -96,11 +102,6 @@ export default function TamagotchiPNG({
 
         <div className="mf-tamapng-zona"
              style={{ top: `${ZONA.top}%`, height: `${ZONA.height}%` }}>
-          {!sinHuevo && (
-            <div className="mf-tamapng-barra">
-              <i style={{ width: `${Math.max(0, Math.min(1, puntos)) * 100}%` }} />
-            </div>
-          )}
           {src && (
             <img className="mf-tamapng-michi" src={src} alt=""
                  onError={() => setIntento((i) => i + 1)} />
@@ -115,6 +116,10 @@ export default function TamagotchiPNG({
           )}
 
           {dormido && <span className="mf-tamapng-zzz2" aria-hidden="true">z z z</span>}
+
+          {mensaje && !dormido && (
+            <div className="mf-tamapng-dialogo">{mensaje}</div>
+          )}
         </div>
 
         {dormido && <div className="mf-tamapng-apagada" />}

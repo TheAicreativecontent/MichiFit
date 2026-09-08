@@ -1,5 +1,18 @@
 # DECISIONS.md — Decisiones de diseno y su razon
 
+## 2026-09-08 — Inicio se queda con el michi y cuatro barras
+- Fuera el globo de texto y la tarjeta de nivel: el nivel y su barra de
+  experiencia van DENTRO de la pantalla del huevo, como en un tamagotchi.
+- El marcador enseña las **entradas** del sistema (pasos, descanso, comida)
+  mas racha y nivel. El michi es la **salida**: su aspecto ya cuenta la
+  energia y la forma, no hacia falta repetirlas en numeros.
+- "Forma" desaparece del marcador y la sustituye la experiencia que falta
+  para el siguiente nivel, que es lo que el usuario entiende.
+- **Pasarse tiene tramo rojo.** Dormir 10 horas no es mejor que dormir 8, ni
+  comer de mas es un logro: el exceso se pinta en rojo tras el tramo bueno.
+- El fondo pasa de `fixed` a `absolute`: fijado al viewport se deslizaba
+  respecto al contenido y parecia moverse solo.
+
 ## 2026-09-08 — Que hacen los tres botones del huevo
 - 🟡 **Mimar**: acariciar. Ronronea y salen corazones. **No da XP**, a
   proposito: si diera, dejaria de ser cariño.

@@ -1,11 +1,12 @@
 /* ============================================================
    Marcador estilo videojuego
-   Va debajo del huevo: racha en corazones, comodines en escudos, y
-   energía y forma en barras de bloques. Tipografía de píxel.
+   Enseña los TRES datos que mueven al michi —pasos, descanso y comida—
+   más la racha y la experiencia. Todo con barras de bloques y tipografía
+   de píxel.
 
-   Los corazones y escudos se dibujan como rejillas de píxeles, no con
-   emojis: un emoji lo pinta cada sistema a su manera y rompería el
-   estilo en cuanto cambias de móvil.
+   Las barras de descanso y comida tienen un tramo rojo: lo que te pasas
+   del objetivo. Dormir 10 horas no es "mejor" que dormir 8, y comer de
+   más tampoco, así que pasarse no puede pintarse como logro.
    ============================================================ */
 
 const CORAZON = [
@@ -27,9 +28,11 @@ const ESCUDO = [
 ];
 
 const MAX_CORAZONES = 5;
+const BLOQUES = 10;
+const SUENO_IDEAL = 8;
 
 function Icono({ forma, lleno, color }) {
-  const p = 2;                       // píxeles de pantalla por píxel del icono
+  const p = 2;
   const w = forma[0].length, h = forma.length;
   return (
     <svg width={w * p} height={h * p} viewBox={`0 0 ${w} ${h}`}
@@ -45,19 +48,58 @@ function Icono({ forma, lleno, color }) {
   );
 }
 
-function Barra({ valor, color, bloques = 10 }) {
-  const llenos = Math.round((Math.max(0, Math.min(100, valor)) / 100) * bloques);
+/* `valor` y `exceso` van en tanto por uno. El exceso se pinta en rojo
+   a continuación de lo cumplido. */
+function Barra({ valor, exceso = 0, color }) {
+  const llenos = Math.round(Math.min(1, valor) * BLOQUES);
+  const rojos = Math.min(BLOQUES - llenos, Math.round(exceso * BLOQUES));
   return (
     <span className="mf-mk-barra">
-      {Array.from({ length: bloques }, (_, i) => (
-        <i key={i} style={{ background: i < llenos ? color : 'transparent' }} />
+      {Array.from({ length: BLOQUES }, (_, i) => (
+        <i key={i} style={{
+          background: i < llenos ? color : i < llenos + rojos ? '#E8543A' : 'transparent',
+        }} />
       ))}
     </span>
   );
 }
 
-export default function Marcador({ estado }) {
+function Fila({ etiqueta, children, num }) {
+  return (
+    <div className="mf-mk-fila">
+      <span className="mf-mk-et">{etiqueta}</span>
+      {children}
+      <b className="mf-mk-num">{num}</b>
+    </div>
+  );
+}
+
+export default function Marcador({ estado, entradaHoy = {}, pacto }) {
   const corazones = Math.min(MAX_CORAZONES, estado.racha);
+  const objetivos = estado.hoy?.objetivos ?? [];
+
+  /* --- pasos --- */
+  const objPasos = objetivos.find((o) => o.id === 'pasos');
+  const pasos = entradaHoy.pasos ?? 0;
+  const metaPasos = objPasos?.objetivo ?? 6000;
+  const pctPasos = metaPasos ? pasos / metaPasos : 0;
+
+  /* --- descanso: el ideal son 8 h; lo que sobra va en rojo --- */
+  const horas = entradaHoy.sueno?.horas ?? entradaHoy.suenoHoras ?? 0;
+  const pctSueno = Math.min(1, horas / SUENO_IDEAL);
+  const excesoSueno = Math.max(0, horas - SUENO_IDEAL) / SUENO_IDEAL;
+
+  /* --- comida: es el combustible. Lo que te pasas del objetivo va en
+     rojo, igual que el sueño de más. Sin objetivo pactado no hay barra
+     que valga, así que se muestra vacía. --- */
+  const kcal = entradaHoy.comidaKcal ?? 0;
+  const metaKcal = pacto?.comidaKcal ?? null;
+  const pctComida = metaKcal ? Math.min(1, kcal / metaKcal) : 0;
+  const excesoComida = metaKcal ? Math.max(0, kcal - metaKcal) / metaKcal : 0;
+
+  /* --- experiencia hasta el siguiente nivel --- */
+  const n = estado.nivel;
+  const xpFaltan = n.xpSiguiente ? Math.max(0, n.xpSiguiente - n.xp) : 0;
 
   return (
     <div className="mf-marcador">
@@ -67,31 +109,29 @@ export default function Marcador({ estado }) {
           {Array.from({ length: MAX_CORAZONES }, (_, i) => (
             <Icono key={i} forma={CORAZON} lleno={i < corazones} color="#E8543A" />
           ))}
+          <span className="mf-mk-sep" />
+          {Array.from({ length: 3 }, (_, i) => (
+            <Icono key={`e${i}`} forma={ESCUDO} lleno={i < estado.comodines} color="#3E8BD8" />
+          ))}
         </span>
         <b className="mf-mk-num">{estado.racha}</b>
       </div>
 
-      <div className="mf-mk-fila">
-        <span className="mf-mk-et">ESCUDOS</span>
-        <span className="mf-mk-iconos">
-          {Array.from({ length: 3 }, (_, i) => (
-            <Icono key={i} forma={ESCUDO} lleno={i < estado.comodines} color="#3E8BD8" />
-          ))}
-        </span>
-        <b className="mf-mk-num">{estado.comodines}</b>
-      </div>
+      <Fila etiqueta="PASOS" num={`${Math.round(pctPasos * 100)}%`}>
+        <Barra valor={pctPasos} color="#F5C518" />
+      </Fila>
 
-      <div className="mf-mk-fila">
-        <span className="mf-mk-et">ENERGIA</span>
-        <Barra valor={estado.energia} color="#F5C518" />
-        <b className="mf-mk-num">{estado.energia}</b>
-      </div>
+      <Fila etiqueta="DESCANSO" num={horas ? `${horas}h` : '—'}>
+        <Barra valor={pctSueno} exceso={excesoSueno} color="#7CC3F2" />
+      </Fila>
 
-      <div className="mf-mk-fila">
-        <span className="mf-mk-et">FORMA</span>
-        <Barra valor={estado.forma} color="#5FCD96" />
-        <b className="mf-mk-num">{estado.forma}</b>
-      </div>
+      <Fila etiqueta="COMIDA" num={kcal ? kcal : '—'}>
+        <Barra valor={pctComida} exceso={excesoComida} color="#5FCD96" />
+      </Fila>
+
+      <Fila etiqueta="NIVEL" num={xpFaltan ? `-${xpFaltan}` : 'MAX'}>
+        <Barra valor={n.progreso} color="#F2650F" />
+      </Fila>
     </div>
   );
 }

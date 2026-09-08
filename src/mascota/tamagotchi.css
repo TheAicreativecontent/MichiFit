@@ -120,3 +120,31 @@
   font-family: 'Press Start 2P', monospace; font-size: 8px; color: #FFF6EC;
   letter-spacing: 2px; animation: mf-tama-zzz 2.6s steps(3, end) infinite;
 }
+
+/* --- franja de nivel dentro de la pantalla --- */
+.mf-tamapng-nivel {
+  position: absolute; top: 0; left: 0; right: 0; z-index: 2;
+  display: grid; grid-template-columns: auto 1fr; align-items: center;
+  gap: 5px; padding: 4% 5% 0;
+  font-family: 'Press Start 2P', monospace;
+}
+.mf-tamapng-nivel .et { font-size: 6px; color: #3A2D24; white-space: nowrap;
+                        text-transform: uppercase; }
+.mf-tamapng-nivel .xp { font-size: 5.5px; color: #3A2D24; white-space: nowrap; }
+.mf-tamapng-nivel .barra {
+  height: 7px; background: rgba(255,255,255,.75);
+  border: 1px solid rgba(58,45,36,.55); overflow: hidden;
+}
+.mf-tamapng-nivel .barra i {
+  display: block; height: 100%; background: #F2650F; transition: width .4s ease;
+}
+
+/* --- diálogo del botón azul, dentro de la pantalla --- */
+.mf-tamapng-dialogo {
+  position: absolute; left: 6%; right: 6%; bottom: 6%; z-index: 4;
+  background: rgba(255, 250, 240, .94); border: 2px solid #3A2D24;
+  padding: 7px 8px; font-size: 9px; font-weight: 700; line-height: 1.4;
+  color: #3A2D24; border-radius: 2px;
+  animation: mf-dialogo .2s steps(2, end) both;
+}
+@keyframes mf-dialogo { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; } }

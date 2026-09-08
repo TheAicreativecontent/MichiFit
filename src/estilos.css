@@ -47,12 +47,14 @@ body {
    arriba/abajo). En mosaico se verían las líneas de corte. */
 .mf-app::before {
   content: '';
-  position: fixed;
+  position: absolute;      /* no `fixed`: fijo al viewport, el fondo se
+                              deslizaba respecto al contenido al hacer
+                              scroll y daba sensación de que se movía */
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background: url('/fondo.jpg') no-repeat center center;
-  background-size: cover;
+  background: url('/fondo.jpg') repeat-y center top;
+  background-size: 100% auto;
   opacity: .15;
 }
 
@@ -379,7 +381,7 @@ input[type=range]::-moz-range-thumb {
   box-shadow: var(--sombra-sm); margin-bottom: 14px;
   display: flex; flex-direction: column; gap: 9px;
 }
-.mf-mk-fila { display: grid; grid-template-columns: 62px 1fr 34px; align-items: center; gap: 8px; }
+.mf-mk-fila { display: grid; grid-template-columns: 66px 1fr 40px; align-items: center; gap: 8px; }
 .mf-mk-et {
   font-family: 'Press Start 2P', monospace; font-size: 7px;
   color: var(--tinta-flojo); letter-spacing: -.5px;
@@ -392,8 +394,10 @@ input[type=range]::-moz-range-thumb {
 .mf-mk-icono { display: block; }
 .mf-mk-barra { display: flex; gap: 2px; }
 .mf-mk-barra i {
-  flex: 1; height: 11px; border: 1.5px solid var(--linea); border-radius: 1px;
+  flex: 1; height: 12px; border: 1.5px solid var(--linea); border-radius: 1px;
+  transition: background .3s ease;
 }
+.mf-mk-sep { display: inline-block; width: 7px; }
 
 /* La cabecera lleva el logo y, a la derecha, racha y ajustes. */
 
@@ -407,16 +411,17 @@ input[type=range]::-moz-range-thumb {
 .mf-gear.activa { background: var(--rosa-suave); }
 
 /* El "+" del centro: abre el registro de hoy con entrada numérica.
+   El icono llena el círculo: antes se quedaba pequeño en el centro.
    Se apoya en la barra en vez de flotar sobre ella, con un aro del color
    del fondo que lo recorta limpio. */
 .mf-mas {
   justify-self: center; align-self: center;
   width: 58px; height: 58px; border-radius: 50%;
-  border: none; background: var(--rosa); color: #fff;
-  cursor: pointer; box-shadow: var(--sombra);
-  display: grid; place-items: center; padding: 0;
+  border: none; background: transparent; color: #fff;
+  cursor: pointer; filter: drop-shadow(0 4px 8px rgba(180,130,90,.35));
+  display: grid; place-items: center; padding: 0; overflow: hidden;
 }
-.mf-mas img { width: 32px; height: 32px; object-fit: contain; }
+.mf-mas img { width: 100%; height: 100%; object-fit: contain; }
 .mf-mas:active { transform: scale(.93); }
 
 /* --- logros --- */
