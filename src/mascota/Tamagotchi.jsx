@@ -39,6 +39,7 @@ export default function Tamagotchi({
   iconos = [],
   puntos = 0,
   dormido = false,
+  sinMichi = false,   // dibuja solo la carcasa: el michi lo pone una imagen encima
 }) {
   const sprite = MICHIS[estado] ?? MICHIS.kawaii;
 
@@ -154,6 +155,7 @@ export default function Tamagotchi({
         </g>
 
         {/* el michi */}
+        {!sinMichi && (
         <g className="mf-tama-michi" clipPath="url(#mf-clip-zona)">
           {sprite.map((fila, y) =>
             [...fila].map((ch, x) =>
@@ -164,6 +166,7 @@ export default function Tamagotchi({
             )
           )}
         </g>
+        )}
 
         {dormido && (
           <text className="mf-tama-zzz" x={PANT.x + 104} y={zonaY + 46}

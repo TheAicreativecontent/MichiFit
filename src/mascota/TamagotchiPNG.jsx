@@ -47,43 +47,50 @@ export default function TamagotchiPNG({
   const candidatos = [`${RUTA}/${estado}.png`, `${RUTA}/bebe_paseando.png`];
   const src = candidatos[intento];
 
-  // Mientras no estén las imágenes, se usa el aparato dibujado.
-  if (sinHuevo) {
-    return (
-      <Tamagotchi estado={estado} size={size} iconos={iconos}
-                  puntos={puntos} dormido={dormido} {...resto} />
-    );
-  }
-
+  /* Dos respaldos independientes. Si falta la carcasa se dibuja en SVG,
+     pero el michi de la imagen se sigue viendo encima: sin esto, faltar
+     `huevo.png` escondía también las ilustraciones. */
   return (
     <div className={`mf-tamapng ${dormido ? 'dormido' : ''}`}
          style={{ width: size, height: size * (300 / 220) }}>
-      <img className="mf-tamapng-huevo" src={`${RUTA}/huevo.png`} alt=""
-           onError={() => setSinHuevo(true)} />
+      {sinHuevo ? (
+        <div className="mf-tamapng-huevo">
+          <Tamagotchi estado={estado} size={size} iconos={iconos}
+                      puntos={puntos} dormido={dormido} sinMichi {...resto} />
+        </div>
+      ) : (
+        <img className="mf-tamapng-huevo" src={`${RUTA}/huevo.png`} alt=""
+             onError={() => setSinHuevo(true)} />
+      )}
 
       <div className="mf-tamapng-pantalla"
            style={{
              left: `${PANTALLA.left}%`, top: `${PANTALLA.top}%`,
              width: `${PANTALLA.width}%`, height: `${PANTALLA.height}%`,
+             background: sinHuevo ? 'transparent' : undefined,
            }}>
+        {!sinHuevo && (
         <div className="mf-tamapng-iconos">
           {iconos.map((ic) => (
             <span key={ic.id} style={{ opacity: ic.activo ? 1 : 0.3 }}>{ic.emoji}</span>
           ))}
         </div>
+        )}
 
         <div className="mf-tamapng-zona"
              style={{ top: `${ZONA.top}%`, height: `${ZONA.height}%` }}>
-          <div className="mf-tamapng-barra">
-            <i style={{ width: `${Math.max(0, Math.min(1, puntos)) * 100}%` }} />
-          </div>
+          {!sinHuevo && (
+            <div className="mf-tamapng-barra">
+              <i style={{ width: `${Math.max(0, Math.min(1, puntos)) * 100}%` }} />
+            </div>
+          )}
           {src && (
             <img className="mf-tamapng-michi" src={src} alt=""
                  onError={() => setIntento((i) => i + 1)} />
           )}
         </div>
 
-        <div className="mf-tamapng-pie">FIT</div>
+        {!sinHuevo && <div className="mf-tamapng-pie">FIT</div>}
       </div>
     </div>
   );
