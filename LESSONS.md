@@ -45,4 +45,16 @@
 - Como evitarlo: si algo `fixed` aparece en un sitio raro, mirar si algun
   padre tiene transform, filter o backdrop-filter antes de tocar el z-index.
 
+## Sustituciones de texto que no encajan y fallan en silencio
+- Que paso: pedi "escena a cover" y "michi mas pequeño" y aparentemente se
+  hicieron, pero al medirlo la escena no tenia ni una regla CSS y el michi
+  seguia al 95%. Los parches por sustitucion de cadena no habian encajado y
+  no avisaron de nada.
+- Causa real: cambiar CSS con `str.replace()` sobre un texto que ya habia
+  mutado en un retoque anterior. Si la cadena no aparece, `replace` devuelve
+  el original tan tranquilo.
+- Como evitarlo: despues de tocar estilos, **medir en el navegador** el
+  tamaño real del elemento en vez de fiarse de que el parche entro. Y para
+  cambios puntuales usar edicion con verificacion, no sustitucion ciega.
+
 ---

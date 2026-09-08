@@ -60,12 +60,24 @@
   height: 15%; display: flex; align-items: center; justify-content: space-around;
   font-size: 11px; line-height: 1;
 }
+/* El escenario cubre la pantalla ENTERA, detrás de todo. `cover` recorta
+   en vez de deformar: los fondos son cuadrados y la pantalla es algo más
+   alta, así que se pierde un poco por los lados. Anclado abajo para que
+   se vea el suelo, que es donde se apoya el michi. */
+.mf-tamapng-escena {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: 50% 100%;
+  image-rendering: pixelated; z-index: 0;
+}
+
 .mf-tamapng-zona { position: absolute; left: 0; right: 0; z-index: 1; }
 .mf-tamapng-michi {
   /* Centrado con márgenes, NO con transform: la animación de respiración
-     define su propio transform y borraría el translateX. */
-  position: absolute; bottom: 2%; left: 0; right: 0; margin: 0 auto;
-  height: 95%; width: auto;
+     define su propio transform y borraría el translateX.
+     Al 60% el michi deja respirar el escenario: el sprite ya trae margen
+     transparente, así que el gato visible queda bastante más pequeño. */
+  position: absolute; bottom: 3%; left: 0; right: 0; margin: 0 auto;
+  height: 60%; width: auto;
   /* Sin suavizado: es pixel art, tiene que verse duro */
   image-rendering: pixelated;
   animation: mf-tama-respira 2.4s steps(2, end) infinite;
