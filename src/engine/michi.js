@@ -87,6 +87,10 @@ export function calcularRachaYComodines(evaluaciones) {
   let racha = 0, mejorRacha = 0, comodines = 0;
   const gastados = [];
   let seguidosParaComodin = 0;
+  /* Cuántos días de la racha VIVA los salvó un comodín. Se enseñan como
+     corazones partidos: la racha sigue, pero no se finge que ese día se
+     cumplió. Al romperse la racha vuelve a cero, como ella. */
+  let gastadosRacha = 0;
 
   for (const d of cronologico) {
     if (d.abierto) continue;
@@ -101,13 +105,15 @@ export function calcularRachaYComodines(evaluaciones) {
       comodines--;
       gastados.push(d.fecha);
       racha++; // el comodín salva la racha
+      gastadosRacha++;
     } else {
       racha = 0;
       seguidosParaComodin = 0;
+      gastadosRacha = 0;
     }
     mejorRacha = Math.max(mejorRacha, racha);
   }
-  return { racha, mejorRacha, comodines, gastados };
+  return { racha, mejorRacha, comodines, gastados, gastadosRacha };
 }
 
 /* ---------- 5 · XP y nivel ----------

@@ -4,7 +4,7 @@
    cada usuario rellena lo suyo, que se queda en su dispositivo.
    ============================================================ */
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import Bienvenida from './pantallas/Bienvenida.jsx';
 import Inicio from './pantallas/Inicio.jsx';
 import Pacto from './pantallas/Pacto.jsx';
@@ -46,6 +46,24 @@ export default function App() {
      comer, si registras entreno se pone a levantar pesas. La animación no
      inventa datos, es la misma información contada como cuidado. */
   const [accion, setAccion] = useState(null);   // 'comiendo' | 'entrenando'
+  /* Panel de pruebas: siete toques seguidos en el logo. Es el truco de
+     siempre para dejar una puerta de servicio sin ensuciar la pantalla.
+     La cuenta se olvida si pasas más de un segundo y medio sin tocar,
+     para que no se abra sola a base de toques sueltos. */
+  const [pruebas, setPruebas] = useState(false);
+  const toques = useRef({ n: 0, ultimo: 0 });
+  const tocarLogo = () => {
+    const ahora = Date.now();
+    const t = toques.current;
+    t.n = ahora - t.ultimo > 1500 ? 1 : t.n + 1;
+    t.ultimo = ahora;
+    if (t.n >= 7) {
+      t.n = 0;
+      setPruebas((p) => !p);
+      setPestana('inicio');
+    }
+  };
+
   /* La felicidad baja con las horas, así que hay que volver a pintarla
      cada tanto aunque el usuario no toque nada. */
   const [tic, setTic] = useState(0);
@@ -94,7 +112,8 @@ export default function App() {
     return (
       <div className="mf-app">
         <header className="mf-cabecera">
-          <img className="mf-logo" src="/logo.png" alt="" />
+          <img className="mf-logo" src="/logo.png" alt=""
+             onClick={tocarLogo} />
           <div className="mf-marca-txt">
             <h1>Michi<b>Fit</b></h1>
             <small>tu peso ideal, paso a pasito, suave suavecito 🐾</small>
@@ -114,7 +133,8 @@ export default function App() {
   return (
     <div className="mf-app">
       <header className="mf-cabecera">
-        <img className="mf-logo" src="/logo.png" alt="" />
+        <img className="mf-logo" src="/logo.png" alt=""
+             onClick={tocarLogo} />
         <div className="mf-marca-txt">
           <h1>Michi<b>Fit</b></h1>
           <small>tu peso ideal, paso a pasito, suave suavecito 🐾</small>
@@ -130,7 +150,8 @@ export default function App() {
       <main>
         {pestana === 'inicio' && (
           <Inicio estado={estado} entradas={datos.entradas} pacto={datos.pacto}
-                  onCarino={registrarCarino} accion={accion} />
+                  onCarino={registrarCarino} accion={accion}
+                  pruebas={pruebas} onCerrarPruebas={() => setPruebas(false)} />
         )}
         {pestana === 'pacto' && (
           <Pacto pacto={datos.pacto} perfil={datos.perfil} estado={estado}
@@ -171,7 +192,7 @@ export default function App() {
 
       {registrando && (
         <EditorDia
-          fecha={hoyISO()} entrada={datos.entradas[hoyISO()] ?? {}}
+          fecha={hoyISO()} entrada={datos.entradas[hoyISO()] ?? {}} pacto={datos.pacto}
           onGuardar={(campos) => { registrar(hoyISO(), campos); setRegistrando(false); }}
           onCerrar={() => setRegistrando(false)}
         />

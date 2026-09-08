@@ -5,7 +5,8 @@
    Ver MECANICA.md.
    ============================================================ */
 
-import { DIAS, MARGEN_COMIDA, VENTANA_RETRO } from './constantes.js';
+import { DIAS, MARGEN_COMIDA, MARGEN_COMIDA_GRAVE, PESO_OBJETIVO,
+         VENTANA_RETRO } from './constantes.js';
 
 /* Pacto por defecto: se ofrece como punto de partida, el usuario lo
    ajusta entero. Tres días de entreno, cuatro de descanso, y menos
@@ -94,24 +95,37 @@ export function evaluarDia({ pacto, entrada, fecha, hoy = hoyISO() }) {
 
   if (pacto.comidaKcal) {
     const kcal = entrada?.comidaKcal ?? null;
+    /* Pasarse de comida no tumba el día salvo que sea mucho: pesa la
+       mitad en el ánimo del michi y solo rompe el día por encima del
+       margen grave. Faltar al gimnasio sí lo rompe siempre. */
     objetivos.push({
       id: 'comida',
       etiqueta: 'Comida',
       objetivo: pacto.comidaKcal,
       valor: kcal,
       cumplido: kcal != null && kcal <= pacto.comidaKcal * (1 + MARGEN_COMIDA),
+      rompeElDia: kcal == null || kcal > pacto.comidaKcal * (1 + MARGEN_COMIDA_GRAVE),
     });
   }
 
   const hayDatos = entrada != null && Object.keys(entrada).length > 0;
   const abierto = !hayDatos && dentroDeVentana(fecha, hoy);
 
-  const cumplidos = objetivos.filter((o) => o.cumplido).length;
+  /* La proporción va por PESOS, no por cuenta: así pasarse de calorías
+     se nota en el michi la mitad que saltarse un entreno. */
+  const peso = (o) => PESO_OBJETIVO[o.id] ?? 1;
+  const total = objetivos.reduce((s, o) => s + peso(o), 0);
+  const logrado = objetivos.filter((o) => o.cumplido).reduce((s, o) => s + peso(o), 0);
+
+  /* Un objetivo puede fallar sin tumbar el día: lo dice `rompeElDia`.
+     Sin la marca, fallar siempre lo tumba. */
+  const rompen = objetivos.filter((o) => !o.cumplido && o.rompeElDia !== false);
+
   return {
     fecha,
     objetivos,
-    proporcion: objetivos.length ? cumplidos / objetivos.length : 0,
-    cumple: cumplidos === objetivos.length && hayDatos,
+    proporcion: total ? logrado / total : 0,
+    cumple: rompen.length === 0 && hayDatos,
     abierto, // aún se puede rellenar: no cuenta como fallo todavía
     hayDatos,
     descansoRespetado: objetivos.find((o) => o.id === 'descanso')?.respetado ?? null,

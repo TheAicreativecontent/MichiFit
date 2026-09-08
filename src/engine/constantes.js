@@ -35,8 +35,20 @@ export const DIAS_LARGO = {
   vie: 'Viernes', sab: 'Sábado', dom: 'Domingo',
 };
 
-/* Margen sobre el objetivo de comida antes de contar como fallo. */
+/* Comida. Dos margenes, porque pasarse de calorias NO es lo mismo que
+   faltar al gimnasio: un dia comiendo de mas se arregla solo, un entreno
+   perdido no vuelve.
+     - hasta +10%  el objetivo se da por cumplido
+     - hasta +30%  cuenta a medias: baja el animo del michi, pero el dia
+                   sigue valiendo
+     - de ahi      el dia se rompe, como cualquier otro objetivo
+   Ver MECANICA.md. */
 export const MARGEN_COMIDA = 0.10;
+export const MARGEN_COMIDA_GRAVE = 0.30;
+
+/* Cuanto pesa cada objetivo en la proporcion del dia (el aspecto del
+   michi). Los que no aparecen pesan 1. */
+export const PESO_OBJETIVO = { comida: 0.5 };
 
 /* Días que puedes rellenar hacia atrás. Fuera de la ventana el día
    se cierra como no cumplido. */

@@ -13,6 +13,7 @@
 import { useState } from 'react';
 import { DIAS, DIAS_INICIAL, DIAS_LARGO } from '../engine/constantes.js';
 import { macros } from '../engine/calculos.js';
+import { EditorEjercicios } from './Ejercicios.jsx';
 
 export default function Pacto({ pacto, perfil, estado, onCambiar }) {
   const [editando, setEditando] = useState(null);
@@ -132,6 +133,7 @@ function EditorPacto({ dia, indice, valor, onGuardar, onCerrar }) {
     hora: valor.hora ?? '19:00',
     minEntreno: valor.minEntreno || 45,
     pasos: valor.pasos,
+    ejercicios: valor.ejercicios ?? [],
   });
 
   return (
@@ -162,6 +164,8 @@ function EditorPacto({ dia, indice, valor, onGuardar, onCerrar }) {
               <input type="number" step="5" value={v.minEntreno}
                      onChange={(e) => setV({ ...v, minEntreno: Number(e.target.value) })} />
             </label>
+            <EditorEjercicios valor={v.ejercicios}
+                              onCambiar={(ejercicios) => setV({ ...v, ejercicios })} />
           </>
         )}
 
@@ -171,10 +175,6 @@ function EditorPacto({ dia, indice, valor, onGuardar, onCerrar }) {
                  onChange={(e) => setV({ ...v, pasos: Number(e.target.value) })} />
         </label>
 
-        <p className="mf-nota" style={{ marginTop: 4 }}>
-          Más adelante aquí se podrá apuntar también qué entreno toca.
-        </p>
-
         <div className="mf-hoja-pie">
           <button className="mf-boton" onClick={onCerrar}>Cancelar</button>
           <button className="mf-boton principal"
@@ -183,6 +183,11 @@ function EditorPacto({ dia, indice, valor, onGuardar, onCerrar }) {
                     hora: v.entreno ? v.hora : null,
                     minEntreno: v.entreno ? v.minEntreno : 0,
                     pasos: v.pasos,
+                    /* Los ejercicios sin nombre se tiran: una fila vacía
+                       que se queda para siempre solo estorba. */
+                    ejercicios: v.entreno
+                      ? v.ejercicios.filter((e) => e.nombre.trim())
+                      : [],
                   })}>
             Guardar
           </button>

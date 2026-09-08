@@ -19,16 +19,17 @@ import { ESCENAS, porId, siguiente, escenaAutomatica } from '../mascota/escenas.
 
 /* ---- PRUEBAS ----------------------------------------------------------
    Panel para ver todos los dibujos del michi sin tener que apuntar datos
-   reales. Es andamio: pon `false` (o borra el bloque `.mf-pruebas` de
-   abajo y este trozo) cuando ya no haga falta revisarlos. */
-const PRUEBAS = true;
+   reales. No sale nunca solo: se abre dando siete toques al logo de la
+   cabecera (ver `tocarLogo` en App.jsx). Se queda en el código a
+   propósito, es la forma de revisar los dibujos en el móvil. */
 const CUERPOS = ['esqueletico', 'gordo', 'kawaii', 'fit', 'hipertrofiado'];
 const POSES = [
   { id: null, et: 'de pie' }, { id: 'comiendo', et: 'come' },
   { id: 'entrenando', et: 'entrena' }, { id: 'dormido', et: 'duerme' },
 ];
 
-export default function Inicio({ estado, entradas, pacto, onCarino, accion }) {
+export default function Inicio({ estado, entradas, pacto, onCarino, accion,
+                                pruebas = false, onCerrarPruebas }) {
   const [gesto, setGesto] = useState(null);      // 'mimar' | 'estado' | null
   /* Escena elegida a mano con el botón azul. En `null` manda lo que has
      apuntado hoy: el aparato cuenta tu día solo hasta que lo tocas. */
@@ -101,9 +102,15 @@ export default function Inicio({ estado, entradas, pacto, onCarino, accion }) {
         />
       </div>
 
-      {PRUEBAS && (
+      {pruebas && (
         <div className="mf-pruebas">
-          <b>PRUEBAS · quitar antes de terminar</b>
+          <b>
+            PRUEBAS
+            <button className="cerrar" aria-label="Cerrar pruebas"
+                    onClick={() => { setPrueba(null); setEscenaId(null); onCerrarPruebas?.(); }}>
+              ✕
+            </button>
+          </b>
           <div className="fila">
             {CUERPOS.map((c) => (
               <button key={c} className={prueba?.cuerpo === c ? 'on' : ''}

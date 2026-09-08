@@ -121,7 +121,7 @@ export default function Progreso({ perfil, pacto, entradas, onRegistrar }) {
 
       {editando && (
         <EditorDia
-          fecha={editando} entrada={entradas[editando] ?? {}}
+          fecha={editando} entrada={entradas[editando] ?? {}} pacto={pacto}
           onGuardar={(campos) => { onRegistrar(editando, campos); setEditando(null); }}
           onCerrar={() => setEditando(null)}
         />

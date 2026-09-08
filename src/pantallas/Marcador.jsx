@@ -18,6 +18,17 @@ const CORAZON = [
   '...X...',
 ];
 
+/* El mismo corazón, partido por la mitad: los dos trozos se separan y
+   se ve la grieta. Es el día que no cumpliste y te salvó un comodín. */
+const CORAZON_ROTO = [
+  '.XX.XX.',
+  'XXX.XXX',
+  'XX..XXX',
+  '.XX.XX.',
+  '..X.X..',
+  '...X...',
+];
+
 const ESCUDO = [
   'XXXXXXX',
   'XXXXXXX',
@@ -31,12 +42,14 @@ const MAX_CORAZONES = 5;
 const BLOQUES = 10;
 const SUENO_IDEAL = 8;
 
-function Icono({ forma, lleno, color }) {
+function Icono({ forma, lleno, color, titulo }) {
   const p = 2;
   const w = forma[0].length, h = forma.length;
   return (
     <svg width={w * p} height={h * p} viewBox={`0 0 ${w} ${h}`}
-         className="mf-mk-icono" aria-hidden="true">
+         className="mf-mk-icono" role={titulo ? 'img' : undefined}
+         aria-hidden={titulo ? undefined : 'true'} aria-label={titulo}>
+      {titulo && <title>{titulo}</title>}
       {forma.map((fila, y) =>
         [...fila].map((c, x) => c === 'X' && (
           <rect key={`${x}-${y}`} x={x} y={y} width="1" height="1"
@@ -76,6 +89,11 @@ function Fila({ etiqueta, children, num }) {
 
 export default function Marcador({ estado, entradaHoy = {}, pacto }) {
   const corazones = Math.min(MAX_CORAZONES, estado.racha);
+  /* Los días de la racha que salvó un comodín se pintan al final, en
+     corazón partido y gris: la racha sigue viva, pero el marcador no
+     finge que ese día se cumplió. */
+  const salvados = Math.min(corazones, estado.gastadosRacha ?? 0);
+  const enteros = corazones - salvados;
   const objetivos = estado.hoy?.objetivos ?? [];
 
   /* --- pasos --- */
@@ -106,9 +124,16 @@ export default function Marcador({ estado, entradaHoy = {}, pacto }) {
       <div className="mf-mk-fila">
         <span className="mf-mk-et">RACHA</span>
         <span className="mf-mk-iconos">
-          {Array.from({ length: MAX_CORAZONES }, (_, i) => (
-            <Icono key={i} forma={CORAZON} lleno={i < corazones} color="#E8543A" />
-          ))}
+          {Array.from({ length: MAX_CORAZONES }, (_, i) =>
+            i < enteros ? (
+              <Icono key={i} forma={CORAZON} lleno color="#E8543A" />
+            ) : i < corazones ? (
+              <Icono key={i} forma={CORAZON_ROTO} lleno color="#9A9086"
+                     titulo="Día salvado por un comodín" />
+            ) : (
+              <Icono key={i} forma={CORAZON} lleno={false} color="#E8543A" />
+            )
+          )}
           <span className="mf-mk-sep" />
           {Array.from({ length: 3 }, (_, i) => (
             <Icono key={`e${i}`} forma={ESCUDO} lleno={i < estado.comodines} color="#3E8BD8" />
