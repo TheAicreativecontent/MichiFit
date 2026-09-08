@@ -1,0 +1,18 @@
+Imágenes del michi
+==================
+
+huevo.png   660 x 900   la carcasa del tamagotchi.
+                        Transparente por fuera Y en el hueco de pantalla.
+
+Michis, 360 x 360 cada uno, fondo transparente:
+
+  esqueletico.png     abandono prolongado
+  gordo.png           comiendo de más y moviéndose poco
+  kawaii.png          estado base
+  fit.png             cumpliendo el pacto
+  hipertrofiado.png   cumpliendo con creces, con entrenos de fuerza
+
+Plantillas para dibujarlos: pixel/plantilla-huevo.png y pixel/plantilla-michi.png
+
+Mientras falte alguna imagen, la app dibuja el aparato en SVG como hasta
+ahora. No se rompe nada por subirlas de una en una.

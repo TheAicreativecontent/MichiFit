@@ -40,3 +40,42 @@
   font-weight: 800;
   letter-spacing: 1px;
 }
+
+/* ---------- versión con imágenes PNG ---------- */
+.mf-tamapng { position: relative; }
+.mf-tamapng-huevo {
+  width: 100%; height: 100%; display: block;
+  image-rendering: auto;
+}
+.mf-tamapng-pantalla {
+  position: absolute;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+  /* La pantalla la pinta la app, no el PNG: así el michi, los iconos
+     y la barra se pueden mover sin volver a dibujar la carcasa. */
+  background: #BFD2E8;
+  border-radius: 4%;
+}
+.mf-tamapng-iconos {
+  height: 10%; display: flex; align-items: center; justify-content: space-around;
+  background: #EFE3B0; font-size: 11px; line-height: 1;
+}
+.mf-tamapng-zona { position: absolute; left: 0; right: 0; }
+.mf-tamapng-michi {
+  position: absolute; bottom: 2%; left: 50%; transform: translateX(-50%);
+  height: 88%; width: auto;
+  /* Sin suavizado: es pixel art, tiene que verse duro */
+  image-rendering: pixelated;
+  animation: mf-tama-respira 2.4s steps(2, end) infinite;
+}
+.mf-tamapng.dormido .mf-tamapng-michi { animation: mf-tama-dormita 4s steps(2, end) infinite; }
+.mf-tamapng-barra {
+  position: absolute; top: 5%; right: 6%; width: 48%; height: 7%;
+  background: #fff; border: 1px solid #7C8CA0; border-radius: 2px; overflow: hidden;
+}
+.mf-tamapng-barra i { display: block; height: 100%; background: #F2650F; transition: width .4s ease; }
+.mf-tamapng-pie {
+  margin-top: auto; height: 12%; background: #F2650F; color: #FFF6EC;
+  font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 13px;
+  display: grid; place-items: center; letter-spacing: 1px;
+}

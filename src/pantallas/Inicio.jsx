@@ -6,7 +6,7 @@
    ============================================================ */
 
 import { useState } from 'react';
-import Tamagotchi from '../mascota/Tamagotchi.jsx';
+import Tamagotchi from '../mascota/TamagotchiPNG.jsx';
 import { estadoVisual } from '../engine/michi.js';
 import { hoyISO } from '../engine/pacto.js';
 

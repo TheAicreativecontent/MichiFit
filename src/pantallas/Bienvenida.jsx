@@ -5,7 +5,7 @@
    ============================================================ */
 
 import { useState } from 'react';
-import Tamagotchi from '../mascota/Tamagotchi.jsx';
+import Tamagotchi from '../mascota/TamagotchiPNG.jsx';
 import { DIAS, DIAS_INICIAL } from '../engine/constantes.js';
 import { tmb, imc, avisosDeSeguridad } from '../engine/calculos.js';
 import { pactoPorDefecto } from '../engine/pacto.js';
