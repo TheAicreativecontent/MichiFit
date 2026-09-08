@@ -50,14 +50,14 @@ function Icono({ forma, lleno, color }) {
 
 /* `valor` y `exceso` van en tanto por uno. El exceso se pinta en rojo
    a continuación de lo cumplido. */
-function Barra({ valor, exceso = 0, color }) {
+function Barra({ valor, exceso = 0, color, colorExceso = '#B3241A' }) {
   const llenos = Math.round(Math.min(1, valor) * BLOQUES);
   const rojos = Math.min(BLOQUES - llenos, Math.round(exceso * BLOQUES));
   return (
     <span className="mf-mk-barra">
       {Array.from({ length: BLOQUES }, (_, i) => (
         <i key={i} style={{
-          background: i < llenos ? color : i < llenos + rojos ? '#E8543A' : 'transparent',
+          background: i < llenos ? color : i < llenos + rojos ? colorExceso : 'transparent',
         }} />
       ))}
     </span>
@@ -122,15 +122,17 @@ export default function Marcador({ estado, entradaHoy = {}, pacto }) {
       </Fila>
 
       <Fila etiqueta="DESCANSO" num={horas ? `${horas}h` : '—'}>
-        <Barra valor={pctSueno} exceso={excesoSueno} color="#7CC3F2" />
+        <Barra valor={pctSueno} exceso={excesoSueno} color="#7CC3F2" colorExceso="#E8543A" />
       </Fila>
 
+      {/* La comida va en rojizo porque es el color con el que se asocia,
+          y el verde se reserva para el nivel: es el color de "vas bien". */}
       <Fila etiqueta="COMIDA" num={kcal ? kcal : '—'}>
-        <Barra valor={pctComida} exceso={excesoComida} color="#5FCD96" />
+        <Barra valor={pctComida} exceso={excesoComida} color="#E86A5A" />
       </Fila>
 
       <Fila etiqueta="NIVEL" num={xpFaltan ? `-${xpFaltan}` : 'MAX'}>
-        <Barra valor={n.progreso} color="#F2650F" />
+        <Barra valor={n.progreso} color="#5FCD96" />
       </Fila>
     </div>
   );

@@ -445,3 +445,38 @@ input[type=range]::-moz-range-thumb {
 .mf-logro small { font-size: 11px; color: var(--tinta-flojo); font-weight: 600; }
 .mf-logro:not(.ok) b, .mf-logro:not(.ok) small { opacity: .55; }
 .mf-logro .tick { margin-left: auto; color: var(--bien); font-weight: 900; font-style: normal; }
+
+/* El consejo de sueño no puede partir de línea: se recorta con puntos
+   suspensivos antes que romper la fila. */
+.mf-obj.sueno b {
+  font-family: 'Nunito', sans-serif; font-size: 11.5px; font-weight: 700;
+  color: var(--tinta-flojo); white-space: nowrap; overflow: hidden;
+  text-overflow: ellipsis; max-width: 62%; text-align: right;
+}
+.mf-obj.sueno.ok b { color: var(--bien); }
+
+/* --- semana tipo del pacto: siete columnas tocables --- */
+.mf-semana7 { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+.mf-d7 {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  padding: 8px 2px; border-radius: 12px; cursor: pointer;
+  border: 2px solid transparent; background: var(--chip);
+  font-family: 'Nunito', sans-serif; color: var(--tinta);
+}
+.mf-d7.entreno  { border-color: var(--rosa); background: var(--rosa-suave); }
+.mf-d7.descanso { border-color: var(--menta); background: var(--menta-suave); }
+.mf-d7:active { transform: scale(.95); }
+.mf-d7 .ini { font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 13px; }
+.mf-d7 .ic  { font-size: 13px; line-height: 1; }
+.mf-d7 .hora { font-size: 8.5px; font-weight: 800; }
+.mf-d7 .min  { font-size: 8.5px; font-weight: 700; color: var(--tinta-flojo); }
+.mf-d7 .pasos {
+  font-size: 8.5px; font-weight: 800; color: var(--tinta-flojo);
+  border-top: 1px solid rgba(0,0,0,.08); width: 100%; text-align: center; padding-top: 2px;
+}
+input[type=time] {
+  width: 100%; border: 2px solid var(--linea); background: var(--papel);
+  color: var(--tinta); border-radius: 11px; padding: 7px 10px;
+  font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 14px;
+}
+input[type=time]:focus { outline: none; border-color: var(--rosa); }

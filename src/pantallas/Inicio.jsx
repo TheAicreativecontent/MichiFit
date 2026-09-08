@@ -75,9 +75,42 @@ export default function Inicio({ estado, entradas, pacto }) {
             <b>{o.valor ?? '—'}{o.objetivo ? ` / ${o.objetivo}` : ''}</b>
           </div>
         ))}
+        {(() => {
+          const s = consejoSueno(entradaHoy.sueno?.horas ?? entradaHoy.suenoHoras);
+          return (
+            <div className={`mf-obj sueno ${s.ok ? 'ok' : ''}`}>
+              <span>{s.ok ? '✅' : '⬜'} Sueño</span>
+              <b title={s.largo}>{s.corto}</b>
+            </div>
+          );
+        })()}
       </div>
     </div>
   );
+}
+
+/* Consejo de sueño en UNA línea. El texto largo va en el `title` para
+   quien pase el ratón; en el móvil manda el corto, que nunca parte. */
+function consejoSueno(horas) {
+  if (horas == null) {
+    return { ok: false, corto: 'sin apuntar · ideal 8 h',
+             largo: 'Aún no has apuntado cuánto dormiste. Lo ideal son 8 horas.' };
+  }
+  const h = String(horas).replace('.', ',');
+  if (horas < 6) {
+    return { ok: false, corto: `${h} h · poco, apunta a 8`,
+             largo: `Has dormido ${h} horas. Es poco: deberías dormir unas 8.` };
+  }
+  if (horas < 7.5) {
+    return { ok: false, corto: `${h} h · casi, faltan ${(8 - horas).toFixed(1).replace('.', ',')}`,
+             largo: `Has dormido ${h} horas. Vas cerca: lo ideal son 8.` };
+  }
+  if (horas <= 9) {
+    return { ok: true, corto: `${h} h · perfecto`,
+             largo: `Has dormido ${h} horas. Justo lo que necesitas.` };
+  }
+  return { ok: false, corto: `${h} h · te has pasado de 8`,
+           largo: `Has dormido ${h} horas. Dormir de más también cansa: lo ideal son 8.` };
 }
 
 /* Lo que cuenta el michi al pulsar el botón azul, dentro de la pantalla. */

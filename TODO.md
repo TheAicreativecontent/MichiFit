@@ -17,6 +17,8 @@
 - [ ] Que los tres botones del aparato hagan algo (mirar, cuidar, cancelar).
 
 ## Ideas / quizás algún día
+- [ ] En la ventana de cada día del pacto, poder apuntar **qué entreno toca**
+      (pecho, piernas, cardio...). El hueco ya está preparado.
 - [ ] **Icono propio para "Logros"**: ahora usa provisionalmente el
       `ICO_BTC` de Michi Finanzas (una moneda), que no pega. Iría bien una
       medalla o una copa en ese mismo estilo.

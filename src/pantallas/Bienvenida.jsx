@@ -121,8 +121,8 @@ export default function Bienvenida({ onEmpezar }) {
         <p className="mf-nota">
           {diasEntreno.length} días de entreno y {7 - diasEntreno.length} de
           descanso. Los días que entrenas te pediré menos pasos
-          ({Math.round((pasos * 0.66) / 500) * 500}): pedir las dos cosas el
-          mismo día es un pacto que se incumple solo.
+          ({Math.round((pasos * 0.66) / 500) * 500}): pedirte entrenar y andar
+          mucho el mismo día puede llegar a ser insostenible.
         </p>
       </div>
 
