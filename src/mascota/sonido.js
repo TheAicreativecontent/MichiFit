@@ -54,6 +54,13 @@ export const sonidos = {
     nota({ frec: 700, inicio: 0.07, dur: 0.1,  tipo: 'square', vol: 0.07 });
   },
 
+  /* Cambiar de escena: un salto corto hacia arriba, como al pasar de
+     pantalla en una maquinita. */
+  accion() {
+    nota({ frec: 440, inicio: 0,    dur: 0.07, tipo: 'square', vol: 0.08 });
+    nota({ frec: 660, inicio: 0.06, dur: 0.11, tipo: 'square', vol: 0.08 });
+  },
+
   /* Apagar: dos notas descendentes. Encender: al revés. */
   dormir(apagando) {
     if (apagando) {

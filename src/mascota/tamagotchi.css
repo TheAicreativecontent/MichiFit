@@ -169,3 +169,27 @@
   animation: mf-dialogo .2s steps(2, end) both;
 }
 @keyframes mf-dialogo { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; } }
+
+/* --- rótulo: qué está haciendo el michi ---
+   Va entre las barras y el michi, que era el hueco libre. Sin fondo
+   sólido para no tapar el escenario: se lee por el contorno oscuro,
+   como los marcadores de las maquinitas. */
+.mf-tamapng-rotulo {
+  position: absolute; top: 19%; left: 0; right: 0; z-index: 2;
+  text-align: center; pointer-events: none;
+  font-family: 'Press Start 2P', monospace; font-size: 6.5px;
+  letter-spacing: 1px; color: #FFF6EC;
+  text-shadow: 1px 1px 0 #3A2D24, -1px 1px 0 #3A2D24,
+               1px -1px 0 #3A2D24, -1px -1px 0 #3A2D24;
+}
+
+/* --- el cristal es un botón ---
+   La pantalla tiene `pointer-events: none` para no comerse los clics del
+   aparato, así que este botón los vuelve a activar solo aquí. Va por
+   debajo del diálogo, para que tocarlo otra vez no lo tape. */
+.mf-tamapng-toque {
+  position: absolute; inset: 0; z-index: 1;
+  border: none; background: transparent; padding: 0;
+  cursor: pointer; pointer-events: auto;
+  -webkit-tap-highlight-color: transparent;
+}

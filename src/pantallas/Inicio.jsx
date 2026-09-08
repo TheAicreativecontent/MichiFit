@@ -15,52 +15,123 @@ import Marcador from './Marcador.jsx';
 import { estadoVisual } from '../engine/michi.js';
 import { hoyISO } from '../engine/pacto.js';
 import { sonidos, despertarAudio } from '../mascota/sonido.js';
+import { ESCENAS, porId, siguiente, escenaAutomatica } from '../mascota/escenas.js';
+
+/* ---- PRUEBAS ----------------------------------------------------------
+   Panel para ver todos los dibujos del michi sin tener que apuntar datos
+   reales. Es andamio: pon `false` (o borra el bloque `.mf-pruebas` de
+   abajo y este trozo) cuando ya no haga falta revisarlos. */
+const PRUEBAS = true;
+const CUERPOS = ['esqueletico', 'gordo', 'kawaii', 'fit', 'hipertrofiado'];
+const POSES = [
+  { id: null, et: 'de pie' }, { id: 'comiendo', et: 'come' },
+  { id: 'entrenando', et: 'entrena' }, { id: 'dormido', et: 'duerme' },
+];
 
 export default function Inicio({ estado, entradas, pacto, onCarino, accion }) {
   const [gesto, setGesto] = useState(null);      // 'mimar' | 'estado' | null
-  const [durmiendo, setDurmiendo] = useState(false);
+  /* Escena elegida a mano con el botón azul. En `null` manda lo que has
+     apuntado hoy: el aparato cuenta tu día solo hasta que lo tocas. */
+  const [escenaId, setEscenaId] = useState(null);
+  const [prueba, setPrueba] = useState(null);   // { cuerpo, pose } o null
 
   const visual = estadoVisual(estado, entradas, pacto);
   const hoy = estado.hoy;
   const entradaHoy = entradas[hoyISO()] ?? {};
   const pendientes = hoy?.objetivos.filter((o) => !o.cumplido && o.id !== 'descanso') ?? [];
 
+  /* Lo que se ve ahora: manda la prueba, luego la escena elegida a mano,
+     y si no hay ninguna, lo que hayas apuntado hoy. */
+  const escena = porId(escenaId) ?? escenaAutomatica(entradaHoy, accion);
+  const dormido = escena.dormido || estado.dormido;
+
   const pulsar = (id) => {
     despertarAudio();
     if (id === 'dormir') {
-      setDurmiendo((d) => { sonidos.dormir(!d); return !d; });
+      /* El rojo es el atajo: duerme al michi, o lo devuelve a lo que
+         tocaba. La escena `dormir` también sale en el ciclo del azul. */
+      setEscenaId((e) => (e === 'dormir' ? null : 'dormir'));
+      sonidos.dormir(escenaId !== 'dormir');
       setGesto(null);
       return;
     }
-    setDurmiendo(false);
+    if (id === 'accion') {
+      setEscenaId((e) => siguiente(e));
+      sonidos.accion();
+      setGesto(null);
+      return;
+    }
+    /* Un mimo despierta al michi: lanzar corazones contra una pantalla
+       apagada no se entiende. */
+    setEscenaId((e) => (e === 'dormir' ? null : e));
     setGesto(id);
     sonidos[id]?.();
     if (id === 'mimar') onCarino?.();
-    // los dos gestos se deshacen solos: son un momento, no un modo
-    setTimeout(() => setGesto((g) => (g === id ? null : g)), id === 'mimar' ? 2600 : 5000);
+    // el gesto se deshace solo: es un momento, no un modo
+    setTimeout(() => setGesto((g) => (g === id ? null : g)), 2600);
+  };
+
+  /* Tocar el cristal: el michi cuenta cómo va. Antes era el botón del
+     medio, que ahora sirve para cambiar de escena. */
+  const tocarPantalla = () => {
+    despertarAudio();
+    if (dormido) return;            // dormido no habla
+    sonidos.estado();
+    setGesto('estado');
+    setTimeout(() => setGesto((g) => (g === 'estado' ? null : g)), 5000);
   };
 
   return (
     <div className="mf-pagina">
       <div className="mf-escena">
         <Tamagotchi
-          estado={visual.cuerpo}
+          estado={prueba?.cuerpo ?? visual.cuerpo}
           size={300}
-          dormido={durmiendo || estado.dormido}
-          pose={durmiendo || estado.dormido ? 'dormido' : accion}
+          dormido={prueba ? prueba.pose === 'dormido' : dormido}
+          pose={prueba ? prueba.pose : dormido ? 'dormido' : escena.pose}
+          escenario={escena.escenario}
+          rotulo={escena.rotulo}
           mimando={gesto === 'mimar'}
           nivel={estado.nivel}
           felicidad={estado.felicidad}
           denoche={estado.felicidadDetalle?.denoche}
           mensaje={gesto === 'estado' ? resumen(estado, pendientes) : null}
           onBoton={pulsar}
-          escenario={
-            (entradaHoy.entrenoMin ?? 0) > 0 ? 'gimnasio'
-              : (entradaHoy.pasos ?? 0) > 0 ? 'calle'
-              : 'casa'
-          }
+          onPantalla={tocarPantalla}
         />
       </div>
+
+      {PRUEBAS && (
+        <div className="mf-pruebas">
+          <b>PRUEBAS · quitar antes de terminar</b>
+          <div className="fila">
+            {CUERPOS.map((c) => (
+              <button key={c} className={prueba?.cuerpo === c ? 'on' : ''}
+                      onClick={() => setPrueba((p) => ({ cuerpo: c, pose: p?.pose ?? null }))}>
+                {c.slice(0, 4)}
+              </button>
+            ))}
+          </div>
+          <div className="fila">
+            {POSES.map((p) => (
+              <button key={p.et}
+                      className={prueba && prueba.pose === p.id ? 'on' : ''}
+                      onClick={() => setPrueba((v) => ({ cuerpo: v?.cuerpo ?? 'kawaii', pose: p.id }))}>
+                {p.et}
+              </button>
+            ))}
+            <button onClick={() => setPrueba(null)}>salir</button>
+          </div>
+          <div className="fila">
+            {ESCENAS.map((e) => (
+              <button key={e.id} className={escenaId === e.id ? 'on' : ''}
+                      onClick={() => setEscenaId(e.id)}>
+                {e.id}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
 
       <Marcador estado={estado} entradaHoy={entradaHoy} pacto={pacto} />
 

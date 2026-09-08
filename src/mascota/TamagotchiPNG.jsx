@@ -36,7 +36,7 @@ const ESCENARIOS = { gimnasio: '/fondos/gimnasio.png', calle: '/fondos/calle.png
    acierta un circulo de 27 px. */
 const BOTONES = [
   { id: 'mimar',  cx: 24.8, titulo: 'Mimar' },
-  { id: 'estado', cx: 49.9, titulo: 'Cómo va' },
+  { id: 'accion', cx: 49.9, titulo: 'Cambiar de escena' },
   { id: 'dormir', cx: 75.0, titulo: 'Dormir' },
 ];
 const BOTON_Y = 86.5;
@@ -53,8 +53,10 @@ export default function TamagotchiPNG({
   felicidad = null,    // 0-100, o null para no pintar la barra
   denoche = false,     // de noche la barra se congela y se dice
   pose = null,         // 'dormido' | 'comiendo' | 'entrenando' | null (manda sobre el cuerpo)
-  mensaje = null,      // texto que sale en la pantalla al pulsar "cómo va"
+  rotulo = null,       // qué está haciendo, entre las barras y el michi
+  mensaje = null,      // texto que sale al tocar la PANTALLA ("cómo va")
   onBoton,
+  onPantalla,          // tocar el cristal: el michi cuenta cómo va
   ...resto
 }) {
   const [sinHuevo, setSinHuevo] = useState(false);
@@ -126,6 +128,12 @@ export default function TamagotchiPNG({
         <img className="mf-tamapng-escena"
              src={ESCENARIOS[escenario] ?? ESCENARIOS.casa} alt="" />
 
+        {/* Qué está haciendo. Va bajo las barras y sobre el michi, que es
+            el hueco que quedaba libre en la pantalla. */}
+        {!sinHuevo && rotulo && (
+          <div className="mf-tamapng-rotulo">{rotulo}</div>
+        )}
+
         <div className="mf-tamapng-zona"
              style={{ top: `${ZONA.top}%`, height: `${ZONA.height}%` }}>
           {src && (
@@ -149,6 +157,14 @@ export default function TamagotchiPNG({
         </div>
 
         {dormido && <div className="mf-tamapng-apagada" />}
+
+        {/* El cristal entero es un botón: tocarlo es preguntarle al michi
+            cómo va. Antes eso era el botón del medio, que ahora sirve
+            para cambiar de escena. */}
+        {onPantalla && !sinHuevo && (
+          <button className="mf-tamapng-toque" onClick={onPantalla}
+                  aria-label="Cómo va" title="Cómo va" />
+        )}
       </div>
 
       {/* Botones del aparato. Van encima del PNG, con área de toque
