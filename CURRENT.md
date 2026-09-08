@@ -12,6 +12,9 @@ pantallas y el motor entero.
   existe en el motor pero no hay interfaz para usarla, y sin ella media
   mecánica de comodines no se puede aprovechar.
 - Bloqueadores: ninguno.
+- **Desplegada en https://michifit.vercel.app** (proyecto Vercel
+  `the-ai-creative-content/michifit`, enlazado con la CLI).
+  Para volver a desplegar: `vercel deploy --prod --yes` desde la carpeta.
 
 ## Verificado en navegador
 - Simulador da los mismos números que la app original: 2602 de gasto total,
@@ -19,6 +22,13 @@ pantallas y el motor entero.
 - Ajustes da el mismo IMC: 26,2 actual, 21,5 meta.
 - Pantalla de pacto muestra el pacto real de Alberto.
 - Build de producción OK, sin errores de consola.
+
+## Despliegue
+- Repo: https://github.com/TheAicreativecontent/MichiFit
+- Vercel enlazado con la CLI (`vercel link --project michifit`). El enlace
+  desde el MCP fallaba: el proyecto no era visible con el ámbito del token.
+- `.vercel/` y `.env.local` están en `.gitignore`: el segundo lleva un token
+  OIDC que la CLI descarga. **No subirlos nunca.**
 
 ## Notas rápidas
 - **La app es pública y multiusuario.** No lleva datos de nadie: arranca vacía y
