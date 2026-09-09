@@ -123,10 +123,9 @@ def main():
             salida.quantize(colors=255, method=Image.FASTOCTREE).save(destino, optimize=True)
             print("  %-20s %5.1f kB" % (nombre, os.path.getsize(destino) / 1024))
 
-    print("\n%d michis en %s/. Para meterlos en la app habria que moverlos"
-          % (len(poses) * len(VARIANTES), DESTINO))
-    print("a public/michi/ y anadir el color al selector, como se hizo con")
-    print("la carcasa del huevo (ver src/mascota/TamagotchiPNG.jsx).")
+    print("\n%d michis listos en %s/ (%d poses x %d colores). Ya estan en"
+          % (len(poses) * len(VARIANTES), DESTINO, len(poses), len(VARIANTES)))
+    print("la app: se eligen en Ajustes > Tu michi > Tu gato.")
 
 
 if __name__ == "__main__":

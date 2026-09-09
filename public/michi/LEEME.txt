@@ -77,3 +77,32 @@ El segundo lleva las coordenadas escritas: la hoja de dormir tiene los
 michis desperdigados y un título en medio, y ordenarlos por filas era
 adivinar. Si regeneras una hoja, hay que volver a medir las cajas — el
 propio script explica cómo.
+
+LOS COLORES DEL MICHI
+---------------------
+Hay tres gatos: naranja, gris y blanco. Se eligen en Ajustes.
+
+  michi.png, michi_<pose>.png              el NARANJA. Estos son los
+                                           dibujos de verdad. EDITA AQUI.
+  michi-gris.png, michi_<pose>-gris.png    generados
+  michi-blanco.png, ...-blanco.png         generados
+
+Los generados NO se editan a mano: los sobrescribe el script en cuanto
+se vuelva a lanzar. Si tocas un naranja, lanza despues:
+
+    python pixel/tenir_michi.py
+
+y los otros dos colores se rehacen solos en dos segundos.
+
+Que NO hay que retocar en el naranja, porque no es cosa del dibujo:
+
+  - Los mofletes en el gris y el blanco. Se ven mas apagados a
+    proposito: el rosa era calido y sobre pelaje frio cantaba como una
+    pegatina. Se ajusta con `rubor` en VARIANTES, dentro del script.
+  - Los ojos y el contorno. Estan protegidos por LIMITE_OSCURO y no se
+    tinen. Si alguna vez salen grises, es que ese limite se ha quedado
+    corto para un dibujo nuevo, no que el dibujo este mal.
+
+Lo blanco que sea el blanco tambien se toca ahi: VARIANTES["blanco"]
+["luz"] es el tramo de luminosidad al que se lleva el pelaje. Mas alto,
+mas blanco; pero pasado 0,95 se pierde el atigrado y queda una mancha.
