@@ -236,6 +236,18 @@ export default {
     },
   },
 
+  calendario: {
+    titulo: '📅 Put it in your calendar',
+    intro: 'Download your training days and the daily reminder to note things down. They go into your phone calendar and it handles the alarms: MichiFit does not need to be open.',
+    boton: '📅 Add to my calendar',
+    nombre: 'MichiFit',
+    entrenoTitulo: '🏋️ Training with your michi',
+    entrenoDesc: '{min} minutes. Today the michi asks you for {pasos} steps — fewer than usual, because training and walking a lot on the same day does not hold up.',
+    apuntarTitulo: '🐾 Note down your day in MichiFit',
+    apuntarDesc: 'Steps, food and weight. It takes a minute, and the michi notices.',
+    nota: 'This downloads an .ics file. Open it and your phone will ask whether to add the events. If you change your pact, download it again.',
+  },
+
   borrar: {
     titulo: 'Erase all your data?',
     resumen: 'You are about to lose <b>{dias} days</b> of notes, going back to {desde}, with {pesadas} weigh-ins.',

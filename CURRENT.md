@@ -107,6 +107,22 @@ Los dibujos se normalizan con `pixel/normalizar_michis.py` (320x320,
 transparentes, apoyados abajo). Lo que importa ahí es que el GATO mida lo
 mismo en todas las poses, no que cada dibujo llene el lienzo.
 
+## El calendario (2026-09-10)
+Mi pacto → «Ponlo en tu calendario» genera un `.ics` con los entrenos
+semanales y un recordatorio diario a las 21:30 para apuntar el día.
+Lo hace `src/datos/calendario.js`, que **no sabe de idiomas**: los
+textos se los pasa Pacto.jsx ya traducidos, porque van dentro de los
+eventos y se leen fuera de la app.
+
+Es lo más cerca de una notificación que se puede llegar sin servidor.
+Las push de verdad necesitan un backend con claves VAPID, y eso rompería
+que los datos no salgan del dispositivo. Ver `ASK.md`.
+
+`pruebas/calendario.mjs` valida el archivo. **Lánzalo si tocas algo de
+ahí**: iCalendar tiene tres reglas que rompen el archivo entero y no dan
+error visible — CRLF obligatorio, 75 OCTETOS por línea (en japonés un
+carácter son tres) y comas escapadas.
+
 ## Seguridad (revisado el 2026-09-09)
 - Las cabeceras van en `vercel.json`: CSP, X-Frame-Options, nosniff,
   Referrer-Policy, Permissions-Policy y HSTS. **Si algún día se añade un

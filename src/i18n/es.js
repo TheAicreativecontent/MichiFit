@@ -242,6 +242,21 @@ export default {
     },
   },
 
+  /* Llevar el pacto al calendario del movil. Los textos van DENTRO de
+     los eventos, asi que se leeran en la app de calendario, fuera de
+     MichiFit: tienen que entenderse solos. */
+  calendario: {
+    titulo: '📅 Ponlo en tu calendario',
+    intro: 'Descarga tus días de entreno y el recordatorio de apuntar el día. Se añaden al calendario del móvil y las alarmas las pone él: MichiFit no necesita estar abierta.',
+    boton: '📅 Añadir a mi calendario',
+    nombre: 'MichiFit',
+    entrenoTitulo: '🏋️ Entreno con tu michi',
+    entrenoDesc: '{min} minutos. Hoy el michi te pide {pasos} pasos— menos de lo normal, porque entrenar y andar mucho el mismo día no se sostiene.',
+    apuntarTitulo: '🐾 Apúnta tu día en MichiFit',
+    apuntarDesc: 'Pasos, comida y peso. Es un minuto, y el michi lo nota.',
+    nota: 'Se descarga un archivo .ics. Ábrelo y tu móvil te preguntará si quieres añadir los eventos. Si cambias el pacto, vuelve a descargarlo.',
+  },
+
   borrar: {
     titulo: '¿Borrar todos tus datos?',
     resumen: 'Vas a perder <b>{dias} días</b> apuntados, desde el {desde}, con {pesadas} pesadas.',

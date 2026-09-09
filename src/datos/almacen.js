@@ -119,9 +119,15 @@ function escapar(v) {
 }
 
 export function descargar(nombre, contenido, tipo = 'text/csv') {
-  /* El BOM hace que Excel abra el archivo como UTF-8. Sin el, los
-     acentos salen rotos al abrirlo en Windows. */
-  const blob = new Blob(['﻿' + contenido], { type: `${tipo};charset=utf-8` });
+  /* El BOM hace que Excel abra el CSV como UTF-8: sin el, los acentos
+     salen rotos al abrirlo en Windows.
+
+     Pero SOLO en el CSV. Un .ics tiene que empezar exactamente por
+     `BEGIN:VCALENDAR`, y con tres bytes de BOM por delante hay
+     calendarios —Outlook entre ellos— que rechazan el archivo entero
+     sin decir por que. */
+  const bom = tipo.startsWith('text/csv') ? '﻿' : '';
+  const blob = new Blob([bom + contenido], { type: `${tipo};charset=utf-8` });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;

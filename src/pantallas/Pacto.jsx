@@ -13,6 +13,8 @@
 import { useState } from 'react';
 import T from '../i18n/Texto.jsx';
 import { useT } from '../i18n/index.jsx';
+import { aICS } from '../datos/calendario.js';
+import { descargar } from '../datos/almacen.js';
 import { DIAS } from '../engine/constantes.js';
 import { macros } from '../engine/calculos.js';
 import { EditorEjercicios } from './Ejercicios.jsx';
@@ -117,6 +119,27 @@ export default function Pacto({ pacto, perfil, estado, onCambiar }) {
             <T k="pacto.notaMacros" className="mf-nota" />
           </>
         )}
+      </div>
+
+      <div className="mf-tarjeta">
+        <h3 className="mf-h3">{t('calendario.titulo')}</h3>
+        <p className="mf-nota" style={{ marginTop: 0 }}>{t('calendario.intro')}</p>
+        <button className="mf-boton" onClick={() => descargar(
+          'michifit.ics',
+          aICS(pacto, {
+            nombreCalendario: t('calendario.nombre'),
+            entrenoTitulo: t('calendario.entrenoTitulo'),
+            /* La descripcion se arma aqui y no en calendario.js: ese
+               archivo no sabe de idiomas a proposito. */
+            entrenoDesc: ({ min, pasos }) => t('calendario.entrenoDesc', { min, pasos }),
+            apuntarTitulo: t('calendario.apuntarTitulo'),
+            apuntarDesc: t('calendario.apuntarDesc'),
+          }),
+          'text/calendar',
+        )}>
+          {t('calendario.boton')}
+        </button>
+        <p className="mf-nota">{t('calendario.nota')}</p>
       </div>
 
       {estado && (

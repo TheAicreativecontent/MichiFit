@@ -236,6 +236,18 @@ export default {
     },
   },
 
+  calendario: {
+    titulo: '📅 カレンダーに入れる',
+    intro: '運動の日と、毎日の記録リマインダーをダウンロードします。スマホのカレンダーに入り、通知は端末が出します。MichiFit を開いておく必要はありません。',
+    boton: '📅 カレンダーに追加',
+    nombre: 'MichiFit',
+    entrenoTitulo: '🏋️ ミチと一緒に運動',
+    entrenoDesc: '{min}分。今日のミチのお願いは{pasos}歩 — いつもより少なめです。運動もたくさん歩くのも同じ日に、は続きませんから。',
+    apuntarTitulo: '🐾 MichiFit に今日を記録',
+    apuntarDesc: '歩数、食事、体重。1分で終わりますし、ミチはちゃんと見ています。',
+    nota: '.ics ファイルがダウンロードされます。開くと、追加するかどうか端末が聞いてきます。約束を変えたら、もう一度ダウンロードしてください。',
+  },
+
   borrar: {
     titulo: 'データをすべて消しますか？',
     resumen: '<b>{dias}日分</b>の記録が消えます。{desde}までさかのぼり、体重の記録{pesadas}回を含みます。',

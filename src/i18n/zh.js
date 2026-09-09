@@ -235,6 +235,18 @@ export default {
     },
   },
 
+  calendario: {
+    titulo: '📅 加到你的日历',
+    intro: '下载你的训练日和每天的记录提醒。它们会加进手机日历，闹铃交给系统：MichiFit 不用开着。',
+    boton: '📅 加到日历',
+    nombre: 'MichiFit',
+    entrenoTitulo: '🏋️ 和米奇一起训练',
+    entrenoDesc: '{min} 分钟。今天米奇只要你 {pasos} 步 — 比平时少，因为同一天既训练又走很多路擑不住。',
+    apuntarTitulo: '🐾 在 MichiFit 记下你的一天',
+    apuntarDesc: '步数、饮食和体重。一分钟而已，米奇会注意到。',
+    nota: '会下载一个 .ics 文件。打开它，手机会问你要不要添加。如果改了约定，重新下载一次。',
+  },
+
   borrar: {
     titulo: '删除你的所有数据？',
     resumen: '你将失去 <b>{dias} 天</b>的记录，最早到 {desde}，包含 {pesadas} 次称重。',

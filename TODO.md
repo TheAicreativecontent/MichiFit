@@ -13,9 +13,7 @@
       lista: la gente no sabe para qué está el gato porque la app no lo
       dice en ninguna parte. Al adoptarlo debería presentarse.
       El guion está en `LORE.md` y los prompts de las 22 viñetas, hechos.
-- [ ] **Exportar el pacto al calendario (.ics)**. Es lo que de verdad
-      recuerda ir al gimnasio, y funciona en todos los móviles sin
-      servidor ni permisos. Ver la nota de ASK.md sobre las push.
+
 - [ ] Add-ons cosméticos al llegar a nivel 5 (batidos, mancuernas, gafas).
       Se pierden al bajar de nivel y se recuperan al volver a subir.
       Necesita código además del dibujo.
@@ -44,6 +42,10 @@
       recuperan nunca, esta tarea se cierra sola.
 
 ## Hecho
+- [x] 2026-09-10 — El pacto se exporta al calendario del móvil (.ics),
+      con los entrenos semanales y el recordatorio diario de apuntar.
+      Es lo más cerca de una notificación que se puede hacer sin
+      servidor, y funciona en todos los móviles.
 - [x] 2026-09-10 — Tres gatos a elegir: naranja, gris y blanco. Los dos
       nuevos salen de teñir los naranjas, sin redibujar nada.
 - [x] 2026-09-09 — El michi deja de reflejar tu cuerpo y pasa a reflejar
