@@ -6,14 +6,17 @@
       desde `/`, y en `usuario.github.io/repo/` la app saldría en blanco.
       Con Vercel no hace falta: sirve desde la raíz del dominio.
 
-## Después
+## Después · hacen falta DIBUJOS, no código
+El sistema ya admite las tres: basta dejar el PNG en `public/michi/` con
+el nombre `<cuerpo>_<pose>.png` y aparecen solas.
+
+- [ ] Poses que faltan: **celebrando** (al subir de nivel) y **triste**
+      (tras fallar una semana). Son 5 cuerpos × 2 poses = 10 dibujos.
+- [ ] **Pose de pasear**: la escena "PASEANDO" usa el michi de pie, porque
+      no hay dibujo propio. 5 dibujos.
 - [ ] Add-ons cosméticos al llegar a nivel 5 (batidos, mancuernas, gafas).
       Se pierden al bajar de nivel y se recuperan al volver a subir.
-- [ ] Poses que faltan: **celebrando** (al subir de nivel) y **triste**
-      (tras fallar una semana). El sistema ya las admite: basta dejar el
-      PNG en `public/michi/` con el nombre `<cuerpo>_<pose>.png`.
-- [ ] **Pose de pasear**: la escena "PASEANDO" usa el michi de pie, porque
-      no hay dibujo propio.
+      Este sí necesita código además del dibujo.
 
 ## Descartado
 - ~~Importador del export de Garmin Connect~~ — la API de Garmin exige ser
@@ -33,10 +36,20 @@
 - [ ] En la gráfica, la historia queda comprimida cuando la meta está muy
       lejos (28 días de datos contra 165 de previsión). Se leería mejor con
       un eje partido o limitando el horizonte visible.
-- [ ] Avisar de sobreentrenamiento cuando se rompen muchos días de descanso.
 - [ ] Marcar en la gráfica los tramos con pocos datos.
+- [ ] Renombrar lo que queda de «Michigochi» en el código. Ya casi no
+      queda: el michi SVG y su CSS, ambos en `_CUARENTENA/`. Si no se
+      recuperan nunca, esta tarea se cierra sola.
 
 ## Hecho
+- [x] 2026-09-09 — El huevo pasa a poder elegirse en siete colores,
+      teñidos por código desde una sola imagen. El acabado liso está
+      hecho y guardado en `_CUARENTENA/carcasas-lisas/`, fuera de la app.
+- [x] 2026-09-09 — Borrar los datos exige un paso deliberado (escribir
+      los días que se pierden) en vez de un `confirm()` del navegador.
+- [x] 2026-09-09 — Revisión antes de abrir al público: 6 errores
+      arreglados, 4 asuntos de seguridad cerrados (cabeceras, XSS
+      latente, CSV, localStorage) y código muerto a `_CUARENTENA/`.
 - [x] 2026-09-09 — Cinco idiomas (es/en/th/zh/ja) con selector en la
       cabecera. 295 cadenas, sistema propio sin libreria.
 - [x] 2026-09-09 — Tamano de letra ajustable (normal/grande/muy grande).

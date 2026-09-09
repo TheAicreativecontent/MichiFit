@@ -20,6 +20,17 @@ Se guardó cuando se archivó Michigochi «por si acaso», y ese por si acaso
 ya duró bastante. Para recuperarlo basta con moverlo de vuelta a
 `src/mascota/` e importarlo donde haga falta.
 
+### michi.css va con él
+
+`src/mascota/michi.css` → aquí, junto a `Michi.jsx`. Es su hoja de
+estilos: las animaciones con el prefijo `mg-` (respirar, dormitar,
+botar, mover la cola). Ningún JSX vivo usa esas clases.
+
+Se quedó atrás en la primera limpieza, con dos efectos: seguía
+compilándose en la app sin que nada la usara, y el `Michi.jsx` de aquí
+tenía el `import './michi.css'` roto. Ahora el par está completo y se
+recupera moviendo **los dos** archivos a `src/mascota/`.
+
 ## Constantes de los días de la semana
 
 `DIAS_INICIAL` y `DIAS_LARGO`, en `src/engine/constantes.js`. **No se han
