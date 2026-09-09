@@ -81,6 +81,10 @@ Dos trampas que ya están resueltas y conviene no volver a pisar:
   navegador lo bloqueará en silencio.**
 - Para texto con `<b>` dentro se usa `<T k="clave" />` de
   `src/i18n/Texto.jsx`. **No volver a `dangerouslySetInnerHTML`.**
+- Borrar todos los datos exige escribir el **número de días** que se
+  pierden (`BorrarTodo` en `Ajustes.jsx`). Se eligió un número y no una
+  palabra porque se teclea igual en cualquier idioma. **No sustituirlo
+  por un `confirm()`**: es lo único irreversible de la app.
 - `aCSV()` escapa comas, comillas y fórmulas de Excel. Si se añade una
   columna de texto libre, ya está cubierto.
 

@@ -111,3 +111,8 @@ localStorage se valida por tipo.
 importaba), dos constantes sustituidas por el diccionario y 13 reglas de
 CSS. Nada borrado.
 
+Y como cierre, el `confirm()` de borrar los datos pasa a ser una hoja de
+la app que enseña qué se pierde, ofrece la copia de seguridad antes y
+pide escribir el número de días. Un número, no una palabra: «BORRAR» en
+un teclado tailandés o japonés sería una trampa.
+
