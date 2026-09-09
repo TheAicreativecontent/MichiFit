@@ -15,7 +15,7 @@ export const ESCENAS = [
   { id: 'casa',     escenario: 'casa',     pose: null,          rotulo: 'EN CASA' },
   { id: 'comer',    escenario: 'casa',     pose: 'comiendo',    rotulo: 'COMIENDO' },
   { id: 'entrenar', escenario: 'gimnasio', pose: 'entrenando',  rotulo: 'ENTRENANDO' },
-  { id: 'pasear',   escenario: 'calle',    pose: null,          rotulo: 'PASEANDO' },
+  { id: 'pasear',   escenario: 'calle',    pose: 'andando',     rotulo: 'PASEANDO' },
   { id: 'dormir',   escenario: 'casa',     pose: 'dormido',     rotulo: 'DURMIENDO',
     dormido: true },
 ];

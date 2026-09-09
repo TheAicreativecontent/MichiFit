@@ -98,17 +98,17 @@ export default function TamagotchiPNG({
   const [intento, setIntento] = useState(0);
 
   /* Cadena de respaldo, de lo más específico a lo más general:
-       1. este cuerpo en esta pose   (gordo_dormido.png)
-       2. la pose sin cuerpo         (dormido.png)
-       3. este cuerpo de pie         (gordo.png)
-       4. el michi base              (kawaii.png)
+       1. el michi en esta pose   (michi_durmiendo.png)
+       2. la pose suelta          (durmiendo.png)
+       3. el michi de pie         (michi.png)
      Y si no hay ninguna, el aparato dibujado en SVG. Así se pueden ir
-     añadiendo dibujos sin que falte nada por el camino. */
+     añadiendo dibujos de uno en uno: mientras falte el de una pose, sale
+     el michi de pie y no se rompe nada. */
   const candidatos = [
     pose && `${RUTA}/${estado}_${pose}.png`,
     pose && `${RUTA}/${pose}.png`,
     `${RUTA}/${estado}.png`,
-    `${RUTA}/kawaii.png`,
+    `${RUTA}/michi.png`,
   ].filter(Boolean);
   const src = candidatos[intento];
 

@@ -86,21 +86,38 @@ Los tres ejes del motor se redefinen en términos de **hábitos**, no de cuerpo:
 | Eje | Sale de | Se ve en |
 |-----|---------|----------|
 | **Energía** | pasos y entrenos recientes, calidad del sueño | pose y brío |
-| **Forma** | cumplimiento del pacto sostenido | silueta |
+| **Forma** | cumplimiento del pacto sostenido | cuánto se anima |
 | **Ánimo** | sueño, estrés, constancia | expresión |
 
-Y las cinco siluetas dejan de hablar de tu IMC:
+### El michi tiene UNA silueta (2026-09-09)
 
-| Silueta | Qué significa ahora |
-|---------|--------------------|
-| **esquelético** | abandono prolongado — el michi lleva mucho sin nada |
-| **gordo** | comiendo por encima del pacto y moviéndose poco |
-| **kawaii** | estado base, cumpliendo a medias |
-| **fit** | cumpliendo el pacto con constancia |
-| **hipertrofiado** | cumpliendo con creces, con entrenos de fuerza |
+Antes tenía cinco: esquelético, gordo, kawaii, fit e hipertrofiado, y
+cambiaban con tus hábitos. **Se han quitado.**
 
-> Esto es un cambio importante respecto al motor actual, donde `forma` sale del
-> IMC. Hay que reescribir `calcularForma()`.
+Varias personas probaron la app y dijeron lo mismo sin ponerse de
+acuerdo: no entendían para qué servía el gato, y no querían
+identificarse con un cuerpo grande ni con uno pequeño.
+
+Tenían razón, y este documento ya lo sabía: la sección 10 promete «no
+enseñar un cuerpo gordo o esquelético como juicio sobre el usuario» y
+la tabla de aquí arriba definía exactamente eso. La excusa era que las
+siluetas «hablaban de hábitos, no del IMC». Pero esa distinción vive en
+el código, no en la pantalla: lo que se ve es TU gato gordo.
+
+**Ahora el michi no refleja tu cuerpo, refleja tu constancia.** Está
+contento si cumples lo que tú prometiste, cansado si llevas días sin
+aparecer, triste si lo has dejado. Nunca gordo ni escuálido.
+
+Lo que se dibuja sale de dos cosas, y en este orden:
+
+| Manda | Qué se ve |
+|-------|-----------|
+| 1. lo que **hace** | comiendo, entrenando, durmiendo, andando |
+| 2. si no hace nada, cómo **se siente** | contento, cansado, triste, o de pie |
+
+Lo que hace gana siempre: si está comiendo, sale comiendo aunque ande
+triste. Así bastan ocho dibujos en vez de cinco escenas por tres
+ánimos.
 
 ## 6 · Niveles y ritmo
 

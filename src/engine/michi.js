@@ -232,49 +232,36 @@ export function calcularEstado({ pacto, entradas, perfil, carino = [], ahora = D
 }
 
 /* ---------- 7 · Traducción a lo que se dibuja ----------
-   Las cinco siluetas ya no hablan del IMC del usuario: hablan de sus
-   hábitos. Ver la tabla de MECANICA.md.                            */
-export function estadoVisual(estado, entradas = {}, pacto = null) {
-  const { energia, forma, animo, abandono, nivel } = estado;
+   El michi tiene UNA silueta. Antes tenía cinco —esquelético, gordo,
+   fit, hipertrofiado— que cambiaban con tus hábitos, y varias personas
+   dijeron lo mismo al probar la app: no entendían para qué servía el
+   gato, y no querían identificarse con un cuerpo grande o pequeño.
 
-  let cuerpo;
-  if (abandono >= DIAS_ABANDONO) {
-    cuerpo = 'esqueletico';           // lleva mucho sin nada
-  } else if (forma >= 85 && entrenosRecientes(estado, entradas) >= 3) {
-    cuerpo = 'hipertrofiado';         // cumple con creces, con fuerza
-  } else if (forma >= 70) {
-    cuerpo = 'fit';
-  } else if (forma < 35 && comeDeMas(estado, entradas, pacto)) {
-    cuerpo = 'gordo';                 // por encima del pacto y poco movimiento
-  } else {
-    cuerpo = 'kawaii';
-  }
+   Tenían razón. Aunque el código dijera que las siluetas hablaban de
+   hábitos y no del IMC, lo que se ve es TU gato gordo, y eso se lee
+   como un juicio sobre tu cuerpo. La intención no viaja; el dibujo sí.
 
-  const pose = estado.dormido
-    ? 'cansado'
-    : energia <= 20 ? 'cansado'
-    : energia <= 50 ? 'normal'
-    : energia <= 80 ? 'entrenado'
-    : 'energico';
+   Así que ahora el michi no refleja tu cuerpo: refleja tu CONSTANCIA.
+   Está contento si cumples lo que tú prometiste, cansado si llevas días
+   sin moverte, triste si lo has dejado. Nunca gordo ni escuálido.
 
-  const cara = animo <= -20 ? 'enfadado' : animo < 20 ? 'neutro' : 'feliz';
+   Lo que se dibuja sale de dos cosas, en este orden:
+     1. lo que está HACIENDO (comer, entrenar, dormir, pasear), que lo
+        manda la escena y gana siempre;
+     2. y si no hace nada, cómo SE SIENTE.
+   Así no hacen falta cinco escenas por tres ánimos: con ocho dibujos
+   está todo cubierto.                                                */
+export function estadoVisual(estado) {
+  const { energia, animo, abandono, nivel } = estado;
 
-  return { cuerpo, pose, cara, nivel: nivel.nivel };
-}
+  /* El ánimo del michi cuando está en casa sin hacer nada. `abandono`
+     va primero: da igual lo que digan los demás números si llevas diez
+     días sin aparecer. */
+  let humor;
+  if (abandono >= DIAS_ABANDONO || animo <= -20) humor = 'triste';
+  else if (estado.dormido || energia <= 25) humor = 'cansado';
+  else if (animo >= 20) humor = 'contento';
+  else humor = null;                  // el michi de pie, sin más
 
-function entrenosRecientes(estado, entradas) {
-  return estado.evaluaciones
-    .slice(0, 14)
-    .filter((d) => (entradas[d.fecha]?.entrenoMin ?? 0) > 0).length;
-}
-
-function comeDeMas(estado, entradas, pacto) {
-  if (!pacto?.comidaKcal) return true; // sin objetivo de comida, manda la forma
-  const dias = estado.evaluaciones
-    .slice(0, 7)
-    .map((d) => entradas[d.fecha]?.comidaKcal)
-    .filter((v) => v != null);
-  if (!dias.length) return false;
-  const media = dias.reduce((a, b) => a + b, 0) / dias.length;
-  return media > pacto.comidaKcal * 1.1;
+  return { cuerpo: 'michi', humor, nivel: nivel.nivel };
 }

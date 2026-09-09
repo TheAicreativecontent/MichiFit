@@ -23,10 +23,13 @@ import { ESCENAS, porId, siguiente, escenaAutomatica } from '../mascota/escenas.
    reales. No sale nunca solo: se abre dando siete toques al logo de la
    cabecera (ver `tocarLogo` en App.jsx). Se queda en el código a
    propósito, es la forma de revisar los dibujos en el móvil. */
-const CUERPOS = ['esqueletico', 'gordo', 'kawaii', 'fit', 'hipertrofiado'];
+/* Ya no hay cuerpos que probar: el michi tiene una sola silueta. Lo que
+   se revisa aquí son sus poses y sus humores. */
 const POSES = [
   { id: null, et: 'de pie' }, { id: 'comiendo', et: 'come' },
-  { id: 'entrenando', et: 'entrena' }, { id: 'dormido', et: 'duerme' },
+  { id: 'entrenando', et: 'entrena' }, { id: 'durmiendo', et: 'duerme' },
+  { id: 'andando', et: 'anda' }, { id: 'contento', et: 'contento' },
+  { id: 'triste', et: 'triste' }, { id: 'cansado', et: 'cansado' },
 ];
 
 export default function Inicio({ estado, entradas, pacto, onCarino, accion,
@@ -38,7 +41,7 @@ export default function Inicio({ estado, entradas, pacto, onCarino, accion,
   const [escenaId, setEscenaId] = useState(null);
   const [prueba, setPrueba] = useState(null);   // { cuerpo, pose } o null
 
-  const visual = estadoVisual(estado, entradas, pacto);
+  const visual = estadoVisual(estado);
   const hoy = estado.hoy;
   const entradaHoy = entradas[hoyISO()] ?? {};
   const pendientes = hoy?.objetivos.filter((o) => !o.cumplido && o.id !== 'descanso') ?? [];
@@ -88,10 +91,15 @@ export default function Inicio({ estado, entradas, pacto, onCarino, accion,
     <div className="mf-pagina">
       <div className="mf-escena">
         <Tamagotchi
-          estado={prueba?.cuerpo ?? visual.cuerpo}
+          estado={visual.cuerpo}
           size={300}
-          dormido={prueba ? prueba.pose === 'dormido' : dormido}
-          pose={prueba ? prueba.pose : dormido ? 'dormido' : escena.pose}
+          dormido={prueba ? prueba.pose === 'durmiendo' : dormido}
+          /* Lo que HACE gana a cómo se siente: si está comiendo, sale
+             comiendo aunque ande triste. El humor solo se ve cuando no
+             está haciendo nada. */
+          pose={prueba ? prueba.pose
+                : dormido ? 'durmiendo'
+                : (escena.pose ?? visual.humor)}
           escenario={escena.escenario}
           rotulo={t('escenas.' + escena.id)}
           mimando={gesto === 'mimar'}
