@@ -18,6 +18,7 @@ const VACIO = {
     totalReal: null,
     proteinaPorKg: 2,
     deficitObjetivo: 500,
+    escalaTexto: 1,   // tamano de la letra, ver estilos.css
   },
   pacto: null,
   entradas: {},         // { 'AAAA-MM-DD': { pasos, entrenoMin, comidaKcal, ... } }

@@ -103,7 +103,7 @@ export default function Bienvenida({ onEmpezar }) {
         </p>
         <C et="En reposo" u="kcal/día" v={p.reposoReal}
            on={(v) => setP({ ...p, reposoReal: v })}
-           ph={estimado ? `estimado: ${estimado}` : ''} />
+           ph={estimado ? `≈ ${estimado}` : ''} />
       </div>
 
       <div className="mf-tarjeta">

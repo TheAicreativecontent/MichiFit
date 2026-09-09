@@ -71,13 +71,30 @@ export default function Ajustes({ perfil, entradas, pacto, onCambiar, onReinicia
       </div>
 
       <div className="mf-tarjeta">
+        <h3 className="mf-h3">Tamaño de la letra</h3>
+        <div className="mf-escalas">
+          {[{ v: 1, t: 'Normal' }, { v: 1.15, t: 'Grande' }, { v: 1.3, t: 'Muy grande' }].map((o) => (
+            <button key={o.v} className={(perfil.escalaTexto ?? 1) === o.v ? 'sel' : ''}
+                    style={{ fontSize: `${12 * o.v}px` }}
+                    onClick={() => onCambiar({ ...perfil, escalaTexto: o.v })}>
+              {o.t}
+            </button>
+          ))}
+        </div>
+        <p className="mf-nota">
+          Cambia toda la app al momento. Los dibujos y los iconos se quedan
+          como están: solo crece el texto.
+        </p>
+      </div>
+
+      <div className="mf-tarjeta">
         <h3 className="mf-h3">Tu gasto energético</h3>
         <p className="mf-nota">
           Si tienes reloj, pon aquí tus medias reales: son más exactas que
           cualquier fórmula. Si lo dejas vacío, lo estimo yo.
         </p>
         <Campo etiqueta="En reposo" unidad="kcal/día" v={perfil.reposoReal} on={set('reposoReal')}
-               placeholder={estimado ? `estimado: ${estimado}` : ''} />
+               placeholder={estimado ? `≈ ${estimado}` : ''} />
         <Campo etiqueta="Gasto total" unidad="kcal/día" v={perfil.totalReal} on={set('totalReal')} />
         <p className="mf-nota">
           En Garmin: Calorías quemadas → 4 sem. «Promedio en reposo» y «Media total».

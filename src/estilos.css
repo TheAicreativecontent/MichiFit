@@ -2,6 +2,10 @@
 
 :root {
   color-scheme: light;
+  /* Escala del texto. 1 es el tamano de siempre; Ajustes la sube para
+     quien necesite la letra mas grande. Los emoji y el pixel art NO
+     escalan: viven en cajas de tamano fijo y desbordarian. */
+  --escala: 1;
   /* Paleta compartida con Michi Finanzas y MichiMind. Mismos valores,
      para que las tres se reconozcan como de la misma casa.
      Lo propio de MichiFit es el NARANJA del logo, donde MichiFin usa
@@ -75,9 +79,9 @@ body {
   backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--linea);
 }
-.mf-marca-txt h1 { font-family: 'Baloo 2', cursive; font-size: 21px; margin: 0; line-height: 1; }
+.mf-marca-txt h1 { font-family: 'Baloo 2', cursive; font-size: calc(21px * var(--escala)); margin: 0; line-height: 1; }
 .mf-marca-txt h1 b { color: var(--rosa); }
-.mf-marca-txt small { font-size: 10px; color: var(--tinta-flojo); font-weight: 700; line-height: 1.25; display: block; }
+.mf-marca-txt small { font-size: calc(10px * var(--escala)); color: var(--tinta-flojo); font-weight: 700; line-height: 1.25; display: block; }
 .mf-racha {
   background: var(--papel); border-radius: 14px; height: 38px;
   padding: 0 12px; font-family: 'Baloo 2', cursive; font-weight: 800;
@@ -89,11 +93,11 @@ body {
 .mf-pagina { padding: 16px 18px 8px; animation: entra .3s ease both; }
 @keyframes entra { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
-.mf-h2 { font-family: 'Baloo 2', cursive; font-size: 19px; margin: 4px 0 4px; }
-.mf-h3 { font-family: 'Baloo 2', cursive; font-size: 15px; margin: 0 0 10px; }
-.mf-sub { font-size: 12px; color: var(--tinta-flojo); font-weight: 700; margin: 0 0 14px; }
-.mf-nota { font-size: 11.5px; color: var(--tinta-flojo); font-weight: 600; line-height: 1.5; margin: 10px 0 0; }
-.mf-pie { font-size: 11px; color: var(--tinta-flojo); font-weight: 600; line-height: 1.5; text-align: center; margin: 18px 0; }
+.mf-h2 { font-family: 'Baloo 2', cursive; font-size: calc(19px * var(--escala)); margin: 4px 0 4px; }
+.mf-h3 { font-family: 'Baloo 2', cursive; font-size: calc(15px * var(--escala)); margin: 0 0 10px; }
+.mf-sub { font-size: calc(12px * var(--escala)); color: var(--tinta-flojo); font-weight: 700; margin: 0 0 14px; }
+.mf-nota { font-size: calc(11.5px * var(--escala)); color: var(--tinta-flojo); font-weight: 600; line-height: 1.5; margin: 10px 0 0; }
+.mf-pie { font-size: calc(11px * var(--escala)); color: var(--tinta-flojo); font-weight: 600; line-height: 1.5; text-align: center; margin: 18px 0; }
 
 .mf-tarjeta {
   background: var(--papel); border-radius: 22px; padding: 16px 18px;
@@ -110,30 +114,30 @@ body {
 }
 .mf-globo {
   background: var(--rosa-suave); border-radius: 16px 16px 16px 5px;
-  padding: 11px 14px; font-weight: 700; font-size: 13.5px;
+  padding: 11px 14px; font-weight: 700; font-size: calc(13.5px * var(--escala));
   margin: 0 0 12px; text-align: center; line-height: 1.4;
 }
 .mf-nivel {
   width: 100%; text-align: center; background: var(--papel);
   border-radius: 18px; padding: 12px 16px; box-shadow: var(--sombra-sm);
 }
-.mf-nivel > span { font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 16px; }
-.mf-nivel small { display: block; margin-top: 4px; font-size: 11px; color: var(--tinta-flojo); font-weight: 700; }
+.mf-nivel > span { font-family: 'Baloo 2', cursive; font-weight: 800; font-size: calc(16px * var(--escala)); }
+.mf-nivel small { display: block; margin-top: 4px; font-size: calc(11px * var(--escala)); color: var(--tinta-flojo); font-weight: 700; }
 .mf-xp { height: 9px; background: var(--rosa-suave); border-radius: 99px; overflow: hidden; margin-top: 7px; }
 .mf-xp > div { height: 100%; background: linear-gradient(90deg, var(--rosa), var(--menta)); transition: width .5s ease; }
 
 /* --- rejillas de datos --- */
 .mf-rejilla { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
 .mf-celda { background: var(--papel); border-radius: 18px; padding: 12px 14px; box-shadow: var(--sombra-sm); }
-.mf-celda b { font-family: 'Baloo 2', cursive; font-size: 22px; display: block; line-height: 1.1; }
+.mf-celda b { font-family: 'Baloo 2', cursive; font-size: calc(22px * var(--escala)); display: block; line-height: 1.1; }
 .mf-celda b.bien { color: var(--bien); }
 .mf-celda b.mal { color: var(--mal); }
-.mf-celda small { font-size: 10.5px; color: var(--tinta-flojo); font-weight: 700; }
+.mf-celda small { font-size: calc(10.5px * var(--escala)); color: var(--tinta-flojo); font-weight: 700; }
 
 .mf-resumen { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; text-align: center; }
 .mf-dato .ic { font-size: 17px; display: block; }
-.mf-dato b { font-family: 'Baloo 2', cursive; font-size: 19px; display: block; }
-.mf-dato small { font-size: 9.5px; color: var(--tinta-flojo); font-weight: 700; line-height: 1.2; display: block; }
+.mf-dato b { font-family: 'Baloo 2', cursive; font-size: calc(19px * var(--escala)); display: block; }
+.mf-dato small { font-size: calc(9.5px * var(--escala)); color: var(--tinta-flojo); font-weight: 700; line-height: 1.2; display: block; }
 
 /* --- la semana del pacto --- */
 .mf-semana { display: flex; flex-direction: column; gap: 8px; }
@@ -141,51 +145,51 @@ body {
 .mf-dia.entreno { border-color: var(--rosa); }
 .mf-dia.descanso { border-color: var(--menta); }
 .mf-dia-cab { display: flex; align-items: center; justify-content: space-between; margin-bottom: 7px; }
-.mf-dia-cab b { font-family: 'Baloo 2', cursive; font-size: 14px; }
+.mf-dia-cab b { font-family: 'Baloo 2', cursive; font-size: calc(14px * var(--escala)); }
 .mf-toggle {
-  border: none; border-radius: 99px; padding: 5px 11px; font-size: 11px;
+  border: none; border-radius: 99px; padding: 5px 11px; font-size: calc(11px * var(--escala));
   font-weight: 800; cursor: pointer; background: var(--menta-suave); color: var(--tinta);
   font-family: 'Nunito', sans-serif;
 }
 .mf-toggle.on { background: var(--rosa-suave); }
 .mf-dia-campos { display: flex; gap: 8px; }
 .mf-dia-campos label { flex: 1; display: flex; flex-direction: column; gap: 3px; }
-.mf-dia-campos span { font-size: 10.5px; font-weight: 700; color: var(--tinta-flojo); }
+.mf-dia-campos span { font-size: calc(10.5px * var(--escala)); font-weight: 700; color: var(--tinta-flojo); }
 
 input[type=number] {
   width: 100%; border: 2px solid var(--linea); background: var(--papel);
   color: var(--tinta); border-radius: 11px; padding: 7px 10px;
-  font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 14px;
+  font-family: 'Baloo 2', cursive; font-weight: 700; font-size: calc(14px * var(--escala));
 }
 input[type=number]:focus { outline: none; border-color: var(--rosa); }
 
 .mf-campo { display: grid; grid-template-columns: 1fr 120px; align-items: center; gap: 10px; margin-bottom: 9px; }
-.mf-campo > span { font-size: 12.5px; font-weight: 700; }
+.mf-campo > span { font-size: calc(12.5px * var(--escala)); font-weight: 700; }
 .mf-campo small { color: var(--tinta-flojo); font-weight: 600; }
 
 /* --- macros --- */
 .mf-macros { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 12px; text-align: center; }
 .mf-macro { background: var(--fondo); border-radius: 14px; padding: 10px; }
-.mf-macro b { font-family: 'Baloo 2', cursive; font-size: 17px; display: block; }
-.mf-macro small { font-size: 10px; color: var(--tinta-flojo); font-weight: 700; }
+.mf-macro b { font-family: 'Baloo 2', cursive; font-size: calc(17px * var(--escala)); display: block; }
+.mf-macro small { font-size: calc(10px * var(--escala)); color: var(--tinta-flojo); font-weight: 700; }
 
 /* --- tira de días --- */
 .mf-tira { display: flex; gap: 5px; }
 .mf-cuadro {
   flex: 1; aspect-ratio: 1; border-radius: 10px; display: grid; place-items: center;
-  font-size: 11px; font-weight: 800; color: #fff;
+  font-size: calc(11px * var(--escala)); font-weight: 800; color: #fff;
 }
 .mf-cuadro.ok { background: var(--bien); }
 .mf-cuadro.fallo { background: var(--mal); }
 .mf-cuadro.abierto { background: var(--linea); color: var(--tinta-flojo); }
-.mf-leyenda { margin-top: 9px; font-size: 10.5px; color: var(--tinta-flojo); font-weight: 700; }
+.mf-leyenda { margin-top: 9px; font-size: calc(10.5px * var(--escala)); color: var(--tinta-flojo); font-weight: 700; }
 .mf-leyenda i { display: inline-block; width: 9px; height: 9px; border-radius: 3px; vertical-align: middle; }
 .mf-leyenda i.ok { background: var(--bien); }
 .mf-leyenda i.fallo { background: var(--mal); }
 .mf-leyenda i.abierto { background: var(--linea); }
 
 /* --- objetivos de hoy --- */
-.mf-obj { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--linea); font-size: 13px; font-weight: 700; }
+.mf-obj { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--linea); font-size: calc(13px * var(--escala)); font-weight: 700; }
 .mf-obj:last-child { border: none; }
 .mf-obj b { font-family: 'Baloo 2', cursive; }
 .mf-obj.ok { color: var(--bien); }
@@ -201,12 +205,12 @@ input[type=number]:focus { outline: none; border-color: var(--rosa); }
 .mf-accion:active { transform: scale(.94); }
 .mf-accion.hecho { border-color: var(--bien); background: var(--menta-suave); }
 .mf-accion span { font-size: 19px; }
-.mf-accion small { font-size: 8.5px; font-weight: 800; line-height: 1.15; text-align: center; }
+.mf-accion small { font-size: calc(8.5px * var(--escala)); font-weight: 800; line-height: 1.15; text-align: center; }
 
 /* --- simulador --- */
 .mf-desliza { display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; margin-bottom: 14px; }
-.mf-desliza > span { font-size: 12.5px; font-weight: 800; }
-.mf-desliza > b { font-family: 'Baloo 2', cursive; color: var(--rosa); font-size: 15px; }
+.mf-desliza > span { font-size: calc(12.5px * var(--escala)); font-weight: 800; }
+.mf-desliza > b { font-family: 'Baloo 2', cursive; color: var(--rosa); font-size: calc(15px * var(--escala)); }
 .mf-desliza input { grid-column: 1 / -1; }
 input[type=range] {
   -webkit-appearance: none; appearance: none; width: 100%; height: 7px;
@@ -225,27 +229,27 @@ input[type=range]::-moz-range-thumb {
   background: linear-gradient(135deg, var(--menta-suave), var(--rosa-suave));
   border-radius: 22px; padding: 18px; text-align: center; margin-bottom: 14px;
 }
-.mf-meta b { font-family: 'Baloo 2', cursive; font-size: 44px; color: var(--rosa); display: block; line-height: 1; }
-.mf-meta small { font-size: 12px; font-weight: 700; color: var(--tinta); display: block; }
-.mf-fecha { margin-top: 8px; font-size: 12.5px; font-weight: 800; }
+.mf-meta b { font-family: 'Baloo 2', cursive; font-size: calc(44px * var(--escala)); color: var(--rosa); display: block; line-height: 1; }
+.mf-meta small { font-size: calc(12px * var(--escala)); font-weight: 700; color: var(--tinta); display: block; }
+.mf-fecha { margin-top: 8px; font-size: calc(12.5px * var(--escala)); font-weight: 800; }
 
 /* --- avisos --- */
 .mf-aviso {
   background: #FFF3D6; color: #7A5A10; border-radius: 16px; padding: 11px 14px;
-  font-size: 12px; font-weight: 700; line-height: 1.45; margin-bottom: 12px;
+  font-size: calc(12px * var(--escala)); font-weight: 700; line-height: 1.45; margin-bottom: 12px;
 }
 .mf-aviso.suave { background: var(--menta-suave); color: var(--tinta); }
 
 /* --- calculado --- */
-.mf-linea { display: flex; justify-content: space-between; align-items: center; padding: 7px 0; border-bottom: 1px solid var(--linea); font-size: 12.5px; font-weight: 700; }
+.mf-linea { display: flex; justify-content: space-between; align-items: center; padding: 7px 0; border-bottom: 1px solid var(--linea); font-size: calc(12.5px * var(--escala)); font-weight: 700; }
 .mf-linea:last-child { border: none; }
-.mf-linea b { font-family: 'Baloo 2', cursive; font-size: 13.5px; }
+.mf-linea b { font-family: 'Baloo 2', cursive; font-size: calc(13.5px * var(--escala)); }
 
 /* --- botones --- */
 .mf-boton {
   width: 100%; border: none; border-radius: 15px; padding: 12px;
   background: var(--rosa-suave); color: var(--tinta); font-family: 'Nunito', sans-serif;
-  font-weight: 800; font-size: 13px; cursor: pointer; margin-bottom: 8px;
+  font-weight: 800; font-size: calc(13px * var(--escala)); cursor: pointer; margin-bottom: 8px;
 }
 .mf-boton.peligro { background: transparent; color: var(--mal); }
 
@@ -274,7 +278,7 @@ input[type=range]::-moz-range-thumb {
   content: ''; position: absolute; left: 50%; bottom: -5px; transform: translateX(-50%);
   width: 4px; height: 4px; border-radius: 50%; background: var(--rosa);
 }
-.mf-nav button small { font-size: 8.5px; font-weight: 800; }
+.mf-nav button small { font-size: calc(8.5px * var(--escala)); font-weight: 800; }
 .mf-nav button.activa { color: var(--rosa); }
 .mf-nav button.activa span { filter: none; opacity: 1; }
 
@@ -283,14 +287,14 @@ input[type=range]::-moz-range-thumb {
 .mf-sexo button, .mf-dias button {
   flex: 1; border: 2px solid var(--linea); background: var(--papel);
   color: var(--tinta-flojo); border-radius: 12px; padding: 9px 4px;
-  font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 12px; cursor: pointer;
+  font-family: 'Nunito', sans-serif; font-weight: 800; font-size: calc(12px * var(--escala)); cursor: pointer;
 }
-.mf-dias button { padding: 10px 0; font-size: 13px; }
+.mf-dias button { padding: 10px 0; font-size: calc(13px * var(--escala)); }
 .mf-sexo button.sel, .mf-dias button.sel {
   border-color: var(--rosa); background: var(--rosa-suave); color: var(--tinta);
 }
 .mf-boton.principal {
-  background: var(--rosa); color: #fff; font-size: 15px; padding: 15px;
+  background: var(--rosa); color: #fff; font-size: calc(15px * var(--escala)); padding: 15px;
   border-radius: 18px; box-shadow: var(--sombra);
 }
 .mf-boton.principal:disabled {
@@ -299,21 +303,21 @@ input[type=range]::-moz-range-thumb {
 
 /* --- calendario --- */
 .mf-calnav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
-.mf-calnav b { font-family: 'Baloo 2', cursive; font-size: 16px; }
+.mf-calnav b { font-family: 'Baloo 2', cursive; font-size: calc(16px * var(--escala)); }
 .mf-calnav button {
   border: none; background: var(--chip); color: var(--tinta);
-  width: 34px; height: 34px; border-radius: 12px; font-size: 19px;
+  width: 34px; height: 34px; border-radius: 12px; font-size: calc(19px * var(--escala));
   cursor: pointer; font-weight: 800; line-height: 1;
 }
 .mf-cal { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
 .mf-caldow {
-  text-align: center; font-size: 10px; font-weight: 800;
+  text-align: center; font-size: calc(10px * var(--escala)); font-weight: 800;
   color: var(--tinta-flojo); padding-bottom: 4px;
 }
 .mf-caldia {
   position: relative; aspect-ratio: 1; border: 2px solid transparent;
   border-radius: 11px; background: var(--chip); color: var(--tinta);
-  font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 13px;
+  font-family: 'Baloo 2', cursive; font-weight: 700; font-size: calc(13px * var(--escala));
   cursor: pointer; padding: 0;
 }
 .mf-caldia.ok      { background: var(--bien); color: #17402C; }
@@ -346,7 +350,7 @@ input[type=range]::-moz-range-thumb {
 /* --- Karma --- */
 .mf-karma-cabecera, .mf-karma-bloque { text-align: center; }
 .mf-karma-cabecera img { display: block; margin: 4px auto 10px; object-fit: contain; }
-.mf-karma-cabecera b { font-size: 15px; display: block; margin-bottom: 6px; }
+.mf-karma-cabecera b { font-size: calc(15px * var(--escala)); display: block; margin-bottom: 6px; }
 .mf-karma-cabecera .mf-nota { margin-top: 0; }
 
 /* Los botones de donación conservan los colores de marca de cada
@@ -354,12 +358,12 @@ input[type=range]::-moz-range-thumb {
 .mf-boton-cafe {
   display: inline-flex; align-items: center; gap: 8px; margin-top: 8px;
   padding: 11px 22px; border-radius: 999px; background: #FFDD00; color: #000;
-  font-weight: 800; font-size: 16px; text-decoration: none; border: 1px solid #000;
+  font-weight: 800; font-size: calc(16px * var(--escala)); text-decoration: none; border: 1px solid #000;
 }
 .mf-boton-rayo {
   display: inline-flex; align-items: center; gap: 8px;
   padding: 12px 24px; border-radius: 999px; background: #F7931A; color: #fff;
-  font-weight: 800; font-size: 15px; text-decoration: none; border: 1.5px solid #000;
+  font-weight: 800; font-size: calc(15px * var(--escala)); text-decoration: none; border: 1.5px solid #000;
   text-shadow: 0 1px 2px rgba(0, 0, 0, .35);
 }
 .mf-karma-qr {
@@ -368,7 +372,7 @@ input[type=range]::-moz-range-thumb {
 }
 .mf-copiar {
   margin-top: 8px; background: none; border: 1.5px solid var(--menta);
-  border-radius: 999px; padding: 7px 16px; font-size: 12px; font-weight: 700;
+  border-radius: 999px; padding: 7px 16px; font-size: calc(12px * var(--escala)); font-weight: 700;
   color: var(--tinta-flojo); cursor: pointer; font-family: 'Nunito', sans-serif;
 }
 .mf-karma-michi { display: flex; justify-content: center; margin-top: 18px; }
@@ -405,7 +409,7 @@ input[type=range]::-moz-range-thumb {
 .mf-cab-acciones { margin-left: auto; display: flex; align-items: center; gap: 7px; }
 .mf-gear {
   background: var(--papel); border: none; border-radius: 14px;
-  width: 38px; height: 38px; font-size: 17px; cursor: pointer;
+  width: 38px; height: 38px; font-size: calc(17px * var(--escala)); cursor: pointer;
   box-shadow: var(--sombra-sm); line-height: 1;
 }
 .mf-gear.activa { background: var(--rosa-suave); }
@@ -426,12 +430,12 @@ input[type=range]::-moz-range-thumb {
 
 /* --- logros --- */
 .mf-nivel-fila { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
-.mf-nivel-fila span { font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 16px; }
+.mf-nivel-fila span { font-family: 'Baloo 2', cursive; font-weight: 800; font-size: calc(16px * var(--escala)); }
 .mf-escalera { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; margin-top: 12px; }
 .mf-peldano { text-align: center; opacity: .35; }
 .mf-peldano.ok { opacity: 1; }
 .mf-peldano span { font-size: 18px; display: block; }
-.mf-peldano small { font-size: 8px; font-weight: 800; color: var(--tinta-flojo); line-height: 1.1; display: block; }
+.mf-peldano small { font-size: calc(8px * var(--escala)); font-weight: 800; color: var(--tinta-flojo); line-height: 1.1; display: block; }
 
 .mf-logros { display: flex; flex-direction: column; gap: 8px; }
 .mf-logro {
@@ -441,15 +445,15 @@ input[type=range]::-moz-range-thumb {
 }
 .mf-logro.ok { border-color: var(--bien); }
 .mf-logro .ic { font-size: 22px; width: 26px; text-align: center; }
-.mf-logro b { display: block; font-family: 'Baloo 2', cursive; font-size: 14px; }
-.mf-logro small { font-size: 11px; color: var(--tinta-flojo); font-weight: 600; }
+.mf-logro b { display: block; font-family: 'Baloo 2', cursive; font-size: calc(14px * var(--escala)); }
+.mf-logro small { font-size: calc(11px * var(--escala)); color: var(--tinta-flojo); font-weight: 600; }
 .mf-logro:not(.ok) b, .mf-logro:not(.ok) small { opacity: .55; }
 .mf-logro .tick { margin-left: auto; color: var(--bien); font-weight: 900; font-style: normal; }
 
 /* El consejo de sueño no puede partir de línea: se recorta con puntos
    suspensivos antes que romper la fila. */
 .mf-obj.sueno b {
-  font-family: 'Nunito', sans-serif; font-size: 11.5px; font-weight: 700;
+  font-family: 'Nunito', sans-serif; font-size: calc(11.5px * var(--escala)); font-weight: 700;
   color: var(--tinta-flojo); white-space: nowrap; overflow: hidden;
   text-overflow: ellipsis; max-width: 62%; text-align: right;
 }
@@ -466,18 +470,18 @@ input[type=range]::-moz-range-thumb {
 .mf-d7.entreno  { border-color: var(--rosa); background: var(--rosa-suave); }
 .mf-d7.descanso { border-color: var(--menta); background: var(--menta-suave); }
 .mf-d7:active { transform: scale(.95); }
-.mf-d7 .ini { font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 13px; }
+.mf-d7 .ini { font-family: 'Baloo 2', cursive; font-weight: 800; font-size: calc(13px * var(--escala)); }
 .mf-d7 .ic  { font-size: 13px; line-height: 1; }
-.mf-d7 .hora { font-size: 8.5px; font-weight: 800; }
-.mf-d7 .min  { font-size: 8.5px; font-weight: 700; color: var(--tinta-flojo); }
+.mf-d7 .hora { font-size: calc(8.5px * var(--escala)); font-weight: 800; }
+.mf-d7 .min  { font-size: calc(8.5px * var(--escala)); font-weight: 700; color: var(--tinta-flojo); }
 .mf-d7 .pasos {
-  font-size: 8.5px; font-weight: 800; color: var(--tinta-flojo);
+  font-size: calc(8.5px * var(--escala)); font-weight: 800; color: var(--tinta-flojo);
   border-top: 1px solid rgba(0,0,0,.08); width: 100%; text-align: center; padding-top: 2px;
 }
 input[type=time] {
   width: 100%; border: 2px solid var(--linea); background: var(--papel);
   color: var(--tinta); border-radius: 11px; padding: 7px 10px;
-  font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 14px;
+  font-family: 'Baloo 2', cursive; font-weight: 700; font-size: calc(14px * var(--escala));
 }
 input[type=time]:focus { outline: none; border-color: var(--rosa); }
 
@@ -512,16 +516,16 @@ input[type=time]:focus { outline: none; border-color: var(--rosa); }
 .mf-pruebas > b {
   display: flex; align-items: center; justify-content: space-between;
   margin-bottom: 6px;
-  font-size: 10px; letter-spacing: .5px; color: #8A6A12;
+  font-size: calc(10px * var(--escala)); letter-spacing: .5px; color: #8A6A12;
 }
 .mf-pruebas > b .cerrar {
-  flex: 0 0 auto; padding: 2px 8px; font-size: 12px; line-height: 1;
+  flex: 0 0 auto; padding: 2px 8px; font-size: calc(12px * var(--escala)); line-height: 1;
   border: 1px solid #C9A227; border-radius: 6px;
   background: #FFFDF6; color: #8A6A12; cursor: pointer;
 }
 .mf-pruebas .fila { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 5px; }
 .mf-pruebas button {
-  flex: 1 1 auto; padding: 6px 8px; font-size: 11px; font-weight: 700;
+  flex: 1 1 auto; padding: 6px 8px; font-size: calc(11px * var(--escala)); font-weight: 700;
   border: 1px solid #C9A227; border-radius: 7px;
   background: #FFFDF6; color: #6B5330; cursor: pointer;
 }
@@ -539,16 +543,16 @@ input[type=time]:focus { outline: none; border-color: var(--rosa); }
 .mf-pruebas > b {
   display: flex; align-items: center; justify-content: space-between;
   margin-bottom: 6px;
-  font-size: 10px; letter-spacing: .5px; color: #8A6A12;
+  font-size: calc(10px * var(--escala)); letter-spacing: .5px; color: #8A6A12;
 }
 .mf-pruebas > b .cerrar {
-  flex: 0 0 auto; padding: 2px 8px; font-size: 12px; line-height: 1;
+  flex: 0 0 auto; padding: 2px 8px; font-size: calc(12px * var(--escala)); line-height: 1;
   border: 1px solid #C9A227; border-radius: 6px;
   background: #FFFDF6; color: #8A6A12; cursor: pointer;
 }
 .mf-pruebas .fila { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 5px; }
 .mf-pruebas button {
-  flex: 1 1 auto; padding: 6px 8px; font-size: 11px; font-weight: 700;
+  flex: 1 1 auto; padding: 6px 8px; font-size: calc(11px * var(--escala)); font-weight: 700;
   border: 1px solid #C9A227; border-radius: 7px;
   background: #FFFDF6; color: #6B5330; cursor: pointer;
 }
@@ -564,24 +568,24 @@ input[type=time]:focus { outline: none; border-color: var(--rosa); }
   gap: 8px; margin-bottom: 6px;
 }
 .mf-ejs-cab > span, .mf-ejs-titulo {
-  font-size: 13px; font-weight: 700; color: var(--tinta);
+  font-size: calc(13px * var(--escala)); font-weight: 700; color: var(--tinta);
 }
 .mf-ejs-titulo {
   border: none; background: none; padding: 0; cursor: pointer;
   font-family: inherit; text-align: left;
 }
 .mf-ejs-titulo small { font-weight: 500; color: var(--tinta-flojo); }
-.mf-ejs-cab > small { color: var(--tinta-flojo); font-size: 12px; }
+.mf-ejs-cab > small { color: var(--tinta-flojo); font-size: calc(12px * var(--escala)); }
 .mf-ejs-mas {
   border: 1px solid var(--linea); border-radius: 8px;
   background: var(--papel); color: var(--tinta); cursor: pointer;
-  padding: 4px 10px; font-size: 12px; font-weight: 700;
+  padding: 4px 10px; font-size: calc(12px * var(--escala)); font-weight: 700;
 }
 
 /* fila de edición: nombre ancho, dos números estrechos y la equis */
 .mf-ej { display: flex; gap: 5px; margin-bottom: 5px; }
 .mf-ej input {
-  min-width: 0; padding: 7px 8px; font-size: 13px;
+  min-width: 0; padding: 7px 8px; font-size: calc(13px * var(--escala));
   border: 1px solid var(--linea); border-radius: 8px;
   background: var(--papel); color: var(--tinta); font-family: inherit;
 }
@@ -607,10 +611,10 @@ input[type=time]:focus { outline: none; border-color: var(--rosa); }
   width: 20px; height: 20px; border-radius: 6px;
   border: 2px solid var(--linea); background: #FFF;
   display: flex; align-items: center; justify-content: center;
-  font-size: 13px; font-weight: 900; color: #FFF; font-style: normal;
+  font-size: calc(13px * var(--escala)); font-weight: 900; color: #FFF; font-style: normal;
 }
-.mf-ej-check .nombre { font-size: 13px; font-weight: 700; }
-.mf-ej-check .detalle { color: var(--tinta-flojo); font-size: 12px; }
+.mf-ej-check .nombre { font-size: calc(13px * var(--escala)); font-weight: 700; }
+.mf-ej-check .detalle { color: var(--tinta-flojo); font-size: calc(12px * var(--escala)); }
 .mf-ej-check.hecho {
   background: rgba(95, 205, 150, .18); border-color: #5FCD96;
 }
@@ -628,7 +632,7 @@ input[type=time]:focus { outline: none; border-color: var(--rosa); }
   width: 26px; height: 26px; flex: 0 0 auto;
   border: 2px solid var(--linea); border-radius: 50%;
   background: var(--papel); color: var(--tinta-flojo);
-  font-family: inherit; font-size: 14px; font-weight: 900; line-height: 1;
+  font-family: inherit; font-size: calc(14px * var(--escala)); font-weight: 900; line-height: 1;
   cursor: pointer; padding: 0;
 }
 .mf-ayuda-btn.activa {
@@ -639,7 +643,7 @@ input[type=time]:focus { outline: none; border-color: var(--rosa); }
   grid-column: 1 / -1; margin: 6px 0 2px; padding: 11px 13px;
   border: 1px solid var(--linea); border-radius: 12px;
   background: var(--chip); color: var(--tinta);
-  font-size: 13px; line-height: 1.5;
+  font-size: calc(13px * var(--escala)); line-height: 1.5;
 }
 .mf-ayuda p { margin: 0 0 8px; }
 .mf-ayuda p:last-child { margin-bottom: 0; }
@@ -658,3 +662,13 @@ input[type=time]:focus { outline: none; border-color: var(--rosa); }
   font: inherit; color: var(--mf-acento, #E86A5A);
   text-decoration: underline; cursor: pointer;
 }
+
+/* Selector de tamaño de letra. Cada botón se pinta a su propio tamaño,
+   para que se vea lo que se elige antes de elegirlo. */
+.mf-escalas { display: flex; gap: 6px; align-items: stretch; }
+.mf-escalas button {
+  flex: 1; border: 1.5px solid var(--linea); background: var(--papel);
+  border-radius: 12px; padding: 10px 4px; cursor: pointer;
+  font-family: 'Nunito', sans-serif; font-weight: 800; color: var(--tinta);
+}
+.mf-escalas button.sel { background: var(--rosa); color: #fff; border-color: var(--rosa); }

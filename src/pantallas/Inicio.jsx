@@ -205,7 +205,7 @@ function consejoSueno(horas) {
              largo: `Has dormido ${h} horas. Es poco: deberías dormir unas 8.` };
   }
   if (horas < 7.5) {
-    return { ok: false, corto: `${h} h · casi, faltan ${(8 - horas).toFixed(1).replace('.', ',')}`,
+    return { ok: false, corto: `${h} h · casi, faltan ${(8 - horas).toFixed(1).replace('.', ',')} h`,
              largo: `Has dormido ${h} horas. Vas cerca: lo ideal son 8.` };
   }
   if (horas <= 9) {

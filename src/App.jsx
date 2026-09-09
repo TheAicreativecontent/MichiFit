@@ -41,6 +41,12 @@ function Icono({ p }) {
 
 export default function App() {
   const [datos, setDatos] = useState(leer);
+
+  /* La escala del texto vive en el :root, para que la hereden tambien los
+     trozos que se pintan fuera de la pagina (modales, avisos). */
+  useEffect(() => {
+    document.documentElement.style.setProperty('--escala', datos.perfil?.escalaTexto ?? 1);
+  }, [datos.perfil?.escalaTexto]);
   const [pestana, setPestana] = useState('inicio');
   const [registrando, setRegistrando] = useState(false);
   /* Lo que apuntas, el michi lo hace: si registras comida se pone a
