@@ -7,7 +7,7 @@
 import { useState } from 'react';
 import Tamagotchi from '../mascota/TamagotchiPNG.jsx';
 import { DIAS, DIAS_INICIAL } from '../engine/constantes.js';
-import { tmb, imc, avisosDeSeguridad } from '../engine/calculos.js';
+import { tmb, imc, avisosDeSeguridad, planEnergetico } from '../engine/calculos.js';
 import { pactoPorDefecto } from '../engine/pacto.js';
 
 export default function Bienvenida({ onEmpezar }) {
@@ -34,9 +34,22 @@ export default function Bienvenida({ onEmpezar }) {
 
   const completo = perfil.edad && perfil.altura && perfil.pesoActual && perfil.pesoMeta;
   const estimado = tmb(perfil);
-  const reposo = perfil.reposoReal || estimado;
-  const mantenimiento = reposo ? Math.round(reposo * 1.15) : null;
-  const paraPerder = mantenimiento ? mantenimiento - 500 : null;
+
+  /* El plan se calcula con el pacto que se esta eligiendo aqui abajo: los
+     dias de entreno y los pasos cambian el gasto, y por tanto lo que toca
+     comer. Antes era un factor plano igual para todo el mundo. */
+  const borrador = pactoPorDefecto({ metaPasos: pasos });
+  for (const d of DIAS) {
+    const e = !!entreno[d];
+    borrador.dias[d] = {
+      entreno: e, minEntreno: e ? minEntreno : 0,
+      pasos: e ? Math.round((pasos * 0.66) / 500) * 500 : pasos,
+    };
+  }
+  const plan = planEnergetico(perfil, borrador);
+  const reposo = plan?.reposo ?? null;
+  const mantenimiento = plan?.total ?? null;
+  const paraPerder = plan?.comida ?? null;
   const imcActual = imc(perfil.pesoActual, perfil.altura);
   const imcMeta = imc(perfil.pesoMeta, perfil.altura);
 
@@ -47,16 +60,7 @@ export default function Bienvenida({ onEmpezar }) {
   const diasEntreno = DIAS.filter((d) => entreno[d]);
 
   const empezar = () => {
-    const base = pactoPorDefecto({ metaPasos: pasos, comidaKcal: paraPerder });
-    for (const d of DIAS) {
-      const entrena = !!entreno[d];
-      base.dias[d] = {
-        entreno: entrena,
-        minEntreno: entrena ? minEntreno : 0,
-        pasos: entrena ? Math.round((pasos * 0.66) / 500) * 500 : pasos,
-      };
-    }
-    onEmpezar({ perfil, pacto: base });
+    onEmpezar({ perfil, pacto: { ...borrador, comidaKcal: paraPerder } });
   };
 
   return (
@@ -132,6 +136,13 @@ export default function Bienvenida({ onEmpezar }) {
           <L i="😴" t="En reposo" v={`${reposo} kcal/día`} />
           <L i="🔥" t="Mantenimiento" v={`${mantenimiento} kcal/día`} />
           <L i="🍙" t="Para perder" v={`${paraPerder} kcal/día`} />
+          {plan?.recorte && (
+            <p className="mf-nota">
+              {plan.recorte === 'suelo'
+                ? `Con tus datos, un déficit mayor te dejaría por debajo de ${plan.suelo} kcal, así que se queda aquí.`
+                : `Un déficit más grande sería demasiado para tu gasto: se aplican ${plan.deficit} kcal.`}
+            </p>
+          )}
           <p className="mf-nota">
             Son un punto de partida, no una orden. Puedes cambiarlo todo cuando
             quieras desde Ajustes.

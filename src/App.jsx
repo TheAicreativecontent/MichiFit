@@ -15,6 +15,7 @@ import Karma from './pantallas/Karma.jsx';
 import EditorDia from './pantallas/EditorDia.jsx';
 import Ajustes from './pantallas/Ajustes.jsx';
 import { calcularEstado } from './engine/michi.js';
+import { sincronizarPacto } from './engine/calculos.js';
 import { hoyISO } from './engine/pacto.js';
 import { podarCarino } from './engine/felicidad.js';
 import { leer, guardar, reiniciar } from './datos/almacen.js';
@@ -155,7 +156,7 @@ export default function App() {
         )}
         {pestana === 'pacto' && (
           <Pacto pacto={datos.pacto} perfil={datos.perfil} estado={estado}
-                 onCambiar={(p) => setDatos((d) => ({ ...d, pacto: p }))} />
+                 onCambiar={(p) => setDatos((d) => ({ ...d, pacto: sincronizarPacto(p, d.perfil) }))} />
         )}
         {pestana === 'logros' && <Logros estado={estado} />}
         {pestana === 'progreso' && (
@@ -165,8 +166,9 @@ export default function App() {
         {pestana === 'simular' && <Simulador perfil={datos.perfil} pacto={datos.pacto} />}
         {pestana === 'karma' && <Karma />}
         {pestana === 'ajustes' && (
-          <Ajustes perfil={datos.perfil} entradas={datos.entradas}
-                   onCambiar={(p) => setDatos((d) => ({ ...d, perfil: p }))}
+          <Ajustes perfil={datos.perfil} entradas={datos.entradas} pacto={datos.pacto}
+                   onCambiar={(p) => setDatos((d) => ({
+                     ...d, perfil: p, pacto: sincronizarPacto(d.pacto, p) }))}
                    onImportar={(entradas) => setDatos((d) => ({ ...d, entradas }))}
                    onReiniciar={() => setDatos(reiniciar())} />
         )}

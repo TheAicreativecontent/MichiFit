@@ -5,13 +5,13 @@
    ============================================================ */
 
 import { useState } from 'react';
-import { imc, tmb, reposoEfectivo, macros, avisosDeSeguridad, pesoParaIMC } from '../engine/calculos.js';
-import { IMC_MINIMO_SANO } from '../engine/constantes.js';
+import { imc, tmb, reposoEfectivo, macros, avisosDeSeguridad, pesoParaIMC, planEnergetico } from '../engine/calculos.js';
+import { IMC_MINIMO_SANO, DEFICIT_MAXIMO } from '../engine/constantes.js';
 import { aCSV, descargar } from '../datos/almacen.js';
 import { leerCSV, fusionar } from '../datos/importar.js';
 import { Titulo } from './Ayuda.jsx';
 
-export default function Ajustes({ perfil, entradas, onCambiar, onReiniciar, onImportar }) {
+export default function Ajustes({ perfil, entradas, pacto, onCambiar, onReiniciar, onImportar }) {
   const set = (campo) => (e) => {
     const v = e.target.value;
     onCambiar({ ...perfil, [campo]: v === '' ? null : Number(v) });
@@ -21,8 +21,9 @@ export default function Ajustes({ perfil, entradas, onCambiar, onReiniciar, onIm
   const imcMeta = imc(perfil.pesoMeta, perfil.altura);
   const reposo = reposoEfectivo(perfil);
   const estimado = tmb(perfil);
-  const total = perfil.totalReal ?? (reposo ? Math.round(reposo * 1.15) : null);
-  const paraPerder = total ? total - (perfil.deficitObjetivo ?? 500) : null;
+  const plan = planEnergetico(perfil, pacto);
+  const total = plan?.total ?? null;
+  const paraPerder = plan?.comida ?? null;
   const m = paraPerder && perfil.pesoMeta
     ? macros({ kcal: paraPerder, pesoMeta: perfil.pesoMeta, proteinaPorKg: perfil.proteinaPorKg ?? 2 })
     : null;
@@ -47,6 +48,14 @@ export default function Ajustes({ perfil, entradas, onCambiar, onReiniciar, onIm
 
       <div className="mf-tarjeta">
         <h3 className="mf-h3">Sobre ti</h3>
+        <div className="mf-sexo">
+          {['hombre', 'mujer'].map((sx) => (
+            <button key={sx} className={(perfil.sexo ?? 'hombre') === sx ? 'sel' : ''}
+                    onClick={() => onCambiar({ ...perfil, sexo: sx })}>
+              {sx === 'hombre' ? 'Hombre' : 'Mujer'}
+            </button>
+          ))}
+        </div>
         <Campo etiqueta="Edad" v={perfil.edad} on={set('edad')} />
         <Campo etiqueta="Altura" unidad="cm" v={perfil.altura} on={set('altura')} />
         <Campo etiqueta="Peso inicial" unidad="kg" v={perfil.pesoInicial} on={set('pesoInicial')} paso="0.1" />
@@ -79,7 +88,11 @@ export default function Ajustes({ perfil, entradas, onCambiar, onReiniciar, onIm
         <h3 className="mf-h3">Objetivos</h3>
         <Campo etiqueta="Déficit diario" unidad="kcal" v={perfil.deficitObjetivo} on={set('deficitObjetivo')} paso="50" />
         <Campo etiqueta="Proteína" unidad="g/kg meta" v={perfil.proteinaPorKg} on={set('proteinaPorKg')} paso="0.1" />
-        <p className="mf-nota">500 kcal de déficit ≈ 0,5 kg por semana.</p>
+        <p className="mf-nota">
+          Un déficit se mide en proporción, no en calorías sueltas: nunca se
+          aplica más del {Math.round(DEFICIT_MAXIMO * 100)}% de tu gasto, ni se
+          baja del suelo saludable. Si pides más, se recorta ahí.
+        </p>
       </div>
 
       {reposo && (
@@ -88,6 +101,18 @@ export default function Ajustes({ perfil, entradas, onCambiar, onReiniciar, onIm
           <Linea icono="😴" t="En reposo" v={`${reposo} kcal/día`} />
           <Linea icono="🔥" t="Gasto total (mantenimiento)" v={`${total} kcal/día`} />
           <Linea icono="🍙" t="Para perder" v={`${paraPerder} kcal/día`} />
+          {plan?.recorte === 'techo' && (
+            <p className="mf-nota">
+              Pediste {plan.pedido} kcal de déficit, pero para tu gasto eso es
+              pasarse: se aplican {plan.deficit}.
+            </p>
+          )}
+          {plan?.recorte === 'suelo' && (
+            <p className="mf-nota">
+              El déficit que pediste te dejaba por debajo de {plan.suelo} kcal.
+              Se queda en el suelo saludable: {plan.deficit} kcal de déficit.
+            </p>
+          )}
           {m && (
             <Linea icono="🥗" t="Macros"
                    v={`${m.proteina}g proteína · ${m.carbos}g carbos · ${m.grasa}g grasa`} />

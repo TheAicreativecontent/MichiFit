@@ -5,7 +5,7 @@
    ============================================================ */
 
 import { useMemo, useState } from 'react';
-import { simular, avisosDeSeguridad } from '../engine/calculos.js';
+import { simular, avisosDeSeguridad, planEnergetico } from '../engine/calculos.js';
 import { Titulo } from './Ayuda.jsx';
 
 /* La misma ayuda en los dos estados de la pantalla (con perfil y sin
@@ -28,7 +28,8 @@ const AYUDA = (
 export default function Simulador({ perfil, pacto }) {
   const [pasos, setPasos] = useState(pacto?.dias?.mar?.pasos ?? 6000);
   const [entreno, setEntreno] = useState(120);
-  const [comida, setComida] = useState(pacto?.comidaKcal ?? 2000);
+  const arranque = planEnergetico(perfil, pacto);
+  const [comida, setComida] = useState(pacto?.comidaKcal ?? arranque?.comida ?? 2000);
 
   const r = useMemo(
     () => simular({ perfil, pasos, minEntrenoSemana: entreno, comidaKcal: comida }),

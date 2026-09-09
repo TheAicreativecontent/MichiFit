@@ -15,7 +15,7 @@
 import { useMemo, useState } from 'react';
 import { hoyISO, diasDesde, evaluarDia } from '../engine/pacto.js';
 import EditorDia from './EditorDia.jsx';
-import { simular } from '../engine/calculos.js';
+import { simular, actividadDelPacto, planEnergetico } from '../engine/calculos.js';
 import { Titulo } from './Ayuda.jsx';
 
 const MESES = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio',
@@ -58,12 +58,19 @@ export default function Progreso({ perfil, pacto, entradas, onRegistrar }) {
   const restante = pesoActual - (perfil.pesoMeta ?? pesoActual);
 
   const real = ritmoReal(pesajes);
+  /* Mientras no haya pesadas suficientes se enseña el ritmo teorico. Sale
+     del pacto entero (media de pasos y minutos de toda la semana): antes
+     cogia los pasos del martes y clavaba 120 minutos, asi que la prevision
+     no tenia que ver con lo que la persona habia pactado. */
   const teorico = useMemo(() => {
+    const act = actividadDelPacto(pacto);
+    const plan = planEnergetico(perfil, pacto);
+    if (!act || !plan) return null;
     const s = simular({
       perfil: { ...perfil, pesoActual },
-      pasos: pacto?.dias?.mar?.pasos ?? 6000,
-      minEntrenoSemana: 120,
-      comidaKcal: pacto?.comidaKcal ?? 2000,
+      pasos: act.pasos,
+      minEntrenoSemana: act.minEntrenoSemana,
+      comidaKcal: pacto?.comidaKcal ?? plan.comida,
     });
     return s?.kgPorSemana ?? null;
   }, [perfil, pacto, pesoActual]);

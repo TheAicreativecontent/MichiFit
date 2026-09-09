@@ -651,3 +651,10 @@ input[type=time]:focus { outline: none; border-color: var(--rosa); }
   display: inline-flex; align-items: center; justify-content: center;
   cursor: pointer;
 }
+
+/* Botón que se lee como un enlace dentro de un párrafo de nota. */
+.mf-enlace {
+  background: none; border: 0; padding: 0;
+  font: inherit; color: var(--mf-acento, #E86A5A);
+  text-decoration: underline; cursor: pointer;
+}

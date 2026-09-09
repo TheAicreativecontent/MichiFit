@@ -104,8 +104,21 @@ export default function Pacto({ pacto, perfil, estado, onCambiar }) {
           <span>Objetivo diario <small>kcal</small></span>
           <input type="number" step="50" value={pacto.comidaKcal ?? ''} placeholder="sin objetivo"
                  onChange={(e) => onCambiar({
-                   ...pacto, comidaKcal: e.target.value ? Number(e.target.value) : null })} />
+                   ...pacto,
+                   comidaKcal: e.target.value ? Number(e.target.value) : null,
+                   /* A partir de que lo tocas es tuyo: deja de recalcularse
+                      solo cuando cambian tus datos o el pacto. */
+                   comidaManual: true })} />
         </label>
+        {pacto.comidaManual && (
+          <p className="mf-nota">
+            Este objetivo lo pusiste tú, así que no se recalcula solo.{' '}
+            <button className="mf-enlace"
+                    onClick={() => onCambiar({ ...pacto, comidaManual: false })}>
+              Volver al calculado
+            </button>
+          </p>
+        )}
 
         {m && (
           <>

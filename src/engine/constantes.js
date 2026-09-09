@@ -22,6 +22,12 @@ export const IMC_MINIMO_SANO = 18.5;
 export const KCAL_MINIMAS = { hombre: 1500, mujer: 1200 };
 export const RITMO_MAXIMO_SEMANAL = 0.01; // 1% del peso corporal
 
+/* Techo del deficit, como fraccion del gasto total.
+   Un deficit se mide en PORCENTAJE, no en calorias sueltas: 500 kcal es un
+   20% razonable para quien gasta 2.500, pero un 37% brutal para quien gasta
+   1.365. El mismo numero fijo trataba igual a cuerpos muy distintos. */
+export const DEFICIT_MAXIMO = 0.20;
+
 /* --- pacto -------------------------------------------------- */
 export const DIAS = ['lun', 'mar', 'mie', 'jue', 'vie', 'sab', 'dom'];
 /* Inicial de cada día para los selectores. Miércoles es X, como se usa

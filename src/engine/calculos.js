@@ -13,6 +13,8 @@ import {
   IMC_MINIMO_SANO,
   KCAL_MINIMAS,
   RITMO_MAXIMO_SEMANAL,
+  DEFICIT_MAXIMO,
+  DIAS,
 } from './constantes.js';
 
 export const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
@@ -68,6 +70,93 @@ export function macros({ kcal, pesoMeta, proteinaPorKg = 2 }) {
   const grasa = Math.round((kcal * 0.25) / 9);
   const carbos = Math.round((kcal - proteina * 4 - grasa * 9) / 4);
   return { proteina, carbos, grasa: Math.max(0, grasa) };
+}
+
+
+/* --- el plan del dia: de donde sale "come X kcal" -------------
+   UNA sola funcion para todas las pantallas. Antes cada una hacia su
+   propia cuenta con un `reposo * 1.15` copiado a mano, y el objetivo
+   guardado en el pacto no se recalculaba nunca al cambiar el perfil:
+   dos personas distintas podian acabar viendo el mismo numero.
+
+   Tres decisiones que importan:
+
+   1. El mantenimiento sale de la ACTIVIDAD QUE HAS PACTADO (pasos y
+      entrenos), no de un factor plano. Si has pactado entrenar tres dias,
+      gastas mas que alguien sedentario y el objetivo debe reflejarlo.
+   2. El deficit tiene techo porcentual (DEFICIT_MAXIMO). Pedir "500 kcal
+      menos" no significa lo mismo para todo el mundo.
+   3. El suelo de KCAL_MINIMAS se RESPETA, no solo se avisa. La app no
+      puede proponer un numero que ella misma llama peligroso.
+*/
+export function actividadDelPacto(pacto) {
+  if (!pacto?.dias) return null;
+  let pasos = 0, minEntrenoSemana = 0;
+  for (const d of DIAS) {
+    pasos += pacto.dias[d]?.pasos ?? 0;
+    minEntrenoSemana += pacto.dias[d]?.minEntreno ?? 0;
+  }
+  return { pasos: Math.round(pasos / 7), minEntrenoSemana };
+}
+
+export function planEnergetico(perfil, pacto = null) {
+  const reposo = reposoEfectivo(perfil);
+  if (reposo == null) return null;
+
+  const actividad = actividadDelPacto(pacto);
+  let total, origen;
+  if (perfil?.totalReal) {
+    total = perfil.totalReal;
+    origen = 'reloj';
+  } else if (actividad) {
+    total = reposo + gastoActividad(actividad);
+    origen = 'pacto';
+  } else {
+    // Sin pacto todavia (la bienvenida, antes de elegir dias) se usa el
+    // factor sedentario de la tabla, no un 1,15 inventado.
+    total = Math.round(reposo * FACTORES_ACTIVIDAD.sedentario);
+    origen = 'sedentario';
+  }
+
+  const sexo = perfil?.sexo === 'mujer' ? 'mujer' : 'hombre';
+  const suelo = KCAL_MINIMAS[sexo];
+  const pedido = perfil?.deficitObjetivo ?? 500;
+  const techo = Math.round(total * DEFICIT_MAXIMO);
+
+  let deficit = Math.min(pedido, techo);
+  let recorte = pedido > techo ? 'techo' : null;
+
+  let comida = total - deficit;
+  if (comida < suelo) {
+    // El suelo manda. Si ni comiendo el suelo hay deficit, el deficit es 0:
+    // esta persona no deberia estar perdiendo peso con esta cuenta.
+    comida = suelo;
+    deficit = Math.max(0, total - suelo);
+    recorte = 'suelo';
+  }
+
+  return {
+    reposo,
+    total,
+    origen,
+    comida,
+    deficit,
+    recorte,
+    suelo,
+    pedido,
+    kgPorSemana: -(deficit * 7) / KCAL_POR_KG_GRASA,
+  };
+}
+
+/* Mantiene el objetivo de comida del pacto al dia con el perfil.
+   Si lo escribiste a mano se respeta y no se toca nunca: es tuyo. Si salio
+   del calculo, se recalcula, porque un objetivo congelado del primer dia
+   deja de tener sentido en cuanto cambias de peso, de edad o de pacto. */
+export function sincronizarPacto(pacto, perfil) {
+  if (!pacto || pacto.comidaManual) return pacto;
+  const plan = planEnergetico(perfil, pacto);
+  if (!plan || plan.comida === pacto.comidaKcal) return pacto;
+  return { ...pacto, comidaKcal: plan.comida };
 }
 
 /* --- simulador "¿y si...?" ----------------------------------
