@@ -718,3 +718,15 @@ input[type=time]:focus { outline: none; border-color: var(--rosa); }
 .mf-idioma-lista .ban { font-size: 15px; line-height: 1; }
 .mf-idioma-lista .nom { flex: 1; }
 .mf-idioma-lista .tic { color: var(--rosa); font-weight: 900; }
+
+/* Etiqueta encima del campo, no al lado: la frase de confirmar el
+   borrado es larga y en una fila se queda sin sitio. `.mf-campo` es un
+   grid de dos columnas, así que hay que deshacer eso, no cambiar el
+   flex-direction — que aquí no pinta nada. */
+.mf-campo.mf-campo-ancho { grid-template-columns: 1fr; gap: 8px; }
+.mf-campo.mf-campo-ancho > span { font-weight: 700; line-height: 1.45; }
+.mf-campo.mf-campo-ancho > input { width: 100%; text-align: center; }
+
+/* Un botón peligroso apagado tiene que verse apagado, o la gente lo
+   pulsa igual y cree que la app no responde. */
+.mf-boton[disabled] { opacity: .45; cursor: not-allowed; }

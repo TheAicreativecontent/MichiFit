@@ -221,6 +221,20 @@ export default {
     pie: 'MichiFit is a motivation tool, not medical advice. If you have health concerns, talk to a professional. 💛',
   },
 
+  borrar: {
+    titulo: 'Erase all your data?',
+    resumen: 'You are about to lose <b>{dias} days</b> of notes, going back to {desde}, with {pesadas} weigh-ins.',
+    tambien: 'Your pact, your goals and your settings go too.',
+    sinDatos: 'You have not noted down any days yet. Your pact and your settings will be erased.',
+    noSeDeshace: 'This cannot be undone. The michi is born again.',
+    descarga: 'Download your copy first',
+    descargada: 'Copy downloaded ✓',
+    escribe: 'If you still want to go ahead, type <b>{dias}</b> here:',
+    ph: 'type {dias}',
+    confirmar: 'Erase everything',
+    volver: 'Better not',
+  },
+
   importar: {
     titulo: '📥 Bring in data from the old MichiFit',
     intro: 'Download the CSV from the old app and upload it here. It brings in weight, steps, food, macros and training minutes. It <b>never overwrites</b> what you already have: it only fills gaps.',

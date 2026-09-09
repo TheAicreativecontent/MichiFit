@@ -12,6 +12,7 @@ import { IMC_MINIMO_SANO, DEFICIT_MAXIMO } from '../engine/constantes.js';
 import { aCSV, descargar } from '../datos/almacen.js';
 import { leerCSV, fusionar } from '../datos/importar.js';
 import { Titulo } from './Ayuda.jsx';
+import Hoja from './Hoja.jsx';
 
 export default function Ajustes({ perfil, entradas, pacto, onCambiar, onReiniciar, onImportar }) {
   const t = useT();
@@ -144,20 +145,93 @@ export default function Ajustes({ perfil, entradas, pacto, onCambiar, onReinicia
         <button className="mf-boton" onClick={() => descargar('michifit.csv', aCSV(entradas))}>
           {t('ajustes.descargar')}
         </button>
-        <button
-          className="mf-boton peligro"
-          onClick={() => {
-            if (confirm(t('ajustes.confirmarReinicio'))) onReiniciar();
-          }}
-        >
-          {t('ajustes.reiniciar')}
-        </button>
+        <BorrarTodo entradas={entradas} onReiniciar={onReiniciar} />
       </div>
 
       <p className="mf-pie">
         {t('ajustes.pie')}
       </p>
     </div>
+  );
+}
+
+/* --- borrar todos los datos ---
+   Era un `confirm()` del navegador: un diálogo gris, con dos botones
+   iguales, que se acepta sin leer. Para algo que borra meses de trabajo
+   y no se puede deshacer, es poca cosa.
+
+   El paso deliberado es escribir el NÚMERO de días que se pierden. No
+   una palabra: un número, que se teclea igual en cualquier idioma y en
+   cualquier teclado — «BORRAR» en un móvil tailandés es una trampa.
+   Y de paso obliga a leer cuántos días son, que es justo la cifra que
+   conviene tener delante antes de decidir.
+
+   Si no hay nada apuntado no se pide nada: no tiene sentido poner
+   fricción donde no hay nada que perder. */
+function BorrarTodo({ entradas, onReiniciar }) {
+  const t = useT();
+  const [abierta, setAbierta] = useState(false);
+  const [escrito, setEscrito] = useState('');
+  const [copiaHecha, setCopiaHecha] = useState(false);
+
+  const fechas = Object.keys(entradas).sort();
+  const dias = fechas.length;
+  const pesadas = Object.values(entradas).filter((e) => e.peso != null).length;
+  const puede = dias === 0 || Number(escrito) === dias;
+
+  const cerrar = () => { setAbierta(false); setEscrito(''); setCopiaHecha(false); };
+
+  return (
+    <>
+      <button className="mf-boton peligro" onClick={() => setAbierta(true)}>
+        {t('ajustes.reiniciar')}
+      </button>
+
+      {abierta && (
+        <Hoja onCerrar={cerrar}>
+          <h3 className="mf-h3">{t('borrar.titulo')}</h3>
+
+          {dias > 0 ? (
+            <>
+              <T k="borrar.resumen" className="mf-nota"
+                 vars={{ dias, desde: fechas[0], pesadas }} />
+              <p className="mf-nota">{t('borrar.tambien')}</p>
+            </>
+          ) : (
+            <p className="mf-nota">{t('borrar.sinDatos')}</p>
+          )}
+
+          <div className="mf-aviso">⚠️ {t('borrar.noSeDeshace')}</div>
+
+          {/* La salida buena está antes que la mala, y más a mano. */}
+          {dias > 0 && (
+            <button className="mf-boton" onClick={() => {
+              descargar('michifit.csv', aCSV(entradas));
+              setCopiaHecha(true);
+            }}>
+              {copiaHecha ? t('borrar.descargada') : `⬇️ ${t('borrar.descarga')}`}
+            </button>
+          )}
+
+          {dias > 0 && (
+            <label className="mf-campo mf-campo-ancho">
+              <T k="borrar.escribe" como="span" vars={{ dias }} />
+              <input type="number" inputMode="numeric" value={escrito}
+                     placeholder={t('borrar.ph', { dias })}
+                     onChange={(e) => setEscrito(e.target.value)} />
+            </label>
+          )}
+
+          <div className="mf-hoja-pie">
+            <button className="mf-boton" onClick={cerrar}>{t('borrar.volver')}</button>
+            <button className="mf-boton peligro" disabled={!puede}
+                    onClick={() => { cerrar(); onReiniciar(); }}>
+              {t('borrar.confirmar')}
+            </button>
+          </div>
+        </Hoja>
+      )}
+    </>
   );
 }
 

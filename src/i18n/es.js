@@ -224,6 +224,22 @@ export default {
     pie: 'MichiFit es una herramienta de motivación, no consejo médico. Si tienes dudas de salud, consulta con un profesional. 💛',
   },
 
+  /* Borrado total. El paso deliberado es escribir el numero de dias que
+     se pierden: obliga a leer cuantos son antes de poder pulsar. */
+  borrar: {
+    titulo: '¿Borrar todos tus datos?',
+    resumen: 'Vas a perder <b>{dias} días</b> apuntados, desde el {desde}, con {pesadas} pesadas.',
+    tambien: 'También se borran tu pacto, tus objetivos y tus ajustes.',
+    sinDatos: 'Todavía no tienes ningún día apuntado. Se borrarán tu pacto y tus ajustes.',
+    noSeDeshace: 'Esto no se puede deshacer. El michi vuelve a nacer.',
+    descarga: 'Descárgate la copia antes',
+    descargada: 'Copia descargada ✓',
+    escribe: 'Si aún quieres seguir, escribe <b>{dias}</b> aquí:',
+    ph: 'escribe {dias}',
+    confirmar: 'Borrar todo',
+    volver: 'Mejor no',
+  },
+
   importar: {
     titulo: '📥 Traer datos de la MichiFit antigua',
     intro: 'Descarga el CSV desde la app antigua y súbelo aquí. Se traen peso, pasos, comida, macros y minutos de entreno. <b>Nunca pisa</b> lo que ya tengas apuntado: solo rellena huecos.',

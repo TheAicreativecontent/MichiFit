@@ -220,6 +220,20 @@ export default {
     pie: 'MichiFit 是一个鼓励你的工具，不是医疗建议。如果你有健康方面的疑问，请咨询专业人士。💛',
   },
 
+  borrar: {
+    titulo: '删除你的所有数据？',
+    resumen: '你将失去 <b>{dias} 天</b>的记录，最早到 {desde}，包含 {pesadas} 次称重。',
+    tambien: '你的约定、目标和设置也会一起消失。',
+    sinDatos: '你还没有记录过任何一天。会删除你的约定和设置。',
+    noSeDeshace: '这无法撤销。米奇会重新出生。',
+    descarga: '先下载一份备份',
+    descargada: '备份已下载 ✓',
+    escribe: '如果你仍然要继续，在这里输入 <b>{dias}</b>：',
+    ph: '输入 {dias}',
+    confirmar: '全部删除',
+    volver: '还是不了',
+  },
+
   importar: {
     titulo: '📥 从旧版 MichiFit 导入数据',
     intro: '从旧版应用下载 CSV，然后上传到这里。会导入体重、步数、饮食、营养素和训练分钟数。<b>绝不覆盖</b>你已有的记录：只填补空白。',
