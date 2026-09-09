@@ -67,9 +67,12 @@ export function gastoTotal(perfil, actividad) {
 export function macros({ kcal, pesoMeta, proteinaPorKg = 2 }) {
   if (!kcal || !pesoMeta) return null;
   const proteina = Math.round(pesoMeta * proteinaPorKg);
-  const grasa = Math.round((kcal * 0.25) / 9);
-  const carbos = Math.round((kcal - proteina * 4 - grasa * 9) / 4);
-  return { proteina, carbos, grasa: Math.max(0, grasa) };
+  const grasa = Math.max(0, Math.round((kcal * 0.25) / 9));
+  /* Con un objetivo bajo y un peso meta alto, la proteina y la grasa se
+     comen todas las calorias y a los carbos no le queda ninguna. Salia
+     «-123 g carbos» en pantalla, que no significa nada. */
+  const carbos = Math.max(0, Math.round((kcal - proteina * 4 - grasa * 9) / 4));
+  return { proteina, carbos, grasa };
 }
 
 
@@ -120,7 +123,9 @@ export function planEnergetico(perfil, pacto = null) {
 
   const sexo = perfil?.sexo === 'mujer' ? 'mujer' : 'hombre';
   const suelo = KCAL_MINIMAS[sexo];
-  const pedido = perfil?.deficitObjetivo ?? 500;
+  /* Un deficit negativo (un signo de mas escrito por error) proponia
+     comer MAS que el mantenimiento, y lo etiquetaba «para perder». */
+  const pedido = Math.max(0, perfil?.deficitObjetivo ?? 500);
   const techo = Math.round(total * DEFICIT_MAXIMO);
 
   let deficit = Math.min(pedido, techo);

@@ -55,32 +55,77 @@ export function reiniciar() {
 }
 
 /* Rellena lo que falte, para que una versión vieja guardada no rompa
-   la app al añadir campos nuevos. */
+   la app al añadir campos nuevos.
+
+   Comprueba ADEMÁS que cada cosa sea del tipo que dice ser. Lo que sale
+   de localStorage es texto que cualquiera puede editar desde la consola
+   del navegador, y un `entradas` que fuera una cadena en vez de un
+   objeto dejaba la app en blanco al arrancar, sin forma de recuperarla
+   salvo borrando los datos. Ante la duda se usa el valor por defecto:
+   perder un campo raro es mejor que no poder abrir la app. */
+const esObjeto = (v) => v != null && typeof v === 'object' && !Array.isArray(v);
+
 function estructuraCompleta(d) {
+  const dat = esObjeto(d) ? d : {};
   return {
     ...VACIO,
-    ...d,
-    perfil: { ...VACIO.perfil, ...(d.perfil ?? {}) },
-    entradas: d.entradas ?? {},
-    carino: Array.isArray(d.carino) ? d.carino : [],
+    ...dat,
+    perfil: { ...VACIO.perfil, ...(esObjeto(dat.perfil) ? dat.perfil : {}) },
+    pacto: esObjeto(dat.pacto) && esObjeto(dat.pacto.dias) ? dat.pacto : null,
+    entradas: esObjeto(dat.entradas) ? dat.entradas : {},
+    carino: Array.isArray(dat.carino) ? dat.carino.filter(Number.isFinite) : [],
   };
 }
 
 /* --- exportación --- */
 export function aCSV(entradas) {
-  const cabecera = ['fecha', 'pasos', 'entrenoMin', 'comidaKcal', 'peso', 'suenoHoras', 'estres'];
-  const filas = Object.keys(entradas)
-    .sort()
-    .map((f) => cabecera.map((c) => (c === 'fecha' ? f : entradas[f]?.[c] ?? '')).join(','));
+  const cabecera = ['fecha', 'pasos', 'entrenoMin', 'comidaKcal', 'peso',
+                    'suenoHoras', 'prot', 'carb', 'grasa'];
+
+  /* El sueno se guarda anidado y las macros tambien: leerlos planos
+     dejaba esas columnas SIEMPRE vacias, y la copia de seguridad salia
+     sin el sueno sin que nadie se enterara. */
+  const valor = (e, c, fecha) => {
+    if (c === 'fecha') return fecha;
+    if (c === 'suenoHoras') return e?.sueno?.horas ?? e?.suenoHoras ?? '';
+    if (c === 'prot' || c === 'carb' || c === 'grasa') return e?.macros?.[c] ?? '';
+    return e?.[c] ?? '';
+  };
+
+  const filas = Object.keys(entradas).sort().map((f) =>
+    cabecera.map((c) => escapar(valor(entradas[f], c, f))).join(','));
+
   return [cabecera.join(','), ...filas].join('\n');
 }
 
+/* Un campo de CSV con una coma, una comilla o un salto de linea rompe
+   el archivo si no va entrecomillado. Hoy aqui solo hay numeros, pero
+   el dia que se exporte el nombre de un ejercicio ya estara resuelto.
+
+   Y el apostrofo delante de =, +, - o @ no es decoracion: Excel y
+   Sheets tratan esas celdas como FORMULAS. Un texto que empiece por
+   «=» puede acabar ejecutando algo en el ordenador de quien abra la
+   copia. Se llama inyeccion de formulas y se evita asi. */
+function escapar(v) {
+  if (v == null) return '';
+  let t = String(v);
+  if (/^[=+\-@\t\r]/.test(t)) t = "'" + t;
+  return /["\n\r,]/.test(t) ? '"' + t.replace(/"/g, '""') + '"' : t;
+}
+
 export function descargar(nombre, contenido, tipo = 'text/csv') {
-  const blob = new Blob([contenido], { type: `${tipo};charset=utf-8` });
+  /* El BOM hace que Excel abra el archivo como UTF-8. Sin el, los
+     acentos salen rotos al abrirlo en Windows. */
+  const blob = new Blob(['﻿' + contenido], { type: `${tipo};charset=utf-8` });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
   a.download = nombre;
+  /* Firefox ignora el clic si el enlace no esta en el documento. */
+  document.body.appendChild(a);
   a.click();
-  URL.revokeObjectURL(url);
+  a.remove();
+  /* La descarga arranca de forma asincrona: revocar la URL en la misma
+     vuelta puede cancelarla antes de que empiece. */
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
 }

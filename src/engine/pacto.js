@@ -26,6 +26,14 @@ export function pactoPorDefecto({ metaPasos = 6000, comidaKcal = null } = {}) {
   return { dias, comidaKcal, creado: hoyISO() };
 }
 
+/* Las horas de sueno de una entrada, vengan como vengan.
+   El editor guarda `sueno: { horas }`, pero durante un tiempo se guardo
+   `suenoHoras` plano, y el motor seguia leyendo SOLO el plano: el sueno
+   que apuntabas no llegaba nunca al michi. Se lee por aqui y ya esta. */
+export function horasDeSueno(entrada) {
+  return entrada?.sueno?.horas ?? entrada?.suenoHoras ?? null;
+}
+
 /* ---------- fechas ---------- */
 export const hoyISO = () => new Date().toISOString().slice(0, 10);
 

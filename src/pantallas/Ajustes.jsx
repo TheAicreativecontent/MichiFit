@@ -5,6 +5,7 @@
    ============================================================ */
 
 import { useState } from 'react';
+import T from '../i18n/Texto.jsx';
 import { useT } from '../i18n/index.jsx';
 import { imc, tmb, reposoEfectivo, macros, avisosDeSeguridad, pesoParaIMC, planEnergetico } from '../engine/calculos.js';
 import { IMC_MINIMO_SANO, DEFICIT_MAXIMO } from '../engine/constantes.js';
@@ -36,7 +37,7 @@ export default function Ajustes({ perfil, entradas, pacto, onCambiar, onReinicia
     <div className="mf-pagina">
       <Titulo ayuda={<>
         <p>{t('ajustes.ayuda1')}</p>
-        <p dangerouslySetInnerHTML={{ __html: t('ajustes.ayuda2') }} />
+        <T k="ajustes.ayuda2" />
       </>}>
         {t('ajustes.titulo')}
       </Titulo>
@@ -198,7 +199,7 @@ function Importador({ entradas, onImportar }) {
   return (
     <div className="mf-tarjeta">
       <h3 className="mf-h3">{t('importar.titulo')}</h3>
-      <p className="mf-nota" dangerouslySetInnerHTML={{ __html: t('importar.intro') }} />
+      <T k="importar.intro" className="mf-nota" />
 
       <label className="mf-boton comoBoton">
         {t('importar.elegir')}
@@ -229,7 +230,7 @@ function Importador({ entradas, onImportar }) {
         </div>
       )}
 
-      <p className="mf-nota" dangerouslySetInnerHTML={{ __html: t('importar.notaSueno') }} />
+      <T k="importar.notaSueno" className="mf-nota" />
     </div>
   );
 }

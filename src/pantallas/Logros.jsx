@@ -9,6 +9,7 @@
    ============================================================ */
 
 import { HITOS, XP_POR_HITO, NIVELES } from '../engine/constantes.js';
+import T from '../i18n/Texto.jsx';
 import { Titulo } from './Ayuda.jsx';
 import { useT } from '../i18n/index.jsx';
 
@@ -20,7 +21,7 @@ export default function Logros({ estado }) {
   return (
     <div className="mf-pagina">
       <Titulo ayuda={<>
-          <p dangerouslySetInnerHTML={{ __html: t('logros.ayuda1') }} />
+          <T k="logros.ayuda1" />
           <p>{t('logros.ayuda2')}</p>
         </>}>
         {t('logros.titulo')}

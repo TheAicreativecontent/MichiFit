@@ -30,12 +30,17 @@ export const DEFICIT_MAXIMO = 0.20;
 
 /* --- pacto -------------------------------------------------- */
 export const DIAS = ['lun', 'mar', 'mie', 'jue', 'vie', 'sab', 'dom'];
-/* Inicial de cada día para los selectores. Miércoles es X, como se usa
+/* EN CUARENTENA (2026-09-09) — ya no se usa: los nombres de los días
+   salen del diccionario (`dias.inicial` y `dias.largo` en src/i18n),
+   porque tenían que traducirse. Se dejan aquí por si algo externo los
+   importa; si en un mes nadie los ha echado de menos, fuera.
+   Inicial de cada día para los selectores. Miércoles es X, como se usa
    siempre en español, para no tener dos "M" seguidas. */
 export const DIAS_INICIAL = {
   lun: 'L', mar: 'M', mie: 'X', jue: 'J', vie: 'V', sab: 'S', dom: 'D',
 };
 
+/* EN CUARENTENA (2026-09-09) — ver DIAS_INICIAL. */
 export const DIAS_LARGO = {
   lun: 'Lunes', mar: 'Martes', mie: 'Miércoles', jue: 'Jueves',
   vie: 'Viernes', sab: 'Sábado', dom: 'Domingo',

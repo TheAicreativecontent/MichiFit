@@ -5,6 +5,7 @@
    ============================================================ */
 
 import { useState } from 'react';
+import T from '../i18n/Texto.jsx';
 import { claveDia, dentroDeVentana } from '../engine/pacto.js';
 import { ListaEjercicios, ejerciciosDe } from './Ejercicios.jsx';
 import Hoja from './Hoja.jsx';
@@ -67,8 +68,7 @@ export default function EditorDia({ fecha, entrada, pacto, onGuardar, onCerrar }
               <Campo et={t('dia.proteina')} u="g" paso="5" v={v.prot} on={(x) => setV({ ...v, prot: x })} />
               <Campo et={t('dia.carbos')} u="g" paso="5" v={v.carb} on={(x) => setV({ ...v, carb: x })} />
               <Campo et={t('dia.grasa')} u="g" paso="1" v={v.grasa} on={(x) => setV({ ...v, grasa: x })} />
-              <p className="mf-nota"
-                 dangerouslySetInnerHTML={{ __html: t('dia.macrosNota') }} />
+              <T k="dia.macrosNota" className="mf-nota" />
             </>
           )}
         </div>

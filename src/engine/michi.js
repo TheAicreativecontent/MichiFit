@@ -12,7 +12,7 @@ import {
   DIAS_PARA_COMODIN, MAX_COMODINES,
   HITOS, XP_POR_HITO,
 } from './constantes.js';
-import { evaluarDias, evaluarSemana, hoyISO, diasAtras, diasDesde } from './pacto.js';
+import { evaluarDias, evaluarSemana, hoyISO, diasAtras, diasDesde, horasDeSueno } from './pacto.js';
 import { clamp } from './calculos.js';
 import { calcularFelicidad } from './felicidad.js';
 
@@ -33,7 +33,7 @@ export function calcularEnergia(evaluaciones, entradas) {
     pesos += peso;
   });
 
-  const sueno = entradas[dias[0].fecha]?.suenoHoras;
+  const sueno = horasDeSueno(entradas[dias[0].fecha]);
   const bonoSueno = sueno == null ? 0 : clamp((sueno - 6) * 4, -8, 8);
 
   return Math.round(clamp((suma / pesos) * 100 + bonoSueno, 0, 100));
@@ -61,8 +61,12 @@ export function calcularAnimo({ evaluaciones, entradas, energia, forma }) {
   const hoy = evaluaciones[0];
   const e = entradas[hoy?.fecha] ?? {};
 
-  const aporteSueno = e.suenoHoras == null ? 0 : clamp((e.suenoHoras - 7) * 5, -20, 10);
-  const aporteEstres = e.estres == null ? 0 : -(clamp(e.estres, 0, 100) / 100) * 20;
+  const horas = horasDeSueno(e);
+  const aporteSueno = horas == null ? 0 : clamp((horas - 7) * 5, -20, 10);
+  /* El estres solo entra por el importador del reloj, y ahi se guarda
+     bajo `importado`. Leerlo suelto daba siempre null. */
+  const estres = e.estres ?? e.importado?.estres ?? null;
+  const aporteEstres = estres == null ? 0 : -(clamp(estres, 0, 100) / 100) * 20;
   const aporteEnergia = ((clamp(energia, 0, 100) - 50) / 50) * 15;
   const aporteForma = forma > 70 ? 10 : 0;
 

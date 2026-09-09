@@ -13,6 +13,7 @@
    ============================================================ */
 
 import { useMemo, useState } from 'react';
+import T from '../i18n/Texto.jsx';
 import { useT, useFormato } from '../i18n/index.jsx';
 import { hoyISO, diasDesde, evaluarDia } from '../engine/pacto.js';
 import EditorDia from './EditorDia.jsx';
@@ -87,8 +88,8 @@ export default function Progreso({ perfil, pacto, entradas, onRegistrar }) {
   return (
     <div className="mf-pagina">
       <Titulo ayuda={<>
-          <p dangerouslySetInnerHTML={{ __html: t('progreso.ayuda1') }} />
-          <p dangerouslySetInnerHTML={{ __html: t('progreso.ayuda2') }} />
+          <T k="progreso.ayuda1" />
+          <T k="progreso.ayuda2" />
         </>}>
         {t('progreso.titulo')}
       </Titulo>

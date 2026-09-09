@@ -5,6 +5,7 @@
    ============================================================ */
 
 import { useMemo, useState } from 'react';
+import T from '../i18n/Texto.jsx';
 import { useT, useFormato } from '../i18n/index.jsx';
 import { simular, avisosDeSeguridad, planEnergetico } from '../engine/calculos.js';
 import { Titulo } from './Ayuda.jsx';
@@ -13,8 +14,8 @@ import { Titulo } from './Ayuda.jsx';
    él): definida una vez para que no se separen al tocar una. */
 const AYUDA = (t) => (
   <>
-          <p dangerouslySetInnerHTML={{ __html: t('simulador.ayuda1') }} />
-          <p dangerouslySetInnerHTML={{ __html: t('simulador.ayuda2') }} />
+          <T k="simulador.ayuda1" />
+          <T k="simulador.ayuda2" />
         </>
 );
 

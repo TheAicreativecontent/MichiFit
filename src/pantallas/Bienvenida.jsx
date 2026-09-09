@@ -7,7 +7,7 @@
 import { useState } from 'react';
 import { useT } from '../i18n/index.jsx';
 import Tamagotchi from '../mascota/TamagotchiPNG.jsx';
-import { DIAS, DIAS_INICIAL } from '../engine/constantes.js';
+import { DIAS } from '../engine/constantes.js';
 import { tmb, imc, avisosDeSeguridad, planEnergetico } from '../engine/calculos.js';
 import { pactoPorDefecto } from '../engine/pacto.js';
 

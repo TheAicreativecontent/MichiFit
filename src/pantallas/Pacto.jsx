@@ -11,8 +11,9 @@
    ============================================================ */
 
 import { useState } from 'react';
+import T from '../i18n/Texto.jsx';
 import { useT } from '../i18n/index.jsx';
-import { DIAS, DIAS_INICIAL, DIAS_LARGO } from '../engine/constantes.js';
+import { DIAS } from '../engine/constantes.js';
 import { macros } from '../engine/calculos.js';
 import { EditorEjercicios } from './Ejercicios.jsx';
 import { Titulo } from './Ayuda.jsx';
@@ -36,9 +37,9 @@ export default function Pacto({ pacto, perfil, estado, onCambiar }) {
   return (
     <div className="mf-pagina">
       <Titulo ayuda={<>
-          <p dangerouslySetInnerHTML={{ __html: t('pacto.ayuda1') }} />
-          <p dangerouslySetInnerHTML={{ __html: t('pacto.ayuda2') }} />
-          <p dangerouslySetInnerHTML={{ __html: t('pacto.ayuda3') }} />
+          <T k="pacto.ayuda1" />
+          <T k="pacto.ayuda2" />
+          <T k="pacto.ayuda3" />
         </>}>
         {t('pacto.titulo')}
       </Titulo>
@@ -81,7 +82,7 @@ export default function Pacto({ pacto, perfil, estado, onCambiar }) {
           />
         )}
 
-        <p className="mf-nota" dangerouslySetInnerHTML={{ __html: t('pacto.notaSemana') }} />
+        <T k="pacto.notaSemana" className="mf-nota" />
       </div>
 
       <div className="mf-tarjeta">
@@ -113,7 +114,7 @@ export default function Pacto({ pacto, perfil, estado, onCambiar }) {
               <Macro n={m.carbos} etiqueta={t('pacto.carbos')} color="#7CC3F2" />
               <Macro n={m.grasa} etiqueta={t('pacto.grasa')} color="#F5C518" />
             </div>
-            <p className="mf-nota" dangerouslySetInnerHTML={{ __html: t('pacto.notaMacros') }} />
+            <T k="pacto.notaMacros" className="mf-nota" />
           </>
         )}
       </div>
