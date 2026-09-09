@@ -28,22 +28,44 @@ vez de aplastarse (un blanco puro seria una mancha), y al texto MICHI se
 le da una luminosidad fija que contraste: era blanco sobre naranja y
 sobre una carcasa blanca desaparecia.
 
-CUERPOS · 320 x 320, fondo transparente, michi apoyado abajo
-  esqueletico.png     abandono prolongado
-  gordo.png           comiendo de más y moviéndose poco
-  kawaii.png          estado base
-  fit.png             cumpliendo el pacto
-  hipertrofiado.png   cumpliendo con creces, con entrenos de fuerza
+EL MICHI: michi.png y michi_<pose>.png
+--------------------------------------
+320 x 320, fondo TRANSPARENTE, el michi apoyado en el borde de abajo.
 
-POSES · <cuerpo>_<pose>.png, mismo tamaño. Hay una por cada cuerpo:
-  <cuerpo>_dormido.png    al pulsar el botón rojo o tras días sin aparecer
-  <cuerpo>_comiendo.png   al apuntar una comida (dura 4 segundos)
+Desde el 2026-09-09 hay UNA sola silueta. Antes eran cinco (esqueletico,
+gordo, fit, hipertrofiado y kawaii) que cambiaban con tus habitos, y la
+gente que probo la app dijo que no queria identificarse con un cuerpo
+grande ni con uno pequeno. Las otras cuatro estan enteras en
+`_CUARENTENA/cuerpos-antiguos/`. El michi de ahora es el que se llamaba
+kawaii.
 
-También vale una pose genérica <pose>.png sin cuerpo, como respaldo.
+  michi.png              de pie, neutro. Es tambien el RESPALDO de todos
+                         los demas: mientras falte cualquier otro
+                         dibujo, sale este y no se rompe nada.
 
-Orden de respaldo, de lo específico a lo general:
-  cuerpo_pose -> pose -> cuerpo -> kawaii -> aparato dibujado en SVG.
-Se pueden subir de una en una sin que nada se rompa.
+  Lo que esta HACIENDO. Lo manda la escena y gana siempre:
+  michi_comiendo.png     al apuntar una comida
+  michi_entrenando.png   al apuntar un entreno
+  michi_durmiendo.png    boton rojo, o tras dias sin aparecer
+  michi_andando.png      escena PASEANDO
+
+  Como SE SIENTE. Solo se ve si no esta haciendo nada:
+  michi_contento.png     cumpliendo el pacto
+  michi_cansado.png      lleva dias sin moverse
+  michi_triste.png       lo ha dejado, o el animo por los suelos
+
+Si esta comiendo, sale comiendo aunque ande triste: lo que hace gana a
+como se siente. Asi bastan ocho dibujos en vez de cinco escenas por tres
+animos.
+
+Orden de respaldo, de lo especifico a lo general:
+  michi_<pose>.png -> <pose>.png -> michi.png -> el aparato en SVG
+Se pueden subir de uno en uno sin que falte nada por el camino.
+
+Al dibujarlos, que sean el MISMO gato: misma escala, mismo sitio dentro
+del lienzo, apoyado abajo igual. Con una sola silueta, un salto de
+tamano entre poses canta mucho mas que antes.
+
 
 Cómo se generan
 ---------------
