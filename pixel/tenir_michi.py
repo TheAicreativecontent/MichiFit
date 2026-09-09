@@ -11,14 +11,21 @@ el relieve vive en la LUMINOSIDAD. Se conserva la luz de cada pixel y se
 le quita el color. Las rayas del atigrado, las sombras y el volumen
 sobreviven intactos.
 
-Dos cosas que NO se tocan, y son las que le dan la cara:
+Tres cosas que NO siguen la regla del pelaje, y son las que le dan la
+cara:
 
-  - los mofletes rosas y el interior de las orejas. Son un rosa salmon a
-    8 grados de tono, o sea DENTRO del rango del naranja: si se filtra
-    solo por tono se tinen con el pelaje y el michi pierde la gracia.
-    Se separan porque son claros y saturados, mientras que el pelaje de
-    ese tono es oscuro (los ojos) o esta mas arriba (20-30 grados).
-  - los ojos y la boca, que ya son casi negros.
+  - El CONTORNO, los ojos y la boca. Son marron muy oscuro, no negro
+    puro, asi que tienen saturacion alta y al principio se tenian con el
+    pelaje: en el michi blanco los ojos salian GRISES y el contorno se
+    perdia. Se protege todo lo que este por debajo de LIMITE_OSCURO.
+  - Los mofletes rosas y el interior de las orejas. Son un rosa salmon a
+    8 grados de tono, o sea DENTRO del rango del naranja: filtrando solo
+    por tono se tinen con el pelaje y el michi pierde la gracia. Se
+    separan porque son claros Y saturados, mientras que el pelaje de ese
+    tono es oscuro (los ojos) o esta mas arriba (20-30 grados).
+  - Y esos mofletes, sobre un pelaje gris o blanco, cantan como
+    pegatinas: el rosa era calido y el gato ya no. Se les baja la
+    saturacion con `rubor`, sin quitarlos.
 
 Uso:  python pixel/tenir_michi.py
 """
@@ -39,9 +46,13 @@ DESTINO = "public/michi"
 # blanco subiendolo un poco: el blanco que hice primero (0.66-0.99)
 # deslumbraba y perdia el atigrado.
 VARIANTES = {
-    "gris":   {"luz": (0.12, 0.52), "sat": 0.03},
-    "blanco": {"luz": (0.56, 0.94), "sat": 0.035},
+    "gris":   {"luz": (0.12, 0.52), "sat": 0.03, "rubor": 0.72},
+    "blanco": {"luz": (0.56, 0.94), "sat": 0.035, "rubor": 0.66},
 }
+
+# Por debajo de esta luminosidad esta el dibujo: contorno, ojos y boca.
+# No se tocan nunca, o el michi pierde los ojos.
+LIMITE_OSCURO = 0.18
 
 
 def esMejilla(hd, l, s):
@@ -63,7 +74,7 @@ def tenir(im, cfg):
             if a < 200:
                 continue
             h, l, s = colorsys.rgb_to_hls(r / 255, g / 255, b / 255)
-            if s >= 0.12 and not esMejilla(h * 360, l, s):
+            if l > LIMITE_OSCURO and s >= 0.12 and not esMejilla(h * 360, l, s):
                 luces.append(l)
     if not luces:
         return im.copy()
@@ -76,8 +87,13 @@ def tenir(im, cfg):
                 op[x, y] = (0, 0, 0, 0)
                 continue
             h, l, s = colorsys.rgb_to_hls(r / 255, g / 255, b / 255)
-            if s < 0.12 or esMejilla(h * 360, l, s):
-                op[x, y] = (r, g, b, a)          # ojos y mofletes, intactos
+            if l <= LIMITE_OSCURO or s < 0.12:
+                op[x, y] = (r, g, b, a)          # contorno, ojos y boca
+                continue
+            if esMejilla(h * 360, l, s):
+                # el rosa se queda, pero mas apagado sobre pelaje frio
+                nr, ng, nb = colorsys.hls_to_rgb(h, l, s * cfg.get("rubor", 1))
+                op[x, y] = (round(nr * 255), round(ng * 255), round(nb * 255), a)
                 continue
             t = 0.5 if hi == lo else max(0.0, min(1.0, (l - lo) / (hi - lo)))
             destLo, destHi = cfg["luz"]
