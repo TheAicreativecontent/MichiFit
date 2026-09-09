@@ -221,6 +221,19 @@ export default {
     pie: 'MichiFitはやる気を支える道具であって、医療上の助言ではありません。健康について心配なことがあれば、専門家に相談してください。💛',
   },
 
+  aparato: {
+    titulo: 'あなたのミチ',
+    acabado: '質感',
+    liso: 'なめらか',
+    pixel: 'ドット',
+    color: '色',
+    nota: 'ボタンの色はわざと変えていません。黄色はなでる、青は場面を変える、赤はミチを寝かしつけるボタンです。',
+    colores: {
+      naranja: 'オレンジ', rojo: 'レッド', amarillo: 'イエロー', verde: 'グリーン',
+      azul: 'ブルー', blanco: 'ホワイト', negro: 'ブラック',
+    },
+  },
+
   borrar: {
     titulo: 'データをすべて消しますか？',
     resumen: '<b>{dias}日分</b>の記録が消えます。{desde}までさかのぼり、体重の記録{pesadas}回を含みます。',

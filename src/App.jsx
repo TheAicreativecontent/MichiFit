@@ -162,6 +162,7 @@ export default function App() {
       <main>
         {pestana === 'inicio' && (
           <Inicio estado={estado} entradas={datos.entradas} pacto={datos.pacto}
+                  aparato={datos.perfil?.aparato}
                   onCarino={registrarCarino} accion={accion}
                   pruebas={pruebas} onCerrarPruebas={() => setPruebas(false)} />
         )}

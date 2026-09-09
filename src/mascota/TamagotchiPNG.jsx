@@ -5,7 +5,11 @@
    así la app nunca se rompe por un archivo que falta.
 
    Archivos que espera, en public/michi/:
-     huevo.png            660x900, transparente alrededor y en la pantalla
+     huevo-<estilo>-<color>.png   la carcasa, 660x900 (liso) o 751x1024
+                                  (pixel). Transparente alrededor Y en el
+                                  hueco de la pantalla. Las genera
+                                  `pixel/tenir_huevo.py` desde una sola
+                                  imagen: ver ESTILOS y COLORES abajo.
      <estado>.png         360x360, transparente
    Los nombres de estado los define ESTADOS_IMAGEN (abajo).
    ============================================================ */
@@ -30,6 +34,20 @@ const ZONA = { top: 14, height: 84 };
 
 const RUTA = '/michi';
 
+/* La carcasa se elige en Ajustes: dos acabados por siete colores. Las
+   catorce salen de teñir una sola imagen por código, conservando su
+   luminosidad —que es donde vive el relieve— y cambiándole el tono.
+   Solo se descarga la que estés usando. */
+export const ESTILOS = ['liso', 'pixel'];
+export const COLORES = ['naranja', 'rojo', 'amarillo', 'verde', 'azul', 'blanco', 'negro'];
+export const APARATO_POR_DEFECTO = { estilo: 'liso', color: 'naranja' };
+
+function rutaHuevo(aparato) {
+  const estilo = ESTILOS.includes(aparato?.estilo) ? aparato.estilo : APARATO_POR_DEFECTO.estilo;
+  const color = COLORES.includes(aparato?.color) ? aparato.color : APARATO_POR_DEFECTO.color;
+  return `${RUTA}/huevo-${estilo}-${color}.png`;
+}
+
 /* El escenario cambia con lo que has hecho hoy: si entrenaste sale el
    gimnasio, si andaste la calle, y si no, casa. Da un motivo más para
    mirar al michi cada día. */
@@ -38,12 +56,17 @@ const ESCENARIOS = { gimnasio: '/fondos/gimnasio.png', calle: '/fondos/calle.png
 /* Los tres botones del aparato, medidos sobre el PNG escaneando la fila
    que los cruza. El area de toque es mayor que el dibujo: un dedo no
    acierta un circulo de 27 px. */
+/* Las dos carcasas resultaron tener los botones casi en el mismo sitio,
+   asi que una sola medida vale para ambas. La que habia para el pixel
+   art (24,8 / 49,9 / 75,0) estaba MAL: sus botones estan en 34/50/66, y
+   los de los lados quedaban a nueve puntos de su dibujo. Se notaba poco
+   porque el area de toque es ancha a proposito, pero fallaba. */
 const BOTONES = [
-  { id: 'mimar',  cx: 33.6, titulo: 'Mimar' },
+  { id: 'mimar',  cx: 33.8, titulo: 'Mimar' },
   { id: 'accion', cx: 49.8, titulo: 'Cambiar de escena' },
-  { id: 'dormir', cx: 65.6, titulo: 'Dormir' },
+  { id: 'dormir', cx: 65.8, titulo: 'Dormir' },
 ];
-const BOTON_Y = 85.0;
+const BOTON_Y = 84.6;
 
 export default function TamagotchiPNG({
   estado = 'kawaii',
@@ -61,6 +84,7 @@ export default function TamagotchiPNG({
   mensaje = null,      // texto que sale al tocar la PANTALLA ("cómo va")
   onBoton,
   onPantalla,          // tocar el cristal: el michi cuenta cómo va
+  aparato = APARATO_POR_DEFECTO,   // { estilo, color } de la carcasa
   ...resto
 }) {
   const t = useT();
@@ -85,6 +109,7 @@ export default function TamagotchiPNG({
   /* Al cambiar de pose se vuelve a intentar desde arriba: si no, una
      imagen que faltó una vez quedaría descartada para siempre. */
   useEffect(() => { setIntento(0); }, [pose, estado]);
+  useEffect(() => { setSinHuevo(false); }, [aparato?.estilo, aparato?.color]);
 
   /* Dos respaldos independientes. Si falta la carcasa se dibuja en SVG,
      pero el michi de la imagen se sigue viendo encima: sin esto, faltar
@@ -98,7 +123,7 @@ export default function TamagotchiPNG({
                       puntos={puntos} dormido={dormido} sinMichi {...resto} />
         </div>
       ) : (
-        <img className="mf-tamapng-huevo" src={`${RUTA}/huevo.png`} alt=""
+        <img className="mf-tamapng-huevo" src={rutaHuevo(aparato)} alt=""
              onError={() => setSinHuevo(true)} />
       )}
 

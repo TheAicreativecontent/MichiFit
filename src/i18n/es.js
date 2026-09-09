@@ -226,6 +226,20 @@ export default {
 
   /* Borrado total. El paso deliberado es escribir el numero de dias que
      se pierden: obliga a leer cuantos son antes de poder pulsar. */
+  /* La carcasa del michi: dos acabados por siete colores. */
+  aparato: {
+    titulo: 'Tu michi',
+    acabado: 'Acabado',
+    liso: 'Liso',
+    pixel: 'Píxeles',
+    color: 'Color',
+    nota: 'Los botones no cambian de color a propósito: el amarillo mima, el azul cambia de escena y el rojo duerme al michi.',
+    colores: {
+      naranja: 'Naranja', rojo: 'Rojo', amarillo: 'Amarillo', verde: 'Verde',
+      azul: 'Azul', blanco: 'Blanco', negro: 'Negro',
+    },
+  },
+
   borrar: {
     titulo: '¿Borrar todos tus datos?',
     resumen: 'Vas a perder <b>{dias} días</b> apuntados, desde el {desde}, con {pesadas} pesadas.',

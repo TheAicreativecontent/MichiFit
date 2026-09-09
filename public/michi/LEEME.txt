@@ -1,24 +1,32 @@
-Imágenes del michi
+Imagenes del michi
 ==================
 
-huevo.png        660 x 900   la carcasa, con acabado suave. El hueco de la
-                             pantalla va TRANSPARENTE.
-huevo-pixel.png  751 x 1024  la misma carcasa en pixel art. NO se usa; se
-                             guarda para poder volver a ella cambiando el
-                             nombre de los dos archivos. Ojo: si vuelves,
-                             hay que devolver tambien la geometria de
-                             PANTALLA y BOTONES en TamagotchiPNG.jsx, que
-                             es distinta (los botones van mas separados).
+LA CARCASA: huevo-<estilo>-<color>.png
+--------------------------------------
+Catorce archivos: dos acabados (liso, pixel) por siete colores (naranja,
+rojo, amarillo, verde, azul, blanco, negro). El hueco de la pantalla va
+TRANSPARENTE. Solo se descarga la que este usando cada persona.
 
-La geometria de la pantalla y de los tres botones esta medida en % sobre
-el dibujo. Si cambias la carcasa, vuelve a medirla: la mancha
-transparente rodeada de carcasa es la pantalla, y los circulos amarillo,
-azul y rojo son los botones.
+NO se editan a mano: las genera `python pixel/tenir_huevo.py` desde dos
+originales que viven en IMG/ (Huevo_transparente.png y
+Huevo_PixelArt_fuente.png). Si tocas un original, vuelve a lanzarlo.
 
-El huevo suave venia de IMG/ pesando 497 KB. Se guarda cuantizado a 255
-colores (60 KB) porque medio mega solo para la carcasa es mucho en una
-app que se instala en el movil. La transparencia se conserva y la
-desviacion media de color es de 2,2 sobre 255: no se nota.
+Como funciona el tenido: el huevo es casi monocromatico —el 96% de sus
+pixeles esta entre 0 y 30 grados de tono— asi que todo el relieve vive
+en la LUMINOSIDAD. Se conserva la luminosidad de cada pixel y se le
+cambia el tono: sombras, brillos y el borde en resalte sobreviven.
+
+Lo que no se tine, y por que:
+  - los tres botones del huevo LISO, porque su color es su funcion
+    (amarillo mima, azul cambia de escena, rojo duerme);
+  - la cadenita, que es metal y con tono parece plastico;
+  - en el huevo PIXEL si se tinen los botones: ahi son del mismo naranja
+    que la carcasa y solo se distinguen por lo claros que son.
+
+El blanco y el negro llevan trato aparte. Su rango de luz se comprime en
+vez de aplastarse (un blanco puro seria una mancha), y al texto MICHI se
+le da una luminosidad fija que contraste: era blanco sobre naranja y
+sobre una carcasa blanca desaparecia.
 
 CUERPOS · 320 x 320, fondo transparente, michi apoyado abajo
   esqueletico.png     abandono prolongado

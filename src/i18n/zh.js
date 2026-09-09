@@ -220,6 +220,19 @@ export default {
     pie: 'MichiFit 是一个鼓励你的工具，不是医疗建议。如果你有健康方面的疑问，请咨询专业人士。💛',
   },
 
+  aparato: {
+    titulo: '你的米奇',
+    acabado: '质感',
+    liso: '平滑',
+    pixel: '像素',
+    color: '颜色',
+    nota: '按钮的颜色故意不变：黄色摸摸它，蓝色换场景，红色让米奇睡觉。',
+    colores: {
+      naranja: '橙', rojo: '红', amarillo: '黄', verde: '绿',
+      azul: '蓝', blanco: '白', negro: '黑',
+    },
+  },
+
   borrar: {
     titulo: '删除你的所有数据？',
     resumen: '你将失去 <b>{dias} 天</b>的记录，最早到 {desde}，包含 {pesadas} 次称重。',

@@ -738,3 +738,13 @@ input[type=time]:focus { outline: none; border-color: var(--rosa); }
 /* Un botón peligroso apagado tiene que verse apagado, o la gente lo
    pulsa igual y cree que la app no responde. */
 .mf-boton[disabled] { opacity: .45; cursor: not-allowed; }
+
+/* Elegir la carcasa del michi: las miniaturas son la imagen de verdad,
+   así se ve el color exacto y no una aproximación en CSS. */
+.mf-huevos { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+.mf-huevos button {
+  border: 2px solid transparent; border-radius: 12px; padding: 4px;
+  background: var(--fondo); cursor: pointer; line-height: 0;
+}
+.mf-huevos button.sel { border-color: var(--rosa); background: var(--rosa-suave); }
+.mf-huevos img { width: 100%; height: auto; display: block; }

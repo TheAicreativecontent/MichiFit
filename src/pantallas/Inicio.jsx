@@ -30,7 +30,7 @@ const POSES = [
 ];
 
 export default function Inicio({ estado, entradas, pacto, onCarino, accion,
-                                pruebas = false, onCerrarPruebas }) {
+                                pruebas = false, onCerrarPruebas, aparato }) {
   const t = useT();
   const [gesto, setGesto] = useState(null);      // 'mimar' | 'estado' | null
   /* Escena elegida a mano con el botón azul. En `null` manda lo que has
@@ -101,6 +101,7 @@ export default function Inicio({ estado, entradas, pacto, onCarino, accion,
           mensaje={gesto === 'estado' ? resumen(estado, pendientes, t) : null}
           onBoton={pulsar}
           onPantalla={tocarPantalla}
+          aparato={aparato}
         />
       </div>
 

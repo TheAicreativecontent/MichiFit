@@ -221,6 +221,19 @@ export default {
     pie: 'MichiFit is a motivation tool, not medical advice. If you have health concerns, talk to a professional. 💛',
   },
 
+  aparato: {
+    titulo: 'Your michi',
+    acabado: 'Finish',
+    liso: 'Smooth',
+    pixel: 'Pixels',
+    color: 'Colour',
+    nota: 'The buttons keep their colours on purpose: yellow pets, blue changes the scene and red puts the michi to sleep.',
+    colores: {
+      naranja: 'Orange', rojo: 'Red', amarillo: 'Yellow', verde: 'Green',
+      azul: 'Blue', blanco: 'White', negro: 'Black',
+    },
+  },
+
   borrar: {
     titulo: 'Erase all your data?',
     resumen: 'You are about to lose <b>{dias} days</b> of notes, going back to {desde}, with {pesadas} weigh-ins.',

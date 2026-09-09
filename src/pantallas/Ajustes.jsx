@@ -13,6 +13,7 @@ import { aCSV, descargar } from '../datos/almacen.js';
 import { leerCSV, fusionar } from '../datos/importar.js';
 import { Titulo } from './Ayuda.jsx';
 import Hoja from './Hoja.jsx';
+import { ESTILOS, COLORES, APARATO_POR_DEFECTO } from '../mascota/TamagotchiPNG.jsx';
 
 export default function Ajustes({ perfil, entradas, pacto, onCambiar, onReiniciar, onImportar }) {
   const t = useT();
@@ -65,6 +66,11 @@ export default function Ajustes({ perfil, entradas, pacto, onCambiar, onReinicia
               : t('ajustes.imcSolo', { actual: imcActual.toFixed(1) })}
           </p>
         )}
+      </div>
+
+      <div className="mf-tarjeta">
+        <h3 className="mf-h3">{t('aparato.titulo')}</h3>
+        <Aparato perfil={perfil} onCambiar={onCambiar} />
       </div>
 
       <div className="mf-tarjeta">
@@ -152,6 +158,44 @@ export default function Ajustes({ perfil, entradas, pacto, onCambiar, onReinicia
         {t('ajustes.pie')}
       </p>
     </div>
+  );
+}
+
+/* --- la carcasa del michi ---
+   Acabado y color. Las miniaturas son la imagen de verdad, no un
+   cuadradito de color: se ve lo que eliges antes de elegirlo, y de paso
+   el navegador va guardando las que miras. */
+function Aparato({ perfil, onCambiar }) {
+  const t = useT();
+  const actual = { ...APARATO_POR_DEFECTO, ...(perfil.aparato ?? {}) };
+  const poner = (campos) => onCambiar({ ...perfil, aparato: { ...actual, ...campos } });
+
+  return (
+    <>
+      <p className="mf-sub" style={{ margin: '0 0 8px' }}>{t('aparato.acabado')}</p>
+      <div className="mf-sexo">
+        {ESTILOS.map((e) => (
+          <button key={e} className={actual.estilo === e ? 'sel' : ''}
+                  onClick={() => poner({ estilo: e })}>
+            {t('aparato.' + e)}
+          </button>
+        ))}
+      </div>
+
+      <p className="mf-sub" style={{ margin: '14px 0 8px' }}>{t('aparato.color')}</p>
+      <div className="mf-huevos">
+        {COLORES.map((c) => (
+          <button key={c} className={actual.color === c ? 'sel' : ''}
+                  aria-label={t('aparato.colores.' + c)}
+                  title={t('aparato.colores.' + c)}
+                  onClick={() => poner({ color: c })}>
+            <img src={`/michi/huevo-${actual.estilo}-${c}.png`} alt="" loading="lazy" />
+          </button>
+        ))}
+      </div>
+
+      <p className="mf-nota">{t('aparato.nota')}</p>
+    </>
   );
 }
 

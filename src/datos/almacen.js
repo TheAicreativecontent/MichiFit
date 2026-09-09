@@ -19,6 +19,7 @@ const VACIO = {
     proteinaPorKg: 2,
     deficitObjetivo: 500,
     escalaTexto: 1,   // tamano de la letra, ver estilos.css
+    aparato: { estilo: 'liso', color: 'naranja' },   // la carcasa del michi
   },
   pacto: null,
   entradas: {},         // { 'AAAA-MM-DD': { pasos, entrenoMin, comidaKcal, ... } }
