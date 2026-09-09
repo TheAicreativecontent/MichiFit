@@ -10,32 +10,28 @@
 
 import { HITOS, XP_POR_HITO, NIVELES } from '../engine/constantes.js';
 import { Titulo } from './Ayuda.jsx';
+import { useT } from '../i18n/index.jsx';
 
 export default function Logros({ estado }) {
+  const t = useT();
   const conseguidos = new Set(estado.hitosDesbloqueados ?? []);
   const total = HITOS.length;
 
   return (
     <div className="mf-pagina">
       <Titulo ayuda={<>
-          <p>
-            Hitos que se consiguen una vez y <b>no se pierden nunca</b>,
-            aunque falles después. Cada uno suma experiencia al michi.
-          </p>
-          <p>
-            Se comprueban contra todo tu historial, así que si apuntas un
-            día antiguo que cumplía un hito, se desbloquea igual.
-          </p>
+          <p dangerouslySetInnerHTML={{ __html: t('logros.ayuda1') }} />
+          <p>{t('logros.ayuda2')}</p>
         </>}>
-        🏅 Tus logros
+        {t('logros.titulo')}
       </Titulo>
       <p className="mf-sub">
-        {conseguidos.size} de {total} · cada uno suma {XP_POR_HITO} XP
+        {t('logros.resumen', { hechos: conseguidos.size, total, xp: XP_POR_HITO })}
       </p>
 
       <div className="mf-tarjeta">
         <div className="mf-nivel-fila">
-          <span>{estado.nivel.emoji} {estado.nivel.nombre}</span>
+          <span>{estado.nivel.emoji} {t('niveles.' + estado.nivel.nivel)}</span>
           <b className="mf-mk-num">{estado.nivel.xp} XP</b>
         </div>
         <div className="mf-xp">
@@ -46,7 +42,7 @@ export default function Logros({ estado }) {
             <div key={n.nivel}
                  className={`mf-peldano ${estado.nivel.nivel >= n.nivel ? 'ok' : ''}`}>
               <span>{n.emoji}</span>
-              <small>{n.nombre}</small>
+              <small>{t('niveles.' + n.nivel)}</small>
             </div>
           ))}
         </div>
@@ -59,8 +55,8 @@ export default function Logros({ estado }) {
             <div key={h.id} className={`mf-logro ${hecho ? 'ok' : ''}`}>
               <span className="ic">{hecho ? h.emoji : '🔒'}</span>
               <div>
-                <b>{h.nombre}</b>
-                <small>{h.desc}</small>
+                <b>{t('hitos.' + h.id + '.nombre')}</b>
+                <small>{t('hitos.' + h.id + '.desc')}</small>
               </div>
               {hecho && <i className="tick">✓</i>}
             </div>
@@ -68,10 +64,7 @@ export default function Logros({ estado }) {
         })}
       </div>
 
-      <p className="mf-pie">
-        Los logros no se pierden nunca. Una vez conseguidos, son tuyos
-        aunque falles una semana.
-      </p>
+      <p className="mf-pie">{t('logros.pie')}</p>
     </div>
   );
 }

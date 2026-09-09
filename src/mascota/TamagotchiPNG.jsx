@@ -11,6 +11,7 @@
    ============================================================ */
 
 import { useEffect, useState } from 'react';
+import { useT } from '../i18n/index.jsx';
 import Tamagotchi from './Tamagotchi.jsx';
 import './tamagotchi.css';
 
@@ -59,6 +60,7 @@ export default function TamagotchiPNG({
   onPantalla,          // tocar el cristal: el michi cuenta cómo va
   ...resto
 }) {
+  const t = useT();
   const [sinHuevo, setSinHuevo] = useState(false);
   const [intento, setIntento] = useState(0);
 
@@ -108,7 +110,7 @@ export default function TamagotchiPNG({
         {!sinHuevo && nivel && (
           <div className="mf-tamapng-cabecera">
             <div className="mf-tamapng-nivel">
-              <span className="et">{nivel.nombre.replace('Michi ', '')}</span>
+              <span className="et">{t('nivelesCorto.' + nivel.nivel)}</span>
               <div className="barra">
                 <i style={{ width: `${Math.round((nivel.progreso ?? 0) * 100)}%` }} />
               </div>

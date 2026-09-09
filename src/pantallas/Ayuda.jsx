@@ -9,13 +9,15 @@
    ============================================================ */
 
 import { useState } from 'react';
+import { useT } from '../i18n/index.jsx';
 
 export default function Ayuda({ children }) {
+  const t = useT();
   const [abierta, setAbierta] = useState(false);
   return (
     <>
       <button className={`mf-ayuda-btn ${abierta ? 'activa' : ''}`}
-              aria-expanded={abierta} aria-label="Qué es esta pantalla"
+              aria-expanded={abierta} aria-label={t('comun.queEsPantalla')}
               onClick={() => setAbierta((a) => !a)}>
         ?
       </button>

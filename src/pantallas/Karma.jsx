@@ -9,12 +9,14 @@
    ============================================================ */
 
 import { useState } from 'react';
+import { useT } from '../i18n/index.jsx';
 
 const BUY_ME_A_COFFEE = 'https://www.buymeacoffee.com/MichiFinanzas';
 const LIGHTNING_LNURL =
   'lnurl1dp68gurn8ghj7ampd3kx2ar0veekzar0wd5xjtnrdakj7tnhv4kxctttdehhwm30d3h82unvwqhkcmmrv9kxxmmvwsmrxdfddcg';
 
 export default function Karma() {
+  const t = useT();
   const [copiado, setCopiado] = useState(false);
 
   // En el móvil el enlace `lightning:` abre la cartera directamente;
@@ -36,56 +38,52 @@ export default function Karma() {
 
   return (
     <div className="mf-pagina">
-      <h2 className="mf-h2">💌 Invítame a un café</h2>
+      <h2 className="mf-h2">{t('karma.titulo')}</h2>
 
       <div className="mf-tarjeta mf-karma-cabecera">
         <img src="/karma/corazon.png" alt="" width="90" height="84" />
-        <b>MichiFit es gratis y siempre lo será</b>
+        <b>{t('karma.gratis')}</b>
         <p className="mf-nota">
-          Si la app te ayuda a cuidarte, puedes invitarme a un café. No es
-          obligatorio y no desbloquea nada: es solo una forma de decir
-          gracias 💕
+          {t('karma.intro')}
         </p>
       </div>
 
       <div className="mf-tarjeta mf-karma-bloque">
-        <h3 className="mf-h3">☕ Buy Me a Coffee</h3>
+        <h3 className="mf-h3">{t('karma.cafeTitulo')}</h3>
         <p className="mf-nota" style={{ marginTop: 0 }}>
-          Invítame a un café en un par de clics.
+          {t('karma.cafeIntro')}
         </p>
         <a className="mf-boton-cafe" href={BUY_ME_A_COFFEE}
            target="_blank" rel="noopener noreferrer">
-          ☕ Buy me a coffee
+          {t('karma.cafeBoton')}
         </a>
       </div>
 
       <div className="mf-tarjeta mf-karma-bloque">
-        <h3 className="mf-h3">⚡ Bitcoin Lightning</h3>
+        <h3 className="mf-h3">{t('karma.rayoTitulo')}</h3>
         <p className="mf-nota" style={{ marginTop: 0, marginBottom: 12 }}>
-          Envía una propina en BTC al instante, sin comisiones, desde
-          cualquier cartera Lightning.
+          {t('karma.rayoIntro')}
         </p>
 
         {enMovil ? (
           <a className="mf-boton-rayo" href={`lightning:${LIGHTNING_LNURL}`}>
-            ⚡ Abrir cartera Lightning
+            {t('karma.rayoBoton')}
           </a>
         ) : (
           <>
             <p className="mf-nota" style={{ marginTop: 0, marginBottom: 10 }}>
-              Escanea con tu cartera Lightning desde el móvil
+              {t('karma.rayoEscanea')}
             </p>
             <img className="mf-karma-qr" src="/karma/lightning_qr.png"
-                 alt="Código QR para propina por Lightning" width="200" height="200" />
+                 alt={t('karma.rayoQrAlt')} width="200" height="200" />
           </>
         )}
 
         <button className="mf-copiar" onClick={copiarLnurl}>
-          {copiado ? 'Copiado ✓' : 'Copiar LNURL'}
+          {copiado ? t('karma.copiado') : t('karma.copiar')}
         </button>
         <p className="mf-nota" style={{ fontSize: 11 }}>
-          Compatible con Wallet of Satoshi, Phoenix, Muun y cualquier
-          cartera LNURL.
+          {t('karma.compatible')}
         </p>
       </div>
 

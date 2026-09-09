@@ -13,14 +13,13 @@
    ============================================================ */
 
 import { useMemo, useState } from 'react';
+import { useT, useFormato } from '../i18n/index.jsx';
 import { hoyISO, diasDesde, evaluarDia } from '../engine/pacto.js';
 import EditorDia from './EditorDia.jsx';
 import { simular, actividadDelPacto, planEnergetico } from '../engine/calculos.js';
 import { Titulo } from './Ayuda.jsx';
+import { DIAS } from '../engine/constantes.js';
 
-const MESES = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio',
-  'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-const DOW = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
 
 /* Ritmo real por mínimos cuadrados sobre los pesajes. Más honesto que
    comparar el primero con el último: un solo día raro no manda. */
@@ -43,6 +42,8 @@ function ritmoReal(pesajes) {
 }
 
 export default function Progreso({ perfil, pacto, entradas, onRegistrar }) {
+  const t = useT();
+  const fmt = useFormato();
   const [mesOffset, setMesOffset] = useState(0);
   const [editando, setEditando] = useState(null);
 
@@ -86,40 +87,30 @@ export default function Progreso({ perfil, pacto, entradas, onRegistrar }) {
   return (
     <div className="mf-pagina">
       <Titulo ayuda={<>
-          <p>
-            La gráfica junta tu <b>peso real</b> con la previsión que sale
-            de tu ritmo actual. La línea de previsión se recalcula sola: si
-            bajas más rápido, se acorta.
-          </p>
-          <p>
-            En el calendario puedes tocar cualquier día para apuntar o
-            corregir datos. Los días de hace más de tres se cierran para el
-            pacto, pero el <b>peso</b> siempre se puede corregir.
-          </p>
+          <p dangerouslySetInnerHTML={{ __html: t('progreso.ayuda1') }} />
+          <p dangerouslySetInnerHTML={{ __html: t('progreso.ayuda2') }} />
         </>}>
-        📈 Tu progreso
+        {t('progreso.titulo')}
       </Titulo>
 
       <div className="mf-rejilla">
-        <Celda n={pesoActual != null ? pesoActual.toFixed(1) : '—'} u="kg" etiqueta="Peso actual" />
+        <Celda n={pesoActual != null ? pesoActual.toFixed(1) : '—'} u="kg" etiqueta={t('progreso.pesoActual')} />
         <Celda n={(perdido > 0 ? '−' : '') + Math.abs(perdido || 0).toFixed(1)} u="kg"
-               etiqueta={perdido >= 0 ? 'Perdidos' : 'Recuperados'}
+               etiqueta={perdido >= 0 ? t('progreso.perdidos') : t('progreso.recuperados')}
                clase={perdido > 0 ? 'bien' : ''} />
-        <Celda n={Math.max(0, restante || 0).toFixed(1)} u="kg" etiqueta="Hasta la meta" />
+        <Celda n={Math.max(0, restante || 0).toFixed(1)} u="kg" etiqueta={t('progreso.hastaMeta')} />
         <Celda n={ritmo != null ? ritmo.toFixed(2) : '—'} u="kg"
-               etiqueta={real ? 'Ritmo real / semana' : 'Ritmo previsto / semana'}
+               etiqueta={real ? t('progreso.ritmoReal') : t('progreso.ritmoPrevisto')}
                clase={ritmo < 0 ? 'bien' : ''} />
       </div>
 
       <div className="mf-tarjeta">
         <h3 className="mf-h3">
-          Peso ↔ tiempo {real && <small className="mf-real">· según lo que apuntas</small>}
+          {t('progreso.pesoTiempo')} {real && <small className="mf-real">{t('progreso.segunApuntas')}</small>}
         </h3>
         {pesajes.length === 0 ? (
           <p className="mf-nota" style={{ marginTop: 0 }}>
-            Aún no has apuntado ningún peso. Toca un día del calendario y
-            escríbelo: con tres pesajes repartidos en diez días ya puedo
-            calcular tu ritmo real.
+            {t('progreso.sinPesajes')}
           </p>
         ) : (
           <>
@@ -127,8 +118,8 @@ export default function Progreso({ perfil, pacto, entradas, onRegistrar }) {
                      pesoMeta={perfil.pesoMeta} pesoInicial={perfil.pesoInicial}
                      ritmo={ritmo} bajando={bajando} semanas={semanas} />
             <p className="mf-nota" style={{ textAlign: 'center' }}>
-              🌸 tus pesajes · 🟦 previsión a tu ritmo
-              {!real && ' (teórica: aún no hay pesajes suficientes)'}
+              {t('progreso.leyenda')}
+              {!real && t('progreso.leyendaTeorica')}
             </p>
           </>
         )}
@@ -153,6 +144,7 @@ export default function Progreso({ perfil, pacto, entradas, onRegistrar }) {
 
 /* ---------------- gráfica ---------------- */
 function Grafica({ pesajes, pesoActual, pesoMeta, pesoInicial, ritmo, bajando, semanas }) {
+  const t = useT();
   const W = 700, H = 340, pl = 62, pr = 26, pt = 22, pb = 42;
   const ancho = W - pl - pr, alto = H - pt - pb;
 
@@ -171,7 +163,10 @@ function Grafica({ pesajes, pesoActual, pesoMeta, pesoInicial, ritmo, bajando, s
   const Y = (w) => pt + ((yMax - w) / (yMax - yMin)) * alto;
   const marcas = Array.from({ length: 5 }, (_, i) => yMin + ((yMax - yMin) * i) / 4);
   const linea = puntos.map((p) => `${X(p.d)},${Y(p.w)}`).join(' ');
-  const FF = "Nunito, system-ui, sans-serif";
+  /* El SVG no hereda las variables CSS del documento por `font-family`
+     en atributo, asi que la cadena de reservas se repite aqui. */
+  const FF = "Nunito, 'Yu Gothic UI', Meiryo, 'Microsoft YaHei', "
+    + "'Leelawadee UI', system-ui, sans-serif";
 
   return (
     <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid meet"
@@ -189,14 +184,14 @@ function Grafica({ pesajes, pesoActual, pesoMeta, pesoInicial, ritmo, bajando, s
           <line x1={pl} y1={Y(pesoMeta)} x2={W - pr} y2={Y(pesoMeta)}
                 stroke="var(--bien)" strokeWidth="2.5" strokeDasharray="9 6" />
           <text x={pl + 4} y={Y(pesoMeta) - 9} fontSize="15" fontWeight="800"
-                fill="var(--bien)" fontFamily={FF}>meta {pesoMeta}</text>
+                fill="var(--bien)" fontFamily={FF}>{t('progreso.meta', { kg: pesoMeta })}</text>
         </>
       )}
 
       <line x1={X(0)} y1={pt} x2={X(0)} y2={H - pb}
             stroke="var(--menta)" strokeWidth="1.5" strokeDasharray="4 5" opacity=".7" />
       <text x={X(0)} y={H - 14} textAnchor="middle" fontSize="15" fontWeight="800"
-            fill="var(--tinta-flojo)" fontFamily={FF}>hoy</text>
+            fill="var(--tinta-flojo)" fontFamily={FF}>{t('progreso.hoy')}</text>
 
       <line x1={X(0)} y1={Y(pesoActual)} x2={X(diasFuturo)} y2={Y(finW)}
             stroke="var(--menta)" strokeWidth="4" strokeDasharray="8 7" strokeLinecap="round" />
@@ -222,6 +217,8 @@ function Grafica({ pesajes, pesoActual, pesoMeta, pesoInicial, ritmo, bajando, s
 
 /* ---------------- calendario ---------------- */
 function Calendario({ mesOffset, setMesOffset, entradas, pacto, metaISO, onTocar }) {
+  const t = useT();
+  const fmt = useFormato();
   const base = new Date();
   base.setDate(1);
   base.setMonth(base.getMonth() + mesOffset);
@@ -249,12 +246,12 @@ function Calendario({ mesOffset, setMesOffset, entradas, pacto, metaISO, onTocar
     <div className="mf-tarjeta">
       <div className="mf-calnav">
         <button onClick={() => setMesOffset(mesOffset - 1)}>‹</button>
-        <b>{MESES[mes]} {anio}</b>
+        <b>{fmt.mes(new Date(anio, mes, 1))}</b>
         <button onClick={() => setMesOffset(mesOffset + 1)}>›</button>
       </div>
 
       <div className="mf-cal">
-        {DOW.map((d, i) => <div className="mf-caldow" key={i}>{d}</div>)}
+        {DIAS.map((d) => <div className="mf-caldow" key={d}>{t('dias.inicial.' + d)}</div>)}
         {celdas.map((c, i) => c == null ? <div key={i} /> : (
           <button key={i}
                   className={`mf-caldia ${c.estado} ${c.esHoy ? 'hoy' : ''} ${c.futuro ? 'futuro' : ''}`}
@@ -268,13 +265,10 @@ function Calendario({ mesOffset, setMesOffset, entradas, pacto, metaISO, onTocar
       </div>
 
       <div className="mf-leyenda">
-        <i className="ok" /> pacto cumplido &nbsp; <i className="parcial" /> a medias &nbsp;
-        <i className="fallo" /> sin datos &nbsp; <i className="abierto" /> aún a tiempo
+        <i className="ok" /> {t('progreso.calPactoCumplido')} &nbsp; <i className="parcial" /> {t('progreso.calAMedias')} &nbsp;
+        <i className="fallo" /> {t('progreso.calSinDatos')} &nbsp; <i className="abierto" /> {t('progreso.calATiempo')}
       </div>
-      <p className="mf-nota">
-        Toca cualquier día para apuntarlo o corregirlo. El peso se puede
-        cambiar siempre; para el pacto solo cuentan los últimos 3 días.
-      </p>
+      <p className="mf-nota">{t('progreso.calNota')}</p>
     </div>
   );
 }

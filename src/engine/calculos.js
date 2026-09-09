@@ -198,25 +198,24 @@ export function avisosDeSeguridad({ perfil, comidaKcal, kgPorSemana }) {
 
   const imcMeta = imc(perfil?.pesoMeta, perfil?.altura);
   if (imcMeta != null && imcMeta < IMC_MINIMO_SANO) {
-    const minimo = pesoParaIMC(IMC_MINIMO_SANO, perfil.altura);
     avisos.push({
       tipo: 'peso',
-      texto: `Tu peso meta queda por debajo de un IMC de ${IMC_MINIMO_SANO}. Para tu altura eso son unos ${minimo.toFixed(1)} kg como suelo saludable.`,
+      clave: 'avisos.peso',
+      vars: { imc: IMC_MINIMO_SANO,
+              kg: pesoParaIMC(IMC_MINIMO_SANO, perfil.altura).toFixed(1) },
     });
   }
 
   if (comidaKcal != null && comidaKcal < KCAL_MINIMAS[sexo]) {
-    avisos.push({
-      tipo: 'kcal',
-      texto: `Comer menos de ${KCAL_MINIMAS[sexo]} kcal al día no es sostenible sin supervisión. El michi no mejora por bajar de ahí.`,
-    });
+    avisos.push({ tipo: 'kcal', clave: 'avisos.kcal', vars: { min: KCAL_MINIMAS[sexo] } });
   }
 
   const maximo = (perfil?.pesoActual ?? 0) * RITMO_MAXIMO_SEMANAL;
   if (kgPorSemana != null && Math.abs(kgPorSemana) > maximo && maximo > 0) {
     avisos.push({
       tipo: 'ritmo',
-      texto: `Bajar ${Math.abs(kgPorSemana).toFixed(2)} kg por semana es más rápido de lo recomendable para ti (unos ${maximo.toFixed(2)} kg). Se pierde músculo, no solo grasa.`,
+      clave: 'avisos.ritmo',
+      vars: { kg: Math.abs(kgPorSemana).toFixed(2), max: maximo.toFixed(2) },
     });
   }
 

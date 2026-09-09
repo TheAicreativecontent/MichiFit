@@ -9,6 +9,8 @@
    más tampoco, así que pasarse no puede pintarse como logro.
    ============================================================ */
 
+import { useT } from '../i18n/index.jsx';
+
 const CORAZON = [
   '.XX.XX.',
   'XXXXXXX',
@@ -88,6 +90,7 @@ function Fila({ etiqueta, children, num }) {
 }
 
 export default function Marcador({ estado, entradaHoy = {}, pacto }) {
+  const t = useT();
   const corazones = Math.min(MAX_CORAZONES, estado.racha);
   /* Los días de la racha que salvó un comodín se pintan al final, en
      corazón partido y gris: la racha sigue viva, pero el marcador no
@@ -122,14 +125,14 @@ export default function Marcador({ estado, entradaHoy = {}, pacto }) {
   return (
     <div className="mf-marcador">
       <div className="mf-mk-fila">
-        <span className="mf-mk-et">RACHA</span>
+        <span className="mf-mk-et">{t('marcador.racha')}</span>
         <span className="mf-mk-iconos">
           {Array.from({ length: MAX_CORAZONES }, (_, i) =>
             i < enteros ? (
               <Icono key={i} forma={CORAZON} lleno color="#E8543A" />
             ) : i < corazones ? (
               <Icono key={i} forma={CORAZON_ROTO} lleno color="#9A9086"
-                     titulo="Día salvado por un comodín" />
+                     titulo={t('marcador.salvado')} />
             ) : (
               <Icono key={i} forma={CORAZON} lleno={false} color="#E8543A" />
             )
@@ -142,24 +145,24 @@ export default function Marcador({ estado, entradaHoy = {}, pacto }) {
         <b className="mf-mk-num">{estado.racha}</b>
       </div>
 
-      <Fila etiqueta="PASOS" num={`${Math.round(pctPasos * 100)}%`}>
+      <Fila etiqueta={t('marcador.pasos')} num={`${Math.round(pctPasos * 100)}%`}>
         <Barra valor={pctPasos} color="#F5C518" />
       </Fila>
 
       {/* "SUEÑO", no "DESCANSO": el descanso del pacto es no entrenar, y
           son dos cosas distintas. Comprobado que la Ñ existe en Press
           Start 2P antes de usarla. */}
-      <Fila etiqueta="SUEÑO" num={horas ? `${horas}h` : '—'}>
+      <Fila etiqueta={t('marcador.sueno')} num={horas ? `${horas}h` : '—'}>
         <Barra valor={pctSueno} exceso={excesoSueno} color="#7CC3F2" colorExceso="#E8543A" />
       </Fila>
 
       {/* La comida va en rojizo porque es el color con el que se asocia,
           y el verde se reserva para el nivel: es el color de "vas bien". */}
-      <Fila etiqueta="COMIDA" num={kcal ? kcal : '—'}>
+      <Fila etiqueta={t('marcador.comida')} num={kcal ? kcal : '—'}>
         <Barra valor={pctComida} exceso={excesoComida} color="#E86A5A" />
       </Fila>
 
-      <Fila etiqueta="NIVEL" num={xpFaltan ? `-${xpFaltan}` : 'MAX'}>
+      <Fila etiqueta={t('marcador.nivel')} num={xpFaltan ? `-${xpFaltan}` : t('marcador.max')}>
         <Barra valor={n.progreso} color="#5FCD96" />
       </Fila>
     </div>

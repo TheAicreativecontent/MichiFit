@@ -5,12 +5,14 @@
    ============================================================ */
 
 import { useState } from 'react';
+import { useT } from '../i18n/index.jsx';
 import Tamagotchi from '../mascota/TamagotchiPNG.jsx';
 import { DIAS, DIAS_INICIAL } from '../engine/constantes.js';
 import { tmb, imc, avisosDeSeguridad, planEnergetico } from '../engine/calculos.js';
 import { pactoPorDefecto } from '../engine/pacto.js';
 
 export default function Bienvenida({ onEmpezar }) {
+  const t = useT();
   const [p, setP] = useState({
     sexo: 'hombre', edad: '', altura: '',
     pesoActual: '', pesoMeta: '', reposoReal: '',
@@ -68,96 +70,92 @@ export default function Bienvenida({ onEmpezar }) {
       <div className="mf-escena">
         <Tamagotchi estado="kawaii" cara="feliz" size={210} escenario="casa" />
         <p className="mf-globo">
-          ¡Hola! Soy tu michi. Cuéntame algo de ti y pactamos cómo nos cuidamos 🐾
+          {t('bienvenida.globo')}
         </p>
       </div>
 
       <div className="mf-tarjeta">
-        <h3 className="mf-h3">Sobre ti</h3>
+        <h3 className="mf-h3">{t('bienvenida.sobreTi')}</h3>
         <div className="mf-sexo">
           {['hombre', 'mujer'].map((s) => (
             <button key={s} className={p.sexo === s ? 'sel' : ''}
                     onClick={() => setP({ ...p, sexo: s })}>
-              {s === 'hombre' ? 'Hombre' : 'Mujer'}
+              {s === 'hombre' ? t('comun.hombre') : t('comun.mujer')}
             </button>
           ))}
         </div>
-        <C et="Edad" v={p.edad} on={(v) => setP({ ...p, edad: v })} ph="años" />
-        <C et="Altura" u="cm" v={p.altura} on={(v) => setP({ ...p, altura: v })} />
-        <C et="Peso actual" u="kg" paso="0.1" v={p.pesoActual} on={(v) => setP({ ...p, pesoActual: v })} />
-        <C et="Peso meta" u="kg" paso="0.1" v={p.pesoMeta} on={(v) => setP({ ...p, pesoMeta: v })} />
+        <C et={t('bienvenida.edad')} v={p.edad} on={(v) => setP({ ...p, edad: v })} ph={t('bienvenida.edadPh')} />
+        <C et={t('bienvenida.altura')} u={t('comun.cm')} v={p.altura} on={(v) => setP({ ...p, altura: v })} />
+        <C et={t('bienvenida.pesoActual')} u={t('comun.kg')} paso="0.1" v={p.pesoActual} on={(v) => setP({ ...p, pesoActual: v })} />
+        <C et={t('bienvenida.pesoMeta')} u={t('comun.kg')} paso="0.1" v={p.pesoMeta} on={(v) => setP({ ...p, pesoMeta: v })} />
         {imcActual && (
           <p className="mf-nota">
-            IMC actual {imcActual.toFixed(1)}
-            {imcMeta && <> · IMC meta {imcMeta.toFixed(1)}</>}. El rango saludable
-            suele estar entre 18,5 y 25.
+            {imcMeta
+              ? t('ajustes.imc', { actual: imcActual.toFixed(1), meta: imcMeta.toFixed(1) })
+              : t('ajustes.imcSolo', { actual: imcActual.toFixed(1) })}
           </p>
         )}
       </div>
 
       <div className="mf-tarjeta">
-        <h3 className="mf-h3">Tu gasto en reposo</h3>
+        <h3 className="mf-h3">{t('bienvenida.gastoReposo')}</h3>
         <p className="mf-nota" style={{ marginTop: 0 }}>
-          Si tienes reloj, pon tu media real: es más exacta que cualquier
-          fórmula. Si lo dejas vacío, lo estimo yo.
+          {t('bienvenida.gastoNota')}
         </p>
-        <C et="En reposo" u="kcal/día" v={p.reposoReal}
+        <C et={t('bienvenida.enReposo')} u={t('comun.kcalDia')} v={p.reposoReal}
            on={(v) => setP({ ...p, reposoReal: v })}
            ph={estimado ? `≈ ${estimado}` : ''} />
       </div>
 
       <div className="mf-tarjeta">
-        <h3 className="mf-h3">Tu pacto</h3>
+        <h3 className="mf-h3">{t('bienvenida.tuPacto')}</h3>
         <p className="mf-nota" style={{ marginTop: 0 }}>
-          Elige los días que quieres entrenar. El resto son de descanso, y el
-          descanso también cuenta: forma parte del pacto.
+          {t('bienvenida.pactoNota')}
         </p>
         <div className="mf-dias">
           {DIAS.map((d) => (
             <button key={d} className={entreno[d] ? 'sel' : ''}
                     onClick={() => setEntreno({ ...entreno, [d]: !entreno[d] })}>
-              {DIAS_INICIAL[d]}
+              {t('dias.inicial.' + d)}
             </button>
           ))}
         </div>
-        <C et="Pasos al día" v={pasos} paso="500" on={(v) => setPasos(Number(v) || 0)} />
-        <C et="Minutos por entreno" v={minEntreno} paso="5" on={(v) => setMinEntreno(Number(v) || 0)} />
+        <C et={t('bienvenida.pasosDia')} v={pasos} paso="500" on={(v) => setPasos(Number(v) || 0)} />
+        <C et={t('bienvenida.minPorEntreno')} v={minEntreno} paso="5" on={(v) => setMinEntreno(Number(v) || 0)} />
         <p className="mf-nota">
-          {diasEntreno.length} días de entreno y {7 - diasEntreno.length} de
-          descanso. Los días que entrenas te pediré menos pasos
-          ({Math.round((pasos * 0.66) / 500) * 500}): pedirte entrenar y andar
-          mucho el mismo día puede llegar a ser insostenible.
+          {t('bienvenida.resumenPacto', {
+            entreno: diasEntreno.length, descanso: 7 - diasEntreno.length,
+            pasos: Math.round((pasos * 0.66) / 500) * 500 })}
         </p>
       </div>
 
       {completo && paraPerder && (
         <div className="mf-tarjeta mf-calculado">
-          <h3 className="mf-h3">Lo que te propongo</h3>
-          <L i="😴" t="En reposo" v={`${reposo} kcal/día`} />
-          <L i="🔥" t="Mantenimiento" v={`${mantenimiento} kcal/día`} />
-          <L i="🍙" t="Para perder" v={`${paraPerder} kcal/día`} />
+          <h3 className="mf-h3">{t('bienvenida.propongo')}</h3>
+          <L i="😴" t={t('bienvenida.lineaReposo')} v={`${reposo} ${t('comun.kcalDia')}`} />
+          <L i="🔥" t={t('bienvenida.lineaMantenimiento')} v={`${mantenimiento} ${t('comun.kcalDia')}`} />
+          <L i="🍙" t={t('bienvenida.lineaPerder')} v={`${paraPerder} ${t('comun.kcalDia')}`} />
           {plan?.recorte && (
             <p className="mf-nota">
               {plan.recorte === 'suelo'
-                ? `Con tus datos, un déficit mayor te dejaría por debajo de ${plan.suelo} kcal, así que se queda aquí.`
-                : `Un déficit más grande sería demasiado para tu gasto: se aplican ${plan.deficit} kcal.`}
+                ? t('bienvenida.recorteSuelo', { suelo: plan.suelo })
+                : t('bienvenida.recorteTecho', { aplicado: plan.deficit })}
             </p>
           )}
           <p className="mf-nota">
-            Son un punto de partida, no una orden. Puedes cambiarlo todo cuando
-            quieras desde Ajustes.
+            {t('bienvenida.puntoPartida')}
           </p>
         </div>
       )}
 
-      {avisos.map((a) => <div key={a.tipo} className="mf-aviso">⚠️ {a.texto}</div>)}
+      {avisos.map((a) => <div key={a.tipo} className="mf-aviso">⚠️ {t(a.clave, a.vars)}</div>)}
 
       <button className="mf-boton principal" disabled={!completo} onClick={empezar}>
-        {completo ? '¡Vamos allá! 🐾' : 'Rellena tus datos para empezar'}
+        {completo ? t('bienvenida.vamos') : t('bienvenida.rellena')}
       </button>
 
       <p className="mf-pie">
-        Tus datos se quedan en este dispositivo. No se envían a ningún sitio.
+        {t('bienvenida.pie')}
       </p>
     </div>
   );

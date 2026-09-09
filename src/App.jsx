@@ -19,18 +19,20 @@ import { sincronizarPacto } from './engine/calculos.js';
 import { hoyISO } from './engine/pacto.js';
 import { podarCarino } from './engine/felicidad.js';
 import { leer, guardar, reiniciar } from './datos/almacen.js';
+import { useT } from './i18n/index.jsx';
+import SelectorIdioma from './i18n/Selector.jsx';
 import './estilos.css';
 
 /* Iconos traídos de Michi Finanzas, para que las dos apps se sientan
    la misma casa. Simular no tiene icono propio todavía: lleva emoji. */
 const PESTANAS = [
-  { id: 'inicio', img: '/iconos/inicio.png', t: 'Inicio' },
-  { id: 'pacto', img: '/iconos/pacto.png', t: 'Mi pacto' },
-  { id: 'progreso', img: '/iconos/progreso.png', t: 'Progreso' },
+  { id: 'inicio', img: '/iconos/inicio.png' },
+  { id: 'pacto', img: '/iconos/pacto.png' },
+  { id: 'progreso', img: '/iconos/progreso.png' },
   // — aquí va el "+" —
-  { id: 'logros', img: '/iconos/logros.png', t: 'Logros' },
-  { id: 'simular', img: '/iconos/simular.png', t: 'Simular' },
-  { id: 'karma', img: '/iconos/karma.png', t: 'Karma' },
+  { id: 'logros', img: '/iconos/logros.png' },
+  { id: 'simular', img: '/iconos/simular.png' },
+  { id: 'karma', img: '/iconos/karma.png' },
 ];
 
 function Icono({ p }) {
@@ -40,6 +42,7 @@ function Icono({ p }) {
    queda despejado, como en Michi Finanzas. */
 
 export default function App() {
+  const t = useT();
   const [datos, setDatos] = useState(leer);
 
   /* La escala del texto vive en el :root, para que la hereden tambien los
@@ -123,8 +126,9 @@ export default function App() {
              onClick={tocarLogo} />
           <div className="mf-marca-txt">
             <h1>Michi<b>Fit</b></h1>
-            <small>tu peso ideal, paso a pasito, suave suavecito 🐾</small>
+            <small>{t('marca.lema')}</small>
           </div>
+          <div className="mf-cab-acciones"><SelectorIdioma /></div>
         </header>
         <main>
           <Bienvenida
@@ -144,13 +148,14 @@ export default function App() {
              onClick={tocarLogo} />
         <div className="mf-marca-txt">
           <h1>Michi<b>Fit</b></h1>
-          <small>tu peso ideal, paso a pasito, suave suavecito 🐾</small>
+          <small>{t('marca.lema')}</small>
         </div>
         <div className="mf-cab-acciones">
           <div className="mf-racha">🔥 {estado.racha}</div>
+          <SelectorIdioma />
           <button className={`mf-gear ${pestana === 'ajustes' ? 'activa' : ''}`}
                   onClick={() => setPestana(pestana === 'ajustes' ? 'inicio' : 'ajustes')}
-                  aria-label="Ajustes">⚙️</button>
+                  aria-label={t('ajustes.titulo')}>⚙️</button>
         </div>
       </header>
 
@@ -184,7 +189,7 @@ export default function App() {
         {PESTANAS.slice(0, 3).map((p) => (
           <button key={p.id} className={pestana === p.id ? 'activa' : ''}
                   onClick={() => setPestana(p.id)}>
-            <Icono p={p} /><small>{p.t}</small>
+            <Icono p={p} /><small>{t('nav.' + p.id)}</small>
           </button>
         ))}
         <button className="mf-mas" onClick={() => setRegistrando(true)}
@@ -194,7 +199,7 @@ export default function App() {
         {PESTANAS.slice(3).map((p) => (
           <button key={p.id} className={pestana === p.id ? 'activa' : ''}
                   onClick={() => setPestana(p.id)}>
-            <Icono p={p} /><small>{p.t}</small>
+            <Icono p={p} /><small>{t('nav.' + p.id)}</small>
           </button>
         ))}
       </nav>

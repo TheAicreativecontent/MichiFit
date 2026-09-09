@@ -8,9 +8,11 @@ import { useState } from 'react';
 import { claveDia, dentroDeVentana } from '../engine/pacto.js';
 import { ListaEjercicios, ejerciciosDe } from './Ejercicios.jsx';
 import Hoja from './Hoja.jsx';
+import { useT } from '../i18n/index.jsx';
 
 /* ---------------- editor de un día ---------------- */
 export default function EditorDia({ fecha, entrada, pacto, onGuardar, onCerrar }) {
+  const t = useT();
   const [v, setV] = useState({
     peso: entrada.peso ?? '',
     pasos: entrada.pasos ?? '',
@@ -43,33 +45,30 @@ export default function EditorDia({ fecha, entrada, pacto, onGuardar, onCerrar }
         <h3 className="mf-h3">{fecha}</h3>
         {!abierto && (
           <div className="mf-aviso suave">
-            Este día ya está cerrado para el pacto (pasaron más de 3 días),
-            pero el peso sí se puede corregir.
+            {t('dia.cerrado')}
           </div>
         )}
-        <Campo et="Peso" u="kg" paso="0.1" v={v.peso} on={(x) => setV({ ...v, peso: x })} />
-        <Campo et="Pasos" paso="100" v={v.pasos} on={(x) => setV({ ...v, pasos: x })} />
-        <Campo et="Entreno" u="min" paso="5" v={v.entrenoMin} on={(x) => setV({ ...v, entrenoMin: x })} />
-        <Campo et="Comida" u="kcal" paso="50" v={v.comidaKcal} on={(x) => setV({ ...v, comidaKcal: x })} />
-        <Campo et="Sueño" u="horas" paso="0.5" v={v.suenoHoras} on={(x) => setV({ ...v, suenoHoras: x })} />
+        <Campo et={t('dia.peso')} u={t('comun.kg')} paso="0.1" v={v.peso} on={(x) => setV({ ...v, peso: x })} />
+        <Campo et={t('dia.pasos')} paso="100" v={v.pasos} on={(x) => setV({ ...v, pasos: x })} />
+        <Campo et={t('dia.entreno')} u={t('comun.min')} paso="5" v={v.entrenoMin} on={(x) => setV({ ...v, entrenoMin: x })} />
+        <Campo et={t('dia.comida')} u={t('comun.kcal')} paso="50" v={v.comidaKcal} on={(x) => setV({ ...v, comidaKcal: x })} />
+        <Campo et={t('dia.sueno')} u={t('comun.horas')} paso="0.5" v={v.suenoHoras} on={(x) => setV({ ...v, suenoHoras: x })} />
 
         <div className="mf-ejs">
           <div className="mf-ejs-cab">
             <button className="mf-ejs-titulo" type="button"
                     onClick={() => setVerMacros((m) => !m)}>
-              {verMacros ? '▾' : '▸'} Macros <small>opcional</small>
+              {verMacros ? '▾' : '▸'} {t('dia.macros')} <small>{t('comun.opcional')}</small>
             </button>
             {hayMacros && <small>{Math.round(kcalMacros)} kcal</small>}
           </div>
           {verMacros && (
             <>
-              <Campo et="Proteína" u="g" paso="5" v={v.prot} on={(x) => setV({ ...v, prot: x })} />
-              <Campo et="Carbos" u="g" paso="5" v={v.carb} on={(x) => setV({ ...v, carb: x })} />
-              <Campo et="Grasa" u="g" paso="1" v={v.grasa} on={(x) => setV({ ...v, grasa: x })} />
-              <p className="mf-nota">
-                Orientativas: <b>no cuentan</b> para el pacto. Sirven para ver
-                de dónde salen las calorías.
-              </p>
+              <Campo et={t('dia.proteina')} u="g" paso="5" v={v.prot} on={(x) => setV({ ...v, prot: x })} />
+              <Campo et={t('dia.carbos')} u="g" paso="5" v={v.carb} on={(x) => setV({ ...v, carb: x })} />
+              <Campo et={t('dia.grasa')} u="g" paso="1" v={v.grasa} on={(x) => setV({ ...v, grasa: x })} />
+              <p className="mf-nota"
+                 dangerouslySetInnerHTML={{ __html: t('dia.macrosNota') }} />
             </>
           )}
         </div>
@@ -77,7 +76,7 @@ export default function EditorDia({ fecha, entrada, pacto, onGuardar, onCerrar }
         <ListaEjercicios ejercicios={ejercicios} hechos={hechos} onCambiar={setHechos} />
 
         <div className="mf-hoja-pie">
-          <button className="mf-boton" onClick={onCerrar}>Cancelar</button>
+          <button className="mf-boton" onClick={onCerrar}>{t('comun.cancelar')}</button>
           <button className="mf-boton principal" onClick={() => onGuardar({
             peso: num(v.peso), pasos: num(v.pasos), entrenoMin: num(v.entrenoMin),
             comidaKcal: num(v.comidaKcal),
@@ -86,7 +85,7 @@ export default function EditorDia({ fecha, entrada, pacto, onGuardar, onCerrar }
               ? { prot: num(v.prot), carb: num(v.carb), grasa: num(v.grasa) }
               : undefined,
             hechos: ejercicios.length ? hechos : undefined,
-          })}>Guardar</button>
+          })}>{t('comun.guardar')}</button>
         </div>
       </>
     </Hoja>

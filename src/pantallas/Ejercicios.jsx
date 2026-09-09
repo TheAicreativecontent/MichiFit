@@ -17,6 +17,7 @@
    ============================================================ */
 
 import { useState } from 'react';
+import { useT } from '../i18n/index.jsx';
 
 /* Id corto y estable. No hace falta que sea único en el mundo, solo
    dentro de un día: se usa para saber qué has marcado. */
@@ -28,35 +29,35 @@ export function ejerciciosDe(pacto, clave) {
 
 /* ---------- plantilla, dentro de "Mi pacto" ---------- */
 export function EditorEjercicios({ valor = [], onCambiar }) {
+  const t = useT();
   const cambiar = (id, campos) =>
     onCambiar(valor.map((e) => (e.id === id ? { ...e, ...campos } : e)));
 
   return (
     <div className="mf-ejs">
       <div className="mf-ejs-cab">
-        <span>Ejercicios</span>
+        <span>{t('ejercicios.titulo')}</span>
         <button className="mf-ejs-mas" type="button"
                 onClick={() => onCambiar([...valor, { id: nuevoId(), nombre: '', reps: '', peso: '' }])}>
-          + añadir
+          {t('ejercicios.anadir')}
         </button>
       </div>
 
       {valor.length === 0 && (
         <p className="mf-nota">
-          Sin ejercicios apuntados. Añade los que sueles hacer y los tendrás
-          a mano el día del entreno.
+          {t('ejercicios.vacio')}
         </p>
       )}
 
       {valor.map((e) => (
         <div className="mf-ej" key={e.id}>
-          <input className="nombre" type="text" value={e.nombre} placeholder="Press banca"
+          <input className="nombre" type="text" value={e.nombre} placeholder={t('ejercicios.ejemploNombre')}
                  onChange={(ev) => cambiar(e.id, { nombre: ev.target.value })} />
-          <input className="num" type="number" inputMode="numeric" value={e.reps} placeholder="reps"
+          <input className="num" type="number" inputMode="numeric" value={e.reps} placeholder={t('ejercicios.reps')}
                  onChange={(ev) => cambiar(e.id, { reps: ev.target.value })} />
           <input className="num" type="number" inputMode="decimal" step="0.5" value={e.peso} placeholder="kg"
                  onChange={(ev) => cambiar(e.id, { peso: ev.target.value })} />
-          <button className="quitar" type="button" aria-label={`Quitar ${e.nombre || 'ejercicio'}`}
+          <button className="quitar" type="button" aria-label={t('ejercicios.quitar', { que: e.nombre || t('ejercicios.uno') })}
                   onClick={() => onCambiar(valor.filter((x) => x.id !== e.id))}>
             ✕
           </button>
@@ -68,6 +69,7 @@ export function EditorEjercicios({ valor = [], onCambiar }) {
 
 /* ---------- lista del día, para ir marcando ---------- */
 export function ListaEjercicios({ ejercicios = [], hechos = [], onCambiar }) {
+  const t = useT();
   const [abierto, setAbierto] = useState(true);
   if (!ejercicios.length) return null;
 
@@ -80,9 +82,9 @@ export function ListaEjercicios({ ejercicios = [], hechos = [], onCambiar }) {
     <div className="mf-ejs">
       <div className="mf-ejs-cab">
         <button className="mf-ejs-titulo" type="button" onClick={() => setAbierto((a) => !a)}>
-          {abierto ? '▾' : '▸'} Ejercicios de hoy
+          {abierto ? '▾' : '▸'} {t('ejercicios.deHoy')}
         </button>
-        <small>{listos} de {ejercicios.length}</small>
+        <small>{t('ejercicios.contador', { hechos: listos, total: ejercicios.length })}</small>
       </div>
 
       {abierto && ejercicios.map((e) => {
@@ -93,9 +95,9 @@ export function ListaEjercicios({ ejercicios = [], hechos = [], onCambiar }) {
           <button key={e.id} type="button" className={`mf-ej-check ${hecho ? 'hecho' : ''}`}
                   aria-pressed={hecho} onClick={() => alternar(e.id)}>
             <i className="marca" aria-hidden="true">{hecho ? '✓' : ''}</i>
-            <span className="nombre">{e.nombre || 'Ejercicio'}</span>
+            <span className="nombre">{e.nombre || t('ejercicios.sinNombre')}</span>
             <small className="detalle">
-              {[e.reps && `${e.reps} reps`, e.peso && `${e.peso} kg`].filter(Boolean).join(' · ')}
+              {[e.reps && t('ejercicios.nReps', { n: e.reps }), e.peso && t('ejercicios.nKg', { n: e.peso })].filter(Boolean).join(' · ')}
             </small>
           </button>
         );

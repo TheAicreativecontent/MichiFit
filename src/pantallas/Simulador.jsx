@@ -5,27 +5,22 @@
    ============================================================ */
 
 import { useMemo, useState } from 'react';
+import { useT, useFormato } from '../i18n/index.jsx';
 import { simular, avisosDeSeguridad, planEnergetico } from '../engine/calculos.js';
 import { Titulo } from './Ayuda.jsx';
 
 /* La misma ayuda en los dos estados de la pantalla (con perfil y sin
    él): definida una vez para que no se separen al tocar una. */
-const AYUDA = (
+const AYUDA = (t) => (
   <>
-          <p>
-            Para probar escenarios sin tocar nada: cambia los pasos, el
-            entreno o las calorías y mira cuánto tardarías en llegar a tu
-            meta. <b>No guarda nada</b>.
-          </p>
-          <p>
-            Los números salen de fórmulas estándar (Mifflin-St Jeor y
-            7700 kcal por kilo de grasa). Son una estimación, no una
-            promesa: tu cuerpo no es una hoja de cálculo.
-          </p>
+          <p dangerouslySetInnerHTML={{ __html: t('simulador.ayuda1') }} />
+          <p dangerouslySetInnerHTML={{ __html: t('simulador.ayuda2') }} />
         </>
 );
 
 export default function Simulador({ perfil, pacto }) {
+  const t = useT();
+  const fmt = useFormato();
   const [pasos, setPasos] = useState(pacto?.dias?.mar?.pasos ?? 6000);
   const [entreno, setEntreno] = useState(120);
   const arranque = planEnergetico(perfil, pacto);
@@ -44,9 +39,9 @@ export default function Simulador({ perfil, pacto }) {
   if (!r) {
     return (
       <div className="mf-pagina">
-        <Titulo ayuda={AYUDA}>🎯 Simulador «¿y si...?»</Titulo>
+        <Titulo ayuda={AYUDA(t)}>{t('simulador.titulo')}</Titulo>
         <div className="mf-tarjeta">
-          <p>Rellena tu perfil en Ajustes para poder simular.</p>
+          <p>{t('simulador.sinPerfil')}</p>
         </div>
       </div>
     );
@@ -54,63 +49,62 @@ export default function Simulador({ perfil, pacto }) {
 
   return (
     <div className="mf-pagina">
-      <Titulo ayuda={AYUDA}>🎯 Simulador «¿y si...?»</Titulo>
+      <Titulo ayuda={AYUDA(t)}>{t('simulador.titulo')}</Titulo>
 
       <div className="mf-tarjeta">
         <p className="mf-globo">
-          Mueve los controles y mira cómo cambia tu fecha de meta ✨
+          {t('simulador.globo')}
         </p>
-        <Deslizador etiqueta="🚶 Pasos al día" v={pasos} set={setPasos} min={0} max={20000} paso={500} unidad="" />
-        <Deslizador etiqueta="🏋️ Entreno por semana" v={entreno} set={setEntreno} min={0} max={600} paso={15} unidad=" min" />
-        <Deslizador etiqueta="🍽️ Comida al día" v={comida} set={setComida} min={1000} max={4000} paso={25} unidad=" kcal" />
+        <Deslizador etiqueta={t('simulador.pasosDia')} v={pasos} set={setPasos} min={0} max={20000} paso={500} unidad="" />
+        <Deslizador etiqueta={t('simulador.entrenoSemana')} v={entreno} set={setEntreno} min={0} max={600} paso={15} unidad=" min" />
+        <Deslizador etiqueta={t('simulador.comidaDia')} v={comida} set={setComida} min={1000} max={4000} paso={25} unidad=" kcal" />
       </div>
 
       <div className={`mf-meta ${r.alcanzable ? '' : 'inalcanzable'}`}>
         {r.alcanzable ? (
           <>
-            <small>Llegarías a {perfil.pesoMeta} kg en</small>
+            <small>{t('simulador.llegarias', { kg: perfil.pesoMeta })}</small>
             <b>{r.meses.toFixed(1)}</b>
-            <small>meses · {Math.round(r.semanas)} semanas</small>
+            <small>{t('simulador.meses', { n: Math.round(r.semanas) })}</small>
             <div className="mf-fecha">
-              📅 ~{r.fecha.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}
+              📅 ~{fmt.fecha(r.fecha)}
             </div>
           </>
         ) : (
           <>
             <b>—</b>
             <small>
-              Con estos números no bajarías de peso. Prueba a mover algo:
-              menos comida, más pasos o más entreno.
+              {t('simulador.noBajarias')}
             </small>
           </>
         )}
       </div>
 
       <div className="mf-rejilla">
-        <Celda n={r.total} etiqueta="Gasto total/día (kcal)" />
-        <Celda n={r.deficit} etiqueta="Déficit diario (kcal)" signo />
-        <Celda n={r.quemadoMoviendote} etiqueta="Quemado moviéndote" />
-        <Celda n={r.kgPorSemana.toFixed(2)} etiqueta="kg por semana" signo />
+        <Celda n={r.total} etiqueta={t('simulador.gastoTotal')} />
+        <Celda n={r.deficit} etiqueta={t('simulador.deficitDiario')} signo />
+        <Celda n={r.quemadoMoviendote} etiqueta={t('simulador.quemado')} />
+        <Celda n={r.kgPorSemana.toFixed(2)} etiqueta={t('simulador.kgSemana')} signo />
       </div>
 
       {avisos.map((a) => (
-        <div key={a.tipo} className="mf-aviso">⚠️ {a.texto}</div>
+        <div key={a.tipo} className="mf-aviso">⚠️ {t(a.clave, a.vars)}</div>
       ))}
 
       <p className="mf-pie">
-        Estimaciones aproximadas (Mifflin-St Jeor, 0,04 kcal/paso, 8 kcal/min de
-        entreno). El cuerpo no es una calculadora: tómalo como guía, no como
-        verdad absoluta.
+        {t('simulador.pie')}
       </p>
     </div>
   );
 }
 
 function Deslizador({ etiqueta, v, set, min, max, paso, unidad }) {
+  const t = useT();
+  const fmt = useFormato();
   return (
     <label className="mf-desliza">
       <span>{etiqueta}</span>
-      <b>{v.toLocaleString('es-ES')}{unidad}</b>
+      <b>{fmt.n(v)}{unidad}</b>
       <input type="range" min={min} max={max} step={paso} value={v}
              onChange={(e) => set(Number(e.target.value))} />
     </label>

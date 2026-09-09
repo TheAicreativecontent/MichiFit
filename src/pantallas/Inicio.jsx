@@ -10,6 +10,7 @@
    ============================================================ */
 
 import { useState } from 'react';
+import { useT } from '../i18n/index.jsx';
 import Tamagotchi from '../mascota/TamagotchiPNG.jsx';
 import Marcador from './Marcador.jsx';
 import { estadoVisual } from '../engine/michi.js';
@@ -30,6 +31,7 @@ const POSES = [
 
 export default function Inicio({ estado, entradas, pacto, onCarino, accion,
                                 pruebas = false, onCerrarPruebas }) {
+  const t = useT();
   const [gesto, setGesto] = useState(null);      // 'mimar' | 'estado' | null
   /* Escena elegida a mano con el botón azul. En `null` manda lo que has
      apuntado hoy: el aparato cuenta tu día solo hasta que lo tocas. */
@@ -91,12 +93,12 @@ export default function Inicio({ estado, entradas, pacto, onCarino, accion,
           dormido={prueba ? prueba.pose === 'dormido' : dormido}
           pose={prueba ? prueba.pose : dormido ? 'dormido' : escena.pose}
           escenario={escena.escenario}
-          rotulo={escena.rotulo}
+          rotulo={t('escenas.' + escena.id)}
           mimando={gesto === 'mimar'}
           nivel={estado.nivel}
           felicidad={estado.felicidad}
           denoche={estado.felicidadDetalle?.denoche}
-          mensaje={gesto === 'estado' ? resumen(estado, pendientes) : null}
+          mensaje={gesto === 'estado' ? resumen(estado, pendientes, t) : null}
           onBoton={pulsar}
           onPantalla={tocarPantalla}
         />
@@ -144,20 +146,18 @@ export default function Inicio({ estado, entradas, pacto, onCarino, accion,
 
       {estado.gastados.length > 0 && (
         <div className="mf-aviso suave">
-          🛡️ El michi te cubrió {estado.gastados.length === 1 ? 'un día' : `${estado.gastados.length} días`}.
-          Tu racha sigue viva.
+          {t('inicio.cubierto', { n: estado.gastados.length })}
         </div>
       )}
 
       {estado.descansosRotos >= 2 && (
         <div className="mf-aviso suave">
-          😌 Has entrenado {estado.descansosRotos} días de descanso esta semana.
-          El descanso es parte del pacto, no un hueco que rellenar.
+          {t('inicio.descansosRotos', { n: estado.descansosRotos })}
         </div>
       )}
 
       <div className="mf-tarjeta">
-        <h3 className="mf-h3">Hoy</h3>
+        <h3 className="mf-h3">{t('inicio.hoy')}</h3>
         {hoy?.objetivos.map((o) => {
           /* El día de descanso no tiene objetivo numérico: enseñar su
              `valor` a secas mostraba los minutos entrenados sin decir de
@@ -166,23 +166,23 @@ export default function Inicio({ estado, entradas, pacto, onCarino, accion,
             const min = o.valor ?? 0;
             return (
               <div key={o.id} className={`mf-obj sueno ${o.respetado ? 'ok' : ''}`}>
-                <span>{o.respetado ? '✅' : '💪'} Día de descanso</span>
-                <b>{o.respetado ? 'sin entrenar, bien' : `entrenaste ${min} min`}</b>
+                <span>{o.respetado ? '✅' : '💪'} {t('inicio.diaDescanso')}</span>
+                <b>{o.respetado ? t('inicio.descansoBien') : t('inicio.descansoRoto', { min })}</b>
               </div>
             );
           }
           return (
             <div key={o.id} className={`mf-obj ${o.cumplido ? 'ok' : ''}`}>
-              <span>{o.cumplido ? '✅' : '⬜'} {o.etiqueta}</span>
+              <span>{o.cumplido ? '✅' : '⬜'} {t('objetivos.' + o.id)}</span>
               <b>{o.valor ?? '—'}{o.objetivo ? ` / ${o.objetivo}` : ''}</b>
             </div>
           );
         })}
         {(() => {
-          const s = consejoSueno(entradaHoy.sueno?.horas ?? entradaHoy.suenoHoras);
+          const s = consejoSueno(entradaHoy.sueno?.horas ?? entradaHoy.suenoHoras, t);
           return (
             <div className={`mf-obj sueno ${s.ok ? 'ok' : ''}`}>
-              <span>{s.ok ? '✅' : '⬜'} Sueño</span>
+              <span>{s.ok ? '✅' : '⬜'} {t('inicio.sueno')}</span>
               <b title={s.largo}>{s.corto}</b>
             </div>
           );
@@ -194,39 +194,31 @@ export default function Inicio({ estado, entradas, pacto, onCarino, accion,
 
 /* Consejo de sueño en UNA línea. El texto largo va en el `title` para
    quien pase el ratón; en el móvil manda el corto, que nunca parte. */
-function consejoSueno(horas) {
+function consejoSueno(horas, t) {
   if (horas == null) {
-    return { ok: false, corto: 'sin apuntar · ideal 8 h',
-             largo: 'Aún no has apuntado cuánto dormiste. Lo ideal son 8 horas.' };
+    return { ok: false, corto: t('inicio.suenoSinApuntar'), largo: t('inicio.suenoSinApuntarLargo') };
   }
   const h = String(horas).replace('.', ',');
-  if (horas < 6) {
-    return { ok: false, corto: `${h} h · poco, apunta a 8`,
-             largo: `Has dormido ${h} horas. Es poco: deberías dormir unas 8.` };
-  }
-  if (horas < 7.5) {
-    return { ok: false, corto: `${h} h · casi, faltan ${(8 - horas).toFixed(1).replace('.', ',')} h`,
-             largo: `Has dormido ${h} horas. Vas cerca: lo ideal son 8.` };
-  }
-  if (horas <= 9) {
-    return { ok: true, corto: `${h} h · perfecto`,
-             largo: `Has dormido ${h} horas. Justo lo que necesitas.` };
-  }
-  return { ok: false, corto: `${h} h · te has pasado de 8`,
-           largo: `Has dormido ${h} horas. Dormir de más también cansa: lo ideal son 8.` };
+  const par = (k) => ({ corto: t(`inicio.sueno${k}`, { h, faltan: (8 - horas).toFixed(1).replace('.', ',') }),
+                        largo: t(`inicio.sueno${k}Largo`, { h }) });
+  if (horas < 6) return { ok: false, ...par('Poco') };
+  if (horas < 7.5) return { ok: false, ...par('Casi') };
+  if (horas <= 9) return { ok: true, ...par('Perfecto') };
+  return { ok: false, ...par('Pasado') };
 }
 
 /* Lo que cuenta el michi al pulsar el botón azul, dentro de la pantalla. */
-function resumen(estado, pendientes) {
+function resumen(estado, pendientes, t) {
   const trozos = [];
   trozos.push(estado.racha > 0
-    ? `Llevamos ${estado.racha} ${estado.racha === 1 ? 'día' : 'días'} de racha`
-    : 'Hoy empezamos de cero');
+    ? t('inicio.resumenRacha', { n: estado.racha })
+    : t('inicio.resumenCero'));
   if (estado.comodines > 0) {
-    trozos.push(`tengo ${estado.comodines} ${estado.comodines === 1 ? 'escudo' : 'escudos'}`);
+    trozos.push(t('inicio.resumenEscudos', { n: estado.comodines }));
   }
-  if (estado.descansosRotos >= 2) trozos.push('y me vendría bien descansar');
-  else if (!pendientes.length) trozos.push('y hoy ya está todo hecho');
-  else trozos.push(`y hoy falta ${pendientes.map((p) => p.etiqueta.toLowerCase()).join(' y ')}`);
+  if (estado.descansosRotos >= 2) trozos.push(t('inicio.resumenDescansar'));
+  else if (!pendientes.length) trozos.push(t('inicio.resumenTodoHecho'));
+  else trozos.push(t('inicio.resumenFalta', {
+    que: pendientes.map((p) => t('objetivos.' + p.id).toLowerCase()).join(t('inicio.y')) }));
   return trozos.join(', ') + ' 🐾';
 }

@@ -1,10 +1,13 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App.jsx';
+import { ProveedorIdioma } from './i18n/index.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App />
+    <ProveedorIdioma>
+      <App />
+    </ProveedorIdioma>
   </StrictMode>
 );
 

@@ -5,6 +5,7 @@
    ============================================================ */
 
 import { useState } from 'react';
+import { useT } from '../i18n/index.jsx';
 import { imc, tmb, reposoEfectivo, macros, avisosDeSeguridad, pesoParaIMC, planEnergetico } from '../engine/calculos.js';
 import { IMC_MINIMO_SANO, DEFICIT_MAXIMO } from '../engine/constantes.js';
 import { aCSV, descargar } from '../datos/almacen.js';
@@ -12,6 +13,7 @@ import { leerCSV, fusionar } from '../datos/importar.js';
 import { Titulo } from './Ayuda.jsx';
 
 export default function Ajustes({ perfil, entradas, pacto, onCambiar, onReiniciar, onImportar }) {
+  const t = useT();
   const set = (campo) => (e) => {
     const v = e.target.value;
     onCambiar({ ...perfil, [campo]: v === '' ? null : Number(v) });
@@ -33,118 +35,105 @@ export default function Ajustes({ perfil, entradas, pacto, onCambiar, onReinicia
   return (
     <div className="mf-pagina">
       <Titulo ayuda={<>
-        <p>
-          Aquí van tus datos y tus objetivos. Si tienes reloj, pon tus medias
-          reales de gasto: son más exactas que cualquier fórmula.
-        </p>
-        <p>
-          Todo lo que apuntas se guarda <b>en este dispositivo</b>, no en
-          ningún servidor. Descarga la copia en CSV de vez en cuando: si
-          borras los datos del navegador, se van con ellos.
-        </p>
+        <p>{t('ajustes.ayuda1')}</p>
+        <p dangerouslySetInnerHTML={{ __html: t('ajustes.ayuda2') }} />
       </>}>
-        ⚙️ Ajustes
+        {t('ajustes.titulo')}
       </Titulo>
 
       <div className="mf-tarjeta">
-        <h3 className="mf-h3">Sobre ti</h3>
+        <h3 className="mf-h3">{t('ajustes.sobreTi')}</h3>
         <div className="mf-sexo">
           {['hombre', 'mujer'].map((sx) => (
             <button key={sx} className={(perfil.sexo ?? 'hombre') === sx ? 'sel' : ''}
                     onClick={() => onCambiar({ ...perfil, sexo: sx })}>
-              {sx === 'hombre' ? 'Hombre' : 'Mujer'}
+              {sx === 'hombre' ? t('comun.hombre') : t('comun.mujer')}
             </button>
           ))}
         </div>
-        <Campo etiqueta="Edad" v={perfil.edad} on={set('edad')} />
-        <Campo etiqueta="Altura" unidad="cm" v={perfil.altura} on={set('altura')} />
-        <Campo etiqueta="Peso inicial" unidad="kg" v={perfil.pesoInicial} on={set('pesoInicial')} paso="0.1" />
-        <Campo etiqueta="Peso actual" unidad="kg" v={perfil.pesoActual} on={set('pesoActual')} paso="0.1" />
-        <Campo etiqueta="Peso meta" unidad="kg" v={perfil.pesoMeta} on={set('pesoMeta')} paso="0.1" />
+        <Campo etiqueta={t('ajustes.edad')} v={perfil.edad} on={set('edad')} />
+        <Campo etiqueta={t('ajustes.altura')} unidad={t('comun.cm')} v={perfil.altura} on={set('altura')} />
+        <Campo etiqueta={t('ajustes.pesoInicial')} unidad={t('comun.kg')} v={perfil.pesoInicial} on={set('pesoInicial')} paso="0.1" />
+        <Campo etiqueta={t('ajustes.pesoActual')} unidad={t('comun.kg')} v={perfil.pesoActual} on={set('pesoActual')} paso="0.1" />
+        <Campo etiqueta={t('ajustes.pesoMeta')} unidad={t('comun.kg')} v={perfil.pesoMeta} on={set('pesoMeta')} paso="0.1" />
         {imcActual && (
           <p className="mf-nota">
-            IMC actual {imcActual.toFixed(1)}
-            {imcMeta && <> · IMC meta {imcMeta.toFixed(1)}</>}. El rango saludable
-            suele estar entre 18,5 y 25.
+            {imcMeta
+              ? t('ajustes.imc', { actual: imcActual.toFixed(1), meta: imcMeta.toFixed(1) })
+              : t('ajustes.imcSolo', { actual: imcActual.toFixed(1) })}
           </p>
         )}
       </div>
 
       <div className="mf-tarjeta">
-        <h3 className="mf-h3">Tamaño de la letra</h3>
+        <h3 className="mf-h3">{t('ajustes.letra')}</h3>
         <div className="mf-escalas">
-          {[{ v: 1, t: 'Normal' }, { v: 1.15, t: 'Grande' }, { v: 1.3, t: 'Muy grande' }].map((o) => (
+          {[{ v: 1, k: 'letraNormal' }, { v: 1.15, k: 'letraGrande' }, { v: 1.3, k: 'letraMuyGrande' }].map((o) => (
             <button key={o.v} className={(perfil.escalaTexto ?? 1) === o.v ? 'sel' : ''}
                     style={{ fontSize: `${12 * o.v}px` }}
                     onClick={() => onCambiar({ ...perfil, escalaTexto: o.v })}>
-              {o.t}
+              {t('ajustes.' + o.k)}
             </button>
           ))}
         </div>
         <p className="mf-nota">
-          Cambia toda la app al momento. Los dibujos y los iconos se quedan
-          como están: solo crece el texto.
+          {t('ajustes.letraNota')}
         </p>
       </div>
 
       <div className="mf-tarjeta">
-        <h3 className="mf-h3">Tu gasto energético</h3>
+        <h3 className="mf-h3">{t('ajustes.gasto')}</h3>
         <p className="mf-nota">
-          Si tienes reloj, pon aquí tus medias reales: son más exactas que
-          cualquier fórmula. Si lo dejas vacío, lo estimo yo.
+          {t('ajustes.gastoNota')}
         </p>
-        <Campo etiqueta="En reposo" unidad="kcal/día" v={perfil.reposoReal} on={set('reposoReal')}
+        <Campo etiqueta={t('ajustes.enReposo')} unidad={t('comun.kcalDia')} v={perfil.reposoReal} on={set('reposoReal')}
                placeholder={estimado ? `≈ ${estimado}` : ''} />
-        <Campo etiqueta="Gasto total" unidad="kcal/día" v={perfil.totalReal} on={set('totalReal')} />
+        <Campo etiqueta={t('ajustes.gastoTotal')} unidad={t('comun.kcalDia')} v={perfil.totalReal} on={set('totalReal')} />
         <p className="mf-nota">
-          En Garmin: Calorías quemadas → 4 sem. «Promedio en reposo» y «Media total».
+          {t('ajustes.garmin')}
         </p>
       </div>
 
       <div className="mf-tarjeta">
-        <h3 className="mf-h3">Objetivos</h3>
-        <Campo etiqueta="Déficit diario" unidad="kcal" v={perfil.deficitObjetivo} on={set('deficitObjetivo')} paso="50" />
-        <Campo etiqueta="Proteína" unidad="g/kg meta" v={perfil.proteinaPorKg} on={set('proteinaPorKg')} paso="0.1" />
+        <h3 className="mf-h3">{t('ajustes.objetivos')}</h3>
+        <Campo etiqueta={t('ajustes.deficitDiario')} unidad={t('comun.kcal')} v={perfil.deficitObjetivo} on={set('deficitObjetivo')} paso="50" />
+        <Campo etiqueta={t('ajustes.proteina')} unidad={t('ajustes.proteinaUnidad')} v={perfil.proteinaPorKg} on={set('proteinaPorKg')} paso="0.1" />
         <p className="mf-nota">
-          Un déficit se mide en proporción, no en calorías sueltas: nunca se
-          aplica más del {Math.round(DEFICIT_MAXIMO * 100)}% de tu gasto, ni se
-          baja del suelo saludable. Si pides más, se recorta ahí.
+          {t('ajustes.deficitNota', { pct: Math.round(DEFICIT_MAXIMO * 100) })}
         </p>
       </div>
 
       {reposo && (
         <div className="mf-tarjeta mf-calculado">
-          <h3 className="mf-h3">Tus objetivos calculados</h3>
-          <Linea icono="😴" t="En reposo" v={`${reposo} kcal/día`} />
-          <Linea icono="🔥" t="Gasto total (mantenimiento)" v={`${total} kcal/día`} />
-          <Linea icono="🍙" t="Para perder" v={`${paraPerder} kcal/día`} />
+          <h3 className="mf-h3">{t('ajustes.calculados')}</h3>
+          <Linea icono="😴" t={t('ajustes.lineaReposo')} v={`${reposo} ${t('comun.kcalDia')}`} />
+          <Linea icono="🔥" t={t('ajustes.lineaTotal')} v={`${total} ${t('comun.kcalDia')}`} />
+          <Linea icono="🍙" t={t('ajustes.lineaPerder')} v={`${paraPerder} ${t('comun.kcalDia')}`} />
           {plan?.recorte === 'techo' && (
             <p className="mf-nota">
-              Pediste {plan.pedido} kcal de déficit, pero para tu gasto eso es
-              pasarse: se aplican {plan.deficit}.
+              {t('ajustes.recorteTecho', { pedido: plan.pedido, aplicado: plan.deficit })}
             </p>
           )}
           {plan?.recorte === 'suelo' && (
             <p className="mf-nota">
-              El déficit que pediste te dejaba por debajo de {plan.suelo} kcal.
-              Se queda en el suelo saludable: {plan.deficit} kcal de déficit.
+              {t('ajustes.recorteSuelo', { suelo: plan.suelo, aplicado: plan.deficit })}
             </p>
           )}
           {m && (
-            <Linea icono="🥗" t="Macros"
-                   v={`${m.proteina}g proteína · ${m.carbos}g carbos · ${m.grasa}g grasa`} />
+            <Linea icono="🥗" t={t('ajustes.lineaMacros')}
+                   v={t('ajustes.macrosValor', { prot: m.proteina, carb: m.carbos, grasa: m.grasa })} />
           )}
         </div>
       )}
 
       {avisos.map((a) => (
-        <div key={a.tipo} className="mf-aviso">⚠️ {a.texto}</div>
+        <div key={a.tipo} className="mf-aviso">⚠️ {t(a.clave, a.vars)}</div>
       ))}
 
       {imcMeta != null && imcMeta < IMC_MINIMO_SANO && perfil.altura && (
         <div className="mf-aviso">
-          Para tu altura, un IMC de {IMC_MINIMO_SANO} son{' '}
-          {pesoParaIMC(IMC_MINIMO_SANO, perfil.altura).toFixed(1)} kg.
+          {t('ajustes.imcMeta', { imc: IMC_MINIMO_SANO,
+             kg: pesoParaIMC(IMC_MINIMO_SANO, perfil.altura).toFixed(1) })}
         </div>
       )}
 
@@ -152,21 +141,20 @@ export default function Ajustes({ perfil, entradas, pacto, onCambiar, onReinicia
 
       <div className="mf-tarjeta">
         <button className="mf-boton" onClick={() => descargar('michifit.csv', aCSV(entradas))}>
-          ⬇️ Descargar copia (CSV)
+          {t('ajustes.descargar')}
         </button>
         <button
           className="mf-boton peligro"
           onClick={() => {
-            if (confirm('Esto borra todos tus datos y no se puede deshacer. ¿Seguro?')) onReiniciar();
+            if (confirm(t('ajustes.confirmarReinicio'))) onReiniciar();
           }}
         >
-          🗑️ Reiniciar todos mis datos
+          {t('ajustes.reiniciar')}
         </button>
       </div>
 
       <p className="mf-pie">
-        MichiFit es una herramienta de motivación, no consejo médico. Si tienes
-        dudas de salud, consulta con un profesional. 💛
+        {t('ajustes.pie')}
       </p>
     </div>
   );
@@ -177,6 +165,7 @@ export default function Ajustes({ perfil, entradas, pacto, onCambiar, onReinicia
    entrar, y solo después se toca nada. Un import a ciegas sobre meses de
    datos da demasiado miedo como para pulsarlo. */
 function Importador({ entradas, onImportar }) {
+  const t = useT();
   const [previo, setPrevio] = useState(null);   // { entradas, resumen }
   const [hecho, setHecho] = useState(null);
   const [error, setError] = useState(null);
@@ -189,13 +178,13 @@ function Importador({ entradas, onImportar }) {
     try {
       const leido = leerCSV(await archivo.text());
       if (!leido.resumen.ok) {
-        setError(leido.resumen.aviso ?? 'No he encontrado ningún día con datos en ese archivo.');
+        setError(leido.resumen.aviso ?? t('importar.sinDatos'));
         setPrevio(null);
         return;
       }
       setPrevio(leido);
     } catch {
-      setError('No he podido leer el archivo. ¿Seguro que es un CSV?');
+      setError(t('importar.noLeido'));
     }
   };
 
@@ -208,15 +197,11 @@ function Importador({ entradas, onImportar }) {
 
   return (
     <div className="mf-tarjeta">
-      <h3 className="mf-h3">📥 Traer datos de la MichiFit antigua</h3>
-      <p className="mf-nota">
-        Descarga el CSV desde la app antigua y súbelo aquí. Se traen peso,
-        pasos, comida, macros y minutos de entreno. <b>Nunca pisa</b> lo que
-        ya tengas apuntado: solo rellena huecos.
-      </p>
+      <h3 className="mf-h3">{t('importar.titulo')}</h3>
+      <p className="mf-nota" dangerouslySetInnerHTML={{ __html: t('importar.intro') }} />
 
       <label className="mf-boton comoBoton">
-        📄 Elegir archivo CSV
+        {t('importar.elegir')}
         <input type="file" accept=".csv,text/csv" onChange={elegir} hidden />
       </label>
 
@@ -224,31 +209,27 @@ function Importador({ entradas, onImportar }) {
 
       {previo && (
         <div className="mf-aviso suave">
-          <b>{previo.resumen.dias} días</b> con datos, del {previo.resumen.desde} al{' '}
-          {previo.resumen.hasta} · {previo.resumen.pesos} pesadas.
-          {previo.resumen.descartadas > 0 && (
-            <> Se saltan {previo.resumen.descartadas} filas vacías.</>
-          )}
+          <b>{t('importar.previoDias', { n: previo.resumen.dias })}</b>
+          {t('importar.previoResto', { desde: previo.resumen.desde,
+             hasta: previo.resumen.hasta, pesos: previo.resumen.pesos })}
+          {previo.resumen.descartadas > 0 &&
+            t('importar.previoDescartadas', { n: previo.resumen.descartadas })}
           <div className="mf-hoja-pie" style={{ marginTop: 8 }}>
-            <button className="mf-boton" onClick={() => setPrevio(null)}>Cancelar</button>
-            <button className="mf-boton principal" onClick={confirmar}>Importar</button>
+            <button className="mf-boton" onClick={() => setPrevio(null)}>{t('comun.cancelar')}</button>
+            <button className="mf-boton principal" onClick={confirmar}>{t('importar.importar')}</button>
           </div>
         </div>
       )}
 
       {hecho && (
         <div className="mf-aviso suave">
-          ✅ Listo: <b>{hecho.nuevos} días nuevos</b>
-          {hecho.completados > 0 && <>, {hecho.completados} completados</>}
-          {hecho.sinTocar > 0 && <>, {hecho.sinTocar} ya los tenías</>}.
+          ✅ <b>{t('importar.hechoNuevos', { n: hecho.nuevos })}</b>
+          {hecho.completados > 0 && t('importar.hechoCompletados', { n: hecho.completados })}
+          {hecho.sinTocar > 0 && t('importar.hechoSinTocar', { n: hecho.sinTocar })}.
         </div>
       )}
 
-      <p className="mf-nota">
-        La <b>puntuación de sueño</b> del reloj no se importa como horas
-        dormidas: son cosas distintas y decir que dormiste 66 horas sería
-        peor que no decir nada. Se guarda aparte, por si algún día sirve.
-      </p>
+      <p className="mf-nota" dangerouslySetInnerHTML={{ __html: t('importar.notaSueno') }} />
     </div>
   );
 }
