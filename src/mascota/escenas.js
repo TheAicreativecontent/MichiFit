@@ -16,7 +16,7 @@ export const ESCENAS = [
   { id: 'comer',    escenario: 'casa',     pose: 'comiendo',    rotulo: 'COMIENDO' },
   { id: 'entrenar', escenario: 'gimnasio', pose: 'entrenando',  rotulo: 'ENTRENANDO' },
   { id: 'pasear',   escenario: 'calle',    pose: 'andando',     rotulo: 'PASEANDO' },
-  { id: 'dormir',   escenario: 'casa',     pose: 'dormido',     rotulo: 'DURMIENDO',
+  { id: 'dormir',   escenario: 'casa',     pose: 'durmiendo',    rotulo: 'DURMIENDO',
     dormido: true },
 ];
 
@@ -31,13 +31,22 @@ export function siguiente(id) {
 /* Lo que se ve si el usuario no ha tocado el botón: el michi hace lo
    último que apuntaste hoy. Sin datos se queda en casa, que es lo
    honesto — no está paseando si no has andado. */
-export function escenaAutomatica(entradaHoy = {}, accion = null) {
+export function escenaAutomatica(entradaHoy = {}, accion = null, humor = null) {
   /* Celebrar no es una escena con escenario propio: es el michi en casa
      dando saltos. Por eso va aquí y no en la lista de arriba: el botón
      azul no debe poder ciclar hasta ella. */
   if (accion === 'celebrando') return { ...porId('casa'), id: 'celebrar', pose: 'celebrando' };
   if (accion === 'entrenando') return porId('entrenar');
   if (accion === 'comiendo') return porId('comer');
+
+  /* El humor gana a lo que hiciste hoy. Que el michi esté contento o
+     cansado dice mucho más que «hoy anduviste», y si no fuera así no se
+     vería nunca: en cuanto apuntas cualquier cosa, la escena del día
+     tapaba el humor para el resto de la jornada.
+     Lo que hiciste hoy sigue saliendo cuando el michi no tiene nada
+     particular que contar, y siempre está a mano en el botón azul. */
+  if (humor) return { ...porId('casa'), pose: humor };
+
   if ((entradaHoy.entrenoMin ?? 0) > 0) return porId('entrenar');
   if ((entradaHoy.pasos ?? 0) > 0) return porId('pasear');
   return porId('casa');

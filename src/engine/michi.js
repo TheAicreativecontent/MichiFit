@@ -252,16 +252,26 @@ export function calcularEstado({ pacto, entradas, perfil, carino = [], ahora = D
    Así no hacen falta cinco escenas por tres ánimos: con ocho dibujos
    está todo cubierto.                                                */
 export function estadoVisual(estado) {
-  const { energia, animo, abandono, nivel } = estado;
+  const { energia, forma, animo, abandono, nivel } = estado;
 
-  /* El ánimo del michi cuando está en casa sin hacer nada. `abandono`
-     va primero: da igual lo que digan los demás números si llevas diez
-     días sin aparecer. */
+  /* El humor sale de FORMA, que es el cumplimiento sostenido, y no de
+     `animo`, que depende mucho de si has apuntado algo hoy.
+
+     La primera versión usaba `animo >= 20` y el michi no salía contento
+     casi nunca: para subir el ánimo hacía falta apuntar el día, pero en
+     cuanto apuntabas ganaba la escena («estás entrenando») y tapaba el
+     humor. Cumplías dos semanas seguidas y el michi seguía de pie, con
+     cara de nada. Con `forma` refleja lo que promete: tu constancia,
+     estés como estés hoy.
+
+     El orden importa. Llevar días sin aparecer manda sobre todo lo
+     demás: da igual lo bien que fuera la semana pasada. */
   let humor;
-  if (abandono >= DIAS_ABANDONO || animo <= -20) humor = 'triste';
-  else if (estado.dormido || energia <= 25) humor = 'cansado';
-  else if (animo >= 20) humor = 'contento';
-  else humor = null;                  // el michi de pie, sin más
+  if (abandono >= DIAS_ABANDONO) humor = 'triste';      // lo ha dejado
+  else if (abandono >= 2 || energia <= 30) humor = 'cansado';
+  else if (forma >= 70) humor = 'contento';             // viene cumpliendo
+  else if (forma < 30 || animo <= -20) humor = 'triste';
+  else humor = null;                                     // ni fu ni fa
 
   return { cuerpo: 'michi', humor, nivel: nivel.nivel };
 }

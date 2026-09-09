@@ -49,7 +49,7 @@ export default function Inicio({ estado, entradas, pacto, onCarino, accion,
 
   /* Lo que se ve ahora: manda la prueba, luego la escena elegida a mano,
      y si no hay ninguna, lo que hayas apuntado hoy. */
-  const escena = porId(escenaId) ?? escenaAutomatica(entradaHoy, accion);
+  const escena = porId(escenaId) ?? escenaAutomatica(entradaHoy, accion, visual.humor);
   const dormido = escena.dormido || estado.dormido;
 
   const pulsar = (id) => {
