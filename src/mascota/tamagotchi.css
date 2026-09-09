@@ -55,6 +55,10 @@
   /* El huevo trae su propio marco dibujado. El escenario va dentro como
      imagen, no como fondo CSS, para que se pueda cambiar al vuelo. */
   background: transparent;
+  /* El cristal del huevo tiene las esquinas redondeadas y el escenario
+     es un rectangulo: sin esto, las esquinas del gimnasio asoman por
+     encima del marco. */
+  border-radius: 5%;
 }
 .mf-tamapng-iconos {
   height: 15%; display: flex; align-items: center; justify-content: space-around;

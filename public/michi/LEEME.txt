@@ -1,7 +1,24 @@
 Imágenes del michi
 ==================
 
-huevo.png   751 x 1024   la carcasa. El hueco de la pantalla va TRANSPARENTE.
+huevo.png        660 x 900   la carcasa, con acabado suave. El hueco de la
+                             pantalla va TRANSPARENTE.
+huevo-pixel.png  751 x 1024  la misma carcasa en pixel art. NO se usa; se
+                             guarda para poder volver a ella cambiando el
+                             nombre de los dos archivos. Ojo: si vuelves,
+                             hay que devolver tambien la geometria de
+                             PANTALLA y BOTONES en TamagotchiPNG.jsx, que
+                             es distinta (los botones van mas separados).
+
+La geometria de la pantalla y de los tres botones esta medida en % sobre
+el dibujo. Si cambias la carcasa, vuelve a medirla: la mancha
+transparente rodeada de carcasa es la pantalla, y los circulos amarillo,
+azul y rojo son los botones.
+
+El huevo suave venia de IMG/ pesando 497 KB. Se guarda cuantizado a 255
+colores (60 KB) porque medio mega solo para la carcasa es mucho en una
+app que se instala en el movil. La transparencia se conserva y la
+desviacion media de color es de 2,2 sobre 255: no se nota.
 
 CUERPOS · 320 x 320, fondo transparente, michi apoyado abajo
   esqueletico.png     abandono prolongado

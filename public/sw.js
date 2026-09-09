@@ -16,7 +16,11 @@
    kilobytes para veinte líneas de lógica.
    ============================================================ */
 
-const CACHE = 'michifit-v1';
+/* Subir este número al cambiar una imagen que NO lleva hash en el
+   nombre —todo lo de /michi y /fondos—, o quien ya tenga la app
+   seguirá viendo la vieja: la caché va primero y la URL no cambia.
+   Los archivos de /assets sí llevan hash y se apañan solos. */
+const CACHE = 'michifit-v2';
 
 /* Lo mínimo para arrancar sin red. El resto se va guardando solo según
    se usa: la app es pequeña y se cachea entera en la primera visita. */

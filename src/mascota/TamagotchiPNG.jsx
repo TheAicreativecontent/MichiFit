@@ -15,10 +15,13 @@ import { useT } from '../i18n/index.jsx';
 import Tamagotchi from './Tamagotchi.jsx';
 import './tamagotchi.css';
 
-/* Geometría medida sobre el PNG del huevo (751x1024, pixel art): el
-   hueco de la pantalla es transparente, así que se detecta solo.
-   Si cambias el dibujo, vuelve a medirlo con pixel/medir_huevo.py. */
-const PANTALLA = { left: 25.03, top: 30.27, width: 49.93, height: 42.29 };
+/* Geometría medida sobre el PNG del huevo (660x900): el hueco de la
+   pantalla va transparente, así que se detecta solo buscando la mancha
+   transparente rodeada de carcasa. Si cambias el dibujo, vuelve a
+   medirlo con `pixel/medir_huevo.py`; los números son porcentajes, así
+   que valen para cualquier tamaño de imagen mientras la proporción y
+   el diseño no cambien. */
+const PANTALLA = { left: 25.30, top: 30.89, width: 49.55, height: 41.67 };
 
 /* Zona útil del michi dentro de la pantalla: se deja aire arriba para la
    barra de puntos. El aparato de Alberto no tiene bandas dibujadas, así
@@ -36,11 +39,11 @@ const ESCENARIOS = { gimnasio: '/fondos/gimnasio.png', calle: '/fondos/calle.png
    que los cruza. El area de toque es mayor que el dibujo: un dedo no
    acierta un circulo de 27 px. */
 const BOTONES = [
-  { id: 'mimar',  cx: 24.8, titulo: 'Mimar' },
-  { id: 'accion', cx: 49.9, titulo: 'Cambiar de escena' },
-  { id: 'dormir', cx: 75.0, titulo: 'Dormir' },
+  { id: 'mimar',  cx: 33.6, titulo: 'Mimar' },
+  { id: 'accion', cx: 49.8, titulo: 'Cambiar de escena' },
+  { id: 'dormir', cx: 65.6, titulo: 'Dormir' },
 ];
-const BOTON_Y = 86.5;
+const BOTON_Y = 85.0;
 
 export default function TamagotchiPNG({
   estado = 'kawaii',
