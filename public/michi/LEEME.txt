@@ -87,12 +87,22 @@ Hay tres gatos: naranja, gris y blanco. Se eligen en Ajustes.
   michi-gris.png, michi_<pose>-gris.png    generados
   michi-blanco.png, ...-blanco.png         generados
 
-Los generados NO se editan a mano: los sobrescribe el script en cuanto
-se vuelva a lanzar. Si tocas un naranja, lanza despues:
+Si tocas un naranja, lanza despues:
 
     python pixel/tenir_michi.py
 
 y los otros dos colores se rehacen solos en dos segundos.
+
+SI RETOCAS UN GENERADO A MANO, el script lo respeta: compara las fechas
+y, si el generado es mas nuevo que su naranja de origen, no lo pisa.
+Lo dice al lanzarlo. Para rehacerlos igualmente:
+
+    python pixel/tenir_michi.py --forzar
+
+Esto se anadio despues de pisarle a Alberto siete dibujos retocados a
+mano. La primera version del aviso no bastaba: un script que puede
+borrar trabajo tiene que negarse el solo, no fiarse de que nadie lo
+lance sin querer.
 
 Que NO hay que retocar en el naranja, porque no es cosa del dibujo:
 
