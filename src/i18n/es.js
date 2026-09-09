@@ -233,7 +233,9 @@ export default {
     liso: 'Liso',
     pixel: 'Píxeles',
     color: 'Color',
-    nota: 'Solo cambia la carcasa: el michi de dentro es el mismo. Los tres botones siguen haciendo lo de siempre — mimar, cambiar de escena y dormir, de izquierda a derecha.',
+    nota: 'Los tres botones del aparato siguen haciendo lo de siempre, elijas el gato que elijas: mimar, cambiar de escena y dormir, de izquierda a derecha.',
+    michi: 'Tu gato',
+    michis: { naranja: 'Naranja', gris: 'Gris', blanco: 'Blanco' },
     colores: {
       naranja: 'Naranja', rojo: 'Rojo', amarillo: 'Amarillo', verde: 'Verde',
       azul: 'Azul', blanco: 'Blanco', negro: 'Negro',

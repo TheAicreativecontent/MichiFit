@@ -28,12 +28,15 @@ era gris atigrado, pero el michi de la app ya estaba dibujado naranja en
 nueve poses, y el naranja es además el color de marca (el huevo, el
 logo). **Se cambia el lore, no los dibujos.**
 
-Los gatitos gris, blanco y negro llegarán como **otros gatos** que poder
-elegir, no como otro Ninja. Ya están generados y esperando en
-`pixel/tintes/`: los hace `python pixel/tenir_michi.py` a partir de los
-naranjas, porque el michi es un 99% monocromático y se tiñe igual que la
-carcasa del huevo. Las nueve poses por tres colores, con los mofletes
-rosas intactos.
+Desde el 2026-09-10 hay además un **gato gris y uno blanco**, elegibles
+en Ajustes. No son otro Ninja: son otros gatos. Los hace
+`python pixel/tenir_michi.py` a partir de los naranjas, porque el michi
+es un 99% monocromático y se tiñe igual que la carcasa del huevo. Las
+nueve poses por tres colores, con los mofletes rosas intactos.
+
+Los nombres son los de Alberto y no los míos: lo que yo generé como
+«negro» él lo ve gris, y el blanco que hice primero deslumbraba y
+perdía el atigrado, así que se bajó de 0,66-0,99 a 0,56-0,94.
 
 ## El cómic
 

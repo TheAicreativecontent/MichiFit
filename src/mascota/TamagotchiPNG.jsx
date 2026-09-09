@@ -45,8 +45,20 @@ const RUTA = '/michi';
    esta lista; el selector de acabado reaparece solo, porque solo se
    dibuja cuando hay más de uno. */
 export const ESTILOS = ['pixel'];
+
+/* Los colores del michi. El naranja son los dibujos originales, sin
+   sufijo; los otros los genera `pixel/tenir_michi.py` a partir de ellos
+   conservando el relieve, los mofletes y los ojos. */
+export const MICHIS = ['naranja', 'gris', 'blanco'];
 export const COLORES = ['naranja', 'rojo', 'amarillo', 'verde', 'azul', 'blanco', 'negro'];
-export const APARATO_POR_DEFECTO = { estilo: 'pixel', color: 'naranja' };
+export const APARATO_POR_DEFECTO = { estilo: 'pixel', color: 'naranja', michi: 'naranja' };
+
+/* El sufijo del color del michi. El naranja no lleva: sus archivos son
+   los originales y renombrarlos habria roto el respaldo. */
+function sufijoMichi(aparato) {
+  const c = MICHIS.includes(aparato?.michi) ? aparato.michi : MICHIS[0];
+  return c === 'naranja' ? '' : `-${c}`;
+}
 
 function rutaHuevo(aparato) {
   const estilo = ESTILOS.includes(aparato?.estilo) ? aparato.estilo : APARATO_POR_DEFECTO.estilo;
@@ -104,17 +116,18 @@ export default function TamagotchiPNG({
      Y si no hay ninguna, el aparato dibujado en SVG. Así se pueden ir
      añadiendo dibujos de uno en uno: mientras falte el de una pose, sale
      el michi de pie y no se rompe nada. */
+  const c = sufijoMichi(aparato);
   const candidatos = [
+    pose && `${RUTA}/${estado}_${pose}${c}.png`,
     pose && `${RUTA}/${estado}_${pose}.png`,
-    pose && `${RUTA}/${pose}.png`,
-    `${RUTA}/${estado}.png`,
+    `${RUTA}/${estado}${c}.png`,
     `${RUTA}/michi.png`,
   ].filter(Boolean);
   const src = candidatos[intento];
 
   /* Al cambiar de pose se vuelve a intentar desde arriba: si no, una
      imagen que faltó una vez quedaría descartada para siempre. */
-  useEffect(() => { setIntento(0); }, [pose, estado]);
+  useEffect(() => { setIntento(0); }, [pose, estado, aparato?.michi]);
   useEffect(() => { setSinHuevo(false); }, [aparato?.estilo, aparato?.color]);
 
   /* Dos respaldos independientes. Si falta la carcasa se dibuja en SVG,

@@ -227,7 +227,9 @@ export default {
     liso: 'Smooth',
     pixel: 'Pixels',
     color: 'Colour',
-    nota: 'Only the shell changes: the michi inside is the same. The three buttons still do what they always did — pet, change the scene and sleep, left to right.',
+    nota: 'The three buttons keep doing what they always did, whichever cat you pick: pet, change the scene and sleep, left to right.',
+    michi: 'Your cat',
+    michis: { naranja: 'Ginger', gris: 'Grey', blanco: 'White' },
     colores: {
       naranja: 'Orange', rojo: 'Red', amarillo: 'Yellow', verde: 'Green',
       azul: 'Blue', blanco: 'White', negro: 'Black',

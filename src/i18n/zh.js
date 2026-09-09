@@ -226,7 +226,9 @@ export default {
     liso: '平滑',
     pixel: '像素',
     color: '颜色',
-    nota: '只有外壳会变，里面的米奇还是同一只。三个按钮的作用不变 — 从左到右依次是摸摸它、换场景、让它睡觉。',
+    nota: '不管你选哪只猫，三个按钮的作用都不变 — 从左到右依次是摸摸它、换场景、让它睡觉。',
+    michi: '你的猫',
+    michis: { naranja: '橘猫', gris: '灰猫', blanco: '白猫' },
     colores: {
       naranja: '橙', rojo: '红', amarillo: '黄', verde: '绿',
       azul: '蓝', blanco: '白', negro: '黑',

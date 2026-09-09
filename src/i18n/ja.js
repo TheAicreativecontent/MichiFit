@@ -227,7 +227,9 @@ export default {
     liso: 'なめらか',
     pixel: 'ドット',
     color: '色',
-    nota: '変わるのはケースだけで、中のミチは同じです。ボタンの働きもそのまま — 左から順に、なでる、場面を変える、寝かしつけるです。',
+    nota: 'どの猫を選んでも、ボタンの働きはそのまま — 左から順に、なでる、場面を変える、寝かしつけるです。',
+    michi: 'あなたの猫',
+    michis: { naranja: 'ちゃとら', gris: 'グレー', blanco: 'ホワイト' },
     colores: {
       naranja: 'オレンジ', rojo: 'レッド', amarillo: 'イエロー', verde: 'グリーン',
       azul: 'ブルー', blanco: 'ホワイト', negro: 'ブラック',

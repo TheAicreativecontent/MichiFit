@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 """Hace michis de otros colores a partir de los dibujos naranjas.
 
-NO SE USA EN LA APP TODAVIA. Esta aqui listo para el dia que Alberto
-quiera mas gatitos (2026-09-10: «en un futuro vere si hacemos una
-version gris y otra blanca»). Deja los archivos en pixel/tintes/ y no
-en public/, para no meter en la app algo que nadie ha pedido aun.
+Deja los archivos en public/michi/ con el sufijo del color:
+michi-gris.png, michi_contento-blanco.png... El naranja son los
+originales, sin sufijo.
 
 Funciona por la misma razon que el huevo: el michi es un 99%
 monocromatico —todo su pelaje esta entre 0 y 30 grados de tono— asi que
@@ -30,15 +29,18 @@ import os
 from PIL import Image
 
 ORIGEN = "public/michi"
-DESTINO = "pixel/tintes"
+DESTINO = "public/michi"
 
 # Tramo de luminosidad al que se lleva el pelaje, en tanto por uno. Como
 # en el huevo, no se llega a blanco ni a negro puros: un gato blanco
 # puro seria una mancha sin modelado, y uno negro puro una silueta.
+# Los nombres son los de Alberto, no los mios. Lo que yo llamaba
+# «negro» el lo ve gris, y lo que yo llamaba «gris» le queda bien de
+# blanco subiendolo un poco: el blanco que hice primero (0.66-0.99)
+# deslumbraba y perdia el atigrado.
 VARIANTES = {
-    "gris":   {"luz": (0.28, 0.80), "sat": 0.04},
-    "blanco": {"luz": (0.66, 0.99), "sat": 0.03},
-    "negro":  {"luz": (0.12, 0.52), "sat": 0.03},
+    "gris":   {"luz": (0.12, 0.52), "sat": 0.03},
+    "blanco": {"luz": (0.56, 0.94), "sat": 0.035},
 }
 
 
@@ -87,8 +89,12 @@ def tenir(im, cfg):
 
 def main():
     os.makedirs(DESTINO, exist_ok=True)
+    # Solo los NARANJAS: son michi.png y michi_<pose>.png, sin sufijo de
+    # color. Sin este filtro, la segunda vez que se lanza el script se
+    # lee a si mismo y saca michi-gris-gris.png.
     poses = sorted(p for p in glob.glob(os.path.join(ORIGEN, "michi*.png"))
-                   if "huevo" not in p)
+                   if "huevo" not in p
+                   and "-" not in os.path.basename(p))
     if not poses:
         raise SystemExit("no encuentro los michis en %s" % ORIGEN)
 

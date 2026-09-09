@@ -748,3 +748,13 @@ input[type=time]:focus { outline: none; border-color: var(--rosa); }
 }
 .mf-huevos button.sel { border-color: var(--rosa); background: var(--rosa-suave); }
 .mf-huevos img { width: 100%; height: auto; display: block; }
+
+/* Elegir el color del michi. Menos columnas que los huevos porque son
+   tres y se ven mejor grandes: aquí importa la cara del gato. */
+.mf-michis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.mf-michis button {
+  border: 2px solid transparent; border-radius: 14px; padding: 6px;
+  background: var(--fondo); cursor: pointer; line-height: 0;
+}
+.mf-michis button.sel { border-color: var(--rosa); background: var(--rosa-suave); }
+.mf-michis img { width: 100%; height: auto; display: block; }

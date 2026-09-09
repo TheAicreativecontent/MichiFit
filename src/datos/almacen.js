@@ -19,7 +19,7 @@ const VACIO = {
     proteinaPorKg: 2,
     deficitObjetivo: 500,
     escalaTexto: 1,   // tamano de la letra, ver estilos.css
-    aparato: { estilo: 'pixel', color: 'naranja' },  // la carcasa del michi
+    aparato: { estilo: 'pixel', color: 'naranja', michi: 'naranja' },
   },
   pacto: null,
   /* El ultimo nivel que el usuario ha visto. Sirve para celebrar una

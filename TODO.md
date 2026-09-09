@@ -7,9 +7,12 @@
       Con Vercel no hace falta: sirve desde la raíz del dominio.
 
 ## Después
-- [ ] **Contar el lore dentro de la app.** Es lo más urgente de esta
+- [ ] **Contar el lore dentro de la app.** Decidido el 2026-09-10: se
+      muestra al empezar, y queda un botón para volver a verlo cuando
+      quieras. Con hueco para **fotos y vídeos del Ninja real**. Es lo más urgente de esta
       lista: la gente no sabe para qué está el gato porque la app no lo
       dice en ninguna parte. Al adoptarlo debería presentarse.
+      El guion está en `LORE.md` y los prompts de las 22 viñetas, hechos.
 - [ ] **Exportar el pacto al calendario (.ics)**. Es lo que de verdad
       recuerda ir al gimnasio, y funciona en todos los móviles sin
       servidor ni permisos. Ver la nota de ASK.md sobre las push.
@@ -41,6 +44,8 @@
       recuperan nunca, esta tarea se cierra sola.
 
 ## Hecho
+- [x] 2026-09-10 — Tres gatos a elegir: naranja, gris y blanco. Los dos
+      nuevos salen de teñir los naranjas, sin redibujar nada.
 - [x] 2026-09-09 — El michi deja de reflejar tu cuerpo y pasa a reflejar
       tu constancia: una sola silueta y nueve dibujos (contento, cansado,
       triste, andando, comiendo, entrenando, durmiendo, celebrando, y el
