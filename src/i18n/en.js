@@ -227,7 +227,7 @@ export default {
     liso: 'Smooth',
     pixel: 'Pixels',
     color: 'Colour',
-    nota: 'The buttons keep their colours on purpose: yellow pets, blue changes the scene and red puts the michi to sleep.',
+    nota: 'Only the shell changes: the michi inside is the same. The three buttons still do what they always did — pet, change the scene and sleep, left to right.',
     colores: {
       naranja: 'Orange', rojo: 'Red', amarillo: 'Yellow', verde: 'Green',
       azul: 'Blue', blanco: 'White', negro: 'Black',

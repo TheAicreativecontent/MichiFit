@@ -233,7 +233,7 @@ export default {
     liso: 'Liso',
     pixel: 'Píxeles',
     color: 'Color',
-    nota: 'Los botones no cambian de color a propósito: el amarillo mima, el azul cambia de escena y el rojo duerme al michi.',
+    nota: 'Solo cambia la carcasa: el michi de dentro es el mismo. Los tres botones siguen haciendo lo de siempre — mimar, cambiar de escena y dormir, de izquierda a derecha.',
     colores: {
       naranja: 'Naranja', rojo: 'Rojo', amarillo: 'Amarillo', verde: 'Verde',
       azul: 'Azul', blanco: 'Blanco', negro: 'Negro',

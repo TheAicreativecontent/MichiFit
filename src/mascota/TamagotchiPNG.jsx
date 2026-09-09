@@ -34,13 +34,19 @@ const ZONA = { top: 14, height: 84 };
 
 const RUTA = '/michi';
 
-/* La carcasa se elige en Ajustes: dos acabados por siete colores. Las
-   catorce salen de teñir una sola imagen por código, conservando su
-   luminosidad —que es donde vive el relieve— y cambiándole el tono.
-   Solo se descarga la que estés usando. */
-export const ESTILOS = ['liso', 'pixel'];
+/* La carcasa se elige en Ajustes: por ahora solo el color, en pixel art.
+   Salen de teñir una sola imagen por código, conservando su luminosidad
+   —que es donde vive el relieve— y cambiándole el tono. Solo se
+   descarga la que estés usando.
+
+   El acabado liso está hecho y probado, pero fuera de la app: sus
+   siete imágenes están en `_CUARENTENA/carcasas-lisas/`. Para
+   recuperarlo basta devolverlas a `public/michi/` y añadir 'liso' a
+   esta lista; el selector de acabado reaparece solo, porque solo se
+   dibuja cuando hay más de uno. */
+export const ESTILOS = ['pixel'];
 export const COLORES = ['naranja', 'rojo', 'amarillo', 'verde', 'azul', 'blanco', 'negro'];
-export const APARATO_POR_DEFECTO = { estilo: 'liso', color: 'naranja' };
+export const APARATO_POR_DEFECTO = { estilo: 'pixel', color: 'naranja' };
 
 function rutaHuevo(aparato) {
   const estilo = ESTILOS.includes(aparato?.estilo) ? aparato.estilo : APARATO_POR_DEFECTO.estilo;
