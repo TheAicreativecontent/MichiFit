@@ -15,6 +15,8 @@ pantallas y el motor entero.
   `2026_APP_MICHIFIT`, es ya la única app del proyecto. Las dos anteriores
   están en `../_ARCHIVO/` con un `LEEME.md` que explica qué hay en cada una.
   Y el **importador de CSV** trae el progreso de la MichiFit antigua.
+- Última acción (2026-09-09): **la app habla cinco idiomas** y el
+  objetivo de calorías está arreglado. Ver abajo.
 - Próximo paso: poses que faltan (celebrando, triste, paseando).
 - Bloqueadores: ninguno.
 - **Desplegada en https://michifit.vercel.app** (proyecto Vercel
@@ -36,6 +38,38 @@ pantallas y el motor entero.
   desde el MCP fallaba: el proyecto no era visible con el ámbito del token.
 - `.vercel/` y `.env.local` están en `.gitignore`: el segundo lleva un token
   OIDC que la CLI descarga. **No subirlos nunca.**
+
+## El objetivo de calorías (arreglado el 2026-09-09)
+Tres personas distintas veían **el mismo objetivo**. La causa: el objetivo
+de comida se calculaba UNA vez, al crear el pacto, y no se recalculaba
+nunca. Si dos personas usaban el mismo móvil, la segunda heredaba el de la
+primera.
+
+Todo pasa ahora por `planEnergetico(perfil, pacto)` en `src/engine/calculos.js`,
+que es la **única** fuente del número. Lo que arregló:
+
+- El objetivo se sincroniza al cambiar el perfil o el pacto
+  (`sincronizarPacto`). Si lo escribes tú a mano se marca `comidaManual`
+  y no se toca nunca más.
+- El déficit tiene techo porcentual (`DEFICIT_MAXIMO`, 20%). Los 500 kcal
+  fijos eran el 20% para uno y el 37% para otra.
+- El suelo de `KCAL_MINIMAS` se respeta de verdad, no solo avisa.
+- El sexo se puede cambiar en Ajustes (antes solo en la bienvenida).
+- El mantenimiento sale de la actividad **que has pactado**, no de un
+  factor plano de 1,15 copiado a mano en dos pantallas.
+
+## Idiomas (desde el 2026-09-09)
+Cinco: español, inglés, tailandés, chino y japonés. Sistema propio en
+`src/i18n/`, sin librería. Para añadir una cadena: la pones en `es.js` y
+luego en los otros cuatro; `useT()` cae al español si falta y avisa por
+consola en desarrollo.
+
+Dos trampas que ya están resueltas y conviene no volver a pisar:
+- **Las fuentes de marca no tienen CJK ni tailandés.** Usa siempre
+  `var(--fuente)` o `var(--fuente-titulo)`, nunca `'Nunito'` a pelo.
+- **La pantallita del tamagotchi usa Press Start 2P, que solo tiene
+  alfabeto latino.** Lo que se pinte ahí dentro va transliterado
+  (`nivelesCorto`, `escenas`, `marcador`). En kanji saldrían cuadrados.
 
 ## Traer datos de la app antigua
 Ajustes → «Traer datos de la MichiFit antigua». Se sube el CSV que exporta

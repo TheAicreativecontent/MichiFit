@@ -97,3 +97,39 @@ dado por bueno.
 **Regla:** antes de mapear una columna de un archivo ajeno, mira su rango
 real. `min` y `max` cuestan una linea y descartan la mitad de las
 interpretaciones erroneas.
+
+
+## Un numero calculado UNA vez deja de ser verdad al minuto siguiente
+El objetivo de calorias se calculaba al crear el pacto y se guardaba. A
+partir de ahi, cambiar peso, edad, altura o deficit no lo movia. Tres
+personas en el mismo movil veian el mismo numero, y parecia que la
+formula estaba rota cuando lo que estaba roto era el guardado.
+
+Peor: en Ajustes se ensenaba «Para perder» recalculado en vivo, y en Mi
+pacto el congelado. **Dos numeros distintos para la misma cosa, en dos
+pantallas.**
+
+**Regla:** un valor derivado, o se recalcula siempre, o se marca como
+elegido a mano. Lo que no puede es quedarse a medias sin que nadie sepa
+de donde salio. Aqui: `sincronizarPacto()` recalcula, y `comidaManual`
+marca lo que escribio el usuario.
+
+## Un deficit fijo no significa lo mismo para dos cuerpos
+500 kcal es un 20% razonable para quien gasta 2.500 y un **37% brutal**
+para quien gasta 1.365. Con el mismo numero fijo, la app proponia 865
+kcal/dia a una mujer de 72 anos... y justo debajo avisaba de que menos
+de 1.500 no es sostenible. **Se contradecia a si misma.**
+
+**Regla:** lo que se aplica a cuerpos distintos se mide en proporcion.
+Y un suelo de seguridad que solo avisa no es un suelo: si la app no
+puede proponer ese numero, que no lo proponga.
+
+## Las fuentes bonitas no hablan japones
+Baloo 2 y Nunito no traen ni un caracter CJK ni tailandes. Sin reservas
+explicitas, media app se cae a la fuente por defecto del navegador y se
+ve de otra familia; en la fuente de pixeles del tamagotchi (Press Start
+2P, solo alfabeto latino) directamente saldrian cuadrados vacios.
+
+**Regla:** al anadir un idioma, mirar primero si las fuentes lo tienen.
+Aqui se resolvio con `var(--fuente)` y reservas del sistema, y con
+transliterar lo poco que va dentro de la pantallita de pixeles.

@@ -37,6 +37,11 @@
 - [ ] Marcar en la gráfica los tramos con pocos datos.
 
 ## Hecho
+- [x] 2026-09-09 — Cinco idiomas (es/en/th/zh/ja) con selector en la
+      cabecera. 295 cadenas, sistema propio sin libreria.
+- [x] 2026-09-09 — Tamano de letra ajustable (normal/grande/muy grande).
+- [x] 2026-09-09 — Arreglado el objetivo de calorias: era el mismo para
+      cuerpos distintos. Cinco fallos encadenados, ver CURRENT.md.
 - [x] 2026-09-08 — Carpetas ordenadas: las dos apps anteriores a `_ARCHIVO/`
       con su `LEEME.md`, y esta pasa a llamarse `2026_APP_MICHIFIT`.
 - [x] 2026-09-08 — Importador del CSV de la MichiFit antigua, en Ajustes.

@@ -73,3 +73,20 @@
   `pacto.creado`), así que alimentan la gráfica sin tocar racha ni nivel.
 - Los CSV de datos personales al `.gitignore`: el repo es público.
 
+## 2026-09-09 — Calorias, letra e idiomas
+
+Tres encargos de Alberto, despues de que su madre y su chica probaran la app.
+
+1. **«A las tres nos sale 1500 kcal».** No era la formula: eran cinco
+   fallos encadenados, y el principal es que el objetivo de comida se
+   congelaba al crear el pacto. Todo pasa ya por `planEnergetico()`.
+   El perfil de 72a/158cm/72kg pasaba de 865 kcal/dia a 1.238.
+2. **«La letra es muy pequena».** No se subieron los 72 tamanos a mano:
+   se paso el CSS a `calc(Npx * var(--escala))` y se anadio un control
+   de tres tamanos en Ajustes. Por defecto queda igual que antes.
+3. **Cinco idiomas**: es, en, th, zh, ja. 295 cadenas, sistema propio en
+   `src/i18n/`, selector de mundo en la cabecera.
+
+Comprobado en el navegador: los cuatro idiomas nuevos por las siete
+pestanas, cero claves crudas, cero castellano suelto, cero desbordes.
+
