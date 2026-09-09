@@ -312,6 +312,7 @@ export default {
     entrenar: 'XUN LIAN',
     pasear: 'SAN BU',
     dormir: 'SHUI JIAO',
+    celebrar: 'LEVEL UP!',
   },
 
   objetivos: {

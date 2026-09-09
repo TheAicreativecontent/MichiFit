@@ -313,6 +313,7 @@ export default {
     entrenar: 'OK KAM LANG',
     pasear: 'DEUN LEN',
     dormir: 'NON LAP',
+    celebrar: 'LEVEL UP!',
   },
 
   objetivos: {

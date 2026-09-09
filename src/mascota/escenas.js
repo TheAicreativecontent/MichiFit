@@ -32,6 +32,10 @@ export function siguiente(id) {
    último que apuntaste hoy. Sin datos se queda en casa, que es lo
    honesto — no está paseando si no has andado. */
 export function escenaAutomatica(entradaHoy = {}, accion = null) {
+  /* Celebrar no es una escena con escenario propio: es el michi en casa
+     dando saltos. Por eso va aquí y no en la lista de arriba: el botón
+     azul no debe poder ciclar hasta ella. */
+  if (accion === 'celebrando') return { ...porId('casa'), id: 'celebrar', pose: 'celebrando' };
   if (accion === 'entrenando') return porId('entrenar');
   if (accion === 'comiendo') return porId('comer');
   if ((entradaHoy.entrenoMin ?? 0) > 0) return porId('entrenar');

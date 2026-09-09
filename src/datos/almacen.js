@@ -22,6 +22,10 @@ const VACIO = {
     aparato: { estilo: 'pixel', color: 'naranja' },  // la carcasa del michi
   },
   pacto: null,
+  /* El ultimo nivel que el usuario ha visto. Sirve para celebrar una
+     sola vez al subir: si no se guardara, cerrar y abrir la app volveria
+     a disparar la celebracion. */
+  nivelVisto: null,
   entradas: {},         // { 'AAAA-MM-DD': { pasos, entrenoMin, comidaKcal, ... } }
   carino: [],           // marcas de tiempo de los mimos, para la felicidad
 };

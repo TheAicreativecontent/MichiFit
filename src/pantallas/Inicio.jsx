@@ -30,6 +30,7 @@ const POSES = [
   { id: 'entrenando', et: 'entrena' }, { id: 'durmiendo', et: 'duerme' },
   { id: 'andando', et: 'anda' }, { id: 'contento', et: 'contento' },
   { id: 'triste', et: 'triste' }, { id: 'cansado', et: 'cansado' },
+  { id: 'celebrando', et: 'celebra' },
 ];
 
 export default function Inicio({ estado, entradas, pacto, onCarino, accion,

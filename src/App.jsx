@@ -55,7 +55,7 @@ export default function App() {
   /* Lo que apuntas, el michi lo hace: si registras comida se pone a
      comer, si registras entreno se pone a levantar pesas. La animación no
      inventa datos, es la misma información contada como cuidado. */
-  const [accion, setAccion] = useState(null);   // 'comiendo' | 'entrenando'
+  const [accion, setAccion] = useState(null);   // 'comiendo' | 'entrenando' | 'celebrando'
   /* Panel de pruebas: siete toques seguidos en el logo. Es el truco de
      siempre para dejar una puerta de servicio sin ensuciar la pantalla.
      La cuenta se olvida si pasas más de un segundo y medio sin tocar,
@@ -93,6 +93,23 @@ export default function App() {
   );
 
   /* Registrar en cualquier fecha; `undefined` no pisa lo que ya había. */
+  /* Subir de nivel es el único momento bueno de verdad que tenía la app
+     y pasaba sin que se notara: cambiaba un número en el marcador. Ahora
+     el michi lo celebra. Se recuerda el último nivel visto en el propio
+     `datos`, no en un ref: si se guardase solo en memoria, cerrar la app
+     y volver a abrirla dispararía la celebración otra vez. */
+  useEffect(() => {
+    if (!listo || !estado) return;
+    const visto = datos.nivelVisto ?? estado.nivel.nivel;
+    if (estado.nivel.nivel > visto) {
+      setAccion('celebrando');
+      setTimeout(() => setAccion((a) => (a === 'celebrando' ? null : a)), 8000);
+    }
+    if (estado.nivel.nivel !== visto) {
+      setDatos((d) => ({ ...d, nivelVisto: estado.nivel.nivel }));
+    }
+  }, [listo, estado?.nivel?.nivel]);
+
   const registrarCarino = () =>
     setDatos((d) => ({ ...d, carino: podarCarino([...(d.carino ?? []), Date.now()]) }));
 
