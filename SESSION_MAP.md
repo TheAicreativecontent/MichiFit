@@ -90,3 +90,24 @@ Tres encargos de Alberto, despues de que su madre y su chica probaran la app.
 Comprobado en el navegador: los cuatro idiomas nuevos por las siete
 pestanas, cero claves crudas, cero castellano suelto, cero desbordes.
 
+### 2026-09-09 (tarde) — Revisión antes de abrir al público
+
+Alberto pidió buscar errores, código inútil y fallos de seguridad, sin
+borrar nada: lo que sobre, a cuarentena.
+
+**Seis errores**, y el primero llevaba tiempo: el motor leía `suenoHoras`
+plano cuando el editor guarda `sueno: { horas }`, así que **el sueño no
+afectaba al michi** aunque la pantalla lo mostrase. Igual con el estrés, y
+las mismas columnas salían vacías en la copia de seguridad. Además: un
+déficit negativo proponía comer de más, los carbos podían salir negativos
+y la descarga del CSV podía no llegar a empezar.
+
+**Cuatro de seguridad:** los 14 `dangerouslySetInnerHTML` pasan a un
+componente `<T>` que no ejecuta HTML; se añaden las cabeceras, que no
+existían; `aCSV` escapa comas y fórmulas de Excel; y lo que sale de
+localStorage se valida por tipo.
+
+**Cuarentena** en `_CUARENTENA/`: `Michi.jsx` (el SVG que nadie
+importaba), dos constantes sustituidas por el diccionario y 13 reglas de
+CSS. Nada borrado.
+

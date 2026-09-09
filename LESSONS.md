@@ -133,3 +133,53 @@ ve de otra familia; en la fuente de pixeles del tamagotchi (Press Start
 **Regla:** al anadir un idioma, mirar primero si las fuentes lo tienen.
 Aqui se resolvio con `var(--fuente)` y reservas del sistema, y con
 transliterar lo poco que va dentro de la pantallita de pixeles.
+
+
+## Un campo que se lee con otro nombre del que se guarda no falla: calla
+El editor guardaba `sueno: { horas: 8 }` y el motor leia `e.suenoHoras`.
+En JavaScript eso no es un error: es `undefined`, y el codigo de al lado
+(`== null ? 0 : ...`) lo tomaba por «no hay dato». Resultado: el sueno
+que apuntaba el usuario **no afectaba al michi**, y la pantalla si lo
+mostraba, porque Inicio y Marcador leian `sueno?.horas ?? suenoHoras`.
+Meses funcionando a medias sin un solo error en consola.
+
+Lo mismo con `estres`, que solo entra por el importador y vive bajo
+`importado`, y con las columnas del CSV de copia de seguridad: salian
+vacias y nadie lo noto.
+
+**Regla:** un campo que se lee desde mas de un sitio se lee por UNA
+funcion (`horasDeSueno()`). Y cuando un dato «no afecta a nada», antes
+de tocar la formula hay que comprobar que el dato **llega**.
+
+## `dangerouslySetInnerHTML` no es peligroso hoy: lo es dentro de un mes
+Las ayudas llevan `<b>` en mitad de la frase y el sitio cambia con el
+idioma, asi que no se podian partir. Se resolvio con
+`dangerouslySetInnerHTML` y era seguro: solo entraban cadenas del
+diccionario, escritas por nosotros.
+
+Pero eran **catorce sitios** donde bastaba escribir `t('x', { nombre })`
+para que el nombre de un ejercicio acabara ejecutandose. La seguridad no
+puede depender de que nadie toque una linea concreta durante un ano.
+
+**Regla:** si hay una forma de que la clase de bug no exista, se usa. El
+componente `<T>` reconoce `<b>` y `<em>` y trata todo lo demas como
+texto: aunque le metas un `<script>`, sale escrito en pantalla.
+
+## Una app publica sin cabeceras es una app a medio publicar
+No habia ni CSP, ni `X-Frame-Options`, ni `nosniff`. Cualquiera podia
+meter MichiFit en un iframe y montar un clickjacking encima.
+
+**Regla:** antes de abrir algo al publico, `curl -I` a la URL. Si no
+salen cabeceras de seguridad, es que no hay. En Vercel se ponen en
+`vercel.json`, y hay que comprobar despues que la CSP no rompe nada:
+aqui habia que dejar pasar `fonts.googleapis.com` en `style-src` y
+`fonts.gstatic.com` en `font-src`.
+
+## Un CSV no es solo texto separado por comas
+`aCSV` unia valores con `join(',')` sin escapar nada. Con numeros
+funciona; el dia que se exporte un nombre de ejercicio con una coma, el
+archivo se descoloca en silencio. Y peor: un texto que empiece por `=`
+lo ejecuta Excel **como formula** al abrir la copia.
+
+**Regla:** al generar un CSV, entrecomillar siempre lo que lleve comas o
+comillas, y anteponer un apostrofo a `=`, `+`, `-` y `@`.

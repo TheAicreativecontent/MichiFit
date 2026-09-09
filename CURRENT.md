@@ -17,6 +17,9 @@ pantallas y el motor entero.
   Y el **importador de CSV** trae el progreso de la MichiFit antigua.
 - Última acción (2026-09-09): **la app habla cinco idiomas** y el
   objetivo de calorías está arreglado. Ver abajo.
+- Última acción (2026-09-09, tarde): **revisión antes de abrir al
+  público**. 6 errores arreglados, 4 asuntos de seguridad cerrados y el
+  código muerto a `_CUARENTENA/`. Ver `SESSION_MAP.md` y `LESSONS.md`.
 - Próximo paso: poses que faltan (celebrando, triste, paseando).
 - Bloqueadores: ninguno.
 - **Desplegada en https://michifit.vercel.app** (proyecto Vercel
@@ -70,6 +73,16 @@ Dos trampas que ya están resueltas y conviene no volver a pisar:
 - **La pantallita del tamagotchi usa Press Start 2P, que solo tiene
   alfabeto latino.** Lo que se pinte ahí dentro va transliterado
   (`nivelesCorto`, `escenas`, `marcador`). En kanji saldrían cuadrados.
+
+## Seguridad (revisado el 2026-09-09)
+- Las cabeceras van en `vercel.json`: CSP, X-Frame-Options, nosniff,
+  Referrer-Policy, Permissions-Policy y HSTS. **Si algún día se añade un
+  dominio externo (una fuente, una API), hay que abrirlo en la CSP o el
+  navegador lo bloqueará en silencio.**
+- Para texto con `<b>` dentro se usa `<T k="clave" />` de
+  `src/i18n/Texto.jsx`. **No volver a `dangerouslySetInnerHTML`.**
+- `aCSV()` escapa comas, comillas y fórmulas de Excel. Si se añade una
+  columna de texto libre, ya está cubierto.
 
 ## Traer datos de la app antigua
 Ajustes → «Traer datos de la MichiFit antigua». Se sube el CSV que exporta
