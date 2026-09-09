@@ -153,7 +153,7 @@ export default function App() {
         <div className="mf-cab-acciones">
           <div className="mf-racha">🔥 {estado.racha}</div>
           <SelectorIdioma />
-          <button className={`mf-gear ${pestana === 'ajustes' ? 'activa' : ''}`}
+          <button className={`mf-cab-boton mf-gear ${pestana === 'ajustes' ? 'activa' : ''}`}
                   onClick={() => setPestana(pestana === 'ajustes' ? 'inicio' : 'ajustes')}
                   aria-label={t('ajustes.titulo')}>⚙️</button>
         </div>

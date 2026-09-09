@@ -431,12 +431,20 @@ input[type=range]::-moz-range-thumb {
 
 .mf-logo { width: 34px; height: 34px; object-fit: contain; flex-shrink: 0; }
 .mf-cab-acciones { margin-left: auto; display: flex; align-items: center; gap: 7px; }
-.mf-gear {
+/* Los botones redondos de la cabecera: la rueda de ajustes y el mundo
+   del idioma. Comparten forma, y cada uno tiene su propia clase para
+   poder apuntar a uno sin coger el otro. */
+.mf-cab-boton {
   background: var(--papel); border: none; border-radius: 14px;
   width: 38px; height: 38px; font-size: calc(17px * var(--escala)); cursor: pointer;
   box-shadow: var(--sombra-sm); line-height: 1;
 }
-.mf-gear.activa { background: var(--rosa-suave); }
+.mf-cab-boton.activa { background: var(--rosa-suave); }
+
+/* `mf-gear` y `mf-idioma-btn` no pintan nada: están ahí para poder
+   señalar cada botón por separado desde el código o desde una prueba.
+   Antes los dos se llamaban `mf-gear` y un `querySelector('.mf-gear')`
+   devolvía el mundo cuando querías la rueda. */
 
 /* El "+" del centro: abre el registro de hoy con entrada numérica.
    El icono llena el círculo: antes se quedaba pequeño en el centro.

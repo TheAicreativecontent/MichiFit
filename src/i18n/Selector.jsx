@@ -28,7 +28,7 @@ export default function SelectorIdioma() {
 
   return (
     <div className="mf-idioma" ref={caja}>
-      <button className={`mf-gear ${abierto ? 'activa' : ''}`}
+      <button className={`mf-cab-boton mf-idioma-btn ${abierto ? 'activa' : ''}`}
               aria-label={t('comun.idioma')} aria-expanded={abierto}
               onClick={() => setAbierto((a) => !a)}>
         🌐
