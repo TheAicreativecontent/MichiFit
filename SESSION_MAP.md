@@ -116,3 +116,39 @@ la app que enseña qué se pierde, ofrece la copia de seguridad antes y
 pide escribir el número de días. Un número, no una palabra: «BORRAR» en
 un teclado tailandés o japonés sería una trampa.
 
+### 2026-09-09 (tarde) — El michi cambia de sentido
+
+Alberto trajo el dato mas valioso del proyecto hasta ahora: varias
+personas habian probado la app y dijeron lo mismo sin ponerse de acuerdo.
+**No entendian para que servia el gato, y no querian identificarse con un
+cuerpo grande ni con uno pequeno.**
+
+Tenian razon, y `MECANICA.md` ya lo sabia: su seccion 10 prometia no
+juzgar el cuerpo del usuario mientras la seccion 5 definia cinco siluetas
+que hacian exactamente eso. La excusa escrita era que «hablaban de
+habitos, no del IMC», pero esa distincion vive en el codigo y no en la
+pantalla: lo que se ve es TU gato gordo.
+
+Fuera las cinco siluetas. **El michi refleja ahora tu constancia.** Los
+16 dibujos que sobran estan en `_CUARENTENA/cuerpos-antiguos/`.
+
+Alberto dibujo siete poses nuevas. Al colocarlas aparecieron dos cosas:
+
+- Tres traian un **halo semitransparente** que sobre la pantalla del
+  aparato se habria visto como un recuadro. Y venian en tamanos muy
+  distintos. Los normaliza `pixel/normalizar_michis.py`, donde lo que
+  importa es que el GATO mida lo mismo en todas las poses, no que cada
+  dibujo llene el lienzo.
+- Y al preguntar el si «estaban conectadas de verdad», resulto que
+  **`michi_contento` era inalcanzable**. El humor salia de `animo`, que
+  solo sube al apuntar el dia, y al apuntarlo ganaba la escena y tapaba
+  el humor. Un dibujo hecho a mano que nadie iba a ver. Ahora el humor
+  sale de `forma` y gana a la escena del dia.
+
+De ahi sale `pruebas/cobertura-michi.mjs`, que no comprueba que el codigo
+funcione sino que **ningun dibujo queda inalcanzable**.
+
+Tambien: subir de nivel ya se celebra (era el unico momento bueno de la
+app y pasaba sin verse), y se hablo de notificaciones y camara — ver
+`ASK.md`.
+

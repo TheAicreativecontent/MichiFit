@@ -1,7 +1,19 @@
 # ASK.md — Preguntas pendientes (para Alberto)
 
 ## Decisiones pendientes
-- [ ] (ninguna)
+- [ ] **La camara para calcular calorias de una foto.** Se puede hacer,
+      pero necesita una API de vision y se paga por uso. Es la misma
+      decision que ya cerraste con la cuota de imagenes de Gemini, en
+      otra puerta. Es cuestion de dinero, no tecnica.
+- [ ] **Notificaciones push de verdad.** Las que suenan con la app
+      cerrada necesitan un SERVIDOR con claves VAPID. Eso rompe el
+      principio de que los datos no salen del dispositivo, y en iOS solo
+      funcionan si la app esta instalada en la pantalla de inicio. La
+      alternativa sin servidor (Notification Triggers) no esta
+      disponible en ningun navegador en produccion.
+      Mientras tanto, el calendario (.ics) hace el trabajo: funciona en
+      todos los moviles, sin permisos ni coste, y las alarmas las pone
+      el sistema. Esta en el TODO como lo siguiente.
 
 - [ ] **Cuando renombrar Michigochi -> MichiFit en el codigo.** Ahora hay
       incoherencia entre el nombre del producto y el del codigo.

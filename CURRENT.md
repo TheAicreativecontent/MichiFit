@@ -20,7 +20,11 @@ pantallas y el motor entero.
 - Última acción (2026-09-09, tarde): **revisión antes de abrir al
   público**. 6 errores arreglados, 4 asuntos de seguridad cerrados y el
   código muerto a `_CUARENTENA/`. Ver `SESSION_MAP.md` y `LESSONS.md`.
-- Próximo paso: poses que faltan (celebrando, triste, paseando).
+- Última acción (2026-09-09, tarde): **el michi cambia de sentido**. Ya no
+  refleja tu cuerpo sino tu constancia, y tiene una sola silueta. Nueve
+  dibujos conectados. Ver abajo.
+- Próximo paso: contar el lore dentro de la app (nadie sabe para qué está
+  el gato) y exportar el pacto al calendario.
 - Bloqueadores: ninguno.
 - **Desplegada en https://michifit.vercel.app** (proyecto Vercel
   `the-ai-creative-content/michifit`).
@@ -73,6 +77,35 @@ Dos trampas que ya están resueltas y conviene no volver a pisar:
 - **La pantallita del tamagotchi usa Press Start 2P, que solo tiene
   alfabeto latino.** Lo que se pinte ahí dentro va transliterado
   (`nivelesCorto`, `escenas`, `marcador`). En kanji saldrían cuadrados.
+
+## El michi (replanteado el 2026-09-09)
+Varias personas probaron la app y dijeron lo mismo sin ponerse de acuerdo:
+no entendían para qué servía el gato, y no querían identificarse con un
+cuerpo grande ni con uno pequeño. Se quitaron las cinco siluetas.
+
+**El michi refleja tu constancia, no tu cuerpo.** Una sola silueta, y lo
+que cambia es lo que hace y cómo se siente:
+
+| Manda | Qué se ve |
+|-------|-----------|
+| 1. acción reciente (apuntas algo) | comiendo, entrenando · unos segundos |
+| 2. escena elegida a mano (botón azul) | las cinco del ciclo |
+| 3. su humor | contento, cansado, triste |
+| 4. lo que hiciste hoy | entrenando, andando |
+| 5. nada de lo anterior | de pie, en casa |
+
+**El humor sale de `forma`, no de `animo`.** Es importante: con `animo` el
+michi no salía contento casi nunca, porque para subirlo había que apuntar
+el día y al apuntarlo ganaba la escena y tapaba el humor.
+
+`pruebas/cobertura-michi.mjs` comprueba que los nueve dibujos se ven en
+algún estado posible. **Lánzalo al tocar la mecánica o al añadir poses**:
+no prueba que el código funcione, prueba que ningún dibujo queda
+inalcanzable. Ya pasó una vez sin que nadie se enterara.
+
+Los dibujos se normalizan con `pixel/normalizar_michis.py` (320x320,
+transparentes, apoyados abajo). Lo que importa ahí es que el GATO mida lo
+mismo en todas las poses, no que cada dibujo llene el lienzo.
 
 ## Seguridad (revisado el 2026-09-09)
 - Las cabeceras van en `vercel.json`: CSP, X-Frame-Options, nosniff,

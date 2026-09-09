@@ -6,17 +6,16 @@
       desde `/`, y en `usuario.github.io/repo/` la app saldría en blanco.
       Con Vercel no hace falta: sirve desde la raíz del dominio.
 
-## Después · hacen falta DIBUJOS, no código
-El sistema ya admite las tres: basta dejar el PNG en `public/michi/` con
-el nombre `<cuerpo>_<pose>.png` y aparecen solas.
-
-- [ ] Poses que faltan: **celebrando** (al subir de nivel) y **triste**
-      (tras fallar una semana). Son 5 cuerpos × 2 poses = 10 dibujos.
-- [ ] **Pose de pasear**: la escena "PASEANDO" usa el michi de pie, porque
-      no hay dibujo propio. 5 dibujos.
+## Después
+- [ ] **Contar el lore dentro de la app.** Es lo más urgente de esta
+      lista: la gente no sabe para qué está el gato porque la app no lo
+      dice en ninguna parte. Al adoptarlo debería presentarse.
+- [ ] **Exportar el pacto al calendario (.ics)**. Es lo que de verdad
+      recuerda ir al gimnasio, y funciona en todos los móviles sin
+      servidor ni permisos. Ver la nota de ASK.md sobre las push.
 - [ ] Add-ons cosméticos al llegar a nivel 5 (batidos, mancuernas, gafas).
       Se pierden al bajar de nivel y se recuperan al volver a subir.
-      Este sí necesita código además del dibujo.
+      Necesita código además del dibujo.
 
 ## Descartado
 - ~~Importador del export de Garmin Connect~~ — la API de Garmin exige ser
@@ -42,6 +41,10 @@ el nombre `<cuerpo>_<pose>.png` y aparecen solas.
       recuperan nunca, esta tarea se cierra sola.
 
 ## Hecho
+- [x] 2026-09-09 — El michi deja de reflejar tu cuerpo y pasa a reflejar
+      tu constancia: una sola silueta y nueve dibujos (contento, cansado,
+      triste, andando, comiendo, entrenando, durmiendo, celebrando, y el
+      de pie). Celebra al subir de nivel.
 - [x] 2026-09-09 — El huevo pasa a poder elegirse en siete colores,
       teñidos por código desde una sola imagen. El acabado liso está
       hecho y guardado en `_CUARENTENA/carcasas-lisas/`, fuera de la app.
