@@ -110,6 +110,26 @@
 }
 .mf-tamapng-boton:active { transform: translate(-50%, -50%) scale(.9); }
 
+/* La fila de rotulos, bajo el aparato. Cada uno se coloca en el mismo
+   porcentaje horizontal que su boton, asi que siempre caen justo debajo
+   aunque cambie el tamano del huevo.
+
+   `var(--fuente)` y no Press Start 2P: esa fuente solo trae alfabeto
+   latino y aqui pone «なでる» o «บันทึก». Misma razon que en el anillo. */
+.mf-tamapng-rotulos {
+  display: flex; justify-content: space-evenly; align-items: center;
+  gap: 4px; margin-top: 3px;
+}
+.mf-tamapng-rotulos span {
+  flex: 0 1 auto; min-width: 0;
+  padding: 2px 8px; border-radius: 999px;
+  overflow: hidden; text-overflow: ellipsis;
+  background: var(--chip); border: 1px solid var(--linea);
+  font-family: var(--fuente); font-weight: 800;
+  font-size: calc(9px * var(--escala)); line-height: 1.5;
+  color: var(--tinta-flojo); white-space: nowrap;
+}
+
 /* --- mimos: corazones que suben --- */
 .mf-tamapng-mimos { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
 .mf-tamapng-mimos i {

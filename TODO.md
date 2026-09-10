@@ -40,11 +40,6 @@
       y los cuatro de la felicidad en `engine/felicidad.js`. Si cansa,
       se bajan; si aburre, se suben.
 
-- [ ] **Enseñar los botones la primera vez.** La gramática de dos
-      anillos es la de un tamagotchi, y un tamagotchi venía con manual.
-      Hay tres salidas y el rótulo del icono seleccionado, pero falta un
-      cartelito las primeras veces. Está `anillo.ayuda` en el
-      diccionario, sin usar todavía.
 
 - [ ] Add-ons cosméticos al llegar a nivel 5 (batidos, mancuernas, gafas).
       Se pierden al bajar de nivel y se recuperan al volver a subir.
@@ -72,6 +67,11 @@
 
 
 ## Hecho
+- [x] 2026-09-11 — **Los botones dicen lo que hacen**, en una fila bajo
+      el aparato que cambia con el contexto (Cuidar/Registrar/Dormir ↔
+      Salir/Siguiente/Aceptar). Sustituye al cartelito de bienvenida que
+      estaba previsto: uno se lee una vez y se olvida, esto enseña la
+      gramática cada vez que la usas.
 - [x] 2026-09-11 — «Mi pacto» pasa a ser **«Mi objetivo»** en las cinco
       lenguas, y la pantalla empieza por qué quieres conseguir: perder
       peso, mantenerte, estar más en forma, u otra cosa que escribes tú.

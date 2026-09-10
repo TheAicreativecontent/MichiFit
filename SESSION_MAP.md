@@ -362,3 +362,26 @@ seguía importado en `Inicio.jsx` aunque ya nadie cicla escenas, y dos
 comentarios del archivo decían cosas que habían dejado de ser verdad —
 «los tres botones no tocan los datos» y «el botón del medio sirve para
 cambiar de escena».
+
+### 2026-09-11 (cierre) — Los botones dicen lo que hacen
+
+Quedaba pendiente enseñar la gramática de los anillos, y era lo que más
+riesgo tenía: los tres botones acababan de pasar a ser la interfaz
+principal y nadie los había explicado, en una app cuyo problema
+histórico es justo ese.
+
+En vez del cartelito de bienvenida que estaba previsto, una fila bajo el
+aparato con lo que hace cada botón **ahora mismo**. Cambia con el
+contexto: `Cuidar · Registrar · Dormir` en reposo, `Salir · Siguiente ·
+Aceptar` con un anillo abierto. Un cartelito se lee una vez y se olvida;
+esto enseña cada vez, y además confirma lo que va a pasar antes de
+pulsar.
+
+Dos intentos que no valieron, y los dos se vieron midiendo y no mirando:
+impreso en la carcasa —abajo el huevo se estrecha rápido, a un 92% de
+alto quedan 295 px de 751— y clavado al centro de cada botón, que quedó
+alineado al píxel y **solapado**, porque los botones están a 48 px y
+«Registrar» mide 64.
+
+Probado en el peor caso: tailandés, 320 px de ancho y la letra al 130%.
+Sin solapes, sin recortes y sin scroll lateral.

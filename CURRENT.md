@@ -231,6 +231,25 @@ de momento; se cambian ahí por los PNG de Alberto cuando estén.
 cualquier sitio, y la vuelta sola a los 8 s. Un tamagotchi venía con
 manual de papel; esto no.
 
+### Los botones dicen lo que hacen
+
+Bajo el aparato hay una fila con lo que hace cada botón **ahora mismo**:
+`Cuidar · Registrar · Dormir` en reposo, y `Salir · Siguiente · Aceptar`
+con un anillo abierto. Sale de `rotulosDeBotones()` en `anillos.js`, la
+misma función que da el `aria-label`.
+
+Estaba previsto un cartelito de bienvenida y se hizo así en su lugar: un
+cartelito se lee una vez y se olvida, y aquí el problema es que los tres
+botones **cambian de significado**. Esto lo enseña cada vez que lo usas.
+
+Dos cosas que se probaron y no valían, por si a alguien le tienta:
+impreso en la carcasa (abajo el huevo se estrecha rápido — a un 92% de
+alto quedan 295 px de 751— y en tailandés los rótulos son largos), y
+clavado al centro exacto de cada botón (quedaba perfecto y se
+**solapaban**: los botones están a 48 px y «Registrar» mide 64). Van
+repartidos: son tres y en orden, así que a cuál corresponde cada uno se
+ve solo.
+
 ### Las barras de agua y orden
 
 `engine/cuidados.js`. Bajan con las horas de VIGILIA (16 y 24) y se

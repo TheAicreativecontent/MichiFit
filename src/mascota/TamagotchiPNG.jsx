@@ -156,6 +156,7 @@ export default function TamagotchiPNG({
      pero el michi de la imagen se sigue viendo encima: sin esto, faltar
      `huevo.png` escondía también las ilustraciones. */
   return (
+    <>
     <div className={`mf-tamapng ${dormido ? 'dormido' : ''}`}
          style={{ width: size, height: size * (1024 / 751) }}>
       {sinHuevo ? (
@@ -284,23 +285,51 @@ export default function TamagotchiPNG({
 
         {dormido && <div className="mf-tamapng-apagada" />}
 
-        {/* El cristal entero es un botón: tocarlo es preguntarle al michi
-            cómo va. Antes eso era el botón del medio, que ahora sirve
-            para cambiar de escena. */}
+        {/* El cristal entero es un botón: tocarlo es preguntarle al
+            michi cómo va. Fue el botón del medio hasta que ese pasó a
+            abrir el anillo de medir. */}
         {onPantalla && !sinHuevo && (
           <button className="mf-tamapng-toque" onClick={onPantalla}
                   aria-label={t('aparato.comoVa')} title={t('aparato.comoVa')} />
         )}
       </div>
 
-      {/* Botones del aparato. Van encima del PNG, con área de toque
-          generosa: el dibujo es un círculo de 27 px y un dedo no acierta. */}
-      {onBoton && !sinHuevo && BOTONES.map((b) => (
-        <button key={b.id} className={`mf-tamapng-boton ${b.id}`}
-                style={{ left: `${b.cx}%`, top: `${BOTON_Y}%` }}
-                onClick={() => onBoton(b.id)}
-                aria-label={t(rotulos[b.id])} title={t(rotulos[b.id])} />
-      ))}
-    </div>
+        {/* Botones del aparato. Van encima del PNG, con área de toque
+            generosa: el dibujo es un círculo de 27 px y un dedo no
+            acierta. */}
+        {onBoton && !sinHuevo && BOTONES.map((b) => (
+          <button key={b.id} className={`mf-tamapng-boton ${b.id}`}
+                  style={{ left: `${b.cx}%`, top: `${BOTON_Y}%` }}
+                  onClick={() => onBoton(b.id)}
+                  aria-label={t(rotulos[b.id])} title={t(rotulos[b.id])} />
+        ))}
+      </div>
+
+      {/* Qué hace cada botón AHORA MISMO, en fila bajo el aparato.
+
+          Es lo que resuelve el problema de siempre: los tres botones son
+          la interfaz principal y su significado CAMBIA según haya un
+          anillo abierto o no. Un cartelito de bienvenida se lee una vez
+          y se olvida; esto enseña la gramática cada vez que la usas, y
+          además confirma lo que va a pasar antes de pulsar.
+
+          Fuera del huevo y no impreso en la carcasa, aunque un
+          tamagotchi de verdad los lleve impresos: abajo la carcasa se
+          estrecha rápido —a un 92% de alto ya solo quedan 295 px de
+          751— y en tailandés estos rótulos son largos. Dentro no caben
+          sin salirse por el borde.
+
+          Y repartidos, no clavados bajo cada botón: alinearlos al centro
+          exacto de su botón quedaba perfecto y se SOLAPABAN, porque los
+          botones están a 48 px y «Registrar» mide 64. Son tres y van en
+          orden, así que a cuál corresponde cada uno se ve solo. */}
+      {onBoton && !sinHuevo && (
+        <div className="mf-tamapng-rotulos" style={{ width: size }} aria-hidden="true">
+          {BOTONES.map((b) => (
+            <span key={`et-${b.id}`}>{t(rotulos[b.id])}</span>
+          ))}
+        </div>
+      )}
+    </>
   );
 }
