@@ -183,3 +183,48 @@ lo ejecuta Excel **como formula** al abrir la copia.
 
 **Regla:** al generar un CSV, entrecomillar siempre lo que lleve comas o
 comillas, y anteponer un apostrofo a `=`, `+`, `-` y `@`.
+
+## El tono es un circulo, no una recta
+
+Al tenir los michis, los mofletes rosas salian como **anillos huecos**:
+el centro teñido, el borde no. La causa: para decidir si un pixel era
+rosa se comparaba `abs(h - h0) < 16`. Pero el tono da la vuelta — 355° y
+5° estan a 10 grados uno del otro, y esa resta dice 350.
+
+El moflete no es de un solo tono: el centro cae a 350° y el borde
+resbala hacia el 0. Media corona se quedaba fuera por aritmetica.
+
+**Regla:** cualquier comparacion de tonos pasa por `distanciaTono()`, que
+mide por el camino corto. Lo mismo vale para angulos, horas y meses:
+**si el valor da la vuelta, restar no sirve.**
+
+## El pixel art hay que mirarlo ampliado, aunque se vea a 60 px
+
+Dos errores del mismo dia —los mofletes en anillo y el michi blanco sin
+ojos— pasaron la revision **a tamaño real** sin que se vieran. Aparecieron
+al ampliar las caras 3-4x. Uno de los dos llego a produccion.
+
+A 60 px cada pixel del sprite es medio pixel de pantalla: el navegador
+promedia y tapa el error. Ampliado, salta a la vista.
+
+**Regla:** al tocar sprites, mirar siempre un recorte ampliado de la
+CARA, que es donde esta toda la informacion. Y comparar contra el
+original, no contra el recuerdo del original.
+
+## Codigo de proteccion que nunca llego a proteger nada
+
+Escribi una guarda para no pisar los michis que Alberto habia retocado a
+mano. Luego lance el script y **le pise siete dibujos**. La guarda
+buscaba una cadena que en el archivo no estaba tal cual, asi que no
+coincidia nunca y el `if` era decorativo: parecia que protegia y no
+protegia.
+
+Lo peor no es el error, es que **no habia forma de enterarse**. Un
+salvavidas roto es peor que no tener salvavidas, porque te lleva a
+saltar.
+
+**Regla:** una guarda que evita algo hay que verlas fallar A PROPOSITO
+antes de fiarse. Probar los dos caminos: que protege lo que debe (lanzar
+sin `--forzar` y comprobar que NO se toca) y que se aparta cuando se lo
+pides (`--forzar` y comprobar que SI se toca). Si solo se prueba el
+camino feliz, no se ha probado nada.

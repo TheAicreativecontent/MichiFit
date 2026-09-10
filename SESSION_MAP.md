@@ -152,3 +152,50 @@ Tambien: subir de nivel ya se celebra (era el unico momento bueno de la
 app y pasaba sin verse), y se hablo de notificaciones y camara — ver
 `ASK.md`.
 
+### 2026-09-10 — Ninja tiene historia, tres colores y hora en el calendario
+
+Cuatro cosas, y la primera es la que ordena las otras: **el michi se
+llama Ninja y tiene un lore**, el del gatito callejero de Bangkok al que
+envenenaron. Está en `LORE.md`, y los prompts de las 21 viñetas del
+cómic están escritos. Todavía **no se cuenta dentro de la app**, que es
+el problema original y sigue abierto — encabeza `TODO.md`.
+
+**Tres gatos a elegir** (naranja, gris y blanco). No están dibujados tres
+veces: el michi es un 99% monocromático, así que se tiñen por código
+igual que la carcasa del huevo, con `python pixel/tenir_michi.py`.
+
+De ahí salieron los dos errores del día, los dos por lo mismo:
+
+- **Los mofletes salían como anillos huecos.** El tono es un CÍRCULO, no
+  una recta: comparando con `hd < 16` a secas, los píxeles a 355° caían
+  fuera y se quedaban sin teñir. El centro del moflete se salvaba, el
+  borde no. Ahora hay `distanciaTono()`.
+- **El michi blanco perdió los ojos.** El contorno marrón oscuro tiene
+  saturación alta, así que el filtro no lo protegía y se le iba el color
+  al aclarar. Se protege por luminosidad (`LIMITE_OSCURO`).
+
+Ninguno de los dos se veía a tamaño real. Aparecieron al ampliar las
+caras 3-4x, y la lección está en `LESSONS.md`: **el pixel art hay que
+mirarlo ampliado, aunque en la app se vea a 60 px.**
+
+Y un error mío: Alberto había retocado siete michis a mano y **el script
+se los pisó**. Mi código de protección no llegó a coincidir nunca. Ahora
+`retocadoAMano()` compara fechas de modificación y respeta lo tocado a
+mano, con `--forzar` para saltárselo a propósito.
+
+**El pacto se lleva al calendario del móvil** (`src/datos/calendario.js`).
+Un `.ics` con los entrenos semanales y un recordatorio diario a las
+21:30. Es lo más cerca de una notificación que se llega sin servidor: las
+push de verdad necesitan un backend con claves VAPID y eso rompería que
+los datos no salgan del dispositivo. Lo valida `pruebas/calendario.mjs`,
+con textos en tailandés y japonés a propósito: en iCalendar el límite es
+de 75 OCTETOS por línea y un carácter japonés ocupa tres.
+
+También se analizaron **las mecánicas del Tamagotchi clásico** una por
+una, para ver qué se adapta y qué no. Ver `MECANICA.md`.
+
+Y al final del día, **Ninja volvió a ser gris**: era gris en el lore
+original, se había escrito en naranja porque era el único michi dibujado,
+y una vez hecho el gris ya no hacía falta doblar la historia. Los prompts
+del cómic se reescribieron enteros. Queda decidir de qué color arranca la
+app, que sigue siendo naranja — está en `ASK.md`.

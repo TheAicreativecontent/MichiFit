@@ -15,6 +15,18 @@
       todos los moviles, sin permisos ni coste, y las alarmas las pone
       el sistema. Esta en el TODO como lo siguiente.
 
+- [ ] **De que color arranca la app.** Ninja es GRIS en el lore (decidido
+      el 2026-09-10 por la noche) pero la app arranca en NARANJA, que es
+      el color de marca: el huevo y el logo son naranjas. Tal como esta,
+      «adopta a Ninja» te da un gato que no es Ninja.
+      Tres salidas, y es decision tuya:
+        a) arrancar en gris, y que el naranja sea otro gato mas;
+        b) dejar el naranja de fabrica y que el lore diga que el color lo
+           eliges tu al adoptarlo;
+        c) preguntarlo en la bienvenida, justo despues del cuento.
+      La (c) es la que mas me gusta: convierte el problema en el primer
+      gesto de cuidarlo. Cuesta una pantalla mas en la bienvenida.
+
 - [ ] **Cuando renombrar Michigochi -> MichiFit en el codigo.** Ahora hay
       incoherencia entre el nombre del producto y el del codigo.
 

@@ -23,8 +23,13 @@ pantallas y el motor entero.
 - Última acción (2026-09-09, tarde): **el michi cambia de sentido**. Ya no
   refleja tu cuerpo sino tu constancia, y tiene una sola silueta. Nueve
   dibujos conectados. Ver abajo.
-- Próximo paso: contar el lore dentro de la app (nadie sabe para qué está
-  el gato) y exportar el pacto al calendario.
+- Última acción (2026-09-10): **Ninja tiene nombre, historia y tres
+  colores**, y el pacto ya se lleva al calendario del móvil. Ver abajo y
+  en `SESSION_MAP.md`.
+- Próximo paso: **contar el lore dentro de la app**. Sigue siendo el
+  problema de fondo: la gente no sabe para qué está el gato porque la
+  app no lo dice en ninguna parte. El guion está en `LORE.md` y los
+  prompts de las viñetas, escritos.
 - Bloqueadores: ninguno.
 - **Desplegada en https://michifit.vercel.app** (proyecto Vercel
   `the-ai-creative-content/michifit`).
@@ -123,6 +128,32 @@ ahí**: iCalendar tiene tres reglas que rompen el archivo entero y no dan
 error visible — CRLF obligatorio, 75 OCTETOS por línea (en japonés un
 carácter son tres) y comas escapadas.
 
+## Ninja y los tres colores (2026-09-10)
+
+El michi se llama **Ninja** y tiene historia: `LORE.md`. Es un gatito
+callejero de Bangkok al que envenenaron y al que salvaron a tiempo. **La
+app todavía no lo cuenta** — es lo primero del `TODO.md`.
+
+Ninja es **gris atigrado**. En Ajustes se elige entre naranja, gris y
+blanco; el naranja y el blanco no son otro Ninja, son otros gatos. La app
+arranca hoy en naranja y eso está sin decidir (`ASK.md`).
+
+Los colores **no están dibujados tres veces**: el michi es un 99%
+monocromático y se tiñe por código, `python pixel/tenir_michi.py`. Dos
+cosas que hay que saber antes de tocar ese script:
+
+- **El tono es un círculo, no una recta.** Comparar `Math.abs(h - h0)` a
+  secas deja fuera los píxeles al otro lado del 0°. Fue lo que dejó los
+  mofletes como anillos huecos. Usa `distanciaTono()`.
+- **Los píxeles oscuros se protegen por luminosidad, no por saturación.**
+  El contorno marrón está saturado y el filtro de saturación no lo
+  salvaba: el michi blanco se quedó sin ojos.
+- **Y no pisa lo retocado a mano**: si un PNG de `public/michi/` es más
+  nuevo que su original, el script lo respeta. `--forzar` lo salta.
+
+Míralo siempre ampliado. Los dos errores de arriba eran invisibles a
+tamaño real y llegaron a producción.
+
 ## Seguridad (revisado el 2026-09-09)
 - Las cabeceras van en `vercel.json`: CSP, X-Frame-Options, nosniff,
   Referrer-Policy, Permissions-Policy y HSTS. **Si algún día se añade un
@@ -158,9 +189,10 @@ del michi para revisar los dibujos sin apuntar datos reales.
 - Los días de entreno sugeridos son L/X/V, pero se eligen en el asistente.
 - El simulador parte del **peso actual**: si no se actualiza, la previsión sale
   larga porque sigue midiendo desde el peso inicial.
-- El michi es **pixel art naranja dentro de un tamagotchi SVG**. El componente
-  vectorial antiguo (`mascota/Michi.jsx`) ya no se usa en ninguna pantalla;
-  se conserva por si hiciera falta.
+- El michi es **pixel art dentro de un tamagotchi SVG**, y desde el
+  2026-09-10 se elige el color en Ajustes: naranja, gris o blanco. El
+  componente vectorial antiguo (`mascota/Michi.jsx`) ya no se usa en
+  ninguna pantalla; está en `_CUARENTENA/`.
 - El fondo ya está: `public/fondo.png` (880x1186). Se pinta como en Michi
   Finanzas: capa fija, `cover`, centrado, opacidad .15.
 - **No ponerlo en mosaico**: la imagen no es repetible sin costura (bordes con

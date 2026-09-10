@@ -21,15 +21,24 @@ avatar: es tu compañero y tu recordatorio.
   icono en vez de cuidarte, que es un bucle vacío.
 - **No juzga.** Se pone triste si lo dejas, nunca te reprocha.
 
-## El color: naranja, y manda el dibujo
+## El color: gris, como al principio
 
-Decisión de Alberto, 2026-09-10. En la primera versión del lore Ninja
-era gris atigrado, pero el michi de la app ya estaba dibujado naranja en
-nueve poses, y el naranja es además el color de marca (el huevo, el
-logo). **Se cambia el lore, no los dibujos.**
+Decisión de Alberto, 2026-09-10 por la noche: **Ninja es gris
+atigrado**, como decía tu lore original.
 
-Desde el 2026-09-10 hay además un **gato gris y uno blanco**, elegibles
-en Ajustes. No son otro Ninja: son otros gatos. Los hace
+Durante ese mismo día se había escrito en naranja, y por una razón
+razonable: era el único michi que existía dibujado, y el naranja es el
+color de marca (el huevo, el logo). Por la tarde se hizo el michi gris,
+quedó bien, y entonces ya no hacía falta doblar la historia para que
+encajara con el dibujo. Manda la historia.
+
+Los tonos son los del archivo, medidos, no inventados: `#837C7C` en las
+luces, `#645E5E` en los medios y `#4C4848` en las rayas. Es un gris
+**cálido y neutro, no azulado** — decírselo al generador de imágenes es
+lo que más ayuda a que todas las viñetas salgan del mismo gato.
+
+Los tres colores siguen estando en Ajustes, y **el naranja y el blanco
+no son otro Ninja: son otros gatos**. Los hace
 `python pixel/tenir_michi.py` a partir de los naranjas, porque el michi
 es un 99% monocromático y se tiñe igual que la carcasa del huevo. Las
 nueve poses por tres colores, con los mofletes rosas intactos.
@@ -38,10 +47,15 @@ Los nombres son los de Alberto y no los míos: lo que yo generé como
 «negro» él lo ve gris, y el blanco que hice primero deslumbraba y
 perdía el atigrado, así que se bajó de 0,66-0,99 a 0,56-0,94.
 
+**Queda un cabo suelto**: la app arranca con el michi naranja. Si Ninja
+es gris, «adopta a Ninja» te está dando hoy otro gato. Está en `ASK.md`,
+es una decisión de producto y es de Alberto.
+
 ## El cómic
 
 21 viñetas en pixel art kawaii, formato 9:16 para móvil. Los prompts
-están escritos y listos para generar. Arco:
+están escritos y listos para generar, agrupados por escena, **con Ninja
+ya en gris**. Arco:
 
 | Acto | Qué pasa |
 |------|----------|
