@@ -19,6 +19,23 @@ export const FACTORES_ACTIVIDAD = {
 
 /* --- suelos de seguridad (ver MECANICA.md, no negociables) --- */
 export const IMC_MINIMO_SANO = 18.5;
+
+/* Suelo de grasa, en gramos por kilo de PESO META.
+
+   La grasa es la unica macro que baja sin freno cuando bajan las
+   calorias: la proteina va fija (2 g por kilo de meta) y los carbos son
+   lo que sobra, asi que todo el recorte cae sobre ella. Con 1.703 kcal
+   salen 47 g, que para 84 kilos son 0,56 g/kg.
+
+   0,6 es el borde bajo de lo que se suele citar como minimo razonable.
+   No es un limite duro y la app NO lo impone —decision de Alberto del
+   2026-09-11, se avisa y ya— pero por debajo conviene decirlo, igual que
+   se dice con las calorias y con el IMC.
+
+   Se mide contra el peso META y no contra el actual por lo mismo que la
+   proteina: el peso actual baja segun avanzas, y con el bajaria el
+   suelo, que es justo cuando menos deberia moverse. */
+export const GRASA_MINIMA_POR_KG = 0.6;
 export const KCAL_MINIMAS = { hombre: 1500, mujer: 1200 };
 export const RITMO_MAXIMO_SEMANAL = 0.01; // 1% del peso corporal
 

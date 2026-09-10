@@ -330,3 +330,20 @@ mirarla cada vez que entra material nuevo. Y al filtrar por color,
 filtrar por lo que SI se quiere tocar (el arco naranja del pelaje), no
 por descarte de lo que se conoce: lo que no se conoce todavia entra solo
 en el segundo caso.
+
+## Una prueba que depende de la hora no prueba nada
+
+`pruebas/cuidados.mjs` comprobaba que un michi recien adoptado tiene las
+barras al 100. Usaba `Date.now()` por debajo, y el reloj de los cuidados
+arranca al mediodia del dia en que se creo el pacto. Resultado: pasaba
+por la mañana y fallaba por la tarde, porque a las cinco ya han corrido
+cinco horas de vigilia y el cuenco ha bajado — que es justo lo correcto.
+
+Lo peligroso no es que fallara, es lo contrario: una prueba asi tambien
+puede PASAR por casualidad y tapar un fallo de verdad segun a que hora
+la lances.
+
+**Regla:** si lo que se prueba depende del tiempo, el tiempo se pasa como
+dato (`ahora`), nunca se lee del reloj. Y la comprobacion se escribe
+sobre lo que de verdad importa —«no llega a tener sed»— y no sobre un
+numero exacto que solo es cierto en un instante.

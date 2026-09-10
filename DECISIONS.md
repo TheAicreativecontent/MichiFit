@@ -1,5 +1,44 @@
 # DECISIONS.md — Decisiones de diseno y su razon
 
+## 2026-09-11 — La grasa se avisa, no se impone
+
+Alberto vio que MichiFit le daba 47 g de grasa donde la app antigua le
+daba 67, y preguntó si estaba bien. Estaba bien, y salieron dos cosas:
+
+- pesa 13,3 kg menos, así que su metabolismo en reposo bajó 133 kcal
+  (1.901 → 1.768). Eso es correcto;
+- **el reparto no es el mismo**: la app antigua ponía el 30% de las
+  calorías en grasa y ésta pone el 25%.
+
+Lo que importa de verdad: la grasa es la **única macro que baja sin
+freno**. La proteína va fija en 2 g por kilo de peso meta y los carbos
+son lo que sobra, así que todo el recorte cae sobre la grasa. Con 1.703
+kcal salen 0,56 g por kilo, y en el suelo de calorías saldrían 0,49.
+`MECANICA.md` §10 promete que la app «no premia comer menos de lo sano»,
+y ahí había un hueco.
+
+**Se decide avisar y no imponer.** Tres opciones estaban sobre la mesa
+—suelo duro de grasa, subir el reparto al 30%, o solo el aviso— y
+Alberto eligió la tercera.
+
+Qué significa en el código:
+
+- `macros()` **no cambia**: la grasa sigue siendo el 25% de las
+  calorías y la proteína 2 g por kilo de meta. `pruebas/avisos.mjs` lo
+  fija, para que si algún día alguien mete un suelo duro ahí se caiga la
+  prueba y haya que decidirlo a propósito y no de refilón;
+- `avisosDeSeguridad()` gana un cuarto aviso, hermano de los de IMC,
+  calorías y ritmo, que salta por debajo de `GRASA_MINIMA_POR_KG` (0,6 g
+  por kilo de peso meta);
+- se mide contra el peso **meta** y no contra el actual, por lo mismo
+  que la proteína: el peso actual baja según avanzas, y con él bajaría
+  el suelo justo cuando menos debería moverse.
+
+Calibrado a propósito para que no sea ruido: con el pacto de Alberto
+salta (47 g contra un mínimo de 48), y en cuanto pacta 8.000 pasos y
+tres entrenos deja de saltar (50 g). Un aviso que salta siempre no se
+lee, y uno que no salta nunca no sirve.
+
 ## 2026-09-11 — El bucle tamagotchi pasa a ser el anzuelo
 
 Los tres botones del aparato dejan de ser un juguete y pasan a ser la

@@ -14,6 +14,7 @@ import {
   KCAL_MINIMAS,
   RITMO_MAXIMO_SEMANAL,
   DEFICIT_MAXIMO,
+  GRASA_MINIMA_POR_KG,
   DIAS,
 } from './constantes.js';
 
@@ -213,6 +214,25 @@ export function avisosDeSeguridad({ perfil, comidaKcal, kgPorSemana }) {
 
   if (comidaKcal != null && comidaKcal < KCAL_MINIMAS[sexo]) {
     avisos.push({ tipo: 'kcal', clave: 'avisos.kcal', vars: { min: KCAL_MINIMAS[sexo] } });
+  }
+
+  /* La grasa es la que absorbe TODO el recorte: la proteina va fija y
+     los carbos son lo que sobra. Con objetivos bajos se queda en nada
+     sin que nadie lo mire, porque en pantalla solo se ve «47 g» y ese
+     numero no dice por si solo si es poco.
+
+     Solo se avisa: la app no cambia el reparto ni impone un suelo.
+     Decision de Alberto, 2026-09-11 — ver `DECISIONS.md`. */
+  const m = macros({ kcal: comidaKcal, pesoMeta: perfil?.pesoMeta,
+                     proteinaPorKg: perfil?.proteinaPorKg ?? 2 });
+  const grasaMinima = Math.round((perfil?.pesoMeta ?? 0) * GRASA_MINIMA_POR_KG);
+  if (m && grasaMinima > 0 && m.grasa < grasaMinima) {
+    avisos.push({
+      tipo: 'grasa',
+      clave: 'avisos.grasa',
+      vars: { g: m.grasa, min: grasaMinima,
+              porKg: GRASA_MINIMA_POR_KG.toString().replace('.', ',') },
+    });
   }
 
   const maximo = (perfil?.pesoActual ?? 0) * RITMO_MAXIMO_SEMANAL;

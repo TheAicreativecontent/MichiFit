@@ -8,6 +8,7 @@ export default {
     noGuarda: 'Tu navegador no está dejando guardar. Lo que apuntes se perderá al cerrar. Suele pasar en ventana privada o con el almacenamiento lleno.',
     peso: 'Tu peso meta queda por debajo de un IMC de {imc}. Para tu altura eso son unos {kg} kg como suelo saludable.',
     kcal: 'Comer menos de {min} kcal al día no es sostenible sin supervisión. El michi no mejora por bajar de ahí.',
+    grasa: 'Con este objetivo te quedan {g} g de grasa al día, por debajo de los {min} g ({porKg} g por kilo de peso meta) que se suelen tomar como mínimo. La grasa es la que absorbe todo el recorte, porque la proteína va fija.',
     ritmo: 'Bajar {kg} kg por semana es más rápido de lo recomendable para ti (unos {max} kg). Se pierde músculo, no solo grasa.',
   },
 

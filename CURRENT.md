@@ -288,6 +288,32 @@ Comprobado en móvil de 375 y de 320, en tailandés (el texto más largo) y
 con la letra al 130%: sin scroll lateral, el pie entero dentro y el
 texto desplazable sin cortar el principio.
 
+## Los cuatro suelos de seguridad (2026-09-11)
+
+`avisosDeSeguridad()` en `engine/calculos.js`. Son la promesa más seria
+que hace la app —`MECANICA.md` §10— y **ninguno impone nada**: dicen el
+dato y siguen.
+
+| suelo | salta cuando | constante |
+|---|---|---|
+| IMC | la meta baja de 18,5 | `IMC_MINIMO_SANO` |
+| calorías | por debajo de 1.500 (hombre) / 1.200 (mujer) | `KCAL_MINIMAS` |
+| ritmo | bajar más rápido de lo sano | `RITMO_MAXIMO_SEMANAL` |
+| **grasa** | por debajo de 0,6 g por kilo de peso meta | `GRASA_MINIMA_POR_KG` |
+
+El de la grasa se añadió al preguntar Alberto por qué le salían 47 g
+donde la app antigua le daba 67. La respuesta: pesa 13 kg menos (el
+reposo baja 133 kcal, correcto) **y** el reparto cambió del 30% al 25%
+de grasa. Y detrás había algo peor: la grasa es la única macro que baja
+sin freno, porque la proteína va fija y los carbos son lo que sobra.
+
+**La app avisa pero NO cambia el reparto.** Es decisión de Alberto y
+está en `DECISIONS.md`. `pruebas/avisos.mjs` fija los dos números de
+`macros()` a propósito: si alguien mete un suelo duro ahí, la prueba se
+cae y hay que decidirlo, no que pase de refilón.
+
+Está calibrado para no ser ruido: salta a 47 g y se calla a 50.
+
 ## Seguridad (revisado el 2026-09-09)
 - Las cabeceras van en `vercel.json`: CSP, X-Frame-Options, nosniff,
   Referrer-Policy, Permissions-Policy y HSTS. **Si algún día se añade un

@@ -103,14 +103,28 @@ console.log('\n### NO tocan la mecanica (lo importante)');
 
 console.log('\n### sin datos no molesta a nadie');
 {
-  /* Un michi recien adoptado arranca con las dos barras llenas: nadie
-     debe abrir la app por primera vez y encontrarse un gato con sed. */
-  const hoy = new Date();
-  const iso = hoy.toISOString().slice(0, 10);
-  const c = calcularCuidados({ cuidados: { agua: null, orden: null },
-                               pacto: { creado: iso } });
-  comprobar(c.agua === 100 && c.orden === 100,
-    `recien adoptado, todo lleno (${c.agua} / ${c.orden})`);
+  /* Un michi recien adoptado no recibe a nadie con sed. El reloj arranca
+     al crear el pacto, que se guarda sin hora, asi que se cuenta desde
+     el mediodia de ese dia.
+
+     Ojo con la hora: la primera version de esta prueba pedia 100 y 100
+     usando `Date.now()` por debajo. Pasaba por la mañana y fallaba por
+     la tarde, porque a las cinco ya han corrido cinco horas de vigilia
+     desde el mediodia y el cuenco ha bajado — que es lo correcto. Aqui
+     se fija el `ahora` a proposito: una prueba que depende de cuando la
+     lances no prueba nada. */
+  const adopcion = new Date(2026, 8, 11, 12, 0, 0).getTime();
+  const pacto = { creado: '2026-09-11' };
+
+  const alAdoptar = calcularCuidados({ cuidados: {}, pacto, ahora: adopcion });
+  comprobar(alAdoptar.agua === 100 && alAdoptar.orden === 100,
+    `al adoptarlo, todo lleno (${alAdoptar.agua} / ${alAdoptar.orden})`);
+
+  /* Y ese mismo dia por la tarde sigue sin quejarse: baja, pero no llega
+     ni de lejos a tener sed. */
+  const porLaTarde = calcularCuidados({ cuidados: {}, pacto, ahora: adopcion + 6 * HORA });
+  comprobar(!porLaTarde.sed && !porLaTarde.sucio && porLaTarde.agua > 55,
+    `seis horas despues aun no pide nada (${porLaTarde.agua} / ${porLaTarde.orden})`);
 
   const sinNada = calcularCuidados({});
   comprobar(sinNada.agua === 100 && sinNada.orden === 100,
