@@ -13,12 +13,6 @@
       mismo son emoji, que funcionan pero no son de la casa. Se cambian
       en `src/mascota/anillos.js`, campo `icono`.
 
-- [ ] **Los dos dibujos nuevos del michi** (Alberto): `michi_sediento`
-      y `michi_asqueado` (cara verde, mano en la nariz). Van en
-      `public/michi/` con esos nombres exactos. Mientras falten, el
-      aparato cae al michi de pie y no se rompe nada;
-      `pruebas/cobertura-michi.mjs` ya vigila que sean alcanzables.
-
 - [ ] **Ajustar el ritmo de las barras cuando se use de verdad.** Los
       números están en un solo sitio cada uno: `AGUA_HORAS` y
       `ORDEN_HORAS` en `engine/cuidados.js` (16 y 24 horas de vigilia),
@@ -64,6 +58,10 @@
 
 
 ## Hecho
+- [x] 2026-09-11 — `michi_sediento` y `michi_asqueado`, dibujados por
+      Alberto, normalizados y teñidos a gris y blanco. Al teñir hubo que
+      aprender a respetar el atrezo: el azul del agua y el verde del asco
+      no son pelaje.
 - [x] 2026-09-11 — Los tres botones del aparato pasan a ser la interfaz:
       dos anillos (cuidar y medir), con vista previa de la escena
       mientras eliges y el editor del día filtrado a un solo dato.

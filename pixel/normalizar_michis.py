@@ -18,6 +18,7 @@ del lienzo, sacada de mirar el resultado y no de una formula.
 Uso:  python pixel/normalizar_michis.py
 """
 import os
+import sys
 from PIL import Image
 
 ORIGEN = "IMG"
@@ -32,7 +33,12 @@ ALTO = {
     "michi_celebrando": 0.96,
     "michi_contento":   0.96,
     "michi_triste":     0.96,
+    "michi_asqueado":   0.96,   # de pie; las rayas de peste no suben mas
     "michi_cansado":    0.80,   # sentado, apoyado
+    # Sentado como el cansado, pero el dibujo trae nube de pensamiento y
+    # salpicaduras: el GATO es solo el 91% del alto de la caja. Para que
+    # mida como el cansado (0,80 de lienzo) la caja entera va a 0,88.
+    "michi_sediento":   0.88,
     "michi_comiendo":   0.62,   # sentado sobre el cuenco
     "michi_durmiendo":  0.46,   # acurrucado
 }
@@ -82,8 +88,25 @@ def normalizar(nombre, ruta):
 
 
 def main():
+    """Sin argumentos rehace TODOS los dibujos; con nombres, solo esos.
+
+    El filtro no es comodidad: rehacer los nueve para anadir uno es la
+    forma de pisar sin querer un retoque hecho a mano, y ya paso una vez
+    (ver LESSONS.md). Si solo has cambiado un dibujo, nombralo.
+
+      python pixel/normalizar_michis.py michi_sediento michi_asqueado
+    """
+    pedidos = [a for a in sys.argv[1:] if not a.startswith("-")]
+    for p in pedidos:
+        if p not in ALTO:
+            raise SystemExit("no conozco '%s'. Los que hay: %s"
+                             % (p, ", ".join(sorted(ALTO))))
+    nombres = pedidos or sorted(ALTO)
+    if pedidos:
+        print("solo: %s\n" % ", ".join(pedidos))
+
     hechos = 0
-    for nombre in sorted(ALTO):
+    for nombre in nombres:
         ruta = os.path.join(ORIGEN, nombre + ".png")
         if not os.path.exists(ruta):
             print("  falta %s, me lo salto" % ruta)

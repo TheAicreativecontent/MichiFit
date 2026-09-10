@@ -313,3 +313,20 @@ habria llegado a produccion y habria parecido «que la app va triste».
 mirar que no los deje sin sitio. Y si el estado nuevo se activa SOLO —por
 un reloj, no por el usuario— tiene prioridad baja por definicion: lo que
 el usuario hace tiene que poder ganarle.
+
+## Tenir el pelaje no es tenir el dibujo
+
+`tenir_michi.py` cambiaba el tono de TODO lo claro y saturado, mirara el
+color que mirara. Funcionaba porque en los michis solo habia tres cosas:
+pelaje naranja, mofletes rosas (con su caso aparte) y contorno oscuro.
+
+Al llegar `michi_sediento` y `michi_asqueado` eso dejo de ser cierto. El
+michi gris salio con la botella de agua GRIS y con la cara de asco GRIS
+—o sea, sin la unica informacion que da cada dibujo—. La regla llevaba
+razon todo el tiempo hasta que el material cambio debajo.
+
+**Regla:** una transformacion que se aplica «a todo» hay que volver a
+mirarla cada vez que entra material nuevo. Y al filtrar por color,
+filtrar por lo que SI se quiere tocar (el arco naranja del pelaje), no
+por descarte de lo que se conoce: lo que no se conoce todavia entra solo
+en el segundo caso.

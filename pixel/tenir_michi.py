@@ -74,6 +74,27 @@ def distanciaTono(a, b):
 TONO_ROSA = 2        # el rosa de los mofletes, la nariz y las orejas
 MARGEN_ROSA = 16     # a partir de 18 empieza a comerse el pelaje naranja
 
+# Lo que NO es gato: el atrezo del dibujo.
+#
+# Hasta el 2026-09-11 este script tenia todo lo claro y saturado, mirara
+# el tono que mirara, porque los unicos colores que habia eran el pelaje
+# naranja, el rosa de los mofletes (con su caso aparte) y el contorno
+# oscuro. Al llegar `michi_sediento` y `michi_asqueado` eso dejo de ser
+# verdad: el michi gris salia con la botella de agua GRIS y con la cara
+# de asco GRIS, o sea sin la unica informacion que da el dibujo.
+#
+# Medido sobre los archivos: el pelaje vive entre 10 y 49 grados, los
+# mofletes entre 350 y 9, el azul del agua entre 190 y 219, y el verde
+# de la peste entre 60 y 79. Todo lo que caiga fuera del arco naranja se
+# queda como esta.
+TONO_ATREZO_DESDE = 50
+TONO_ATREZO_HASTA = 330
+
+
+def esAtrezo(hd):
+    """El azul del agua, el verde del asco: cosas que no son pelaje."""
+    return TONO_ATREZO_DESDE <= hd <= TONO_ATREZO_HASTA
+
 
 def esMejilla(hd, l, s):
     """El rosa de los mofletes, la nariz y el interior de las orejas."""
@@ -153,7 +174,8 @@ def tenir(im, cfg):
             if a < 200:
                 continue
             h, l, s = colorsys.rgb_to_hls(r / 255, g / 255, b / 255)
-            if l > LIMITE_OSCURO and s >= 0.12 and (x, y) not in rosa:
+            if l > LIMITE_OSCURO and s >= 0.12 and (x, y) not in rosa \
+                    and not esAtrezo(h * 360):
                 luces.append(l)
     if not luces:
         return im.copy()
@@ -173,6 +195,9 @@ def tenir(im, cfg):
                 # el rosa se queda, pero mas apagado sobre pelaje frio
                 nr, ng, nb = colorsys.hls_to_rgb(h, l, s * cfg.get("rubor", 1))
                 op[x, y] = (round(nr * 255), round(ng * 255), round(nb * 255), a)
+                continue
+            if esAtrezo(h * 360):
+                op[x, y] = (r, g, b, a)          # la botella, el verde del asco
                 continue
             t = 0.5 if hi == lo else max(0.0, min(1.0, (l - lo) / (hi - lo)))
             destLo, destHi = cfg["luz"]
