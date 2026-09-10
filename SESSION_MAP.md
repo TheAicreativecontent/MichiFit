@@ -385,3 +385,40 @@ alineado al píxel y **solapado**, porque los botones están a 48 px y
 
 Probado en el peor caso: tailandés, 320 px de ancho y la letra al 130%.
 Sin solapes, sin recortes y sin scroll lateral.
+
+### 2026-09-11 (cierre) — Ganar peso
+
+Lo último que quedaba de motor, y resultó ser tres cosas y no una.
+
+La obvia: `planEnergetico` recortaba cualquier superávit a cero. Ahora
+acepta déficit negativo con su propio techo del 15% —más estrecho que el
+20% del déficit, porque pasado ese punto lo que se gana es grasa—.
+
+La que no esperaba: **`simular` le decía «no alcanzable» a cualquiera
+que quisiera engordar.** Exigía `restante > 0 && kgPorSemana < 0`, o sea
+que daba por hecho que acercarse a la meta era bajar. El mismo fallo
+estaba copiado en la previsión de `Progreso.jsx`.
+
+Y la importante: **el michi contaba el día al revés de lo que necesita
+quien está en volumen.** `evaluarDia` daba el día por cumplido si comías
+POR DEBAJO del objetivo, que en un volumen es exactamente el fallo. Cada
+objetivo lleva ahora un `sentido`, y `sincronizarPacto` lo escribe en el
+pacto. Comprobado en pantalla: las mismas 1.780 kcal salen ✅ con meta
+1.794 y ⬜ con meta 2.542.
+
+El sentido va en el PACTO y no en el perfil aunque se elija en el
+perfil, porque `evaluarDia` solo recibe el pacto y lo llaman cuatro
+sitios. Así nadie cambia de firma, y un pacto viejo sin ese campo se
+comporta como siempre — hay prueba de eso.
+
+**La comprobación que dejé plantada hizo su trabajo.** `objetivo.mjs`
+llevaba dos asserts diciendo «ganar peso NO está y el motor SIGUE
+recortando los superávit». Al implementarlo se pusieron en rojo, que era
+justo el aviso de «ven aquí y decide esto a propósito» en vez de que
+pasara de refilón.
+
+Dos cosas quedan sin hacer y están en `ASK.md`, las dos porque no me
+tocan a mí: «mantenerme» sigue contando como adelgazar cuando debería
+ser una banda, y no hay aviso de meta de peso demasiado alta — que es
+una decisión de valores, porque la app promete no juzgar el cuerpo y
+todo el replanteamiento del michi salió de justo eso.

@@ -330,10 +330,30 @@ peso · mantenerme · estar más en forma · otra cosa. Los tres primeros
 escriben `perfil.deficitObjetivo` (500 / 0 / 0) y cambian las calorías
 de verdad; el cuarto guarda tu texto y no toca nada, y lo dice.
 
-**Falta «ganar peso»** porque `planEnergetico` recorta los superávit a
-cero y habría que invertir la regla de pasarse de calorías. Está en
-`TODO.md`, y `pruebas/objetivo.mjs` lleva una comprobación que se caerá
-el día que se implemente — para que no pase de refilón.
+**«Ganar peso» ya está** (2026-09-11). Fueron tres cosas, no una:
+
+1. `planEnergetico` acepta déficit negativo —o sea superávit— con su
+   propio techo, `SUPERAVIT_MAXIMO` = 15%. Más estrecho que el 20% del
+   déficit a propósito: pasado ese punto lo que se gana es grasa.
+2. `simular` le decía **«no alcanzable»** a cualquiera que quisiera
+   engordar, porque exigía `restante > 0 && kgPorSemana < 0`. Ahora mira
+   que el ritmo vaya en sentido contrario a lo que te queda, sea el que
+   sea. El mismo fallo estaba en la previsión de `Progreso.jsx`.
+3. Y lo importante: **el michi cuenta el día al revés**. Cada objetivo
+   lleva un `sentido` de comida, que `sincronizarPacto` escribe en el
+   pacto como `comidaSentido`. Con `'menos'` cumples no pasándote; con
+   `'mas'` cumples llegando. Las mismas 1.780 kcal son ✅ con meta 1.794
+   y ⬜ con meta 2.542.
+
+El sentido vive en el PACTO y no en el perfil aunque se decida en el
+perfil: `evaluarDia` recibe el pacto y nada más, y lo llaman cuatro
+sitios. Así lo ven todos sin cambiar una firma, y un pacto guardado
+antes cae a `'menos'`, que es como se comportaba la app hasta ahora.
+
+Dos cosas que NO se hicieron y están en `ASK.md`: «mantenerme» sigue
+contando como adelgazar (debería ser una banda), y no hay aviso de meta
+de peso demasiado alta — que es una decisión de valores, porque la app
+promete no juzgar el cuerpo.
 
 ## Los cuatro suelos de seguridad (2026-09-11)
 

@@ -36,8 +36,14 @@ habla el michi, y en el lore — pero no como nombre de pantalla.
 Y la pantalla empieza ahora por **qué quieres conseguir** (perder peso,
 mantenerte, estar más en forma, u otra cosa que escribes tú), que ajusta
 el déficit de verdad. Antes empezaba por los pasos y los días de
-entreno, o sea por el CÓMO sin haber dicho el QUÉ. Falta «ganar peso»:
-ver `DECISIONS.md`.
+entreno, o sea por el CÓMO sin haber dicho el QUÉ.
+
+**Y el objetivo cambia cómo se cuenta el día.** Cada uno lleva un
+`sentido` de comida: con `'menos'` cumples NO pasándote (adelgazar,
+mantener); con `'mas'` cumples LLEGANDO (ganar peso). Las mismas 1.780
+kcal son un día cumplido con una meta de 1.794 y un día fallado con una
+de 2.542. Sin esto, quien estuviera en volumen tenía el día por bueno
+precisamente los días que comía de menos.
 
 ---
 

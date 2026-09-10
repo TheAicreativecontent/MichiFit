@@ -14,7 +14,9 @@ import {
   KCAL_MINIMAS,
   RITMO_MAXIMO_SEMANAL,
   DEFICIT_MAXIMO,
+  SUPERAVIT_MAXIMO,
   GRASA_MINIMA_POR_KG,
+  OBJETIVOS,
   DIAS,
 } from './constantes.js';
 
@@ -124,13 +126,22 @@ export function planEnergetico(perfil, pacto = null) {
 
   const sexo = perfil?.sexo === 'mujer' ? 'mujer' : 'hombre';
   const suelo = KCAL_MINIMAS[sexo];
-  /* Un deficit negativo (un signo de mas escrito por error) proponia
-     comer MAS que el mantenimiento, y lo etiquetaba «para perder». */
-  const pedido = Math.max(0, perfil?.deficitObjetivo ?? 500);
-  const techo = Math.round(total * DEFICIT_MAXIMO);
 
-  let deficit = Math.min(pedido, techo);
-  let recorte = pedido > techo ? 'techo' : null;
+  /* Un deficit NEGATIVO es un superavit: comer mas que el gasto, que es
+     lo que quiere quien va a ganar peso.
+
+     Hasta el 2026-09-11 esto se recortaba a cero con un `Math.max(0,…)`,
+     y con razon: entonces el unico objetivo era adelgazar, asi que un
+     numero negativo solo podia ser un signo escrito por error, y la app
+     acababa proponiendo comer de mas bajo el rotulo «para perder». Ahora
+     que ganar peso es un objetivo de verdad, el signo tiene sentido y lo
+     que hace falta es un techo por cada lado. */
+  const pedido = perfil?.deficitObjetivo ?? 500;
+  const techo = Math.round(total * (pedido < 0 ? SUPERAVIT_MAXIMO : DEFICIT_MAXIMO));
+
+  /* `techo` es una magnitud; el recorte se aplica en el sentido que toca. */
+  let deficit = Math.sign(pedido) * Math.min(Math.abs(pedido), techo);
+  let recorte = Math.abs(pedido) > techo ? 'techo' : null;
 
   let comida = total - deficit;
   if (comida < suelo) {
@@ -158,11 +169,30 @@ export function planEnergetico(perfil, pacto = null) {
    Si lo escribiste a mano se respeta y no se toca nunca: es tuyo. Si salio
    del calculo, se recalcula, porque un objetivo congelado del primer dia
    deja de tener sentido en cuanto cambias de peso, de edad o de pacto. */
+/* El SENTIDO de la comida vive en el pacto y no en el perfil, aunque se
+   decida en el perfil. La razón es práctica: `evaluarDia` recibe el
+   pacto y nada más, y lo llaman cuatro sitios distintos —incluida la
+   pantalla de Progreso—. Metiéndolo aquí, todos lo ven sin cambiar una
+   sola firma, y un pacto guardado antes de que esto existiera cae a
+   'menos', que es como se comportaba la app hasta ahora. */
+export function sentidoDeComida(perfil) {
+  const o = OBJETIVOS.find((x) => x.id === perfil?.objetivo);
+  return o?.sentido ?? 'menos';
+}
+
 export function sincronizarPacto(pacto, perfil) {
-  if (!pacto || pacto.comidaManual) return pacto;
-  const plan = planEnergetico(perfil, pacto);
-  if (!plan || plan.comida === pacto.comidaKcal) return pacto;
-  return { ...pacto, comidaKcal: plan.comida };
+  if (!pacto) return pacto;
+  const sentido = sentidoDeComida(perfil);
+
+  /* El sentido se actualiza SIEMPRE, también con las calorías puestas a
+     mano: quien escribe sus kcal y luego cambia a ganar peso sigue
+     queriendo que llegar a ese número cuente como cumplir. Lo único que
+     `comidaManual` protege es el número. */
+  const comida = pacto.comidaManual ? pacto.comidaKcal
+                                    : planEnergetico(perfil, pacto)?.comida ?? pacto.comidaKcal;
+
+  if (comida === pacto.comidaKcal && sentido === pacto.comidaSentido) return pacto;
+  return { ...pacto, comidaKcal: comida, comidaSentido: sentido };
 }
 
 /* --- simulador "¿y si...?" ----------------------------------
@@ -176,11 +206,19 @@ export function simular({ perfil, pasos, minEntrenoSemana, comidaKcal }) {
   const deficit = comidaKcal - total; // negativo = déficit
   const kgPorSemana = (deficit * 7) / KCAL_POR_KG_GRASA;
 
+  /* `restante` es positivo si te sobra peso y negativo si te falta.
+     Llegas a la meta cuando el ritmo va en sentido CONTRARIO a lo que
+     te queda: sobras y bajas, o faltas y subes.
+
+     Antes esto era `restante > 0 && kgPorSemana < 0`, o sea que solo
+     contemplaba adelgazar. A quien quisiera ganar peso el simulador le
+     decia «no alcanzable» hiciera lo que hiciera. */
   const restante = (perfil.pesoActual ?? 0) - (perfil.pesoMeta ?? 0);
-  let semanas = null;
-  if (restante > 0 && kgPorSemana < 0) {
-    semanas = restante / Math.abs(kgPorSemana);
-  }
+  const vaEnLaBuenaDireccion = restante !== 0 && kgPorSemana !== 0
+    && Math.sign(restante) !== Math.sign(kgPorSemana);
+  const semanas = vaEnLaBuenaDireccion
+    ? Math.abs(restante) / Math.abs(kgPorSemana)
+    : null;
 
   return {
     reposo,

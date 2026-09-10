@@ -50,12 +50,36 @@ export const GRASA_MINIMA_POR_KG = 0.6;
    rompe el dia, que en un volumen es justo lo contrario. Decision de
    Alberto del 2026-09-11: primero los que funcionan de verdad, y ganar
    peso en su propio paso. Esta en `TODO.md`. */
+/* `deficit` es lo que se pone en `perfil.deficitObjetivo` al elegirlo.
+   NEGATIVO significa superavit: comer MAS que el gasto. `null` es «no lo
+   toques»: el usuario lo lleva a mano.
+
+   `sentido` es la direccion de la comida, y es lo que hace que ganar
+   peso no sea solo un numero al reves:
+
+     'menos'  cumplir es NO pasarse del objetivo (adelgazar, mantener)
+     'mas'    cumplir es LLEGAR al objetivo (ganar peso)
+
+   Sin esto, alguien en volumen tenia el dia por cumplido justo los dias
+   que comia de menos, que es lo contrario de lo que quiere. Lo lee
+   `evaluarDia` en `pacto.js`. */
 export const OBJETIVOS = [
-  { id: 'perder',   deficit: 500 },
-  { id: 'mantener', deficit: 0 },
-  { id: 'forma',    deficit: 0 },
-  { id: 'otro',     deficit: null },
+  { id: 'perder',   deficit: 500,  sentido: 'menos' },
+  { id: 'mantener', deficit: 0,    sentido: 'menos' },
+  { id: 'forma',    deficit: 0,    sentido: 'menos' },
+  { id: 'ganar',    deficit: -300, sentido: 'mas' },
+  { id: 'otro',     deficit: null, sentido: 'menos' },
 ];
+
+/* Techo del SUPERAVIT, como fraccion del gasto total.
+   Hermano de `DEFICIT_MAXIMO` y por la misma razon: 300 kcal de mas es
+   poco para quien gasta 3.000 y mucho para quien gasta 1.600.
+
+   15% y no 20% como el deficit: pasado ese punto lo que se gana de mas
+   es grasa, no musculo. Con el gasto de 2.242 del pacto de 8.000 pasos
+   y tres entrenos, el tope son 336 kcal, o sea unos 0,3 kg por semana
+   — el ritmo que se suele recomendar para ganar sin engordar. */
+export const SUPERAVIT_MAXIMO = 0.15;
 
 export const OBJETIVO_POR_DEFECTO = 'perder';
 export const esObjetivo = (id) => OBJETIVOS.some((o) => o.id === id);

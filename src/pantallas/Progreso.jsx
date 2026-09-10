@@ -77,8 +77,14 @@ export default function Progreso({ perfil, pacto, entradas, onRegistrar }) {
   }, [perfil, pacto, pesoActual]);
 
   const ritmo = real ?? teorico;
-  const bajando = ritmo != null && ritmo < -0.01 && restante > 0;
-  const semanas = bajando ? restante / Math.abs(ritmo) : null;
+  /* «Va hacia la meta», no «baja»: desde que se puede elegir ganar peso,
+     acercarse a la meta puede ser subir. El nombre `bajando` daba por
+     hecho lo contrario y dejaba la previsión en blanco a quien quisiera
+     engordar. Se conserva el nombre para no tocar la gráfica entera, que
+     lo recibe por props. */
+  const bajando = ritmo != null && Math.abs(ritmo) > 0.01 && restante !== 0
+    && Math.sign(restante) !== Math.sign(ritmo);
+  const semanas = bajando ? Math.abs(restante) / Math.abs(ritmo) : null;
   const fechaMeta = semanas
     ? new Date(Date.now() + semanas * 7 * 86400000)
     : null;

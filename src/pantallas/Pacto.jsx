@@ -319,7 +319,14 @@ function QueQuieres({ perfil, onCambiarPerfil }) {
         </label>
       )}
 
-      <p className="mf-nota">{t(actual === 'otro' ? 'meta.notaOtro' : 'meta.nota')}</p>
+      {/* Ganar peso lleva su propia nota porque INVIERTE la regla del
+          michi: el día se cumple llegando a las calorías, no quedándose
+          por debajo. Es lo bastante contraintuitivo como para decirlo. */}
+      <p className="mf-nota">
+        {t(actual === 'otro' ? 'meta.notaOtro'
+           : actual === 'ganar' ? 'meta.notaGanar'
+           : 'meta.nota')}
+      </p>
     </div>
   );
 }

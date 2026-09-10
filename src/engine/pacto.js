@@ -103,16 +103,36 @@ export function evaluarDia({ pacto, entrada, fecha, hoy = hoyISO() }) {
 
   if (pacto.comidaKcal) {
     const kcal = entrada?.comidaKcal ?? null;
-    /* Pasarse de comida no tumba el día salvo que sea mucho: pesa la
-       mitad en el ánimo del michi y solo rompe el día por encima del
-       margen grave. Faltar al gimnasio sí lo rompe siempre. */
+
+    /* Quedarse corto o pasarse no significa lo mismo segun a donde vayas.
+
+       Adelgazando ('menos', que es lo de siempre y lo que se aplica a un
+       pacto guardado antes de que esto existiera), cumplir es NO pasarse.
+       Ganando peso ('mas') es justo al reves: el dia se cumple cuando
+       LLEGAS al objetivo, y el fallo es quedarte corto. Sin esto, alguien
+       en volumen tenia el dia por bueno precisamente los dias que comia
+       de menos.
+
+       Los margenes son los mismos por los dos lados. Pasarse -o quedarse
+       corto- no tumba el dia salvo que sea mucho: pesa la mitad en el
+       animo del michi (`PESO_OBJETIVO`) y solo rompe el dia por encima
+       del margen grave. Faltar al gimnasio si lo rompe siempre. */
+    const haciaArriba = pacto.comidaSentido === 'mas';
+    const meta = pacto.comidaKcal;
+    const cumplido = kcal != null && (haciaArriba
+      ? kcal >= meta * (1 - MARGEN_COMIDA)
+      : kcal <= meta * (1 + MARGEN_COMIDA));
+    const rompe = kcal == null || (haciaArriba
+      ? kcal < meta * (1 - MARGEN_COMIDA_GRAVE)
+      : kcal > meta * (1 + MARGEN_COMIDA_GRAVE));
+
     objetivos.push({
       id: 'comida',
       etiqueta: 'Comida',
-      objetivo: pacto.comidaKcal,
+      objetivo: meta,
       valor: kcal,
-      cumplido: kcal != null && kcal <= pacto.comidaKcal * (1 + MARGEN_COMIDA),
-      rompeElDia: kcal == null || kcal > pacto.comidaKcal * (1 + MARGEN_COMIDA_GRAVE),
+      cumplido,
+      rompeElDia: rompe,
     });
   }
 

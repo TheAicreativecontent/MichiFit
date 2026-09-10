@@ -116,10 +116,12 @@ export default {
     perder: 'Perder peso',
     mantener: 'Mantenerme',
     forma: 'Estar más en forma',
+    ganar: 'Ganar peso',
     otro: 'Otra cosa',
     otroQue: '¿Cuál?',
     otroEjemplo: 'Recuperarme del tobillo',
     nota: 'Esto ajusta las calorías que te propone la app. Puedes afinarlas luego en Ajustes.',
+    notaGanar: 'Aquí cumplir el día es LLEGAR a las calorías, no quedarte por debajo. El michi lo cuenta al revés que si adelgazaras.',
     notaOtro: 'Con «otra cosa» la app no toca tus calorías: las llevas tú desde Ajustes.',
   },
 

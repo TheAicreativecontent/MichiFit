@@ -7,15 +7,6 @@
       Con Vercel no hace falta: sirve desde la raíz del dominio.
 
 ## Después
-- [ ] **«Ganar peso» como objetivo.** Hoy no está porque el motor
-      recorta cualquier superávit a cero (`Math.max(0, deficitObjetivo)`
-      en `planEnergetico`). Hace falta: permitir déficit negativo con su
-      propio TECHO de superávit, la previsión de peso en positivo, y
-      revisar `MARGEN_COMIDA` — pasarse de calorías rompe el día, y en un
-      volumen es justo lo contrario. `pruebas/objetivo.mjs` tiene una
-      comprobación que se caerá cuando se haga, para que no pase de
-      refilón.
-
 - [ ] **Las fotos y los vídeos del Ninja de verdad** (Alberto). La
       última pantalla de la historia ya tiene su sitio: deja los
       archivos en `public/ninja/`, añádelos a la lista de
@@ -71,6 +62,11 @@
 
 
 ## Hecho
+- [x] 2026-09-11 — **«Ganar peso» como objetivo.** El motor aprende
+      superávit (con techo del 15%, más estrecho que el 20% del
+      déficit), el simulador deja de decir «no alcanzable» a quien
+      quiere engordar, y el michi cuenta el día al revés: cumplir es
+      LLEGAR a las calorías, no quedarse por debajo.
 - [x] 2026-09-11 — **Los botones dicen lo que hacen**, en una fila bajo
       el aparato que cambia con el contexto (Cuidar/Registrar/Dormir ↔
       Salir/Siguiente/Aceptar). Sustituye al cartelito de bienvenida que

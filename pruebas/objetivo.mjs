@@ -62,17 +62,78 @@ console.log('\n### cada objetivo mueve las calorias');
             && suyo.deficitObjetivo === 320, 'y deja el deficit del usuario donde estaba');
 }
 
-console.log('\n### ganar peso sigue sin estar, y a proposito');
+console.log('\n### ganar peso: comer MAS, y con su propio techo');
 {
-  /* Mientras el motor recorte los superavit a cero, ofrecer «ganar
-     peso» seria un boton que no hace nada. El dia que se implemente,
-     esta comprobacion se cae y hay que quitarla a mano. */
-  comprobar(!K.OBJETIVOS.some((o) => o.id === 'ganar'),
-    'no se ofrece «ganar peso» todavia');
-  const conSuperavit = C.planEnergetico({ ...PERFIL, deficitObjetivo: -300 }, PACTO);
-  comprobar(conSuperavit.comida <= conSuperavit.total,
-    'el motor sigue recortando los superavit (por eso falta)');
+  const mantenimiento = C.planEnergetico(PERFIL, PACTO).total;
+
+  const ganar = K.OBJETIVOS.find((o) => o.id === 'ganar');
+  comprobar(Boolean(ganar), 'el objetivo «ganar» esta en la lista');
+  comprobar(ganar.deficit < 0, `pide superavit y no deficit (${ganar.deficit})`);
+  comprobar(ganar.sentido === 'mas', 'y su sentido de comida es «mas»');
+
+  const perfil = { ...PERFIL, objetivo: 'ganar', deficitObjetivo: ganar.deficit };
+  const plan = C.planEnergetico(perfil, PACTO);
+  comprobar(plan.comida > mantenimiento,
+    `come MAS que el mantenimiento (${plan.comida} contra ${mantenimiento})`);
+  comprobar(plan.kgPorSemana > 0, `y la prevision sube (${plan.kgPorSemana.toFixed(2)} kg/semana)`);
+
+  /* El techo del superavit: hermano del 20% del deficit. Sin el,
+     escribir -2000 en Ajustes proponia comer 4.242 kcal. */
+  const pasado = C.planEnergetico({ ...perfil, deficitObjetivo: -2000 }, PACTO);
+  const tope = Math.round(mantenimiento * K.SUPERAVIT_MAXIMO);
+  comprobar(pasado.recorte === 'techo', 'pedir un superavit enorme se recorta');
+  comprobar(pasado.comida === mantenimiento + tope,
+    `y se queda en mantenimiento + ${tope} (${pasado.comida})`);
+  comprobar(K.SUPERAVIT_MAXIMO < K.DEFICIT_MAXIMO,
+    `el techo de superavit (${K.SUPERAVIT_MAXIMO}) es mas estrecho que el de deficit (${K.DEFICIT_MAXIMO})`);
+
+  /* El simulador le decia «no alcanzable» a cualquiera que quisiera
+     engordar, porque exigia restante > 0 y ritmo < 0. */
+  const subiendo = C.simular({ perfil: { ...perfil, pesoActual: 60, pesoMeta: 70 },
+                               pasos: 8000, minEntrenoSemana: 135, comidaKcal: 3000 });
+  comprobar(subiendo.alcanzable, 'el simulador ya da alcanzable una meta MAS ALTA');
+  comprobar(subiendo.semanas > 0, `y calcula las semanas (${Math.round(subiendo.semanas)})`);
+  const bajando = C.simular({ perfil: { ...PERFIL, pesoActual: 90, pesoMeta: 80 },
+                              pasos: 8000, minEntrenoSemana: 135, comidaKcal: 1700 });
+  comprobar(bajando.alcanzable, 'y sigue funcionando para adelgazar');
+  const alReves = C.simular({ perfil: { ...perfil, pesoActual: 60, pesoMeta: 70 },
+                              pasos: 8000, minEntrenoSemana: 135, comidaKcal: 1200 });
+  comprobar(!alReves.alcanzable, 'querer subir comiendo de menos NO es alcanzable');
 }
+
+console.log('\n### y el michi cuenta el dia al reves');
+{
+  const { evaluarDia } = await import('../src/engine/pacto.js');
+  const hoy = '2026-09-11';
+  const dia = (sentido, kcal) => evaluarDia({
+    pacto: { ...PACTO, comidaKcal: 2600, comidaSentido: sentido },
+    entrada: { pasos: 9000, entrenoMin: 45, comidaKcal: kcal, sueno: { horas: 8 } },
+    fecha: hoy, hoy,
+  }).objetivos.find((o) => o.id === 'comida');
+
+  /* Todo esto en una linea: 2.000 kcal con objetivo 2.600 es un dia
+     CUMPLIDO adelgazando y FALLADO en volumen. */
+  comprobar(dia('menos', 2000).cumplido, 'adelgazando: comer 2.000 de 2.600 cumple');
+  comprobar(!dia('mas', 2000).cumplido, 'ganando: comer 2.000 de 2.600 NO cumple');
+  comprobar(dia('mas', 2600).cumplido, 'ganando: llegar a 2.600 cumple');
+  comprobar(!dia('menos', 3600).cumplido, 'adelgazando: pasarse a 3.600 no cumple');
+  comprobar(dia('mas', 3600).cumplido, 'ganando: pasarse a 3.600 si cumple');
+
+  comprobar(dia('mas', 2600 * 0.95).cumplido, 'ganando: quedarse un 5% corto entra en el margen');
+  comprobar(!dia('mas', 2600 * 0.80).cumplido, 'ganando: un 20% corto ya no cumple');
+  comprobar(dia('mas', 2600 * 0.80).rompeElDia === false, '...pero no tumba el dia');
+  comprobar(dia('mas', 2600 * 0.60).rompeElDia, 'ganando: un 40% corto si lo tumba');
+
+  /* Un pacto guardado antes de que esto existiera no trae `comidaSentido`:
+     tiene que seguir comportandose como siempre. */
+  const viejo = evaluarDia({
+    pacto: { ...PACTO, comidaKcal: 2600 },
+    entrada: { pasos: 9000, entrenoMin: 45, comidaKcal: 2000, sueno: { horas: 8 } },
+    fecha: hoy, hoy,
+  }).objetivos.find((o) => o.id === 'comida');
+  comprobar(viejo.cumplido, 'un pacto viejo sin sentido se comporta como antes');
+}
+
 
 console.log('\n### el renombrado esta entero');
 {

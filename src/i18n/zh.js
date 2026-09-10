@@ -110,10 +110,12 @@ export default {
     perder: '减重',
     mantener: '维持体重',
     forma: '变得更健康',
+    ganar: '增重',
     otro: '其他',
     otroQue: '是什么？',
     otroEjemplo: '让脚踝康复',
     nota: '这会决定应用建议的热量。之后你可以在设置里微调。',
+    notaGanar: '在这里，达成当天的目标是要吃到那个热量，而不是少吃。米奇的计算方式和减重时相反。',
     notaOtro: '选「其他」时应用不会改动你的热量，由你在设置里自己定。',
   },
 
