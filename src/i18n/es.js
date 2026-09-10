@@ -5,6 +5,7 @@ export default {
   /* Suelos de seguridad. Ver MECANICA.md: la app respeta lo que decida
      el usuario, pero se lo dice. */
   avisos: {
+    noGuarda: 'Tu navegador no está dejando guardar. Lo que apuntes se perderá al cerrar. Suele pasar en ventana privada o con el almacenamiento lleno.',
     peso: 'Tu peso meta queda por debajo de un IMC de {imc}. Para tu altura eso son unos {kg} kg como suelo saludable.',
     kcal: 'Comer menos de {min} kcal al día no es sostenible sin supervisión. El michi no mejora por bajar de ahí.',
     ritmo: 'Bajar {kg} kg por semana es más rápido de lo recomendable para ti (unos {max} kg). Se pierde músculo, no solo grasa.',
@@ -229,6 +230,10 @@ export default {
   /* La carcasa del michi: dos acabados por siete colores. */
   aparato: {
     titulo: 'Tu michi',
+    mimar: 'Mimar',
+    escena: 'Cambiar de escena',
+    dormir: 'Dormir',
+    comoVa: 'Cómo va',
     acabado: 'Acabado',
     liso: 'Liso',
     pixel: 'Píxeles',

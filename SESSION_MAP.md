@@ -199,3 +199,49 @@ original, se había escrito en naranja porque era el único michi dibujado,
 y una vez hecho el gris ya no hacía falta doblar la historia. Los prompts
 del cómic se reescribieron enteros. Queda decidir de qué color arranca la
 app, que sigue siendo naranja — está en `ASK.md`.
+
+### 2026-09-11 — Revisión del código antes de seguir
+
+Antes de meter el lore en la app, un repaso entero: errores, cosas
+dobles, cosas sueltas y seguridad.
+
+Lo de «Michigochi» se cerró solo, como decía el `TODO`: **ya no aparece
+en ninguna línea de código vivo**, solo en los documentos, donde es
+historia y está bien que esté.
+
+**De seguridad no salió nada.** Sin `dangerouslySetInnerHTML`, sin
+`eval`, sin `innerHTML`; las cabeceras puestas y respondiendo en
+producción; el importador de CSV valida la fecha con una expresión
+regular y los números uno a uno, y tira todo lo demás; el único enlace
+externo lleva `rel="noopener noreferrer"`; el QR de Lightning es un PNG
+local y no una llamada a una API. Ningún cálculo duplicado fuera del
+motor, todas las imágenes que el código pide existen y ninguna sobra.
+
+Pero salió **un fallo que ya estaba en producción**: la versión de la
+caché del service worker llevaba diez commits sin subir mientras los
+michis gris y blanco se corregían dos veces con el mismo nombre de
+archivo. Quien hubiera abierto la app en medio se quedaba con los gatos
+de los ojos grises y los mofletes en anillo, para siempre y sin saberlo.
+
+Al escribir la prueba que lo vigila casi repito el error de ayer: la
+primera versión comparaba el primer commit con el último y veía **1
+cambio donde había 42**. Un archivo que nace y se corrige después sale
+como «añadido» si miras solo los extremos. Ahora recorre los commits, y
+está probada en los dos sentidos.
+
+Y el segundo hallazgo: **los tres botones del tamagotchi hablaban
+castellano en los cinco idiomas**. Estaban en una tabla de constantes,
+no en el JSX, y salen por `title` y `aria-label`, así que no se veían al
+revisar la pantalla. Con ellos, «Cómo va» y el botón «+», que tenía su
+traducción hecha y sin conectar.
+
+También: si el navegador no deja guardar (ventana privada, almacenamiento
+lleno) ahora **se avisa**. Antes `guardar()` devolvía `false` y nadie
+miraba: se podía apuntar todo el día para que al cerrar no quedara nada.
+
+Lo pequeño, en un párrafo: `.mf-pruebas` duplicado literalmente en el CSS
+(no costaba bytes —el minificador ya los juntaba— pero sí era una trampa
+de mantenimiento), cuatro variables muertas, la `t` del traductor tapada
+dentro de `tocarLogo`, un `%s` de Python dentro de un `.mjs`, y a
+`_CUARENTENA/` los nombres de días en castellano fijo y cuatro PNG
+sueltos de la raíz.

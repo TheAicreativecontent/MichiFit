@@ -79,10 +79,13 @@ const ESCENARIOS = { gimnasio: '/fondos/gimnasio.png', calle: '/fondos/calle.png
    art (24,8 / 49,9 / 75,0) estaba MAL: sus botones estan en 34/50/66, y
    los de los lados quedaban a nueve puntos de su dibujo. Se notaba poco
    porque el area de toque es ancha a proposito, pero fallaba. */
+/* El rotulo va por clave, no escrito aqui: estos tres botones son la
+   interaccion principal de la app y su `title` se ve al pasar el raton.
+   Estaban en castellano fijo, asi que en japones salia «Mimar». */
 const BOTONES = [
-  { id: 'mimar',  cx: 33.8, titulo: 'Mimar' },
-  { id: 'accion', cx: 49.8, titulo: 'Cambiar de escena' },
-  { id: 'dormir', cx: 65.8, titulo: 'Dormir' },
+  { id: 'mimar',  cx: 33.8, clave: 'aparato.mimar' },
+  { id: 'accion', cx: 49.8, clave: 'aparato.escena' },
+  { id: 'dormir', cx: 65.8, clave: 'aparato.dormir' },
 ];
 const BOTON_Y = 84.6;
 
@@ -212,7 +215,7 @@ export default function TamagotchiPNG({
             para cambiar de escena. */}
         {onPantalla && !sinHuevo && (
           <button className="mf-tamapng-toque" onClick={onPantalla}
-                  aria-label="Cómo va" title="Cómo va" />
+                  aria-label={t('aparato.comoVa')} title={t('aparato.comoVa')} />
         )}
       </div>
 
@@ -222,7 +225,7 @@ export default function TamagotchiPNG({
         <button key={b.id} className={`mf-tamapng-boton ${b.id}`}
                 style={{ left: `${b.cx}%`, top: `${BOTON_Y}%` }}
                 onClick={() => onBoton(b.id)}
-                aria-label={b.titulo} title={b.titulo} />
+                aria-label={t(b.clave)} title={t(b.clave)} />
       ))}
     </div>
   );

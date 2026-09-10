@@ -538,33 +538,6 @@ input[type=time]:focus { outline: none; border-color: var(--rosa); }
 .mf-ficha-cuerpo .mf-hoja-pie { margin-top: 12px; }
 
 /* ---- PRUEBAS ----------------------------------------------------------
-   Andamio para revisar todos los dibujos del michi sin apuntar datos.
-   Se borra entero junto con el bloque `.mf-pruebas` de Inicio.jsx. */
-.mf-pruebas {
-  margin: 10px 0; padding: 8px 10px;
-  border: 2px dashed #C9A227; border-radius: 10px;
-  background: rgba(255, 246, 220, .75);
-}
-.mf-pruebas > b {
-  display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: 6px;
-  font-size: calc(10px * var(--escala)); letter-spacing: .5px; color: #8A6A12;
-}
-.mf-pruebas > b .cerrar {
-  flex: 0 0 auto; padding: 2px 8px; font-size: calc(12px * var(--escala)); line-height: 1;
-  border: 1px solid #C9A227; border-radius: 6px;
-  background: #FFFDF6; color: #8A6A12; cursor: pointer;
-}
-.mf-pruebas .fila { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 5px; }
-.mf-pruebas button {
-  flex: 1 1 auto; padding: 6px 8px; font-size: calc(11px * var(--escala)); font-weight: 700;
-  border: 1px solid #C9A227; border-radius: 7px;
-  background: #FFFDF6; color: #6B5330; cursor: pointer;
-}
-.mf-pruebas button.on { background: #C9A227; color: #FFF; }
-
-
-/* ---- PRUEBAS ----------------------------------------------------------
    Panel para revisar todos los dibujos del michi sin apuntar datos.
    Oculto: se abre con siete toques en el logo de la cabecera. */
 .mf-pruebas {

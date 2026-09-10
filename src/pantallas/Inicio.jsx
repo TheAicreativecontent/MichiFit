@@ -118,7 +118,7 @@ export default function Inicio({ estado, entradas, pacto, onCarino, accion,
         <div className="mf-pruebas">
           <b>
             PRUEBAS
-            <button className="cerrar" aria-label="Cerrar pruebas"
+            <button className="cerrar" aria-label={t('comun.cerrar')}
                     onClick={() => { setPrueba(null); setEscenaId(null); onCerrarPruebas?.(); }}>
               ✕
             </button>

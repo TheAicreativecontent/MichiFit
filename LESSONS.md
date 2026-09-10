@@ -228,3 +228,52 @@ antes de fiarse. Probar los dos caminos: que protege lo que debe (lanzar
 sin `--forzar` y comprobar que NO se toca) y que se aparta cuando se lo
 pides (`--forzar` y comprobar que SI se toca). Si solo se prueba el
 camino feliz, no se ha probado nada.
+
+## Una cache sin hash es una bomba de relojeria
+
+Las imagenes de `public/` no llevan hash en el nombre, y el service
+worker las sirve desde la cache primero. Corregir `michi_triste.png` sin
+subir `const CACHE` no arregla nada para quien ya abrio la app: sigue
+viendo el dibujo viejo, sin error y sin forma de enterarse. Paso de
+verdad con los michis gris y blanco, corregidos dos veces mientras la
+version se quedaba en v2.
+
+**Regla:** al tocar cualquier imagen de `public/`, subir `const CACHE` en
+el mismo commit. `node pruebas/cache-sw.mjs` avisa.
+
+## Comparar el principio con el final no es mirar la historia
+
+La primera version de esa prueba hacia `git diff <commit>..HEAD`. Un
+archivo que nace en un commit y se corrige en el siguiente sale como
+«anadido» al comparar extremos, porque al principio no existia — y ese es
+justo el caso peligroso, el que deja la version rota en la cache de quien
+paso por en medio. La prueba veia 1 cambio donde habia 42, y habria dado
+por bueno el fallo que venia a cazar.
+
+**Regla:** cuando lo que importa es lo que PASO, recorrer los commits
+(`git log --name-status`). `git diff A..B` cuenta el resultado, no el
+camino.
+
+## El idioma se escapa por los sitios que no se leen
+
+La app hablaba cinco idiomas desde hacia dos dias, y los tres botones del
+tamagotchi —la interaccion principal— seguian en castellano. Nadie lo
+vio porque estaban en un `const BOTONES` como propiedad `titulo`, no como
+texto en el JSX, y salen por `title` y `aria-label`: en la pantalla no se
+ven hasta que pasas el raton o usas un lector.
+
+**Regla:** al revisar traducciones, buscar tambien fuera del JSX. Los
+`aria-label`, los `title`, los `alt` y las tablas de constantes son texto
+para el usuario aunque no se lean a simple vista.
+
+## Restaurar algo parcheado: guardar el original, nunca `delete`
+
+Probando el aviso de guardado, parchee `Storage.prototype.setItem` para
+que fallara y luego hice `delete Storage.prototype.setItem` para
+devolverlo. El `delete` no restaura la nativa: la quita, y `setItem`
+queda en `undefined`. Como el aviso seguia saliendo, por un momento
+parecio que el codigo estaba mal cuando lo que estaba mal era la prueba.
+
+**Regla:** `const original = obj.metodo` antes de parchear, y
+`obj.metodo = original` para devolverlo. Y antes de creerse que el codigo
+falla, comprobar que la prueba mide lo que dice medir.

@@ -64,11 +64,13 @@ export default function App() {
   const toques = useRef({ n: 0, ultimo: 0 });
   const tocarLogo = () => {
     const ahora = Date.now();
-    const t = toques.current;
-    t.n = ahora - t.ultimo > 1500 ? 1 : t.n + 1;
-    t.ultimo = ahora;
-    if (t.n >= 7) {
-      t.n = 0;
+    /* `cuenta`, no `t`: arriba hay una `t` que es el traductor, y
+       llamar igual a las dos la tapaba dentro de esta funcion. */
+    const cuenta = toques.current;
+    cuenta.n = ahora - cuenta.ultimo > 1500 ? 1 : cuenta.n + 1;
+    cuenta.ultimo = ahora;
+    if (cuenta.n >= 7) {
+      cuenta.n = 0;
       setPruebas((p) => !p);
       setPestana('inicio');
     }
@@ -82,7 +84,17 @@ export default function App() {
     return () => clearInterval(id);
   }, []);
 
-  useEffect(() => { guardar(datos); }, [datos]);
+  /* `guardar` devuelve false si el navegador no deja escribir: ventana
+     privada, almacenamiento lleno, cookies bloqueadas. Antes nadie miraba
+     ese valor, asi que se podia pasar el dia apuntando peso y comidas
+     para que al cerrar la pestaña no quedara nada. Ahora se dice.
+     El `estado === nuevo ? estado : nuevo` es para que React no vuelva a
+     pintar en cada guardado cuando no ha cambiado nada. */
+  const [noGuarda, setNoGuarda] = useState(false);
+  useEffect(() => {
+    const fallo = !guardar(datos);
+    setNoGuarda((antes) => (antes === fallo ? antes : fallo));
+  }, [datos]);
 
   const listo = Boolean(datos.pacto && datos.perfil?.altura && datos.perfil?.pesoMeta);
 
@@ -135,6 +147,12 @@ export default function App() {
   };
 
 
+  /* Se enseña en las dos pantallas: al arrancar tambien se guarda, y
+     empezar a rellenar la bienvenida sin que se guarde nada es peor. */
+  const avisoGuardado = noGuarda && (
+    <div className="mf-aviso" role="alert">⚠️ {t('avisos.noGuarda')}</div>
+  );
+
   if (!listo) {
     return (
       <div className="mf-app">
@@ -148,6 +166,7 @@ export default function App() {
           <div className="mf-cab-acciones"><SelectorIdioma /></div>
         </header>
         <main>
+          {avisoGuardado}
           <Bienvenida
             onEmpezar={({ perfil, pacto }) =>
               setDatos((d) => ({ ...d, perfil: { ...d.perfil, ...perfil }, pacto }))
@@ -177,6 +196,7 @@ export default function App() {
       </header>
 
       <main>
+        {avisoGuardado}
         {pestana === 'inicio' && (
           <Inicio estado={estado} entradas={datos.entradas} pacto={datos.pacto}
                   aparato={datos.perfil?.aparato}
@@ -211,7 +231,7 @@ export default function App() {
           </button>
         ))}
         <button className="mf-mas" onClick={() => setRegistrando(true)}
-                aria-label="Registrar de hoy">
+                aria-label={t('nav.anadir')}>
           <img src="/iconos/mas.png" alt="" />
         </button>
         {PESTANAS.slice(3).map((p) => (

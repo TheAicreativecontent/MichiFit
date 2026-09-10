@@ -19,8 +19,15 @@
 /* Subir este número al cambiar una imagen que NO lleva hash en el
    nombre —todo lo de /michi y /fondos—, o quien ya tenga la app
    seguirá viendo la vieja: la caché va primero y la URL no cambia.
-   Los archivos de /assets sí llevan hash y se apañan solos. */
-const CACHE = 'michifit-v2';
+   Los archivos de /assets sí llevan hash y se apañan solos.
+
+   Ya pasó, y esto no es una advertencia teórica: los michis gris y
+   blanco salieron con los ojos grises y los mofletes en anillo, se
+   arreglaron dos veces con el MISMO nombre de archivo, y este número
+   se quedó en v2. Quien hubiera abierto la app en medio se quedaba con
+   los gatos rotos para siempre.
+   `node pruebas/cache-sw.mjs` avisa si vuelve a pasar. */
+const CACHE = 'michifit-v3';
 
 /* Lo mínimo para arrancar sin red. El resto se va guardando solo según
    se usa: la app es pequeña y se cachea entera en la primera visita. */

@@ -4,6 +4,7 @@
    doesn't judge you", not "stay on track". */
 export default {
   avisos: {
+    noGuarda: 'Your browser is not letting the app save. Anything you log will be lost when you close it. This usually happens in a private window or when storage is full.',
     peso: 'Your target weight sits below a BMI of {imc}. For your height that would be around {kg} kg as a healthy floor.',
     kcal: 'Eating less than {min} kcal a day is not sustainable without supervision. The michi does not get better if you go below that.',
     ritmo: 'Losing {kg} kg a week is faster than is sensible for you (about {max} kg). You lose muscle, not just fat.',
@@ -223,6 +224,10 @@ export default {
 
   aparato: {
     titulo: 'Your michi',
+    mimar: 'Pet',
+    escena: 'Change the scene',
+    dormir: 'Sleep',
+    comoVa: 'How is it going',
     acabado: 'Finish',
     liso: 'Smooth',
     pixel: 'Pixels',

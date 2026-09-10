@@ -12,7 +12,7 @@ import { Titulo } from './Ayuda.jsx';
 
 /* La misma ayuda en los dos estados de la pantalla (con perfil y sin
    él): definida una vez para que no se separen al tocar una. */
-const AYUDA = (t) => (
+const AYUDA = () => (
   <>
           <T k="simulador.ayuda1" />
           <T k="simulador.ayuda2" />
@@ -100,7 +100,6 @@ export default function Simulador({ perfil, pacto }) {
 }
 
 function Deslizador({ etiqueta, v, set, min, max, paso, unidad }) {
-  const t = useT();
   const fmt = useFormato();
   return (
     <label className="mf-desliza">

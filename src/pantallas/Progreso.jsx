@@ -44,7 +44,6 @@ function ritmoReal(pesajes) {
 
 export default function Progreso({ perfil, pacto, entradas, onRegistrar }) {
   const t = useT();
-  const fmt = useFormato();
   const [mesOffset, setMesOffset] = useState(0);
   const [editando, setEditando] = useState(null);
 
@@ -116,7 +115,7 @@ export default function Progreso({ perfil, pacto, entradas, onRegistrar }) {
         ) : (
           <>
             <Grafica pesajes={pesajes} pesoActual={pesoActual}
-                     pesoMeta={perfil.pesoMeta} pesoInicial={perfil.pesoInicial}
+                     pesoMeta={perfil.pesoMeta}
                      ritmo={ritmo} bajando={bajando} semanas={semanas} />
             <p className="mf-nota" style={{ textAlign: 'center' }}>
               {t('progreso.leyenda')}
@@ -144,7 +143,7 @@ export default function Progreso({ perfil, pacto, entradas, onRegistrar }) {
 }
 
 /* ---------------- gráfica ---------------- */
-function Grafica({ pesajes, pesoActual, pesoMeta, pesoInicial, ritmo, bajando, semanas }) {
+function Grafica({ pesajes, pesoActual, pesoMeta, ritmo, bajando, semanas }) {
   const t = useT();
   const W = 700, H = 340, pl = 62, pr = 26, pt = 22, pb = 42;
   const ancho = W - pl - pr, alto = H - pt - pb;

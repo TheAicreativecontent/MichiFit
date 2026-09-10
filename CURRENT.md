@@ -26,6 +26,10 @@ pantallas y el motor entero.
 - Última acción (2026-09-10): **Ninja tiene nombre, historia y tres
   colores**, y el pacto ya se lleva al calendario del móvil. Ver abajo y
   en `SESSION_MAP.md`.
+- Última acción (2026-09-11): **revisión del código**. Un fallo que ya
+  estaba en producción (la caché del service worker), los botones del
+  aparato hablaban castellano en los cinco idiomas, y el aviso de que
+  el navegador no puede guardar. Ver abajo.
 - Próximo paso: **contar el lore dentro de la app**. Sigue siendo el
   problema de fondo: la gente no sabe para qué está el gato porque la
   app no lo dice en ninguna parte. El guion está en `LORE.md` y los
@@ -154,6 +158,52 @@ cosas que hay que saber antes de tocar ese script:
 Míralo siempre ampliado. Los dos errores de arriba eran invisibles a
 tamaño real y llegaron a producción.
 
+## La revisión del 2026-09-11
+
+Repaso entero buscando errores, cosas dobles, cosas sueltas y agujeros de
+seguridad. **De seguridad no salió nada**: no hay `dangerouslySetInnerHTML`
+ni `eval`, las cabeceras siguen puestas en producción, el importador de
+CSV valida fecha y números y tira el resto, el único enlace externo lleva
+`rel="noopener noreferrer"` y el QR de Lightning es un PNG local, no una
+llamada a ninguna API. Salieron tres cosas de fondo:
+
+**1. La caché del service worker se había quedado atrás, y estaba en
+producción.** `CACHE` seguía en `michifit-v2` desde diez commits antes,
+pero los michis gris y blanco se corrigieron DOS veces (los ojos, los
+mofletes) con el mismo nombre de archivo. El service worker sirve esas
+imágenes desde la caché primero, así que quien abriera la app entre medias
+se quedaba con los gatos rotos **para siempre**, sin error ni aviso.
+Subido a `michifit-v3`, y ahora `pruebas/cache-sw.mjs` lo vigila.
+
+**Ojo con esa prueba**: hay que mirar commit a commit, no comparar el
+primero con el último. Un archivo que nace y se corrige después sale como
+«añadido» si comparas extremos — y ése es justo el caso peligroso. La
+primera versión de la prueba veía 1 cambio donde había 42.
+
+**2. Los botones del aparato hablaban castellano en los cinco idiomas.**
+`Mimar`, `Cambiar de escena`, `Dormir` y `Cómo va` estaban escritos a
+pelo en `TamagotchiPNG.jsx`, y salen como `title` (que se ve al pasar el
+ratón) y como `aria-label`. Son la interacción principal de la app. Ahora
+son `aparato.mimar`, `aparato.escena`, `aparato.dormir` y
+`aparato.comoVa`, con los términos que ya usaba `aparato.nota` en cada
+idioma. El botón «+» usa `nav.anadir`, que estaba traducido y sin
+conectar.
+
+**3. Si el navegador no deja guardar, ahora se dice.** `guardar()`
+devolvía `false` en ventana privada o con el almacenamiento lleno y nadie
+miraba ese valor: se podía pasar el día apuntando peso y comidas para que
+al cerrar no quedara nada. Ahora sale un aviso (`avisos.noGuarda`).
+
+Y lo pequeño: `.mf-pruebas` estaba duplicado literalmente en el CSS —no
+costaba bytes, el minificador ya los juntaba, pero tocar un bloque y que
+mandara el otro sí era una trampa—, cuatro variables muertas, la `t` del
+traductor tapada dentro de `tocarLogo`, un `%s` de Python metido en un
+`.mjs`, y a `_CUARENTENA/` los nombres de días en castellano fijo y
+cuatro PNG sueltos de la raíz.
+
+Comprobado en el navegador: los botones en japonés, y el aviso de guardado
+apareciendo y desapareciendo al romper y arreglar `localStorage`.
+
 ## Seguridad (revisado el 2026-09-09)
 - Las cabeceras van en `vercel.json`: CSP, X-Frame-Options, nosniff,
   Referrer-Policy, Permissions-Policy y HSTS. **Si algún día se añade un
@@ -193,10 +243,10 @@ del michi para revisar los dibujos sin apuntar datos reales.
   2026-09-10 se elige el color en Ajustes: naranja, gris o blanco. El
   componente vectorial antiguo (`mascota/Michi.jsx`) ya no se usa en
   ninguna pantalla; está en `_CUARENTENA/`.
-- El fondo ya está: `public/fondo.png` (880x1186). Se pinta como en Michi
-  Finanzas: capa fija, `cover`, centrado, opacidad .15.
-- **No ponerlo en mosaico**: la imagen no es repetible sin costura (bordes con
-  19 y 40 de diferencia). Se vería la línea de corte.
+- El fondo es `public/fondo.jpg` (520x700), en mosaico vertical
+  (`repeat-y`) sobre `.mf-app`. La nota que había aquí decía `.png`,
+  880x1186 y «no ponerlo en mosaico»: eran de un fondo anterior, que ya
+  no está. Corregido el 2026-09-11 leyendo el CSS.
 - Aviso al revisar: el panel de vista previa del navegador **lava toda la
   página** cuando hay una capa fija con opacidad, aunque esté vacía. Es un
   artefacto del panel, no de la CSS. Juzgar el fondo en un navegador de verdad.

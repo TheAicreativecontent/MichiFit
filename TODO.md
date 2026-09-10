@@ -37,11 +37,15 @@
       lejos (28 días de datos contra 165 de previsión). Se leería mejor con
       un eje partido o limitando el horizonte visible.
 - [ ] Marcar en la gráfica los tramos con pocos datos.
-- [ ] Renombrar lo que queda de «Michigochi» en el código. Ya casi no
-      queda: el michi SVG y su CSS, ambos en `_CUARENTENA/`. Si no se
-      recuperan nunca, esta tarea se cierra sola.
+
 
 ## Hecho
+- [x] 2026-09-11 — Revisión del código: la caché del service worker
+      estaba desfasada **en producción**, los tres botones del tamagotchi
+      hablaban castellano en los cinco idiomas, y si el navegador no deja
+      guardar ahora se avisa. Ver `SESSION_MAP.md`.
+- [x] 2026-09-11 — «Michigochi» ya no aparece en ninguna línea de código
+      vivo. La tarea se cerró sola, como decía que haría.
 - [x] 2026-09-10 — El pacto se exporta al calendario del móvil (.ics),
       con los entrenos semanales y el recordatorio diario de apuntar.
       Es lo más cerca de una notificación que se puede hacer sin

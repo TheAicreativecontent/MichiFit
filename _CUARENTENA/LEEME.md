@@ -68,3 +68,30 @@ grep -rn "^export \(const\|function\)" src/
 # clases de CSS que no aparecen en ningún JSX
 grep -o "\.mf-[a-zA-Z0-9_-]*" src/estilos.css | sort -u
 ```
+
+---
+
+## Revisión del 2026-09-11
+
+### dias-en-castellano.js — los nombres de los días
+
+`DIAS_INICIAL` y `DIAS_LARGO`, de `src/engine/constantes.js`. Dejaron de
+usarse el 2026-09-09, cuando la app pasó a hablar cinco idiomas: los
+nombres salen ahora del diccionario (`dias.inicial`, `dias.largo`).
+
+Ya estaban marcados «EN CUARENTENA» dentro del propio archivo, con la
+nota de que si en un mes nadie los echaba de menos, fuera. No hacía falta
+esperar el mes: nadie los importaba, y eran una trampa activa. Cualquiera
+que los usara sin fijarse pondría «Miércoles» en la pantalla de alguien
+que tiene la app en japonés, y nada avisaría.
+
+### sueltos/ — cuatro PNG de la raíz del repositorio
+
+`96_colores.png`, `128_colores.png`, `192_colores.png` y `optimize.png`.
+Los cuatro son la carcasa lisa del huevo (660x900) en distintas pruebas
+de reducción de paleta, de cuando se buscaba bajar el peso del archivo.
+
+Estaban en la **raíz del repositorio**, subidos a GitHub, y no los
+nombraba ni el código, ni el HTML, ni el manifest, ni el service worker.
+El acabado liso vive en `carcasas-lisas/`, que es donde toca; esto era lo
+que quedó del banco de pruebas.

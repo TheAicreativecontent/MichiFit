@@ -4,6 +4,7 @@
    virtual. El michi se llama「ミチ」. */
 export default {
   avisos: {
+    noGuarda: 'ブラウザが保存を許可していません。記録した内容は閉じると失われます。プライベートウィンドウか、保存容量がいっぱいのときに起こります。',
     peso: '目標体重がBMI {imc}を下回っています。あなたの身長なら、健康的な下限はおよそ{kg}kgです。',
     kcal: '1日{min}kcal未満は、専門家の指導なしでは続けられません。それより減らしてもミチは元気になりません。',
     ritmo: '週に{kg}kg減らすのは、あなたには速すぎます（目安は約{max}kg）。脂肪だけでなく筋肉も落ちてしまいます。',
@@ -223,6 +224,10 @@ export default {
 
   aparato: {
     titulo: 'あなたのミチ',
+    mimar: 'なでる',
+    escena: '場面を変える',
+    dormir: '寝かしつける',
+    comoVa: '調子はどう',
     acabado: '質感',
     liso: 'なめらか',
     pixel: 'ドット',

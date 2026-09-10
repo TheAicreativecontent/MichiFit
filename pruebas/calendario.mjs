@@ -48,7 +48,7 @@ for (const [nombre, textos] of [['normal', TEXTOS], ['con comas y CJK', TEXTOS_H
   p.dias.mie.minEntreno = 60;
   const ics = aICS(p, textos);
 
-  console.log('\n### %s' % nombre === undefined ? '' : `\n### ${nombre}`);
+  console.log(`\n### ${nombre}`);
   const lineas = ics.split('\r\n');
 
   comprobar(ics.endsWith('\r\n'), 'termina en CRLF');

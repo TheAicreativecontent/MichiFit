@@ -3,6 +3,7 @@
    pero se le llama「米奇」cuando es el personaje. */
 export default {
   avisos: {
+    noGuarda: '你的浏览器不允许保存数据。你记录的内容在关闭后会丢失。这通常发生在隐私窗口或存储空间已满时。',
     peso: '你的目标体重低于 BMI {imc}。按你的身高，健康下限大约是 {kg} 公斤。',
     kcal: '每天吃不到 {min} 大卡，没有专业指导是撑不下去的。低于这个数，米奇也不会变得更好。',
     ritmo: '每周掉 {kg} 公斤，对你来说太快了（合理范围大约 {max} 公斤）。掉的不只是脂肪，还有肌肉。',
@@ -222,6 +223,10 @@ export default {
 
   aparato: {
     titulo: '你的米奇',
+    mimar: '摸摸它',
+    escena: '换场景',
+    dormir: '让它睡觉',
+    comoVa: '状态如何',
     acabado: '质感',
     liso: '平滑',
     pixel: '像素',
