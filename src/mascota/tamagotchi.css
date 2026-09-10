@@ -117,8 +117,11 @@
    `var(--fuente)` y no Press Start 2P: esa fuente solo trae alfabeto
    latino y aqui pone «なでる» o «บันทึก». Misma razon que en el anillo. */
 .mf-tamapng-rotulos {
-  display: flex; justify-content: space-evenly; align-items: center;
-  gap: 4px; margin-top: 3px;
+  /* `center` y no `space-evenly`: juntos se leen como un grupo que
+     pertenece a los botones. Repartidos por todo el ancho parecian tres
+     cosas sueltas sin relacion entre ellas. */
+  display: flex; justify-content: center; align-items: center;
+  gap: 5px; position: relative; z-index: 4;
 }
 .mf-tamapng-rotulos span {
   flex: 0 1 auto; min-width: 0;
@@ -233,7 +236,9 @@
    rótulo es el que enseña qué hace cada icono — justo lo que la gente no
    entendía— así que manda que se lea, no que parezca una LCD. */
 .mf-tamapng-anillo .nombre {
-  margin-top: 2px;
+  /* 4 y no 2: con la pastilla del icono arriba, dos pixeles dejaban el
+     nombre pegado al recuadro. Hay margen de sobra por abajo. */
+  margin-top: 4px;
   font-family: var(--fuente); font-weight: 800; font-size: 7px; line-height: 1;
   letter-spacing: .2px; color: #3A2D24; text-transform: uppercase;
   /* Una sola línea pase lo que pase: en tailandés «ทำความสะอาด» es

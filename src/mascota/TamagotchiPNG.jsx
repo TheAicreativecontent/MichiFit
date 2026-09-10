@@ -319,12 +319,24 @@ export default function TamagotchiPNG({
           751— y en tailandés estos rótulos son largos. Dentro no caben
           sin salirse por el borde.
 
-          Y repartidos, no clavados bajo cada botón: alinearlos al centro
-          exacto de su botón quedaba perfecto y se SOLAPABAN, porque los
-          botones están a 48 px y «Registrar» mide 64. Son tres y van en
-          orden, así que a cuál corresponde cada uno se ve solo. */}
+          Juntos en el medio, no repartidos por todo el ancho: pegados
+          se leen como un grupo que pertenece a los botones, y sueltos
+          parecían tres cosas sin relación. Tampoco clavados al centro
+          exacto de cada botón —eso quedaba alineado al píxel y se
+          SOLAPABA, porque los botones están a 48 px y «Registrar» mide
+          64—. Son tres y van en orden: a cuál corresponde cada uno se ve
+          solo. */}
       {onBoton && !sinHuevo && (
-        <div className="mf-tamapng-rotulos" style={{ width: size }} aria-hidden="true">
+        <div className="mf-tamapng-rotulos" aria-hidden="true"
+             style={{
+               width: size,
+               /* Subidos al hueco transparente que el PNG del huevo deja
+                  por debajo de la carcasa: esta acaba al 96% del alto, o
+                  sea que sobran cuatro puntos que no dibujan nada. Metido
+                  ahi, el marcador de abajo entra en la misma pantalla.
+                  Va en linea y no en el CSS porque depende de `size`. */
+               marginTop: -Math.round(size * (1024 / 751) * 0.036),
+             }}>
           {BOTONES.map((b) => (
             <span key={`et-${b.id}`}>{t(rotulos[b.id])}</span>
           ))}

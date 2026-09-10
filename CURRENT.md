@@ -242,13 +242,19 @@ Estaba previsto un cartelito de bienvenida y se hizo así en su lugar: un
 cartelito se lee una vez y se olvida, y aquí el problema es que los tres
 botones **cambian de significado**. Esto lo enseña cada vez que lo usas.
 
-Dos cosas que se probaron y no valían, por si a alguien le tienta:
-impreso en la carcasa (abajo el huevo se estrecha rápido — a un 92% de
-alto quedan 295 px de 751— y en tailandés los rótulos son largos), y
-clavado al centro exacto de cada botón (quedaba perfecto y se
-**solapaban**: los botones están a 48 px y «Registrar» mide 64). Van
-repartidos: son tres y en orden, así que a cuál corresponde cada uno se
-ve solo.
+Van **juntos en el medio**, ocupando el mismo ancho que los tres
+botones (162 px contra 159), y **subidos** al hueco transparente que el
+PNG del huevo deja por debajo de la carcasa —esta acaba al 96% del
+alto—. Lo segundo no es capricho: así el marcador de RACHA/PASOS/SUEÑO
+entra en la misma pantalla sin desplazarse.
+
+Tres cosas que se probaron y no valían, por si a alguien le tienta:
+impresos en la carcasa (abajo el huevo se estrecha rápido — a un 92% de
+alto quedan 295 px de 751— y en tailandés los rótulos son largos);
+clavados al centro exacto de cada botón (quedaba alineado al píxel y se
+**solapaban**, porque los botones están a 48 px y «Registrar» mide 64);
+y repartidos por todo el ancho, que era lo que había antes y hacía que
+parecieran tres cosas sueltas sin relación con los botones.
 
 ### Las barras de agua y orden
 

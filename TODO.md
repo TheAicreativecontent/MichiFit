@@ -33,6 +33,10 @@
       agua, cepillo, comida, mancuerna, huellas, luna y una ✕. Ahora
       mismo son emoji, que funcionan pero no son de la casa. Se cambian
       en `src/mascota/anillos.js`, campo `icono`.
+      Alberto está aprendiendo **Spaces de Magnific** para esto, para
+      los michis y para las viñetas. La primera prueba —el callejón de
+      la viñeta 1— está muy por encima de lo que se puede componer con
+      los sprites sueltos.
 
 - [ ] **Ajustar el ritmo de las barras cuando se use de verdad.** Los
       números están en un solo sitio cada uno: `AGUA_HORAS` y
