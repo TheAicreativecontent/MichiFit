@@ -33,12 +33,22 @@ pantallas y el motor entero.
 - Última acción (2026-09-11, tarde): **el aparato pasa a ser la
   interfaz**. Dos anillos en los tres botones, dos barras nuevas (agua
   y orden) y vista previa de la escena al elegir qué apuntar. Ver abajo.
-- Última acción (2026-09-11, noche): **la app ya cuenta quién es
-  Ninja**. Seis actos al primer arranque y un botón en Ajustes. Ver
-  abajo.
-- Próximo paso: las fotos del Ninja real y las viñetas del cómic, las
-  dos cosas de Alberto. El sitio ya está hecho en los dos casos.
-- Bloqueadores: ninguno.
+- Última acción (2026-09-11, noche): **la app cuenta quién es Ninja**,
+  los botones del aparato dicen lo que hacen, y los objetivos están
+  completos — perder, mantener, estar en forma, ganar y otro, cada uno
+  con su sentido de comida. Ver abajo.
+- **Próximo paso (2026-09-12): los ocho iconos de los anillos**, que
+  Alberto hará con Magnific. Ahora son emoji y desentonan con todo lo
+  demás. Ficha: 96x96, píxel duro, se verán a ~13 px, y a ese tamaño lo
+  único que se lee es la SILUETA. Se cambian en `mascota/anillos.js`,
+  campo `icono`: corazón, vaso de agua, cepillo, comida, mancuerna,
+  huellas, luna y una ✕.
+- Después: las fotos del Ninja real (`src/datos/ninja.js`) y las 21
+  viñetas del cómic (`ESCENAS` en `pantallas/Lore.jsx`). El sitio está
+  hecho en los tres casos, es cambiar rutas.
+- Bloqueadores: **Magnific está añadido pero SIN AUTORIZAR**. Falta
+  `claude mcp login magnific` en una terminal interactiva, y luego abrir
+  sesión nueva para que las herramientas se vean.
 - **Desplegada en https://michifit.vercel.app** (proyecto Vercel
   `the-ai-creative-content/michifit`).
   El repo YA está conectado en Vercel → Settings → Git: **cada `git push`
