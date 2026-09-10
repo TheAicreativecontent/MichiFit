@@ -1,7 +1,12 @@
 /* English.
    Tone note: the Spanish original talks to you like a friend, not like a
-   fitness app. Keep that here — "your pact", not "your goals"; "the michi
-   doesn't judge you", not "stay on track". */
+   fitness app. Keep that here — "the michi doesn't judge you", not "stay
+   on track".
+
+   The screen used to be called "My pact" and is now "My goal" (Alberto,
+   2026-09-11): "pact" was evocative but nobody knew what it meant, and
+   every fitness app out there says Goals. The promise wording survives
+   where the michi speaks and in the lore, which is where it does work. */
 export default {
   avisos: {
     noGuarda: 'Your browser is not letting the app save. Anything you log will be lost when you close it. This usually happens in a private window or when storage is full.',
@@ -37,7 +42,7 @@ export default {
 
   nav: {
     inicio: 'Home',
-    pacto: 'My pact',
+    pacto: 'My goal',
     progreso: 'Progress',
     logros: 'Awards',
     simular: 'What if',
@@ -58,12 +63,12 @@ export default {
   },
 
   hitos: {
-    'primer-dia':  { nombre: 'The first step',  desc: 'Keep your pact for a day' },
+    'primer-dia':  { nombre: 'The first step',  desc: 'Keep your goal for a day' },
     'pasos-10k':   { nombre: 'Ten thousand',    desc: '10,000 steps in a single day' },
     'entreno-60':  { nombre: 'Long session',    desc: '60 minutes of training in a day' },
     'sueno-7h':    { nombre: 'Well rested',     desc: 'Sleep 7 hours or more' },
-    'racha-7':     { nombre: 'One week',        desc: '7 days in a row keeping your pact' },
-    'racha-30':    { nombre: 'A whole month',   desc: '30 days in a row keeping your pact' },
+    'racha-7':     { nombre: 'One week',        desc: '7 days in a row keeping your goal' },
+    'racha-30':    { nombre: 'A whole month',   desc: '30 days in a row keeping your goal' },
     'meta-peso':   { nombre: 'Target reached',  desc: 'Reach your target weight' },
   },
 
@@ -85,7 +90,7 @@ export default {
   },
 
   dia: {
-    cerrado: 'This day is already closed for the pact (more than 3 days ago), but you can still correct the weight.',
+    cerrado: 'This day is already closed for the goal (more than 3 days ago), but you can still correct the weight.',
     peso: 'Weight',
     pasos: 'Steps',
     entreno: 'Training',
@@ -95,7 +100,7 @@ export default {
     proteina: 'Protein',
     carbos: 'Carbs',
     grasa: 'Fat',
-    macrosNota: 'For reference: they <b>do not count</b> towards the pact. They are there so you can see where the calories come from.',
+    macrosNota: 'For reference: they <b>do not count</b> towards the goal. They are there so you can see where the calories come from.',
   },
 
   dias: {
@@ -106,11 +111,23 @@ export default {
     },
   },
 
+  meta: {
+    titulo: 'What do you want to achieve?',
+    perder: 'Lose weight',
+    mantener: 'Maintain',
+    forma: 'Get fitter',
+    otro: 'Something else',
+    otroQue: 'What is it?',
+    otroEjemplo: 'Recover from my ankle',
+    nota: 'This sets the calories the app suggests. You can fine-tune them later in Settings.',
+    notaOtro: 'With "something else" the app leaves your calories alone: you set them in Settings.',
+  },
+
   pacto: {
-    titulo: '🤝 My pact',
-    ayuda1: 'The pact is what <b>you</b> decide to do each week: how many steps, which days you train and for how long. The michi does not set goals for you, it just reminds you of your own.',
-    ayuda2: 'Tap a day to adjust it. Training days ask for fewer steps on purpose: asking you to train <em>and</em> walk a lot on the same day is a pact that breaks itself.',
-    ayuda3: 'On training days you can jot down the <b>exercises</b> you plan to do. They do not count towards the pact: they are a cheat sheet for the gym, and you tick them off from the «+» button.',
+    titulo: '🎯 My goal',
+    ayuda1: 'The goal is what <b>you</b> decide to do each week: how many steps, which days you train and for how long. The michi does not set goals for you, it just reminds you of your own.',
+    ayuda2: 'Tap a day to adjust it. Training days ask for fewer steps on purpose: asking you to train <em>and</em> walk a lot on the same day is a goal that breaks itself.',
+    ayuda3: 'On training days you can jot down the <b>exercises</b> you plan to do. They do not count towards the goal: they are a cheat sheet for the gym, and you tick them off from the «+» button.',
     sub: 'This is what you decided. The michi does not judge you: it reminds you.',
     diasEntreno: 'training days',
     diasDescanso: 'rest days',
@@ -126,7 +143,7 @@ export default {
     proteina: 'protein',
     carbos: 'carbs',
     grasa: 'fat',
-    notaMacros: 'Macros are <b>for reference and do not count</b> towards keeping the pact. Hitting them to the gram is not the point.',
+    notaMacros: 'Macros are <b>for reference and do not count</b> towards keeping the goal. Hitting them to the gram is not the point.',
     ultimos7: 'Last 7 days',
     cumplido: 'kept',
     fallado: 'missed',
@@ -141,7 +158,7 @@ export default {
   progreso: {
     titulo: '📈 Your progress',
     ayuda1: 'The chart puts your <b>real weight</b> together with the forecast that comes out of your current pace. The forecast line recalculates itself: if you lose faster, it gets shorter.',
-    ayuda2: 'In the calendar you can tap any day to note down or correct data. Days older than three close for the pact, but the <b>weight</b> can always be corrected.',
+    ayuda2: 'In the calendar you can tap any day to note down or correct data. Days older than three close for the goal, but the <b>weight</b> can always be corrected.',
     pesoActual: 'Current weight',
     perdidos: 'Lost',
     recuperados: 'Regained',
@@ -155,11 +172,11 @@ export default {
     leyendaTeorica: ' (theoretical: not enough weigh-ins yet)',
     meta: 'target {kg}',
     hoy: 'today',
-    calPactoCumplido: 'pact kept',
+    calPactoCumplido: 'goal kept',
     calAMedias: 'partly',
     calSinDatos: 'no data',
     calATiempo: 'still in time',
-    calNota: 'Tap any day to note it down or correct it. The weight can always be changed; for the pact only the last 3 days count.',
+    calNota: 'Tap any day to note it down or correct it. The weight can always be changed; for the goal only the last 3 days count.',
   },
 
   simulador: {
@@ -295,14 +312,14 @@ export default {
     entrenoDesc: '{min} minutes. Today the michi asks you for {pasos} steps — fewer than usual, because training and walking a lot on the same day does not hold up.',
     apuntarTitulo: '🐾 Note down your day in MichiFit',
     apuntarDesc: 'Steps, food and weight. It takes a minute, and the michi notices.',
-    nota: 'This downloads an .ics file. Open it and your phone will ask whether to add the events. If you change your pact, download it again.',
+    nota: 'This downloads an .ics file. Open it and your phone will ask whether to add the events. If you change your goal, download it again.',
   },
 
   borrar: {
     titulo: 'Erase all your data?',
     resumen: 'You are about to lose <b>{dias} days</b> of notes, going back to {desde}, with {pesadas} weigh-ins.',
-    tambien: 'Your pact, your goals and your settings go too.',
-    sinDatos: 'You have not noted down any days yet. Your pact and your settings will be erased.',
+    tambien: 'Your goal, your goals and your settings go too.',
+    sinDatos: 'You have not noted down any days yet. Your goal and your settings will be erased.',
     noSeDeshace: 'This cannot be undone. The michi is born again.',
     descarga: 'Download your copy first',
     descargada: 'Copy downloaded ✓',
@@ -339,8 +356,8 @@ export default {
     gastoReposo: 'Your resting burn',
     gastoNota: 'If you have a watch, put in your real average: it is more accurate than any formula. If you leave it empty, I will estimate it.',
     enReposo: 'At rest',
-    tuPacto: 'Your pact',
-    pactoNota: 'Choose the days you want to train. The rest are rest days, and resting counts too: it is part of the pact.',
+    tuPacto: 'Your goal',
+    pactoNota: 'Choose the days you want to train. The rest are rest days, and resting counts too: it is part of the goal.',
     pasosDia: 'Steps per day',
     minPorEntreno: 'Minutes per session',
     resumenPacto: '{entreno} training days and {descanso} rest days. On training days I will ask you for fewer steps ({pasos}): asking you to train and walk a lot on the same day can become unsustainable.',
@@ -396,7 +413,7 @@ export default {
     descansoBien: 'no training, good',
     descansoRoto: 'you trained {min} min',
     cubierto: ({ n }) => `🛡️ The michi covered ${n === 1 ? 'one day' : `${n} days`} for you. Your streak is still alive.`,
-    descansosRotos: ({ n }) => `😌 You have trained on ${n} rest days this week. Rest is part of the pact, not a gap to fill.`,
+    descansosRotos: ({ n }) => `😌 You have trained on ${n} rest days this week. Rest is part of the goal, not a gap to fill.`,
 
     suenoSinApuntar: 'not noted down · 8 h is ideal',
     suenoSinApuntarLargo: 'You have not noted down how much you slept yet. 8 hours is ideal.',

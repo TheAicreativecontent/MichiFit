@@ -15,7 +15,6 @@
 */
 const C = await import('../src/engine/calculos.js');
 const K = await import('../src/engine/constantes.js');
-const es = (await import('../src/i18n/es.js')).default;
 
 let fallos = 0;
 const comprobar = (ok, que) => {

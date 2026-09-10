@@ -38,7 +38,7 @@ export default {
 
   nav: {
     inicio: 'Inicio',
-    pacto: 'Mi pacto',
+    pacto: 'Mi objetivo',
     progreso: 'Progreso',
     logros: 'Logros',
     simular: 'Simular',
@@ -59,7 +59,7 @@ export default {
   },
 
   hitos: {
-    'primer-dia':  { nombre: 'El primer paso',  desc: 'Cumplir el pacto un día' },
+    'primer-dia':  { nombre: 'El primer paso',  desc: 'Cumplir el objetivo un día' },
     'pasos-10k':   { nombre: 'Diez mil',        desc: '10.000 pasos en un solo día' },
     'entreno-60':  { nombre: 'Sesión larga',    desc: '60 minutos de entreno en un día' },
     'sueno-7h':    { nombre: 'Bien dormido',    desc: 'Dormir 7 horas o más' },
@@ -86,7 +86,7 @@ export default {
   },
 
   dia: {
-    cerrado: 'Este día ya está cerrado para el pacto (pasaron más de 3 días), pero el peso sí se puede corregir.',
+    cerrado: 'Este día ya está cerrado para el objetivo (pasaron más de 3 días), pero el peso sí se puede corregir.',
     peso: 'Peso',
     pasos: 'Pasos',
     entreno: 'Entreno',
@@ -96,7 +96,7 @@ export default {
     proteina: 'Proteína',
     carbos: 'Carbos',
     grasa: 'Grasa',
-    macrosNota: 'Orientativas: <b>no cuentan</b> para el pacto. Sirven para ver de dónde salen las calorías.',
+    macrosNota: 'Orientativas: <b>no cuentan</b> para el objetivo. Sirven para ver de dónde salen las calorías.',
   },
 
   /* Rotulo dentro de la pantalla del tamagotchi. Fuente de pixeles y
@@ -109,11 +109,25 @@ export default {
     },
   },
 
+  /* Lo primero de la pantalla «Mi objetivo». Ver `OBJETIVOS` en
+     engine/constantes.js. */
+  meta: {
+    titulo: '¿Qué quieres conseguir?',
+    perder: 'Perder peso',
+    mantener: 'Mantenerme',
+    forma: 'Estar más en forma',
+    otro: 'Otra cosa',
+    otroQue: '¿Cuál?',
+    otroEjemplo: 'Recuperarme del tobillo',
+    nota: 'Esto ajusta las calorías que te propone la app. Puedes afinarlas luego en Ajustes.',
+    notaOtro: 'Con «otra cosa» la app no toca tus calorías: las llevas tú desde Ajustes.',
+  },
+
   pacto: {
-    titulo: '🤝 Mi pacto',
-    ayuda1: 'El pacto es lo que <b>tú</b> decides hacer cada semana: cuántos pasos, qué días entrenas y cuánto. El michi no te pone metas, solo te recuerda las tuyas.',
-    ayuda2: 'Toca un día para ajustarlo. Los días de entreno piden menos pasos a propósito: pedirte entrenar <em>y</em> andar mucho el mismo día es un pacto que se incumple solo.',
-    ayuda3: 'En los días de entreno puedes apuntar los <b>ejercicios</b> que tocan. No cuentan para el pacto: son una chuleta para el gimnasio, y los marcas desde el botón «+».',
+    titulo: '🎯 Mi objetivo',
+    ayuda1: 'El objetivo es lo que <b>tú</b> decides hacer cada semana: cuántos pasos, qué días entrenas y cuánto. El michi no te pone metas, solo te recuerda las tuyas.',
+    ayuda2: 'Toca un día para ajustarlo. Los días de entreno piden menos pasos a propósito: pedirte entrenar <em>y</em> andar mucho el mismo día es un objetivo que se incumple solo.',
+    ayuda3: 'En los días de entreno puedes apuntar los <b>ejercicios</b> que tocan. No cuentan para el objetivo: son una chuleta para el gimnasio, y los marcas desde el botón «+».',
     sub: 'Esto es lo que tú decidiste. El michi no te juzga: te lo recuerda.',
     diasEntreno: 'días de entreno',
     diasDescanso: 'días de descanso',
@@ -144,7 +158,7 @@ export default {
   progreso: {
     titulo: '📈 Tu progreso',
     ayuda1: 'La gráfica junta tu <b>peso real</b> con la previsión que sale de tu ritmo actual. La línea de previsión se recalcula sola: si bajas más rápido, se acorta.',
-    ayuda2: 'En el calendario puedes tocar cualquier día para apuntar o corregir datos. Los días de hace más de tres se cierran para el pacto, pero el <b>peso</b> siempre se puede corregir.',
+    ayuda2: 'En el calendario puedes tocar cualquier día para apuntar o corregir datos. Los días de hace más de tres se cierran para el objetivo, pero el <b>peso</b> siempre se puede corregir.',
     pesoActual: 'Peso actual',
     perdidos: 'Perdidos',
     recuperados: 'Recuperados',
@@ -158,11 +172,11 @@ export default {
     leyendaTeorica: ' (teórica: aún no hay pesajes suficientes)',
     meta: 'meta {kg}',
     hoy: 'hoy',
-    calPactoCumplido: 'pacto cumplido',
+    calPactoCumplido: 'objetivo cumplido',
     calAMedias: 'a medias',
     calSinDatos: 'sin datos',
     calATiempo: 'aún a tiempo',
-    calNota: 'Toca cualquier día para apuntarlo o corregirlo. El peso se puede cambiar siempre; para el pacto solo cuentan los últimos 3 días.',
+    calNota: 'Toca cualquier día para apuntarlo o corregirlo. El peso se puede cambiar siempre; para el objetivo solo cuentan los últimos 3 días.',
   },
 
   simulador: {
@@ -307,14 +321,14 @@ export default {
     entrenoDesc: '{min} minutos. Hoy el michi te pide {pasos} pasos— menos de lo normal, porque entrenar y andar mucho el mismo día no se sostiene.',
     apuntarTitulo: '🐾 Apúnta tu día en MichiFit',
     apuntarDesc: 'Pasos, comida y peso. Es un minuto, y el michi lo nota.',
-    nota: 'Se descarga un archivo .ics. Ábrelo y tu móvil te preguntará si quieres añadir los eventos. Si cambias el pacto, vuelve a descargarlo.',
+    nota: 'Se descarga un archivo .ics. Ábrelo y tu móvil te preguntará si quieres añadir los eventos. Si cambias el objetivo, vuelve a descargarlo.',
   },
 
   borrar: {
     titulo: '¿Borrar todos tus datos?',
     resumen: 'Vas a perder <b>{dias} días</b> apuntados, desde el {desde}, con {pesadas} pesadas.',
-    tambien: 'También se borran tu pacto, tus objetivos y tus ajustes.',
-    sinDatos: 'Todavía no tienes ningún día apuntado. Se borrarán tu pacto y tus ajustes.',
+    tambien: 'También se borran tu objetivo, tus objetivos y tus ajustes.',
+    sinDatos: 'Todavía no tienes ningún día apuntado. Se borrarán tu objetivo y tus ajustes.',
     noSeDeshace: 'Esto no se puede deshacer. El michi vuelve a nacer.',
     descarga: 'Descárgate la copia antes',
     descargada: 'Copia descargada ✓',
@@ -351,8 +365,8 @@ export default {
     gastoReposo: 'Tu gasto en reposo',
     gastoNota: 'Si tienes reloj, pon tu media real: es más exacta que cualquier fórmula. Si lo dejas vacío, lo estimo yo.',
     enReposo: 'En reposo',
-    tuPacto: 'Tu pacto',
-    pactoNota: 'Elige los días que quieres entrenar. El resto son de descanso, y el descanso también cuenta: forma parte del pacto.',
+    tuPacto: 'Tu objetivo',
+    pactoNota: 'Elige los días que quieres entrenar. El resto son de descanso, y el descanso también cuenta: forma parte del objetivo.',
     pasosDia: 'Pasos al día',
     minPorEntreno: 'Minutos por entreno',
     resumenPacto: '{entreno} días de entreno y {descanso} de descanso. Los días que entrenas te pediré menos pasos ({pasos}): pedirte entrenar y andar mucho el mismo día puede llegar a ser insostenible.',

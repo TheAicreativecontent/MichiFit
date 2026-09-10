@@ -236,7 +236,12 @@ export default function App() {
         )}
         {pestana === 'pacto' && (
           <Pacto pacto={datos.pacto} perfil={datos.perfil} estado={estado}
-                 onCambiar={(p) => setDatos((d) => ({ ...d, pacto: sincronizarPacto(p, d.perfil) }))} />
+                 onCambiar={(p) => setDatos((d) => ({ ...d, pacto: sincronizarPacto(p, d.perfil) }))}
+                 /* Elegir objetivo escribe el deficit en el perfil, y el
+                    pacto tiene que recalcularse con el: si no, las
+                    calorias se quedarian con el objetivo anterior. */
+                 onCambiarPerfil={(p) => setDatos((d) => ({
+                   ...d, perfil: p, pacto: sincronizarPacto(d.pacto, p) }))} />
         )}
         {pestana === 'logros' && <Logros estado={estado} />}
         {pestana === 'progreso' && (

@@ -880,3 +880,26 @@ input[type=time]:focus { outline: none; border-color: var(--rosa); }
   background: var(--linea); transition: background .2s, transform .2s;
 }
 .mf-lore-puntos i.on { background: var(--rosa); transform: scale(1.4); }
+
+
+/* ---- que quieres conseguir ------------------------------------------
+   Los botones de objetivo, lo primero de «Mi objetivo». En fila que se
+   parte: en espanol caben dos por linea, y en tailandes «ฟิตขึ้น» es
+   corto pero «ลดน้ำหนัก» no, asi que se dejan crecer en vez de fijar
+   columnas. */
+.mf-metas {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px;
+}
+.mf-metas button {
+  flex: 1 1 auto; min-width: 42%;
+  padding: 12px 10px; border-radius: 14px;
+  border: 2px solid var(--linea); background: var(--papel);
+  font-family: var(--fuente); font-weight: 800;
+  font-size: calc(13px * var(--escala)); color: var(--tinta);
+  cursor: pointer; transition: border-color .15s, background .15s;
+}
+.mf-metas button.sel {
+  border-color: var(--rosa); background: var(--rosa-suave); color: var(--tinta);
+}
+.mf-meta-otro { margin-bottom: 8px; }
+.mf-meta-otro input { font-family: var(--fuente); }

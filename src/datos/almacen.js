@@ -18,6 +18,11 @@ const VACIO = {
     totalReal: null,
     proteinaPorKg: 2,
     deficitObjetivo: 500,
+    /* Que quiere conseguir: 'perder' | 'mantener' | 'forma' | 'otro'.
+       Lo primero de la pantalla «Mi objetivo». Con 'otro', lo escribe
+       el usuario en `objetivoTexto` y no toca ninguna cuenta. */
+    objetivo: 'perder',
+    objetivoTexto: '',
     escalaTexto: 1,   // tamano de la letra, ver estilos.css
     aparato: { estilo: 'pixel', color: 'naranja', michi: 'naranja' },
   },

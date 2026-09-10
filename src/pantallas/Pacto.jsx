@@ -1,6 +1,14 @@
 /* ============================================================
-   Pantalla "Mi pacto"
-   La semana tipo de un vistazo: siete columnas, como un calendario.
+   Pantalla "Mi objetivo"  (el archivo sigue llamandose Pacto.jsx)
+
+   Se llamaba «Mi pacto» hasta el 2026-09-11. La palabra era bonita pero
+   nadie sabia lo que significaba, y todas las apps de fitness dicen
+   «objetivo». Se renombro lo que ve el usuario en las cinco lenguas; las
+   claves del diccionario y los nombres del codigo se quedaron como
+   estaban, porque cambiarlos no se ve y si se rompe.
+
+   Arriba del todo, QUE quieres conseguir. Debajo, el COMO: la semana
+   tipo de un vistazo: siete columnas, como un calendario.
    Tocando un día se despliega su ficha JUSTO DEBAJO de la fila, con una
    flecha apuntando al día — como en Google Calendar. Nada de hoja
    inferior: obligaba a bajar la vista y perdías de referencia el día
@@ -15,12 +23,12 @@ import T from '../i18n/Texto.jsx';
 import { useT } from '../i18n/index.jsx';
 import { aICS } from '../datos/calendario.js';
 import { descargar } from '../datos/almacen.js';
-import { DIAS } from '../engine/constantes.js';
+import { DIAS, OBJETIVOS, OBJETIVO_POR_DEFECTO, esObjetivo } from '../engine/constantes.js';
 import { macros } from '../engine/calculos.js';
 import { EditorEjercicios } from './Ejercicios.jsx';
 import { Titulo } from './Ayuda.jsx';
 
-export default function Pacto({ pacto, perfil, estado, onCambiar }) {
+export default function Pacto({ pacto, perfil, estado, onCambiar, onCambiarPerfil }) {
   const t = useT();
   const [editando, setEditando] = useState(null);
   if (!pacto) return null;
@@ -48,6 +56,10 @@ export default function Pacto({ pacto, perfil, estado, onCambiar }) {
       <p className="mf-sub">
         {t('pacto.sub')}
       </p>
+
+      {/* Lo primero de todo: a dónde vas. Sin eso, los pasos y los
+          entrenos de abajo son un formulario sin contexto. */}
+      <QueQuieres perfil={perfil} onCambiarPerfil={onCambiarPerfil} />
 
       <div className="mf-tarjeta mf-resumen">
         <Dato valor={diasEntreno.length} etiqueta={t('pacto.diasEntreno')} icono="🏋️" />
@@ -257,6 +269,57 @@ function Macro({ n, etiqueta, color }) {
     <div className="mf-macro">
       <b style={{ color }}>{n} g</b>
       <small>{etiqueta}</small>
+    </div>
+  );
+}
+
+/* ---- qué quieres conseguir ----------------------------------------
+   Va lo primero de la pantalla. Hasta el 2026-09-11 esto no existía: la
+   pantalla se llamaba «Mi pacto» y empezaba directamente por los pasos
+   y los días de entreno, o sea por el CÓMO sin haber dicho el QUÉ.
+
+   Elegir aquí escribe el déficit en el perfil, así que no es una
+   etiqueta: cambia las calorías que propone la app de verdad. Con «otra
+   cosa» no se toca nada y se dice, que es lo honesto — un botón que
+   promete algo y no lo hace es peor que no tenerlo.
+
+   Falta «ganar peso» a propósito: hoy el motor recorta cualquier
+   superávit a cero. Ver `OBJETIVOS` en engine/constantes.js. */
+function QueQuieres({ perfil, onCambiarPerfil }) {
+  const t = useT();
+  const actual = esObjetivo(perfil?.objetivo) ? perfil.objetivo : OBJETIVO_POR_DEFECTO;
+
+  const elegir = (o) => {
+    const cambios = { ...perfil, objetivo: o.id };
+    /* `null` es «no lo toques»: con «otra cosa» el usuario lleva sus
+       calorías a mano desde Ajustes y la app no se mete. */
+    if (o.deficit != null) cambios.deficitObjetivo = o.deficit;
+    onCambiarPerfil?.(cambios);
+  };
+
+  return (
+    <div className="mf-tarjeta">
+      <h3 className="mf-h3">{t('meta.titulo')}</h3>
+      <div className="mf-metas">
+        {OBJETIVOS.map((o) => (
+          <button key={o.id} className={actual === o.id ? 'sel' : ''}
+                  onClick={() => elegir(o)}>
+            {t('meta.' + o.id)}
+          </button>
+        ))}
+      </div>
+
+      {actual === 'otro' && (
+        <label className="mf-campo mf-meta-otro">
+          <span>{t('meta.otroQue')}</span>
+          <input type="text" maxLength={60}
+                 value={perfil?.objetivoTexto ?? ''}
+                 placeholder={t('meta.otroEjemplo')}
+                 onChange={(e) => onCambiarPerfil?.({ ...perfil, objetivoTexto: e.target.value })} />
+        </label>
+      )}
+
+      <p className="mf-nota">{t(actual === 'otro' ? 'meta.notaOtro' : 'meta.nota')}</p>
     </div>
   );
 }

@@ -325,3 +325,40 @@ cual valía mientras en los michis solo hubiera pelaje naranja, mofletes
 rosas y contorno. El michi gris salía con **la botella de agua gris y la
 cara de asco gris**, o sea sin la única información que da cada dibujo.
 Ahora se respeta lo que cae fuera del arco naranja del pelaje.
+
+### 2026-09-11 (noche) — «Mi pacto» pasa a ser «Mi objetivo»
+
+Alberto lo planteó como duda y tenía razón: *«mi pacto es un poco
+ambiguo, ¿no crees?»*. Todas las apps de fitness dicen objetivo.
+
+Se renombró **solo el texto visible**, en las cinco lenguas. Las claves
+del diccionario y los nombres del código se quedan: es un refactor
+grande, con riesgo, a cambio de nada que se vea.
+
+Y la palabra no se borró del todo. `MECANICA.md` apoya su principio
+rector en ella —el michi no juzga, te recuerda lo que tú dijiste— así
+que sobrevive donde habla el michi y en el lore. Lo que se fue es el
+nombre de la pantalla.
+
+**La pantalla empieza ahora por el objetivo**: perder peso, mantenerme,
+estar más en forma, u otra cosa que escribes tú. No son etiquetas — los
+tres primeros escriben el déficit y cambian las calorías de verdad, y el
+cuarto declara que no toca nada y lo dice en pantalla.
+
+Falta «ganar peso» y está anotado: el motor recorta los superávit a
+cero, y habría que invertir la regla de que pasarse de calorías rompe el
+día. Alberto eligió hacer primero lo que funciona.
+
+**El renombrado salió mal a la primera y conviene recordarlo.** Usé una
+expresión regular para cambiar solo el texto entre comillas. El
+comentario de cabecera de `en.js` lleva un `doesn't`, y ese apóstrofo
+desemparejó todas las comillas de ahí abajo: el resultado fue que
+renombró CLAVES en vez de textos —`pacto:` pasó a ser `goalo:`— y el
+diccionario inglés se quedó sin su sección. Se rehizo por líneas,
+tocando solo lo que va después del primer `: `.
+
+De paso, limpieza de lo que se quedó atrás con los anillos: `siguiente`
+seguía importado en `Inicio.jsx` aunque ya nadie cicla escenas, y dos
+comentarios del archivo decían cosas que habían dejado de ser verdad —
+«los tres botones no tocan los datos» y «el botón del medio sirve para
+cambiar de escena».

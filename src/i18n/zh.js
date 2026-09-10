@@ -36,7 +36,7 @@ export default {
 
   nav: {
     inicio: '首页',
-    pacto: '我的约定',
+    pacto: '我的目标',
     progreso: '进展',
     logros: '成就',
     simular: '假如',
@@ -57,12 +57,12 @@ export default {
   },
 
   hitos: {
-    'primer-dia':  { nombre: '第一步',     desc: '守住约定一天' },
+    'primer-dia':  { nombre: '第一步',     desc: '守住目标一天' },
     'pasos-10k':   { nombre: '一万步',     desc: '一天走一万步' },
     'entreno-60':  { nombre: '长时间训练',  desc: '一天训练 60 分钟' },
     'sueno-7h':    { nombre: '睡得好',     desc: '睡足 7 小时以上' },
-    'racha-7':     { nombre: '一整周',     desc: '连续 7 天守住约定' },
-    'racha-30':    { nombre: '一整月',     desc: '连续 30 天守住约定' },
+    'racha-7':     { nombre: '一整周',     desc: '连续 7 天守住目标' },
+    'racha-30':    { nombre: '一整月',     desc: '连续 30 天守住目标' },
     'meta-peso':   { nombre: '达成目标',    desc: '达到你的目标体重' },
   },
 
@@ -84,7 +84,7 @@ export default {
   },
 
   dia: {
-    cerrado: '这一天对约定来说已经结束了（超过 3 天），但体重还是可以修改。',
+    cerrado: '这一天对目标来说已经结束了（超过 3 天），但体重还是可以修改。',
     peso: '体重',
     pasos: '步数',
     entreno: '训练',
@@ -94,7 +94,7 @@ export default {
     proteina: '蛋白质',
     carbos: '碳水',
     grasa: '脂肪',
-    macrosNota: '仅供参考，<b>不计入</b>约定。写在这里是为了看清热量是从哪来的。',
+    macrosNota: '仅供参考，<b>不计入</b>目标。写在这里是为了看清热量是从哪来的。',
   },
 
   dias: {
@@ -105,11 +105,23 @@ export default {
     },
   },
 
+  meta: {
+    titulo: '你想达成什么？',
+    perder: '减重',
+    mantener: '维持体重',
+    forma: '变得更健康',
+    otro: '其他',
+    otroQue: '是什么？',
+    otroEjemplo: '让脚踝康复',
+    nota: '这会决定应用建议的热量。之后你可以在设置里微调。',
+    notaOtro: '选「其他」时应用不会改动你的热量，由你在设置里自己定。',
+  },
+
   pacto: {
-    titulo: '🤝 我的约定',
-    ayuda1: '约定是<b>你自己</b>每周决定要做的事：走多少步、哪几天训练、练多久。米奇不会给你定目标，只会提醒你自己定下的。',
-    ayuda2: '点一下某天就能调整。训练日的步数是故意调低的：既要你训练<em>又</em>要你走很多路，这样的约定自己就会散掉。',
-    ayuda3: '训练日可以记下当天要做的<b>动作</b>。它们不计入约定，只是给你在健身房看的小抄，从「+」按钮打勾。',
+    titulo: '🎯 我的目标',
+    ayuda1: '目标是<b>你自己</b>每周决定要做的事：走多少步、哪几天训练、练多久。米奇不会给你定目标，只会提醒你自己定下的。',
+    ayuda2: '点一下某天就能调整。训练日的步数是故意调低的：既要你训练<em>又</em>要你走很多路，这样的目标自己就会散掉。',
+    ayuda3: '训练日可以记下当天要做的<b>动作</b>。它们不计入目标，只是给你在健身房看的小抄，从「+」按钮打勾。',
     sub: '这是你自己决定的。米奇不评判你，只是提醒你。',
     diasEntreno: '训练日',
     diasDescanso: '休息日',
@@ -140,7 +152,7 @@ export default {
   progreso: {
     titulo: '📈 你的进展',
     ayuda1: '这张图把你的<b>真实体重</b>和按当前速度算出的预测放在一起。预测线会自己重算：掉得更快，它就变短。',
-    ayuda2: '在日历里点任何一天都能记录或修改数据。三天以前的日子对约定来说已经结束，但<b>体重</b>随时都能改。',
+    ayuda2: '在日历里点任何一天都能记录或修改数据。三天以前的日子对目标来说已经结束，但<b>体重</b>随时都能改。',
     pesoActual: '当前体重',
     perdidos: '已减',
     recuperados: '回升',
@@ -154,11 +166,11 @@ export default {
     leyendaTeorica: '（理论值：称重次数还不够）',
     meta: '目标 {kg}',
     hoy: '今天',
-    calPactoCumplido: '守住了约定',
+    calPactoCumplido: '守住了目标',
     calAMedias: '差一点',
     calSinDatos: '没有数据',
     calATiempo: '还来得及',
-    calNota: '点任何一天就能记录或修改。体重随时可改；对约定来说只算最近 3 天。',
+    calNota: '点任何一天就能记录或修改。体重随时可改；对目标来说只算最近 3 天。',
   },
 
   simulador: {
@@ -294,14 +306,14 @@ export default {
     entrenoDesc: '{min} 分钟。今天米奇只要你 {pasos} 步 — 比平时少，因为同一天既训练又走很多路擑不住。',
     apuntarTitulo: '🐾 在 MichiFit 记下你的一天',
     apuntarDesc: '步数、饮食和体重。一分钟而已，米奇会注意到。',
-    nota: '会下载一个 .ics 文件。打开它，手机会问你要不要添加。如果改了约定，重新下载一次。',
+    nota: '会下载一个 .ics 文件。打开它，手机会问你要不要添加。如果改了目标，重新下载一次。',
   },
 
   borrar: {
     titulo: '删除你的所有数据？',
     resumen: '你将失去 <b>{dias} 天</b>的记录，最早到 {desde}，包含 {pesadas} 次称重。',
-    tambien: '你的约定、目标和设置也会一起消失。',
-    sinDatos: '你还没有记录过任何一天。会删除你的约定和设置。',
+    tambien: '你的目标、目标和设置也会一起消失。',
+    sinDatos: '你还没有记录过任何一天。会删除你的目标和设置。',
     noSeDeshace: '这无法撤销。米奇会重新出生。',
     descarga: '先下载一份备份',
     descargada: '备份已下载 ✓',
@@ -328,7 +340,7 @@ export default {
   },
 
   bienvenida: {
-    globo: '你好！我是你的米奇。跟我说说你的情况，我们来约定怎么照顾自己 🐾',
+    globo: '你好！我是你的米奇。跟我说说你的情况，我们来目标怎么照顾自己 🐾',
     sobreTi: '关于你',
     edad: '年龄',
     edadPh: '岁',
@@ -338,8 +350,8 @@ export default {
     gastoReposo: '你的静息消耗',
     gastoNota: '如果你有手表，填上真实的平均值：比任何公式都准。留空的话我来估算。',
     enReposo: '静息',
-    tuPacto: '你的约定',
-    pactoNota: '选你想训练的日子。其余是休息日，休息也算数：它是约定的一部分。',
+    tuPacto: '你的目标',
+    pactoNota: '选你想训练的日子。其余是休息日，休息也算数：它是目标的一部分。',
     pasosDia: '每天步数',
     minPorEntreno: '每次训练分钟数',
     resumenPacto: '{entreno} 天训练，{descanso} 天休息。训练的日子我会少要一些步数（{pasos}）：既训练又走很多路，同一天做完往往撑不下去。',

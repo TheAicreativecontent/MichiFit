@@ -11,7 +11,7 @@
 
    Uso:  node pruebas/cuidados.mjs        (desde la raiz)
 */
-const { calcularCuidados, atender, AGUA_HORAS, CACAS_MAX } = await import('../src/engine/cuidados.js');
+const { calcularCuidados, atender, CACAS_MAX } = await import('../src/engine/cuidados.js');
 const { calcularEstado } = await import('../src/engine/michi.js');
 const { pactoPorDefecto } = await import('../src/engine/pacto.js');
 

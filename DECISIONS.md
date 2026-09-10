@@ -1,5 +1,38 @@
 # DECISIONS.md — Decisiones de diseno y su razon
 
+## 2026-09-11 — «Mi pacto» pasa a llamarse «Mi objetivo»
+
+Decisión de Alberto: *«mi pacto es un poco ambiguo, ¿no crees?»*. Y sí.
+Todas las apps de fitness —MyFitnessPal, Fitbit, Garmin, Strava, Yazio—
+dicen *objetivo* / *goals*. «Mi compromiso» no lo usa nadie.
+
+Se renombra **solo lo que ve el usuario**, en las cinco lenguas. Las
+claves del diccionario (`nav.pacto`, `pacto.titulo`) y los nombres del
+código (`datos.pacto`, `engine/pacto.js`, `Pacto.jsx`) se quedan: es un
+refactor grande, con riesgo de romper algo, a cambio de nada que se vea.
+
+**La palabra «pacto» no se borra del todo.** `MECANICA.md` apoya su
+principio rector en ella — «el michi no juzga: te recuerda lo que tú
+mismo dijiste que querías hacer»— así que sobrevive donde hace trabajo
+emocional: cuando habla el michi, y en el lore. Lo que se va es el
+nombre de la pantalla.
+
+### Y la pantalla empieza por el objetivo
+
+Cuatro botones arriba del todo: perder peso, mantenerme, estar más en
+forma, y otra cosa que escribes tú. **No son etiquetas**: los tres
+primeros escriben el déficit en el perfil (500 / 0 / 0) y cambian las
+calorías de verdad. El cuarto declara que no toca nada y lo dice en
+pantalla — un botón que promete algo y no lo hace es peor que no
+tenerlo.
+
+**Falta «ganar peso», y no por olvido.** Hoy `planEnergetico` recorta
+cualquier superávit a cero, y además habría que darle la vuelta a una
+regla del michi: pasarse de calorías rompe el día, que en un volumen es
+justo lo contrario. Alberto eligió entre tres opciones —todo de golpe,
+solo lo que funciona, o etiquetas sin efecto— y escogió hacer primero lo
+que funciona. Queda en `TODO.md` con su propio paso.
+
 ## 2026-09-11 — La grasa se avisa, no se impone
 
 Alberto vio que MichiFit le daba 47 g de grasa donde la app antigua le

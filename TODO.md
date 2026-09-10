@@ -7,6 +7,15 @@
       Con Vercel no hace falta: sirve desde la raíz del dominio.
 
 ## Después
+- [ ] **«Ganar peso» como objetivo.** Hoy no está porque el motor
+      recorta cualquier superávit a cero (`Math.max(0, deficitObjetivo)`
+      en `planEnergetico`). Hace falta: permitir déficit negativo con su
+      propio TECHO de superávit, la previsión de peso en positivo, y
+      revisar `MARGEN_COMIDA` — pasarse de calorías rompe el día, y en un
+      volumen es justo lo contrario. `pruebas/objetivo.mjs` tiene una
+      comprobación que se caerá cuando se haga, para que no pase de
+      refilón.
+
 - [ ] **Las fotos y los vídeos del Ninja de verdad** (Alberto). La
       última pantalla de la historia ya tiene su sitio: deja los
       archivos en `public/ninja/`, añádelos a la lista de
@@ -63,6 +72,10 @@
 
 
 ## Hecho
+- [x] 2026-09-11 — «Mi pacto» pasa a ser **«Mi objetivo»** en las cinco
+      lenguas, y la pantalla empieza por qué quieres conseguir: perder
+      peso, mantenerte, estar más en forma, u otra cosa que escribes tú.
+      Los tres primeros cambian el déficit de verdad.
 - [x] 2026-09-11 — **La app cuenta la historia de Ninja.** Seis actos
       al primer arranque, antes de pedir un solo dato, y siempre a mano
       en Ajustes. Era el problema de fondo: nadie sabía para qué estaba

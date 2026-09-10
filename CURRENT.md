@@ -288,6 +288,28 @@ Comprobado en móvil de 375 y de 320, en tailandés (el texto más largo) y
 con la letra al 130%: sin scroll lateral, el pie entero dentro y el
 texto desplazable sin cortar el principio.
 
+## «Mi objetivo» (antes «Mi pacto»), 2026-09-11
+
+La pantalla se llamaba «Mi pacto». Se renombró **solo el texto visible**
+en las cinco lenguas: las claves del diccionario y los nombres del
+código (`datos.pacto`, `engine/pacto.js`, `Pacto.jsx`) siguen igual, a
+propósito. Si buscas algo de esa pantalla, busca «pacto» en el código y
+«objetivo» en la pantalla.
+
+La palabra sobrevive donde hace trabajo emocional —cuando habla el michi
+y en el lore— porque el principio rector de `MECANICA.md` se apoya en
+ella. Lo que se fue es el nombre de la pantalla.
+
+**Y ahora empieza por el objetivo**, que es lo primero de todo: perder
+peso · mantenerme · estar más en forma · otra cosa. Los tres primeros
+escriben `perfil.deficitObjetivo` (500 / 0 / 0) y cambian las calorías
+de verdad; el cuarto guarda tu texto y no toca nada, y lo dice.
+
+**Falta «ganar peso»** porque `planEnergetico` recorta los superávit a
+cero y habría que invertir la regla de pasarse de calorías. Está en
+`TODO.md`, y `pruebas/objetivo.mjs` lleva una comprobación que se caerá
+el día que se implemente — para que no pase de refilón.
+
 ## Los cuatro suelos de seguridad (2026-09-11)
 
 `avisosDeSeguridad()` en `engine/calculos.js`. Son la promesa más seria

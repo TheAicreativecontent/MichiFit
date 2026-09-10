@@ -4,9 +4,13 @@
    texto y la tarjeta de nivel se fueron DENTRO del huevo, que es donde
    tienen sentido.
 
-   Los tres botones del aparato no tocan los datos: son vida, no
-   mecánica. Mimar no da experiencia a propósito — si diera, dejaría
-   de ser cariño.
+   Los tres botones del aparato SÍ tocan los datos desde el 2026-09-11:
+   son la interfaz principal, con dos anillos. La gramática entera está
+   en `mascota/anillos.js`.
+
+   Lo que sigue sin dar experiencia es mimar, a propósito: si diera,
+   dejaría de ser cariño. Y el agua y el orden no tocan ningún número de
+   la mecánica — ver la cabecera de `engine/cuidados.js`.
    ============================================================ */
 
 import { useEffect, useState } from 'react';
@@ -16,7 +20,7 @@ import Marcador from './Marcador.jsx';
 import { estadoVisual } from '../engine/michi.js';
 import { hoyISO } from '../engine/pacto.js';
 import { sonidos, despertarAudio } from '../mascota/sonido.js';
-import { ESCENAS, porId, siguiente, escenaAutomatica } from '../mascota/escenas.js';
+import { ESCENAS, porId, escenaAutomatica } from '../mascota/escenas.js';
 import { anilloDe, siguienteIndice, ESPERA_MS } from '../mascota/anillos.js';
 
 /* ---- PRUEBAS ----------------------------------------------------------
@@ -38,8 +42,10 @@ export default function Inicio({ estado, entradas, pacto, onCarino, onCuidar, on
                                 pruebas = false, onCerrarPruebas, aparato }) {
   const t = useT();
   const [gesto, setGesto] = useState(null);      // 'mimar' | 'estado' | null
-  /* Escena elegida a mano con el botón azul. En `null` manda lo que has
-     apuntado hoy: el aparato cuenta tu día solo hasta que lo tocas. */
+  /* Escena elegida a mano. Ya solo la mueve el botón derecho, para
+     dormir al michi: el ciclo por las cinco escenas se fue cuando el
+     botón del medio pasó a abrir el anillo de medir. En `null` manda lo
+     que has apuntado hoy, que es lo normal. */
   const [escenaId, setEscenaId] = useState(null);
   const [prueba, setPrueba] = useState(null);   // { cuerpo, pose } o null
 
@@ -130,8 +136,8 @@ export default function Inicio({ estado, entradas, pacto, onCarino, onCuidar, on
     sonidos.dormir(escenaId !== 'dormir');
   };
 
-  /* Tocar el cristal: el michi cuenta cómo va. Antes era el botón del
-     medio, que ahora sirve para cambiar de escena. */
+  /* Tocar el cristal: el michi cuenta cómo va. Fue el botón del medio
+     hasta que ese pasó a abrir el anillo de medir. */
   const tocarPantalla = () => {
     despertarAudio();
     if (dormido) return;            // dormido no habla

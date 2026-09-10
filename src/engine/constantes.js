@@ -36,6 +36,29 @@ export const IMC_MINIMO_SANO = 18.5;
    proteina: el peso actual baja segun avanzas, y con el bajaria el
    suelo, que es justo cuando menos deberia moverse. */
 export const GRASA_MINIMA_POR_KG = 0.6;
+
+/* --- que quiere conseguir el usuario ------------------------------
+   Lo primero de la pantalla «Mi objetivo», antes que los pasos y los
+   entrenos: sin saber a donde vas, la semana tipo es un formulario.
+
+   `deficit` es lo que se pone en `perfil.deficitObjetivo` al elegirlo.
+   `null` significa «no lo toques»: el usuario lo lleva a mano.
+
+   FALTA «ganar peso», y no por olvido. Hoy `planEnergetico` recorta
+   cualquier superavit a cero (`Math.max(0, deficitObjetivo)`), y ademas
+   habria que darle la vuelta a una regla del michi: pasarse de calorias
+   rompe el dia, que en un volumen es justo lo contrario. Decision de
+   Alberto del 2026-09-11: primero los que funcionan de verdad, y ganar
+   peso en su propio paso. Esta en `TODO.md`. */
+export const OBJETIVOS = [
+  { id: 'perder',   deficit: 500 },
+  { id: 'mantener', deficit: 0 },
+  { id: 'forma',    deficit: 0 },
+  { id: 'otro',     deficit: null },
+];
+
+export const OBJETIVO_POR_DEFECTO = 'perder';
+export const esObjetivo = (id) => OBJETIVOS.some((o) => o.id === id);
 export const KCAL_MINIMAS = { hombre: 1500, mujer: 1200 };
 export const RITMO_MAXIMO_SEMANAL = 0.01; // 1% del peso corporal
 

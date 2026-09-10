@@ -21,6 +21,26 @@ De ahí salen tres reglas que no se negocian:
 
 ---
 
+## 0 · Cómo se llama esto (2026-09-11)
+
+Lo que aquí se llama **el pacto** se llama **«Mi objetivo»** en la app
+desde el 2026-09-11. La palabra era bonita pero nadie sabía qué
+significaba al verla en el menú, y todas las apps de fitness dicen
+*objetivo* / *goals*.
+
+En este documento se sigue diciendo «pacto» porque es lo que es: **una
+promesa que te haces**, y de ahí sale que el michi pueda decaer sin
+juzgarte. Esa palabra sobrevive donde hace trabajo emocional — cuando
+habla el michi, y en el lore — pero no como nombre de pantalla.
+
+Y la pantalla empieza ahora por **qué quieres conseguir** (perder peso,
+mantenerte, estar más en forma, u otra cosa que escribes tú), que ajusta
+el déficit de verdad. Antes empezaba por los pasos y los días de
+entreno, o sea por el CÓMO sin haber dicho el QUÉ. Falta «ganar peso»:
+ver `DECISIONS.md`.
+
+---
+
 ## 1 · El pacto
 
 Al empezar, el usuario pacta su semana. **La estructura es semanal; el

@@ -347,3 +347,23 @@ la lances.
 dato (`ahora`), nunca se lee del reloj. Y la comprobacion se escribe
 sobre lo que de verdad importa —«no llega a tener sed»— y no sobre un
 numero exacto que solo es cierto en un instante.
+
+## Una expresion regular no sabe leer comillas
+
+Para renombrar «pacto» en los diccionarios use una expresion regular que
+cogia lo que hubiera entre comillas simples, para tocar los valores y no
+las claves. El comentario de cabecera de `en.js` lleva un `doesn't`, y
+ese apostrofo desemparejo todas las comillas del resto del archivo: a
+partir de ahi la expresion emparejaba el cierre de una cadena con la
+apertura de la siguiente, y lo que quedaba en medio eran CLAVES. Renombro
+`pacto:` a `goalo:` y el diccionario ingles se quedo sin su seccion.
+
+Lo que lo salvo fue comprobar despues que las cinco lenguas seguian
+teniendo las mismas claves. Sin esa comprobacion, el ingles se habria
+subido roto.
+
+**Regla:** para tocar solo el valor de `clave: 'valor'`, partir la LINEA
+por el primer `: ` y trabajar con la derecha. Es feo y no falla. Y
+despues de cualquier cambio masivo en los diccionarios, comparar la
+lista de claves de los cinco: si una lengua tiene una clave distinta, es
+que algo se ha renombrado sin querer.
