@@ -288,6 +288,7 @@ function Macro({ n, etiqueta, color }) {
 function QueQuieres({ perfil, onCambiarPerfil }) {
   const t = useT();
   const actual = esObjetivo(perfil?.objetivo) ? perfil.objetivo : OBJETIVO_POR_DEFECTO;
+  const sentido = OBJETIVOS.find((o) => o.id === actual)?.sentido ?? 'menos';
 
   const elegir = (o) => {
     const cambios = { ...perfil, objetivo: o.id };
@@ -319,12 +320,16 @@ function QueQuieres({ perfil, onCambiarPerfil }) {
         </label>
       )}
 
-      {/* Ganar peso lleva su propia nota porque INVIERTE la regla del
-          michi: el día se cumple llegando a las calorías, no quedándose
-          por debajo. Es lo bastante contraintuitivo como para decirlo. */}
+      {/* Cada sentido de comida lleva su nota, porque los tres cuentan
+          el día de forma distinta y ninguno se adivina: ganar cumple
+          LLEGANDO, mantener cumple quedándose CERCA por los dos lados, y
+          adelgazar cumple no pasándose. La nota sale del `sentido` y no
+          del id del objetivo, así que un objetivo nuevo hereda la suya
+          sin tocar esto. */}
       <p className="mf-nota">
         {t(actual === 'otro' ? 'meta.notaOtro'
-           : actual === 'ganar' ? 'meta.notaGanar'
+           : sentido === 'mas' ? 'meta.notaGanar'
+           : sentido === 'banda' ? 'meta.notaBanda'
            : 'meta.nota')}
       </p>
     </div>

@@ -39,11 +39,23 @@ el déficit de verdad. Antes empezaba por los pasos y los días de
 entreno, o sea por el CÓMO sin haber dicho el QUÉ.
 
 **Y el objetivo cambia cómo se cuenta el día.** Cada uno lleva un
-`sentido` de comida: con `'menos'` cumples NO pasándote (adelgazar,
-mantener); con `'mas'` cumples LLEGANDO (ganar peso). Las mismas 1.780
-kcal son un día cumplido con una meta de 1.794 y un día fallado con una
-de 2.542. Sin esto, quien estuviera en volumen tenía el día por bueno
-precisamente los días que comía de menos.
+`sentido` de comida:
+
+| sentido | cumplir es | objetivos |
+|---|---|---|
+| `menos` | no pasarte | perder peso |
+| `mas` | llegar | ganar peso |
+| `banda` | quedarte cerca, por los dos lados | mantenerte, estar más en forma |
+
+Las mismas 1.780 kcal son ✅ con una meta de 1.794, ⬜ con una de 2.242
+en banda, y ⬜ con una de 2.542 en volumen. Sin esto, quien estuviera en
+volumen tenía el día por bueno precisamente los días que comía de menos,
+y quien quisiera mantenerse lo tenía por bueno comiendo 700 kcal de
+menos — que es cualquier cosa menos mantenerse.
+
+El margen es el mismo en los tres (10% para cumplir, 30% para romper el
+día), así que una banda es más exigente que un techo: tiene dos lados.
+Eso es correcto — mantenerse ES una diana de dos lados.
 
 ---
 

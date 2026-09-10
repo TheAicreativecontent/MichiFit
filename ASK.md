@@ -1,16 +1,6 @@
 # ASK.md — Preguntas pendientes (para Alberto)
 
 ## Decisiones pendientes
-- [ ] **«Mantenerme» sigue contando como adelgazar.** Al implementar
-      ganar peso (2026-09-11) cada objetivo recibio un `sentido`: con
-      'menos' cumples NO pasandote, con 'mas' cumples LLEGANDO. Ganar
-      peso usa 'mas'. Pero **mantener sigue en 'menos'**, asi que quien
-      quiere mantenerse tiene el dia por cumplido aunque coma 700 kcal
-      por debajo de su mantenimiento — que no es mantenerse.
-      Lo suyo seria una BANDA: cumplir es quedarse cerca por arriba y
-      por abajo. No se hizo porque cambia el comportamiento de quien ya
-      tiene ese objetivo elegido, y eso no lo decido yo.
-
 - [ ] **Si avisar cuando la meta de peso es MUY alta.** Hay suelo de IMC
       (avisa si tu meta baja de 18,5) pero no techo. Con «ganar peso» ya
       se puede poner una meta muy por encima de lo saludable y la app no
@@ -54,6 +44,13 @@
 - [ ] (ninguna)
 
 ## Cerradas
+- 2026-09-11 **«Mantenerme» pasa a ser una BANDA**: cumplir es quedarse
+  cerca por arriba Y por abajo, con el mismo margen del 10% que ya se
+  usaba. Antes bastaba con no pasarse, asi que comer 700 kcal por debajo
+  del mantenimiento contaba como cumplido — que es cualquier cosa menos
+  mantenerse. Decision de Alberto. Se aplico tambien a «estar mas en
+  forma», que apunta al mismo numero: dos botones con la misma meta y
+  distinto comportamiento muerden meses despues.
 - 2026-09-08 **Carpetas**: archivadas en `../_ARCHIVO/` (la original y
   Michigochi, enteras) y esta pasa a ser `2026_APP_MICHIFIT`. Decision de
   Alberto: una sola app, y es el tamagotchi del michi kawaii.

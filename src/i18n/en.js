@@ -122,6 +122,7 @@ export default {
     otroEjemplo: 'Recover from my ankle',
     nota: 'This sets the calories the app suggests. You can fine-tune them later in Settings.',
     notaGanar: 'Here you meet the day by REACHING the calories, not staying under. The michi counts it the other way round from losing weight.',
+    notaBanda: 'Here you meet the day by staying CLOSE to the calories, neither well above nor well below. Eating far less is not maintaining either.',
     notaOtro: 'With "something else" the app leaves your calories alone: you set them in Settings.',
   },
 

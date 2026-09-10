@@ -54,19 +54,31 @@ export const GRASA_MINIMA_POR_KG = 0.6;
    NEGATIVO significa superavit: comer MAS que el gasto. `null` es «no lo
    toques»: el usuario lo lleva a mano.
 
-   `sentido` es la direccion de la comida, y es lo que hace que ganar
-   peso no sea solo un numero al reves:
+   `sentido` es la direccion de la comida, y es lo que hace que el michi
+   no cuente el dia al reves de lo que quieres:
 
-     'menos'  cumplir es NO pasarse del objetivo (adelgazar, mantener)
-     'mas'    cumplir es LLEGAR al objetivo (ganar peso)
+     'menos'  cumplir es NO pasarse del objetivo   (adelgazar)
+     'mas'    cumplir es LLEGAR al objetivo        (ganar peso)
+     'banda'  cumplir es quedarse CERCA, por arriba y por abajo
 
    Sin esto, alguien en volumen tenia el dia por cumplido justo los dias
-   que comia de menos, que es lo contrario de lo que quiere. Lo lee
-   `evaluarDia` en `pacto.js`. */
+   que comia de menos. Lo lee `evaluarDia` en `pacto.js`.
+
+   Por que 'banda' en los dos objetivos de deficit 0: para ambos la meta
+   ES el mantenimiento, y una meta que solo se puede fallar por un lado
+   no es una meta. Con 'menos', quien quisiera mantenerse tenia el dia
+   por bueno comiendo 700 kcal por debajo de su gasto, que es cualquier
+   cosa menos mantenerse.
+
+   `forma` la lleva tambien porque apunta al mismo numero que `mantener`,
+   y dos botones que apuntan al mismo sitio y se comportan distinto es
+   de las cosas que muerden meses despues. Si algun dia se decide que
+   «estar en forma» no deberia fallar nunca por comida, es cambiar esta
+   palabra y ya. */
 export const OBJETIVOS = [
   { id: 'perder',   deficit: 500,  sentido: 'menos' },
-  { id: 'mantener', deficit: 0,    sentido: 'menos' },
-  { id: 'forma',    deficit: 0,    sentido: 'menos' },
+  { id: 'mantener', deficit: 0,    sentido: 'banda' },
+  { id: 'forma',    deficit: 0,    sentido: 'banda' },
   { id: 'ganar',    deficit: -300, sentido: 'mas' },
   { id: 'otro',     deficit: null, sentido: 'menos' },
 ];

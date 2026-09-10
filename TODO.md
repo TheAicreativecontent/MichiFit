@@ -62,6 +62,9 @@
 
 
 ## Hecho
+- [x] 2026-09-11 — **Mantenerse es una banda.** Cumplir es quedarse
+      cerca de las calorías por arriba y por abajo, no solo no pasarse.
+      También en «estar más en forma», que apunta al mismo número.
 - [x] 2026-09-11 — **«Ganar peso» como objetivo.** El motor aprende
       superávit (con techo del 15%, más estrecho que el 20% del
       déficit), el simulador deja de decir «no alcanzable» a quien

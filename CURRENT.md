@@ -350,10 +350,16 @@ perfil: `evaluarDia` recibe el pacto y nada más, y lo llaman cuatro
 sitios. Así lo ven todos sin cambiar una firma, y un pacto guardado
 antes cae a `'menos'`, que es como se comportaba la app hasta ahora.
 
-Dos cosas que NO se hicieron y están en `ASK.md`: «mantenerme» sigue
-contando como adelgazar (debería ser una banda), y no hay aviso de meta
-de peso demasiado alta — que es una decisión de valores, porque la app
-promete no juzgar el cuerpo.
+Y luego, el mismo día, **«mantenerme» pasó a ser una BANDA**: cumplir es
+quedarse cerca por arriba Y por abajo. Antes bastaba con no pasarse, así
+que comer 700 kcal por debajo del mantenimiento contaba como cumplido.
+Se aplicó también a «estar más en forma», que apunta al mismo número —
+dos botones con la misma meta y distinto comportamiento muerden meses
+después. Es una palabra en `OBJETIVOS` si algún día se quieren separar.
+
+Queda una sola cosa en `ASK.md`: no hay aviso de meta de peso demasiado
+alta. Es una decisión de valores, porque la app promete no juzgar el
+cuerpo y todo el replanteamiento del michi salió de justo eso.
 
 ## Los cuatro suelos de seguridad (2026-09-11)
 

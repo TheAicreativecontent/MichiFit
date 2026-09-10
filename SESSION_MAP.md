@@ -422,3 +422,31 @@ tocan a mí: «mantenerme» sigue contando como adelgazar cuando debería
 ser una banda, y no hay aviso de meta de peso demasiado alta — que es
 una decisión de valores, porque la app promete no juzgar el cuerpo y
 todo el replanteamiento del michi salió de justo eso.
+
+### 2026-09-11 (cierre) — Mantenerse es una banda
+
+Alberto cerró la pregunta que quedaba de la sesión anterior. «Mantenerme»
+usaba el mismo criterio que adelgazar —cumplir es no pasarse— así que
+comer 700 kcal por debajo del mantenimiento contaba como día cumplido.
+Que es cualquier cosa menos mantenerse.
+
+Ahora es una banda: cerca por arriba y por abajo, con el mismo margen del
+10% de siempre. Con una meta de 2.242 la ventana va de 2.018 a 2.466.
+
+Se aplicó también a **«estar más en forma»**, que Alberto no nombró pero
+apunta al mismo número —ambos ponen déficit 0—: dos botones con la misma
+meta y distinto comportamiento son de las cosas que muerden meses
+después. Es una palabra en la tabla `OBJETIVOS` si algún día se quieren
+separar, y está dicho en el comentario.
+
+Los tres sentidos quedan así, y la nota de la pantalla sale del SENTIDO
+y no del id, para que un objetivo nuevo herede la suya sin tocar nada:
+
+| sentido | cumplir es |
+|---|---|
+| `menos` | no pasarte |
+| `mas` | llegar |
+| `banda` | quedarte cerca, por los dos lados |
+
+Comprobado en pantalla con el mismo dato: 1.780 kcal salen ✅ con meta
+1.794, ⬜ con 2.242 en banda y ⬜ con 2.542 en volumen.

@@ -122,6 +122,7 @@ export default {
     otroEjemplo: 'Recuperarme del tobillo',
     nota: 'Esto ajusta las calorías que te propone la app. Puedes afinarlas luego en Ajustes.',
     notaGanar: 'Aquí cumplir el día es LLEGAR a las calorías, no quedarte por debajo. El michi lo cuenta al revés que si adelgazaras.',
+    notaBanda: 'Aquí el día se cumple quedándote CERCA de las calorías, ni muy por encima ni muy por debajo. Comer mucho menos tampoco es mantenerse.',
     notaOtro: 'Con «otra cosa» la app no toca tus calorías: las llevas tú desde Ajustes.',
   },
 

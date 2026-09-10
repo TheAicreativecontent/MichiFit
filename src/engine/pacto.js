@@ -105,26 +105,34 @@ export function evaluarDia({ pacto, entrada, fecha, hoy = hoyISO() }) {
     const kcal = entrada?.comidaKcal ?? null;
 
     /* Quedarse corto o pasarse no significa lo mismo segun a donde vayas.
+       Lo dice `pacto.comidaSentido`, que escribe `sincronizarPacto` a
+       partir del objetivo elegido (ver `OBJETIVOS` en constantes.js):
 
-       Adelgazando ('menos', que es lo de siempre y lo que se aplica a un
-       pacto guardado antes de que esto existiera), cumplir es NO pasarse.
-       Ganando peso ('mas') es justo al reves: el dia se cumple cuando
-       LLEGAS al objetivo, y el fallo es quedarte corto. Sin esto, alguien
-       en volumen tenia el dia por bueno precisamente los dias que comia
-       de menos.
+         'menos'  adelgazando: cumplir es NO pasarse
+         'mas'    ganando: cumplir es LLEGAR, el fallo es quedarse corto
+         'banda'  manteniendo: cumplir es quedarse CERCA, por los dos
+                  lados. Una meta que solo se puede fallar por un lado
+                  no es una meta, y con 'menos' quien queria mantenerse
+                  tenia el dia por bueno comiendo 700 kcal de menos.
 
-       Los margenes son los mismos por los dos lados. Pasarse -o quedarse
-       corto- no tumba el dia salvo que sea mucho: pesa la mitad en el
-       animo del michi (`PESO_OBJETIVO`) y solo rompe el dia por encima
-       del margen grave. Faltar al gimnasio si lo rompe siempre. */
-    const haciaArriba = pacto.comidaSentido === 'mas';
+       Un pacto guardado antes de que esto existiera no trae el campo y
+       cae a 'menos', que es como se comportaba la app hasta entonces.
+
+       Los margenes son los mismos en los tres casos. Fallar la comida no
+       tumba el dia salvo que sea mucho: pesa la mitad en el animo del
+       michi (`PESO_OBJETIVO`) y solo lo rompe pasado el margen grave.
+       Faltar al gimnasio si lo rompe siempre. */
     const meta = pacto.comidaKcal;
-    const cumplido = kcal != null && (haciaArriba
-      ? kcal >= meta * (1 - MARGEN_COMIDA)
-      : kcal <= meta * (1 + MARGEN_COMIDA));
-    const rompe = kcal == null || (haciaArriba
-      ? kcal < meta * (1 - MARGEN_COMIDA_GRAVE)
-      : kcal > meta * (1 + MARGEN_COMIDA_GRAVE));
+    const sentido = pacto.comidaSentido ?? 'menos';
+    const bajo = (m) => kcal >= meta * (1 - m);      // no se queda corto
+    const alto = (m) => kcal <= meta * (1 + m);      // no se pasa
+
+    const dentro = (m) => sentido === 'mas' ? bajo(m)
+                        : sentido === 'banda' ? bajo(m) && alto(m)
+                        : alto(m);
+
+    const cumplido = kcal != null && dentro(MARGEN_COMIDA);
+    const rompe = kcal == null || !dentro(MARGEN_COMIDA_GRAVE);
 
     objetivos.push({
       id: 'comida',

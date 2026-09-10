@@ -135,6 +135,53 @@ console.log('\n### y el michi cuenta el dia al reves');
 }
 
 
+console.log('\n### mantenerse es una BANDA, no un techo');
+{
+  const { evaluarDia } = await import('../src/engine/pacto.js');
+  const hoy = '2026-09-11';
+  const META = 2242;
+  const dia = (sentido, kcal) => evaluarDia({
+    pacto: { ...PACTO, comidaKcal: META, comidaSentido: sentido },
+    entrada: { pasos: 9000, entrenoMin: 45, comidaKcal: kcal, sueno: { horas: 8 } },
+    fecha: hoy, hoy,
+  }).objetivos.find((o) => o.id === 'comida');
+
+  comprobar(K.OBJETIVOS.find((o) => o.id === 'mantener').sentido === 'banda',
+    'mantenerme usa banda');
+  comprobar(K.OBJETIVOS.find((o) => o.id === 'forma').sentido === 'banda',
+    'estar mas en forma tambien: apunta al mismo numero');
+
+  /* Lo que venia a arreglar: 1.540 kcal con una meta de 2.242 es un dia
+     CUMPLIDO adelgazando y FALLADO manteniendose. Comer 700 de menos no
+     es mantenerse. */
+  comprobar(dia('menos', 1540).cumplido, 'adelgazando: 1.540 de 2.242 cumple');
+  comprobar(!dia('banda', 1540).cumplido, 'manteniendo: 1.540 de 2.242 NO cumple');
+
+  /* Y sigue fallando por arriba, como antes. */
+  comprobar(!dia('banda', 2700).cumplido, 'manteniendo: pasarse a 2.700 tampoco cumple');
+  comprobar(!dia('menos', 2700).cumplido, 'adelgazando: 2.700 tampoco');
+
+  /* La ventana: +-10%, o sea de 2.018 a 2.466. */
+  comprobar(dia('banda', META).cumplido, 'clavar la meta cumple');
+  comprobar(dia('banda', Math.round(META * 0.95)).cumplido, 'un 5% por debajo entra');
+  comprobar(dia('banda', Math.round(META * 1.05)).cumplido, 'un 5% por encima entra');
+  comprobar(!dia('banda', Math.round(META * 0.85)).cumplido, 'un 15% por debajo ya no');
+  comprobar(!dia('banda', Math.round(META * 1.15)).cumplido, 'un 15% por encima tampoco');
+
+  /* Romper el dia, tambien por los dos lados. */
+  comprobar(dia('banda', Math.round(META * 0.85)).rompeElDia === false,
+    'un 15% de desvio no tumba el dia');
+  comprobar(dia('banda', Math.round(META * 0.60)).rompeElDia, 'un 40% por debajo si lo tumba');
+  comprobar(dia('banda', Math.round(META * 1.40)).rompeElDia, 'y un 40% por encima tambien');
+
+  /* Los otros dos sentidos no se han movido al anadir el tercero. */
+  comprobar(dia('menos', 500).cumplido && !dia('menos', 3500).cumplido,
+    'adelgazar sigue siendo un techo');
+  comprobar(dia('mas', 3500).cumplido && !dia('mas', 500).cumplido,
+    'ganar sigue siendo un suelo');
+}
+
+
 console.log('\n### el renombrado esta entero');
 {
   const busca = { es: /pacto/i, en: /\bpact\b/i, th: /ข้อตกลง/, zh: /约定/, ja: /約束/ };
