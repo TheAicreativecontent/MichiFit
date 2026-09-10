@@ -14,6 +14,7 @@ import Logros from './pantallas/Logros.jsx';
 import Karma from './pantallas/Karma.jsx';
 import EditorDia from './pantallas/EditorDia.jsx';
 import Ajustes from './pantallas/Ajustes.jsx';
+import Lore from './pantallas/Lore.jsx';
 import { calcularEstado } from './engine/michi.js';
 import { sincronizarPacto } from './engine/calculos.js';
 import { hoyISO } from './engine/pacto.js';
@@ -163,6 +164,25 @@ export default function App() {
     <div className="mf-aviso" role="alert">⚠️ {t('avisos.noGuarda')}</div>
   );
 
+  /* La historia de Ninja. Sale sola la PRIMERA vez, antes de pedir un
+     solo dato: la queja que empezó todo el replanteamiento del michi
+     era que nadie entendía para qué servía el gato, y la app no lo
+     contaba en ninguna parte. Después queda a mano en Ajustes.
+
+     Que ya se ha visto se guarda en los datos y no en memoria: si no,
+     cerrar y abrir la app volvería a contar la historia entera. Es lo
+     mismo que se hizo con `nivelVisto` y por la misma razón. */
+  const [verLore, setVerLore] = useState(false);
+  const cuentaLaHistoria = verLore || (!listo && !datos.loreVisto);
+  const cerrarLore = () => {
+    setVerLore(false);
+    if (!datos.loreVisto) setDatos((d) => ({ ...d, loreVisto: true }));
+  };
+
+  if (cuentaLaHistoria) {
+    return <Lore onCerrar={cerrarLore} onAdoptar={!listo ? cerrarLore : null} />;
+  }
+
   if (!listo) {
     return (
       <div className="mf-app">
@@ -230,7 +250,8 @@ export default function App() {
                    onCambiar={(p) => setDatos((d) => ({
                      ...d, perfil: p, pacto: sincronizarPacto(d.pacto, p) }))}
                    onImportar={(entradas) => setDatos((d) => ({ ...d, entradas }))}
-                   onReiniciar={() => setDatos(reiniciar())} />
+                   onReiniciar={() => setDatos(reiniciar())}
+                   onVerLore={() => setVerLore(true)} />
         )}
       </main>
 

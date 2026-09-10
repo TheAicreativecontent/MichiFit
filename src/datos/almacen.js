@@ -26,6 +26,10 @@ const VACIO = {
      sola vez al subir: si no se guardara, cerrar y abrir la app volveria
      a disparar la celebracion. */
   nivelVisto: null,
+  /* Si ya se ha visto la historia de Ninja. Se guarda con los datos y
+     no en memoria por lo mismo que `nivelVisto`: cerrar y abrir la app
+     volveria a contarla entera. */
+  loreVisto: false,
   entradas: {},         // { 'AAAA-MM-DD': { pasos, entrenoMin, comidaKcal, ... } }
   carino: [],           // marcas de tiempo de los mimos, para la felicidad
   /* La última vez que se llenó el cuenco y que se recogió la casa. Dos
@@ -84,6 +88,7 @@ function estructuraCompleta(d) {
     entradas: esObjeto(dat.entradas) ? dat.entradas : {},
     carino: Array.isArray(dat.carino) ? dat.carino.filter(Number.isFinite) : [],
     cuidados: marcasDeCuidado(dat.cuidados),
+    loreVisto: dat.loreVisto === true,
   };
 }
 

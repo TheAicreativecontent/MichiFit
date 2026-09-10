@@ -731,3 +731,152 @@ input[type=time]:focus { outline: none; border-color: var(--rosa); }
 }
 .mf-michis button.sel { border-color: var(--rosa); background: var(--rosa-suave); }
 .mf-michis img { width: 100%; height: auto; display: block; }
+
+
+/* ---- LA HISTORIA DE NINJA -------------------------------------------
+   Pantalla completa, paginada. Sale en el primer arranque y desde
+   Ajustes. Ver `pantallas/Lore.jsx`.
+
+   Va en columna con la viñeta a tamaño fijo y el texto flexible: así el
+   dibujo no se encoge en un móvil bajo y el texto largo (el tailandés
+   es el que más ocupa) tiene dónde desplazarse sin tapar los botones. */
+.mf-lore {
+  position: fixed; inset: 0; z-index: 60;
+  display: flex; flex-direction: column;
+  background: var(--fondo);
+  padding: max(10px, env(safe-area-inset-top)) 14px
+           max(12px, env(safe-area-inset-bottom));
+}
+
+.mf-lore-cab {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 10px; margin-bottom: 8px;
+}
+.mf-lore-cab b {
+  font-family: var(--fuente-titulo);
+  font-size: calc(22px * var(--escala)); color: var(--rosa);
+}
+.mf-lore-cab small {
+  display: block;
+  font-size: calc(12px * var(--escala)); color: var(--tinta-flojo);
+}
+.mf-lore-saltar {
+  flex: 0 0 auto; padding: 6px 12px;
+  font-family: var(--fuente); font-size: calc(13px * var(--escala));
+  color: var(--tinta-flojo); background: none;
+  border: 1px solid var(--linea); border-radius: 999px; cursor: pointer;
+}
+
+/* --- la viñeta --- */
+.mf-lore-vineta {
+  position: relative; flex: 0 0 auto;
+  height: clamp(190px, 42vh, 360px);
+  border: 3px solid var(--tinta); border-radius: 14px;
+  overflow: hidden; background: var(--chip);
+}
+.mf-lore-vineta .fondo {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: cover;
+  image-rendering: pixelated;
+}
+.mf-lore-vineta .michi {
+  position: absolute; left: 50%; bottom: 4%;
+  height: 74%; transform: translateX(-50%);
+  image-rendering: pixelated;
+}
+/* Los dos actos duros -el escobazo y el veneno- no enseñan nada: se
+   apaga la escena y se tiñe de azul. Misma decisión que el cómic. */
+.mf-lore-vineta.oscura .fondo { filter: brightness(.42) saturate(.5) hue-rotate(200deg); }
+.mf-lore-vineta.oscura .michi { filter: brightness(.66) saturate(.7); }
+.mf-lore-vineta .lluvia {
+  position: absolute; inset: 0; pointer-events: none;
+  background: repeating-linear-gradient(
+    108deg, transparent 0 7px, rgba(180, 214, 255, .30) 7px 8px);
+}
+
+/* --- la última pantalla, la del Ninja de verdad --- */
+.mf-lore-real {
+  flex: 0 0 auto; height: clamp(190px, 42vh, 360px);
+  border: 3px solid var(--tinta); border-radius: 14px;
+  overflow: hidden; background: var(--chip);
+}
+.mf-lore-real .galeria {
+  display: flex; gap: 8px; height: 100%; padding: 8px;
+  overflow-x: auto; scroll-snap-type: x mandatory;
+}
+.mf-lore-real figure {
+  flex: 0 0 auto; margin: 0; height: 100%;
+  display: flex; flex-direction: column; scroll-snap-align: center;
+}
+.mf-lore-real figure img,
+.mf-lore-real figure video {
+  flex: 1 1 auto; min-height: 0; width: auto; max-width: 78vw;
+  object-fit: cover; border-radius: 8px; background: var(--linea);
+}
+.mf-lore-real figcaption {
+  flex: 0 0 auto; padding-top: 4px; text-align: center;
+  font-size: calc(11px * var(--escala)); color: var(--tinta-flojo);
+}
+.mf-lore-real .sinFotos {
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; gap: 6px; height: 100%;
+}
+.mf-lore-real .sinFotos img { height: 62%; image-rendering: pixelated; }
+.mf-lore-real .sinFotos small {
+  font-size: calc(12px * var(--escala)); color: var(--tinta-flojo);
+}
+
+/* --- el texto --- */
+/* El texto se centra en el hueco que le queda, que en un movil alto es
+   mucho. Se centra con `margin: auto` sobre el contenido y NO con
+   `justify-content: center` en el contenedor: cuando el texto se pasa de
+   largo -el tailandes y el japones ocupan bastante mas- centrar por
+   flexbox corta el principio y no deja desplazarse hasta el. */
+.mf-lore-texto {
+  flex: 1 1 auto; min-height: 0; overflow-y: auto;
+  display: flex; flex-direction: column;
+  padding: 14px 2px 6px;
+}
+.mf-lore-texto > * { flex: 0 0 auto; }
+.mf-lore-texto > h3 { margin-top: auto; }
+.mf-lore-texto > p:last-child { margin-bottom: auto; }
+.mf-lore-texto h3 {
+  display: flex; align-items: center; gap: 8px; margin: 0 0 6px;
+  font-family: var(--fuente-titulo);
+  font-size: calc(19px * var(--escala)); color: var(--tinta);
+}
+.mf-lore-texto .num {
+  flex: 0 0 auto;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: calc(22px * var(--escala)); height: calc(22px * var(--escala));
+  border-radius: 999px; background: var(--rosa); color: #FFF;
+  font-size: calc(12px * var(--escala));
+}
+.mf-lore-texto p {
+  margin: 0; font-size: calc(15px * var(--escala));
+  line-height: 1.55; color: var(--tinta);
+}
+
+/* --- el pie --- */
+.mf-lore-pie {
+  flex: 0 0 auto;
+  display: flex; align-items: center; gap: 10px; padding-top: 10px;
+}
+/* `.mf-boton` es de ancho completo en toda la app; aqui van tres cosas
+   en una fila, asi que hay que devolverles el tamano de su contenido o
+   el primero empuja a los otros dos fuera de la pantalla. */
+.mf-lore-pie .mf-boton {
+  flex: 0 0 auto; width: auto; margin-bottom: 0;
+  padding: 11px 18px; white-space: nowrap;
+}
+.mf-lore-pie .mf-boton.principal { padding: 13px 22px; }
+.mf-lore-pie .mf-boton:disabled { opacity: .3; cursor: default; }
+.mf-lore-puntos {
+  flex: 1 1 auto;
+  display: flex; align-items: center; justify-content: center; gap: 5px;
+}
+.mf-lore-puntos i {
+  width: 6px; height: 6px; border-radius: 999px;
+  background: var(--linea); transition: background .2s, transform .2s;
+}
+.mf-lore-puntos i.on { background: var(--rosa); transform: scale(1.4); }

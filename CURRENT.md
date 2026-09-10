@@ -33,10 +33,11 @@ pantallas y el motor entero.
 - Última acción (2026-09-11, tarde): **el aparato pasa a ser la
   interfaz**. Dos anillos en los tres botones, dos barras nuevas (agua
   y orden) y vista previa de la escena al elegir qué apuntar. Ver abajo.
-- Próximo paso: **contar el lore dentro de la app**. Sigue siendo el
-  problema de fondo: la gente no sabe para qué está el gato porque la
-  app no lo dice en ninguna parte. El guion está en `LORE.md` y los
-  prompts de las viñetas, escritos.
+- Última acción (2026-09-11, noche): **la app ya cuenta quién es
+  Ninja**. Seis actos al primer arranque y un botón en Ajustes. Ver
+  abajo.
+- Próximo paso: las fotos del Ninja real y las viñetas del cómic, las
+  dos cosas de Alberto. El sitio ya está hecho en los dos casos.
 - Bloqueadores: ninguno.
 - **Desplegada en https://michifit.vercel.app** (proyecto Vercel
   `the-ai-creative-content/michifit`).
@@ -253,6 +254,39 @@ La cadena de respaldo de `TamagotchiPNG` lleva un `new Set` que **no es
 aseo**: el michi naranja no tiene sufijo, así que sus dos primeros
 candidatos salían idénticos y el respaldo reintentaba la misma URL para
 siempre. El michi se quedaba invisible. No lo quites.
+
+## La historia de Ninja, dentro de la app (2026-09-11)
+
+`pantallas/Lore.jsx`. Seis actos, uno por pantalla, dos frases cada uno.
+Sale sola la **primera vez, antes de pedir ningún dato** —el botón final
+dice «Adoptar a Ninja» y lleva a la bienvenida— y queda siempre a mano
+en Ajustes, donde el botón dice «Cerrar».
+
+Que ya se ha visto se guarda en `datos.loreVisto`, no en memoria: si no,
+cerrar y abrir la app volvería a contar la historia entera. Es lo mismo
+que se hizo con `nivelVisto` y por la misma razón.
+
+**Las ilustraciones no son las viñetas del cómic**: son el propio michi
+**en gris** —Ninja es gris— sobre los escenarios que ya existen. Los
+prompts de las 21 viñetas están escritos pero sin generar. Cuando
+existan, se cambian las rutas de `ESCENAS` en `Lore.jsx` y no hay que
+tocar nada más.
+
+Dos actos van **oscuros** (el escobazo y el veneno): la escena se apaga,
+se tiñe de azul y le cae lluvia por encima. No se enseña nada explícito,
+que es la misma decisión de tono que el cómic — del agresor solo la
+sombra.
+
+**Las fotos del Ninja de verdad** van en `src/datos/ninja.js`: una lista
+escrita a mano con los archivos de `public/ninja/`. Es un manifiesto y
+no una lectura de carpeta porque la app se sirve estática, sin servidor
+que liste directorios. Si la lista está vacía, esa pantalla enseña al
+michi contento y funciona igual. **Al añadir fotos hay que subir
+`const CACHE` en `public/sw.js`**: no llevan hash en el nombre.
+
+Comprobado en móvil de 375 y de 320, en tailandés (el texto más largo) y
+con la letra al 130%: sin scroll lateral, el pie entero dentro y el
+texto desplazable sin cortar el principio.
 
 ## Seguridad (revisado el 2026-09-09)
 - Las cabeceras van en `vercel.json`: CSP, X-Frame-Options, nosniff,

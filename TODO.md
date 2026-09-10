@@ -7,6 +7,18 @@
       Con Vercel no hace falta: sirve desde la raíz del dominio.
 
 ## Después
+- [ ] **Las fotos y los vídeos del Ninja de verdad** (Alberto). La
+      última pantalla de la historia ya tiene su sitio: deja los
+      archivos en `public/ninja/`, añádelos a la lista de
+      `src/datos/ninja.js` y sube `const CACHE` en `public/sw.js`.
+      Mientras no haya ninguno, esa pantalla enseña al michi contento y
+      funciona igual.
+
+- [ ] **Las 21 viñetas del cómic.** Los prompts están escritos. Cuando
+      existan, se cambian las rutas de `ESCENAS` en `pantallas/Lore.jsx`
+      y ya: ahora mismo la historia se ilustra con el propio michi gris
+      sobre los escenarios que hay.
+
 - [ ] **Los iconos de los anillos, en pixel art** (Alberto). Ocho, a
       96x96 con píxel duro, que se verán a ~13 px: corazón, vaso de
       agua, cepillo, comida, mancuerna, huellas, luna y una ✕. Ahora
@@ -24,13 +36,6 @@
       Hay tres salidas y el rótulo del icono seleccionado, pero falta un
       cartelito las primeras veces. Está `anillo.ayuda` en el
       diccionario, sin usar todavía.
-
-- [ ] **Contar el lore dentro de la app.** Decidido el 2026-09-10: se
-      muestra al empezar, y queda un botón para volver a verlo cuando
-      quieras. Con hueco para **fotos y vídeos del Ninja real**. Es lo más urgente de esta
-      lista: la gente no sabe para qué está el gato porque la app no lo
-      dice en ninguna parte. Al adoptarlo debería presentarse.
-      El guion está en `LORE.md` y los prompts de las 22 viñetas, hechos.
 
 - [ ] Add-ons cosméticos al llegar a nivel 5 (batidos, mancuernas, gafas).
       Se pierden al bajar de nivel y se recuperan al volver a subir.
@@ -58,6 +63,10 @@
 
 
 ## Hecho
+- [x] 2026-09-11 — **La app cuenta la historia de Ninja.** Seis actos
+      al primer arranque, antes de pedir un solo dato, y siempre a mano
+      en Ajustes. Era el problema de fondo: nadie sabía para qué estaba
+      el gato porque la app no lo decía en ninguna parte.
 - [x] 2026-09-11 — `michi_sediento` y `michi_asqueado`, dibujados por
       Alberto, normalizados y teñidos a gris y blanco. Al teñir hubo que
       aprender a respetar el atrezo: el azul del agua y el verde del asco

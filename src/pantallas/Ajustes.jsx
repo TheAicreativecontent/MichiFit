@@ -15,7 +15,8 @@ import { Titulo } from './Ayuda.jsx';
 import Hoja from './Hoja.jsx';
 import { ESTILOS, COLORES, MICHIS, APARATO_POR_DEFECTO } from '../mascota/TamagotchiPNG.jsx';
 
-export default function Ajustes({ perfil, entradas, pacto, onCambiar, onReiniciar, onImportar }) {
+export default function Ajustes({ perfil, entradas, pacto, onCambiar, onReiniciar,
+                                 onImportar, onVerLore }) {
   const t = useT();
   const set = (campo) => (e) => {
     const v = e.target.value;
@@ -66,6 +67,15 @@ export default function Ajustes({ perfil, entradas, pacto, onCambiar, onReinicia
               : t('ajustes.imcSolo', { actual: imcActual.toFixed(1) })}
           </p>
         )}
+      </div>
+
+      {/* La historia de Ninja. Va la primera de las tarjetas del michi
+          porque es lo que explica todo lo demás: sin ella, elegir el
+          color de un gato que no sabes quién es no significa nada. */}
+      <div className="mf-tarjeta">
+        <h3 className="mf-h3">{t('lore.volverAVer')}</h3>
+        <p className="mf-nota" style={{ marginTop: 0 }}>{t('lore.realTexto')}</p>
+        <button className="mf-boton" onClick={onVerLore}>🐾 {t('lore.verLore')}</button>
       </div>
 
       <div className="mf-tarjeta">

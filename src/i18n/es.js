@@ -230,6 +230,35 @@ export default {
   /* La carcasa del michi: dos acabados por siete colores. */
   /* Los dos anillos de los botones del aparato. Cortos: se leen a 7 px
      debajo del icono. Ver `mascota/anillos.js`. */
+  /* La historia de Ninja. Ver LORE.md y `pantallas/Lore.jsx`. */
+  lore: {
+    titulo: 'Ninja',
+    subtitulo: 'Una historia de verdad',
+    saltar: 'Saltar',
+    seguir: 'Seguir',
+    atras: 'Atrás',
+    adoptar: 'Adoptar a Ninja',
+    volverAVer: 'La historia de Ninja',
+    verLore: 'Ver su historia',
+    realTitulo: 'Ninja existe',
+    realTexto: 'No es un personaje. Vive en Bangkok, duerme mucho y sigue robando comida de la mesa.',
+    sinFotos: 'Aquí irán sus fotos.',
+    actos: [
+      { t: 'El callejón',
+        d: 'Ninja vivía en un callejón de Bangkok, rebuscando comida. Una enfermera le dejaba algo de comer al salir del turno; se saludaban de lejos, sin tocarse, desde hacía meses.' },
+      { t: 'El peligro',
+        d: 'Un día alguien lo echó a escobazos. Escapó por los pelos y durmió con hambre, hecho un ovillo detrás de unas cajas.' },
+      { t: 'La trampa',
+        d: 'Al amanecer encontró un bol de comida. Demasiado limpio, demasiado bonito para estar allí. Comió feliz.' },
+      { t: 'La noche',
+        d: 'Estaba envenenado. Ella lo encontró esa noche bajo la lluvia y corrió con él en brazos hasta el veterinario.' },
+      { t: 'El rescate',
+        d: 'Le salvaron la vida. Cuando abrió los ojos, ella seguía allí, dormida en la silla de la sala de espera.' },
+      { t: 'Casa',
+        d: 'Ninja ya no vive en la calle. Ahora te toca a ti: cuídate tú, y él estará bien.' },
+    ],
+  },
+
   anillo: {
     cuidar: 'Cuidar',
     registrar: 'Registrar',

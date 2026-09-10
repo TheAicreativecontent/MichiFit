@@ -294,3 +294,34 @@ por hora) y los mimos pesan algo más (22 → 28).
 Queda pendiente de Alberto: los ocho iconos en pixel art y los dibujos
 de `michi_sediento` y `michi_asqueado`. Mientras falten, el aparato cae
 al michi de pie y no se rompe nada.
+
+### 2026-09-11 (noche) — La app por fin dice quién es el gato
+
+Esto cierra el problema que abrió todo el replanteamiento del michi hace
+dos días: varias personas probaron la app y dijeron lo mismo sin ponerse
+de acuerdo, **no entendían para qué servía el gato**. Se arregló lo que
+el michi refleja, se le puso nombre e historia… y la app seguía sin
+contarlo en ninguna parte.
+
+Ahora la historia de Ninja sale **antes de pedir un solo dato**. Seis
+actos, dos frases cada uno, y el botón final dice «Adoptar a Ninja» y
+lleva a la bienvenida. La bienvenida deja de ser «configura tu perfil» y
+pasa a ser lo que dice `LORE.md` que tenía que ser.
+
+Los dos actos duros —el escobazo y el veneno— no enseñan nada: la escena
+se apaga, se tiñe de azul y le cae lluvia. Misma decisión de tono que el
+cómic, del agresor solo la sombra.
+
+Las ilustraciones son el michi **gris** sobre los escenarios que ya
+existen, no las viñetas: esas están escritas como prompts pero sin
+generar. Cambiarlas el día que existan es una línea por acto.
+
+Antes de eso, los dos dibujos que trajo Alberto: `michi_sediento` y
+`michi_asqueado`. Al sediento se le quitó el sol de la esquina, que
+además de sobrar estiraba la caja del dibujo y habría dejado al gato más
+pequeño que en las otras poses. Y el teñido tuvo que aprender algo que
+llevaba razón hasta hoy: cambiaba el tono de todo lo claro y saturado, lo
+cual valía mientras en los michis solo hubiera pelaje naranja, mofletes
+rosas y contorno. El michi gris salía con **la botella de agua gris y la
+cara de asco gris**, o sea sin la única información que da cada dibujo.
+Ahora se respeta lo que cae fuera del arco naranja del pelaje.
