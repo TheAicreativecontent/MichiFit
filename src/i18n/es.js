@@ -228,6 +228,24 @@ export default {
   /* Borrado total. El paso deliberado es escribir el numero de dias que
      se pierden: obliga a leer cuantos son antes de poder pulsar. */
   /* La carcasa del michi: dos acabados por siete colores. */
+  /* Los dos anillos de los botones del aparato. Cortos: se leen a 7 px
+     debajo del icono. Ver `mascota/anillos.js`. */
+  anillo: {
+    cuidar: 'Cuidar',
+    registrar: 'Registrar',
+    siguiente: 'Siguiente',
+    aceptar: 'Aceptar',
+    mimar: 'Mimar',
+    agua: 'Agua',
+    limpiar: 'Limpiar',
+    salir: 'Salir',
+    comida: 'Comida',
+    entreno: 'Entreno',
+    pasos: 'Pasos',
+    sueno: 'Sueño',
+    ayuda: 'Izquierda: cuidar · Centro: siguiente · Derecha: aceptar',
+  },
+
   aparato: {
     titulo: 'Tu michi',
     mimar: 'Mimar',
@@ -238,7 +256,7 @@ export default {
     liso: 'Liso',
     pixel: 'Píxeles',
     color: 'Color',
-    nota: 'Los tres botones del aparato siguen haciendo lo de siempre, elijas el gato que elijas: mimar, cambiar de escena y dormir, de izquierda a derecha.',
+    nota: 'El botón de la izquierda cuida al michi, el del medio abre lo que quieras apuntar y el de la derecha acepta. Elijas el gato que elijas, hacen lo mismo.',
     michi: 'Tu gato',
     michis: { naranja: 'Naranja', gris: 'Gris', blanco: 'Blanco' },
     colores: {

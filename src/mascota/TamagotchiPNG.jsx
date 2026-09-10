@@ -17,6 +17,7 @@
 import { useEffect, useState } from 'react';
 import { useT } from '../i18n/index.jsx';
 import Tamagotchi from './Tamagotchi.jsx';
+import { rotulosDeBotones } from './anillos.js';
 import './tamagotchi.css';
 
 /* Geometría medida sobre el PNG del huevo (660x900): el hueco de la
@@ -27,10 +28,12 @@ import './tamagotchi.css';
    el diseño no cambien. */
 const PANTALLA = { left: 25.30, top: 30.89, width: 49.55, height: 41.67 };
 
-/* Zona útil del michi dentro de la pantalla: se deja aire arriba para la
-   barra de puntos. El aparato de Alberto no tiene bandas dibujadas, así
-   que la pantalla es toda del michi. */
-const ZONA = { top: 14, height: 84 };
+/* Zona útil del michi dentro de la pantalla: se deja aire arriba para
+   las barras y el rótulo, que ocupan un 30%. Estaba en 14 de cuando
+   había dos barras; con cuatro, una pose alta se habría metido debajo
+   de ellas. El michi se apoya abajo, así que el borde de abajo es el
+   que manda y se deja donde estaba. */
+const ZONA = { top: 30, height: 68 };
 
 const RUTA = '/michi';
 
@@ -79,13 +82,14 @@ const ESCENARIOS = { gimnasio: '/fondos/gimnasio.png', calle: '/fondos/calle.png
    art (24,8 / 49,9 / 75,0) estaba MAL: sus botones estan en 34/50/66, y
    los de los lados quedaban a nueve puntos de su dibujo. Se notaba poco
    porque el area de toque es ancha a proposito, pero fallaba. */
-/* El rotulo va por clave, no escrito aqui: estos tres botones son la
-   interaccion principal de la app y su `title` se ve al pasar el raton.
-   Estaban en castellano fijo, asi que en japones salia «Mimar». */
+/* Solo la posición: lo que dice cada botón depende de si hay un anillo
+   abierto, y lo decide `rotulosDeBotones` en `anillos.js`. Los `id` son
+   los de siempre —vienen de cuando eran mimar/escena/dormir— y se
+   quedan porque son la clave que usa el CSS para colocarlos. */
 const BOTONES = [
-  { id: 'mimar',  cx: 33.8, clave: 'aparato.mimar' },
-  { id: 'accion', cx: 49.8, clave: 'aparato.escena' },
-  { id: 'dormir', cx: 65.8, clave: 'aparato.dormir' },
+  { id: 'mimar',  cx: 33.8 },
+  { id: 'accion', cx: 49.8 },
+  { id: 'dormir', cx: 65.8 },
 ];
 const BOTON_Y = 84.6;
 
@@ -100,6 +104,8 @@ export default function TamagotchiPNG({
   nivel = null,        // { emoji, nombre, progreso, xp, xpSiguiente }
   felicidad = null,    // 0-100, o null para no pintar la barra
   denoche = false,     // de noche la barra se congela y se dice
+  cuidado = null,      // { agua, orden, cacas, sed, sucio } de engine/cuidados.js
+  menu = null,         // { items: [{ id, icono, etiqueta }], indice } — el anillo
   pose = null,         // 'dormido' | 'comiendo' | 'entrenando' | null (manda sobre el cuerpo)
   rotulo = null,       // qué está haciendo, entre las barras y el michi
   mensaje = null,      // texto que sale al tocar la PANTALLA ("cómo va")
@@ -111,6 +117,8 @@ export default function TamagotchiPNG({
   const t = useT();
   const [sinHuevo, setSinHuevo] = useState(false);
   const [intento, setIntento] = useState(0);
+  /* Lo que dice cada botón depende de si hay anillo abierto. */
+  const rotulos = rotulosDeBotones(menu ? 'abierto' : null);
 
   /* Cadena de respaldo, de lo más específico a lo más general:
        1. el michi en esta pose   (michi_durmiendo.png)
@@ -120,12 +128,23 @@ export default function TamagotchiPNG({
      añadiendo dibujos de uno en uno: mientras falte el de una pose, sale
      el michi de pie y no se rompe nada. */
   const c = sufijoMichi(aparato);
-  const candidatos = [
+  /* El `new Set` NO es aseo: es lo que hace que la cadena funcione.
+
+     El michi naranja no lleva sufijo, así que con él los dos primeros
+     candidatos salen IDÉNTICOS. Al fallar el primero, el respaldo
+     reintentaba exactamente la misma URL: React no veía cambiar el
+     `src`, el navegador no volvía a pedir un 404 que ya conocía, no
+     saltaba otro `onError`... y el michi se quedaba invisible para
+     siempre. Con los michis gris y blanco no pasaba, porque sus
+     candidatos sí eran distintos.
+
+     Salió al probar el michi sediento, cuyo dibujo aún no existe. */
+  const candidatos = [...new Set([
     pose && `${RUTA}/${estado}_${pose}${c}.png`,
     pose && `${RUTA}/${estado}_${pose}.png`,
     `${RUTA}/${estado}${c}.png`,
     `${RUTA}/michi.png`,
-  ].filter(Boolean);
+  ].filter(Boolean))];
   const src = candidatos[intento];
 
   /* Al cambiar de pose se vuelve a intentar desde arriba: si no, una
@@ -174,16 +193,59 @@ export default function TamagotchiPNG({
                 </div>
               </div>
             )}
+
+            {/* Agua y orden. Los rótulos van en inglés corto adrede: la
+                fuente de la pantallita (Press Start 2P) solo tiene
+                alfabeto latino, así que en japonés saldrían cuadrados.
+                Es la misma razón por la que NIVEL dice el nombre del
+                nivel transliterado y no el traducido. */}
+            {cuidado && (
+              <>
+                <div className="mf-tamapng-nivel agua">
+                  <span className="et">WATER</span>
+                  <div className="barra"><i style={{ width: `${cuidado.agua}%` }} /></div>
+                </div>
+                <div className="mf-tamapng-nivel orden">
+                  <span className="et">CLEAN</span>
+                  <div className="barra"><i style={{ width: `${cuidado.orden}%` }} /></div>
+                </div>
+              </>
+            )}
+
+            {/* Qué está haciendo. Va DENTRO de la cabecera, detrás de las
+                barras, y no colocado a una altura fija: así cae siempre
+                justo debajo de la última barra, haya dos o cuatro. Con
+                un `top` fijo, añadir las de agua y orden lo dejó tapando
+                a CLEAN, y eso solo se vio ampliando la pantalla. */}
+            {rotulo && <div className="mf-tamapng-rotulo">{rotulo}</div>}
           </div>
         )}
 
         <img className="mf-tamapng-escena"
              src={ESCENARIOS[escenario] ?? ESCENARIOS.casa} alt="" />
 
-        {/* Qué está haciendo. Va bajo las barras y sobre el michi, que es
-            el hueco que quedaba libre en la pantalla. */}
-        {!sinHuevo && rotulo && (
-          <div className="mf-tamapng-rotulo">{rotulo}</div>
+        {/* El anillo de iconos, como en un tamagotchi. El seleccionado
+            lleva recuadro y su nombre al lado: sin el nombre, un icono
+            de 13 px no se entiende, y el problema que estamos
+            resolviendo es justo que la gente no sabe qué hace cada cosa.
+
+            Va FUERA de `mf-tamapng-zona` a propósito: dentro, su `top`
+            se medía contra la zona del michi y no contra la pantalla, y
+            acababa cayendo en mitad del gato.
+
+            Los iconos son emoji de momento. Cuando Alberto tenga los
+            suyos en pixel art, se cambia `icono` por una <img> y ya. */}
+        {menu?.items?.length > 0 && (
+          <div className="mf-tamapng-anillo">
+            <div className="iconos">
+              {menu.items.map((it, i) => (
+                <span key={it.id} className={`it ${i === menu.indice ? 'sel' : ''}`}>
+                  {it.icono}
+                </span>
+              ))}
+            </div>
+            <div className="nombre">{menu.items[menu.indice]?.etiqueta}</div>
+          </div>
         )}
 
         <div className="mf-tamapng-zona"
@@ -191,6 +253,18 @@ export default function TamagotchiPNG({
           {src && (
             <img className="mf-tamapng-michi" src={src} alt=""
                  onError={() => setIntento((i) => i + 1)} />
+          )}
+
+          {/* Las cacas kawaii, en el suelo. Van dentro de la zona del
+              michi para que se apoyen en la misma línea que él, y a la
+              izquierda y la derecha para no taparlo. Son emoji: no hace
+              falta dibujo, y el 💩 se ve igual en todos los sistemas. */}
+          {cuidado?.cacas > 0 && !dormido && (
+            <div className="mf-tamapng-cacas" aria-hidden="true">
+              {Array.from({ length: cuidado.cacas }, (_, i) => (
+                <span key={i} className={`caca c${i}`}>💩</span>
+              ))}
+            </div>
           )}
 
           {mimando && (
@@ -225,7 +299,7 @@ export default function TamagotchiPNG({
         <button key={b.id} className={`mf-tamapng-boton ${b.id}`}
                 style={{ left: `${b.cx}%`, top: `${BOTON_Y}%` }}
                 onClick={() => onBoton(b.id)}
-                aria-label={t(b.clave)} title={t(b.clave)} />
+                aria-label={t(rotulos[b.id])} title={t(rotulos[b.id])} />
       ))}
     </div>
   );

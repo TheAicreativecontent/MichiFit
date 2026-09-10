@@ -173,6 +173,11 @@ Dos decisiones que la sostienen:
 - **Los mimos suben poco y cada vez menos.** Da gusto darle al botón, pero
   no se puede tener al michi feliz solo a base de caricias. Si bastara con
   eso, la app dejaría de hablar de tu vida.
+  *Matizado el 2026-09-11*: los mimos pesan algo más (tope 22 → 28) y la
+  barra baja antes (2,2 → 3,4 por hora). Es un cambio deliberado de
+  apuesta, no un ajuste: ver `DECISIONS.md`. Lo que impide que sea un
+  castigo es que el desgaste se mide desde el ÚLTIMO cuidado y no
+  acumulado — al mimar o apuntar algo, el reloj vuelve a cero.
 - **De noche la barra se congela** (23:00 a 07:00). Nadie debe levantarse de
   madrugada a pulsar un botón: eso convertiría el cariño en obligación, que
   es justo lo contrario de lo que se busca. El desgaste cuenta solo horas de
@@ -180,6 +185,59 @@ Dos decisiones que la sostienen:
 
 Apuntar datos cuenta como cuidado igual que un mimo: lo que baja la barra es
 el abandono, no el reloj.
+
+## 8c · Los tres botones, y el agua y el orden (2026-09-11)
+
+Hasta hoy los tres botones del aparato eran un juguete: el izquierdo
+daba corazones, el central cambiaba el decorado y el derecho dormía al
+michi. Ninguno tocaba un dato. **Ahora el aparato es la interfaz.**
+
+La gramática es la de un tamagotchi de verdad, y está en
+`src/mascota/anillos.js`:
+
+| Botón | En reposo | Dentro de un anillo |
+|---|---|---|
+| **izquierda** | abre el anillo de CUIDAR | sale |
+| **centro** | abre el anillo de MEDIR | siguiente icono |
+| **derecha** | duerme al michi | acepta |
+
+**Anillo de cuidar**: mimar · agua · limpiar · salir.
+**Anillo de medir**: comida · entreno · pasos · sueño · salir. Al aceptar
+se abre el editor del día **filtrado a ese solo dato**; es el mismo
+`EditorDia` del "+" con menos campos, no un editor nuevo.
+
+Y mientras paseas el cursor por el anillo de medir, **la pantalla
+enseña ya lo que vas a apuntar**: sobre «pasos» sale el michi andando
+por la calle, sobre «comida» sale comiendo en casa. Es media
+explicación sin escribir una palabra, y va justo al problema que trajo
+todo esto: la gente no entendía para qué servía el gato.
+
+Que el botón central signifique dos cosas según dónde estés es correcto
+—es como funcionan los tamagotchis— pero **un tamagotchi venía con
+manual y esto no**, así que hay tres salidas: el icono de salir, el
+botón izquierdo desde cualquier sitio, y la vuelta sola a los 8 s.
+
+### Las dos barras nuevas
+
+`WATER` y `CLEAN`, en `src/engine/cuidados.js`. Bajan solas con las
+horas de vigilia y se rellenan con un botón. Cuando `CLEAN` baja salen
+cacas kawaii en el suelo, de una en una.
+
+**Son el anzuelo, no la mecánica.** Y esto no es una forma de hablar:
+
+- **No tocan NADA.** Ni experiencia, ni nivel, ni HAPPY, ni el
+  cumplimiento del pacto. Un michi con sed sube de nivel exactamente
+  igual que uno con el cuenco lleno, y `pruebas/cuidados.mjs` lo
+  comprueba campo por campo. Si algún día dieran puntos, la app
+  premiaría pulsar un botón en vez de cuidarte.
+- **No hay castigo, ni muerte, ni reproche.** El michi tiene sed o
+  arruga la nariz. Se arregla con un toque y no queda rastro.
+- **De noche no bajan**, igual que HAPPY.
+
+Y una regla de precedencia que costó una prueba en rojo: **cumplir bien
+manda sobre tener sed**. Al ponerlo al revés, quien no descubriera el
+botón del agua no volvía a ver a su michi contento nunca. Ver el
+comentario de `estadoVisual` en `engine/michi.js`.
 
 ## 9 · Add-ons (después del máximo)
 

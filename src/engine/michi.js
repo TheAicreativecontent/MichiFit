@@ -15,6 +15,7 @@ import {
 import { evaluarDias, evaluarSemana, hoyISO, diasAtras, diasDesde, horasDeSueno } from './pacto.js';
 import { clamp } from './calculos.js';
 import { calcularFelicidad } from './felicidad.js';
+import { calcularCuidados } from './cuidados.js';
 
 /* ---------- 1 · Energía (0-100) ----------
    Actividad reciente. Cae si paras, pero no de golpe: los últimos
@@ -196,7 +197,8 @@ function rachaDesde(evaluaciones) {
 }
 
 /* ---------- 6 · Estado completo ---------- */
-export function calcularEstado({ pacto, entradas, perfil, carino = [], ahora = Date.now(), hoy = hoyISO() }) {
+export function calcularEstado({ pacto, entradas, perfil, carino = [], cuidados = {},
+                                 ahora = Date.now(), hoy = hoyISO() }) {
   // Nunca mirar más atrás del día en que se creó el pacto: antes de existir
   // no se podía incumplir. Sin esto, un usuario nuevo arranca con semanas
   // falladas a la espalda.
@@ -208,6 +210,9 @@ export function calcularEstado({ pacto, entradas, perfil, carino = [], ahora = D
   const animo = calcularAnimo({ evaluaciones, entradas, energia, forma });
   const rachas = calcularRachaYComodines(evaluaciones);
   const felicidad = calcularFelicidad({ evaluaciones, entradas, carino, ahora });
+  /* El agua y el orden van aparte a propósito: no entran en ningún
+     cálculo de los de arriba. Ver la cabecera de `cuidados.js`. */
+  const cuidado = calcularCuidados({ cuidados, pacto, ahora });
   const hitosDesbloqueados = calcularHitos({ evaluaciones, entradas, perfil });
   const nivel = calcularNivel({ pacto, entradas, evaluaciones, hoy, hitos: hitosDesbloqueados });
 
@@ -225,6 +230,7 @@ export function calcularEstado({ pacto, entradas, perfil, carino = [], ahora = D
     nivel,
     felicidad: felicidad.valor,
     felicidadDetalle: felicidad.detalle,
+    cuidado,
     hitosDesbloqueados,
     abandono,
     dormido: abandono >= 2,
@@ -252,7 +258,7 @@ export function calcularEstado({ pacto, entradas, perfil, carino = [], ahora = D
    Así no hacen falta cinco escenas por tres ánimos: con ocho dibujos
    está todo cubierto.                                                */
 export function estadoVisual(estado) {
-  const { energia, forma, animo, abandono, nivel } = estado;
+  const { energia, forma, animo, abandono, nivel, cuidado } = estado;
 
   /* El humor sale de FORMA, que es el cumplimiento sostenido, y no de
      `animo`, que depende mucho de si has apuntado algo hoy.
@@ -270,6 +276,24 @@ export function estadoVisual(estado) {
   if (abandono >= DIAS_ABANDONO) humor = 'triste';      // lo ha dejado
   else if (abandono >= 2 || energia <= 30) humor = 'cansado';
   else if (forma >= 70) humor = 'contento';             // viene cumpliendo
+  /* La sed y la casa sucia van AQUÍ, y el sitio costó una prueba roja.
+
+     Al principio las puse por delante de `contento`, con el argumento
+     de que se arreglan en un toque y conviene verlas. Pero el cuenco se
+     vacía solo cada dieciséis horas de vigilia: quien no descubriera el
+     botón del agua no volvería a ver a su michi contento NUNCA, por bien
+     que llevara el pacto. `pruebas/cobertura-michi.mjs` lo cazó al
+     momento — `michi_contento` y `michi` se volvieron inalcanzables— y
+     eso es exactamente lo que dice `MECANICA.md` §10 que no se hace:
+     el michi no juzga, y menos por algo que no tiene que ver contigo.
+
+     Aquí abajo funciona como debe. Cumplir manda. Y cuando el michi no
+     tiene nada mejor que contar, en vez de poner cara triste PIDE algo,
+     que es una cara mucho más amable: la tristeza es un reproche, la
+     sed es una petición. El aviso de verdad no es la cara de todos
+     modos, son la barra WATER y las cacas en el suelo. */
+  else if (cuidado?.sed) humor = 'sediento';
+  else if (cuidado?.sucio) humor = 'asqueado';
   else if (forma < 30 || animo <= -20) humor = 'triste';
   else humor = null;                                     // ni fu ni fa
 

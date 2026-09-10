@@ -222,6 +222,22 @@ export default {
     pie: 'MichiFit is a motivation tool, not medical advice. If you have health concerns, talk to a professional. 💛',
   },
 
+  anillo: {
+    cuidar: 'Care',
+    registrar: 'Log',
+    siguiente: 'Next',
+    aceptar: 'Accept',
+    mimar: 'Pet',
+    agua: 'Water',
+    limpiar: 'Clean',
+    salir: 'Exit',
+    comida: 'Food',
+    entreno: 'Workout',
+    pasos: 'Steps',
+    sueno: 'Sleep',
+    ayuda: 'Left: care · Middle: next · Right: accept',
+  },
+
   aparato: {
     titulo: 'Your michi',
     mimar: 'Pet',
@@ -232,7 +248,7 @@ export default {
     liso: 'Smooth',
     pixel: 'Pixels',
     color: 'Colour',
-    nota: 'The three buttons keep doing what they always did, whichever cat you pick: pet, change the scene and sleep, left to right.',
+    nota: 'The left button looks after your michi, the middle one opens what you want to log, and the right one accepts. They work the same whichever cat you pick.',
     michi: 'Your cat',
     michis: { naranja: 'Ginger', gris: 'Grey', blanco: 'White' },
     colores: {

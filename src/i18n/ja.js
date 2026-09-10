@@ -222,6 +222,22 @@ export default {
     pie: 'MichiFitはやる気を支える道具であって、医療上の助言ではありません。健康について心配なことがあれば、専門家に相談してください。💛',
   },
 
+  anillo: {
+    cuidar: 'おせわ',
+    registrar: 'きろく',
+    siguiente: 'つぎへ',
+    aceptar: 'けってい',
+    mimar: 'なでる',
+    agua: 'みず',
+    limpiar: 'そうじ',
+    salir: 'とじる',
+    comida: 'しょくじ',
+    entreno: 'うんどう',
+    pasos: 'ほすう',
+    sueno: 'すいみん',
+    ayuda: '左：おせわ · 中：つぎへ · 右：けってい',
+  },
+
   aparato: {
     titulo: 'あなたのミチ',
     mimar: 'なでる',
@@ -232,7 +248,7 @@ export default {
     liso: 'なめらか',
     pixel: 'ドット',
     color: '色',
-    nota: 'どの猫を選んでも、ボタンの働きはそのまま — 左から順に、なでる、場面を変える、寝かしつけるです。',
+    nota: '左のボタンでミチのおせわ、まん中で記録したいものを開き、右で決定します。どの猫を選んでも同じです。',
     michi: 'あなたの猫',
     michis: { naranja: 'ちゃとら', gris: 'グレー', blanco: 'ホワイト' },
     colores: {

@@ -277,3 +277,39 @@ parecio que el codigo estaba mal cuando lo que estaba mal era la prueba.
 **Regla:** `const original = obj.metodo` antes de parchear, y
 `obj.metodo = original` para devolverlo. Y antes de creerse que el codigo
 falla, comprobar que la prueba mide lo que dice medir.
+
+## Una cadena de respaldo con dos eslabones iguales no es una cadena
+
+`TamagotchiPNG` prueba varias rutas hasta encontrar un dibujo que exista.
+Con el michi naranja —que no lleva sufijo de color— los dos primeros
+candidatos salian LA MISMA URL. Al fallar el primero, el respaldo
+reintentaba exactamente lo mismo: React no veia cambiar el `src`, el
+navegador no volvia a pedir un 404 que ya conocia, no saltaba otro
+`onError`, y el michi se quedaba invisible. Con el gris y el blanco
+funcionaba, porque sus rutas si eran distintas.
+
+Llevaba ahi desde que existe la cadena. Solo salio al pedir un dibujo
+que aun no existe (`michi_sediento`).
+
+**Regla:** una lista de alternativas se deduplica al construirla
+(`[...new Set(...)]`). Y al probar un respaldo, probarlo en la variante
+por DEFECTO: es la que usa casi todo el mundo y suele ser el caso
+especial, no el general.
+
+## Un anzuelo que tapa el producto deja de ser un anzuelo
+
+Las barras de agua y orden se pusieron para dar un motivo de volver a la
+app. Al conectarlas, puse «tiene sed» por delante de «viene cumpliendo»
+en el humor del michi, razonando que se arregla en un toque y conviene
+verlo. Pero el cuenco se vacia solo cada dieciseis horas de vigilia: el
+resultado era que quien no descubriera el boton del agua **no volvia a
+ver a su michi contento jamas**, por bien que llevara el pacto. Los dos
+dibujos mas importantes de la app se volvieron inalcanzables.
+
+`pruebas/cobertura-michi.mjs` lo dijo en la primera ejecucion. Sin ella
+habria llegado a produccion y habria parecido «que la app va triste».
+
+**Regla:** al añadir un estado nuevo que compite con los de siempre,
+mirar que no los deje sin sitio. Y si el estado nuevo se activa SOLO —por
+un reloj, no por el usuario— tiene prioridad baja por definicion: lo que
+el usuario hace tiene que poder ganarle.

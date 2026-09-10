@@ -18,6 +18,7 @@ import { calcularEstado } from './engine/michi.js';
 import { sincronizarPacto } from './engine/calculos.js';
 import { hoyISO } from './engine/pacto.js';
 import { podarCarino } from './engine/felicidad.js';
+import { atender } from './engine/cuidados.js';
 import { leer, guardar, reiniciar } from './datos/almacen.js';
 import { useT } from './i18n/index.jsx';
 import SelectorIdioma from './i18n/Selector.jsx';
@@ -51,6 +52,9 @@ export default function App() {
     document.documentElement.style.setProperty('--escala', datos.perfil?.escalaTexto ?? 1);
   }, [datos.perfil?.escalaTexto]);
   const [pestana, setPestana] = useState('inicio');
+  /* `false` cerrado · `true` la hoja entera (el "+" de la barra) ·
+     'comida' | 'entreno' | 'pasos' | 'sueno' un solo dato, que es lo
+     que abre el anillo de medir del aparato. */
   const [registrando, setRegistrando] = useState(false);
   /* Lo que apuntas, el michi lo hace: si registras comida se pone a
      comer, si registras entreno se pone a levantar pesas. La animación no
@@ -100,8 +104,9 @@ export default function App() {
 
   const estado = useMemo(
     () => (listo ? calcularEstado({ pacto: datos.pacto, entradas: datos.entradas,
-                       perfil: datos.perfil, carino: datos.carino }) : null),
-    [listo, datos.pacto, datos.entradas, datos.perfil, datos.carino, tic]
+                       perfil: datos.perfil, carino: datos.carino,
+                       cuidados: datos.cuidados }) : null),
+    [listo, datos.pacto, datos.entradas, datos.perfil, datos.carino, datos.cuidados, tic]
   );
 
   /* Registrar en cualquier fecha; `undefined` no pisa lo que ya había. */
@@ -124,6 +129,11 @@ export default function App() {
 
   const registrarCarino = () =>
     setDatos((d) => ({ ...d, carino: podarCarino([...(d.carino ?? []), Date.now()]) }));
+
+  /* Llenar el cuenco o recoger la casa. No toca ningún dato del pacto:
+     solo apunta cuándo se hizo. Ver `engine/cuidados.js`. */
+  const cuidar = (que) =>
+    setDatos((d) => ({ ...d, cuidados: atender(d.cuidados, que) }));
 
   const registrar = (fecha, campos) => {
     if (fecha === hoyISO()) {
@@ -200,7 +210,8 @@ export default function App() {
         {pestana === 'inicio' && (
           <Inicio estado={estado} entradas={datos.entradas} pacto={datos.pacto}
                   aparato={datos.perfil?.aparato}
-                  onCarino={registrarCarino} accion={accion}
+                  onCarino={registrarCarino} onCuidar={cuidar}
+                  onMedir={(campo) => setRegistrando(campo)} accion={accion}
                   pruebas={pruebas} onCerrarPruebas={() => setPruebas(false)} />
         )}
         {pestana === 'pacto' && (
@@ -245,6 +256,7 @@ export default function App() {
       {registrando && (
         <EditorDia
           fecha={hoyISO()} entrada={datos.entradas[hoyISO()] ?? {}} pacto={datos.pacto}
+          solo={registrando === true ? null : registrando}
           onGuardar={(campos) => { registrar(hoyISO(), campos); setRegistrando(false); }}
           onCerrar={() => setRegistrando(false)}
         />

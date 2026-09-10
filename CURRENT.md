@@ -30,6 +30,9 @@ pantallas y el motor entero.
   estaba en producción (la caché del service worker), los botones del
   aparato hablaban castellano en los cinco idiomas, y el aviso de que
   el navegador no puede guardar. Ver abajo.
+- Última acción (2026-09-11, tarde): **el aparato pasa a ser la
+  interfaz**. Dos anillos en los tres botones, dos barras nuevas (agua
+  y orden) y vista previa de la escena al elegir qué apuntar. Ver abajo.
 - Próximo paso: **contar el lore dentro de la app**. Sigue siendo el
   problema de fondo: la gente no sabe para qué está el gato porque la
   app no lo dice en ninguna parte. El guion está en `LORE.md` y los
@@ -203,6 +206,53 @@ cuatro PNG sueltos de la raíz.
 
 Comprobado en el navegador: los botones en japonés, y el aviso de guardado
 apareciendo y desapareciendo al romper y arreglar `localStorage`.
+
+## El aparato es la interfaz (2026-09-11)
+
+Los tres botones eran un juguete —corazones, cambiar decorado, dormir— y
+no tocaban ningún dato. Ahora:
+
+| Botón | En reposo | Dentro de un anillo |
+|---|---|---|
+| izquierda | anillo de CUIDAR | salir |
+| centro | anillo de MEDIR | siguiente icono |
+| derecha | dormir | aceptar |
+
+Cuidar: mimar · agua · limpiar. Medir: comida · entreno · pasos · sueño,
+y al aceptar se abre `EditorDia` **filtrado a ese dato** (prop `solo`).
+Mientras mueves el cursor por el anillo de medir, la pantalla **enseña
+ya lo que vas a apuntar**: sobre «pasos», el michi andando por la calle.
+
+Toda la gramática vive en `src/mascota/anillos.js`. Los iconos son emoji
+de momento; se cambian ahí por los PNG de Alberto cuando estén.
+
+**Tres salidas, y hacen falta**: el icono ✕, el botón izquierdo desde
+cualquier sitio, y la vuelta sola a los 8 s. Un tamagotchi venía con
+manual de papel; esto no.
+
+### Las barras de agua y orden
+
+`engine/cuidados.js`. Bajan con las horas de VIGILIA (16 y 24) y se
+rellenan con un botón; al bajar CLEAN salen cacas kawaii de una en una.
+
+**Son el anzuelo, no la mecánica**, y esto está probado y no solo dicho:
+`pruebas/cuidados.mjs` comprueba campo por campo que con el cuenco lleno
+y con el cuenco vacío salen el mismo nivel, la misma experiencia, el
+mismo HAPPY y el mismo cumplimiento. Si alguna vez esa prueba se pone en
+rojo, es que el bucle ha empezado a premiar pulsar botones.
+
+**Y cumplir manda sobre tener sed.** Está en `estadoVisual`, con el
+comentario de por qué: al ponerlo al revés —que es lo primero que hice—
+el cuenco se vacía solo cada 16 horas, así que quien no descubriera el
+botón del agua **no volvía a ver a su michi contento nunca**. Lo cazó
+`pruebas/cobertura-michi.mjs` al momento.
+
+### Si tocas los dibujos del michi
+
+La cadena de respaldo de `TamagotchiPNG` lleva un `new Set` que **no es
+aseo**: el michi naranja no tiene sufijo, así que sus dos primeros
+candidatos salían idénticos y el respaldo reintentaba la misma URL para
+siempre. El michi se quedaba invisible. No lo quites.
 
 ## Seguridad (revisado el 2026-09-09)
 - Las cabeceras van en `vercel.json`: CSP, X-Frame-Options, nosniff,

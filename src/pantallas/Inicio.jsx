@@ -9,7 +9,7 @@
    de ser cariño.
    ============================================================ */
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useT } from '../i18n/index.jsx';
 import Tamagotchi from '../mascota/TamagotchiPNG.jsx';
 import Marcador from './Marcador.jsx';
@@ -17,6 +17,7 @@ import { estadoVisual } from '../engine/michi.js';
 import { hoyISO } from '../engine/pacto.js';
 import { sonidos, despertarAudio } from '../mascota/sonido.js';
 import { ESCENAS, porId, siguiente, escenaAutomatica } from '../mascota/escenas.js';
+import { anilloDe, siguienteIndice, ESPERA_MS } from '../mascota/anillos.js';
 
 /* ---- PRUEBAS ----------------------------------------------------------
    Panel para ver todos los dibujos del michi sin tener que apuntar datos
@@ -33,7 +34,7 @@ const POSES = [
   { id: 'celebrando', et: 'celebra' },
 ];
 
-export default function Inicio({ estado, entradas, pacto, onCarino, accion,
+export default function Inicio({ estado, entradas, pacto, onCarino, onCuidar, onMedir, accion,
                                 pruebas = false, onCerrarPruebas, aparato }) {
   const t = useT();
   const [gesto, setGesto] = useState(null);      // 'mimar' | 'estado' | null
@@ -42,40 +43,91 @@ export default function Inicio({ estado, entradas, pacto, onCarino, accion,
   const [escenaId, setEscenaId] = useState(null);
   const [prueba, setPrueba] = useState(null);   // { cuerpo, pose } o null
 
+  /* ---- los tres botones ------------------------------------------
+     La gramática entera está explicada en `mascota/anillos.js`. Aquí
+     solo vive el estado: en qué anillo estamos y sobre qué icono.
+
+     Va ANTES de calcular la escena porque la escena depende de él: al
+     pasear el cursor por el anillo de medir, la pantalla enseña ya lo
+     que vas a apuntar. */
+  const [modo, setModo] = useState(null);        // null | 'cuidar' | 'medir'
+  const [indice, setIndice] = useState(0);
+  const anillo = anilloDe(modo);
+  const item = anillo?.[indice] ?? null;
+
   const visual = estadoVisual(estado);
   const hoy = estado.hoy;
   const entradaHoy = entradas[hoyISO()] ?? {};
   const pendientes = hoy?.objetivos.filter((o) => !o.cumplido && o.id !== 'descanso') ?? [];
 
-  /* Lo que se ve ahora: manda la prueba, luego la escena elegida a mano,
-     y si no hay ninguna, lo que hayas apuntado hoy. */
-  const escena = porId(escenaId) ?? escenaAutomatica(entradaHoy, accion, visual.humor);
+  /* Lo que se ve ahora, de más fuerte a más débil:
+       1. el panel de pruebas, si está abierto;
+       2. la vista previa del anillo de medir — con el cursor sobre
+          «pasos» ya sale el michi andando por la calle. Es media
+          explicación sin escribir una palabra, que es justo lo que
+          hacía falta: la queja era que no se entendía el gato;
+       3. la escena elegida a mano;
+       4. y si no, lo que hayas apuntado hoy. */
+  const escena = (modo === 'medir' && item?.escena ? porId(item.escena) : null)
+    ?? porId(escenaId)
+    ?? escenaAutomatica(entradaHoy, accion, visual.humor);
   const dormido = escena.dormido || estado.dormido;
+
+  const aNeutral = () => { setModo(null); setIndice(0); };
+
+  /* Si te distraes, el anillo se cierra solo. Sin esto, dejar el menú
+     abierto tapa al michi hasta que vuelvas, y quien lo abriera sin
+     querer no sabría cómo salir. Ver las tres salidas en `anillos.js`. */
+  useEffect(() => {
+    if (!modo) return undefined;
+    const id = setTimeout(aNeutral, ESPERA_MS);
+    return () => clearTimeout(id);
+  }, [modo, indice]);
+
+  const aceptar = () => {
+    if (!item || item.id === 'salir') { aNeutral(); return; }
+    if (modo === 'cuidar') {
+      /* Cuidar despierta al michi: darle agua a una pantalla apagada no
+         se entiende. */
+      setEscenaId((e) => (e === 'dormir' ? null : e));
+      if (item.id === 'mimar') { onCarino?.(); setGesto('mimar');
+        setTimeout(() => setGesto((g) => (g === 'mimar' ? null : g)), 2600); }
+      if (item.id === 'agua') onCuidar?.('agua');
+      if (item.id === 'limpiar') onCuidar?.('orden');
+      sonidos.mimar?.();
+    }
+    if (modo === 'medir') onMedir?.(item.campo);
+    aNeutral();
+  };
 
   const pulsar = (id) => {
     despertarAudio();
-    if (id === 'dormir') {
-      /* El rojo es el atajo: duerme al michi, o lo devuelve a lo que
-         tocaba. La escena `dormir` también sale en el ciclo del azul. */
-      setEscenaId((e) => (e === 'dormir' ? null : 'dormir'));
-      sonidos.dormir(escenaId !== 'dormir');
-      setGesto(null);
-      return;
-    }
-    if (id === 'accion') {
-      setEscenaId((e) => siguiente(e));
+    setGesto(null);
+
+    /* IZQUIERDA · abre el anillo de cuidar, y desde dentro sale.
+       Es la salida de emergencia: haga lo que haga la pantalla, este
+       botón siempre te devuelve a un sitio conocido. */
+    if (id === 'mimar') {
       sonidos.accion();
-      setGesto(null);
+      if (modo) { aNeutral(); return; }
+      setModo('cuidar'); setIndice(0);
       return;
     }
-    /* Un mimo despierta al michi: lanzar corazones contra una pantalla
-       apagada no se entiende. */
-    setEscenaId((e) => (e === 'dormir' ? null : e));
-    setGesto(id);
-    sonidos[id]?.();
-    if (id === 'mimar') onCarino?.();
-    // el gesto se deshace solo: es un momento, no un modo
-    setTimeout(() => setGesto((g) => (g === id ? null : g)), 2600);
+
+    /* CENTRO · desde neutral abre el anillo de medir; dentro de un
+       anillo pasa al siguiente icono. */
+    if (id === 'accion') {
+      sonidos.accion();
+      if (!modo) { setModo('medir'); setIndice(0); return; }
+      setIndice((i) => siguienteIndice(modo, i));
+      return;
+    }
+
+    /* DERECHA · acepta. Fuera de los anillos no hay nada que aceptar,
+       así que se queda como el atajo de siempre para dormir al michi. */
+    if (modo) { aceptar(); return; }
+    setEscenaId((e) => (e === 'dormir' ? null : 'dormir'));
+    sonidos.dormir(escenaId !== 'dormir');
   };
 
   /* Tocar el cristal: el michi cuenta cómo va. Antes era el botón del
@@ -107,6 +159,11 @@ export default function Inicio({ estado, entradas, pacto, onCarino, accion,
           nivel={estado.nivel}
           felicidad={estado.felicidad}
           denoche={estado.felicidadDetalle?.denoche}
+          cuidado={estado.cuidado}
+          menu={anillo ? {
+            indice,
+            items: anillo.map((it) => ({ ...it, etiqueta: t(it.clave) })),
+          } : null}
           mensaje={gesto === 'estado' ? resumen(estado, pendientes, t) : null}
           onBoton={pulsar}
           onPantalla={tocarPantalla}

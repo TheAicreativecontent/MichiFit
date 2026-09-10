@@ -11,9 +11,18 @@ import { ListaEjercicios, ejerciciosDe } from './Ejercicios.jsx';
 import Hoja from './Hoja.jsx';
 import { useT } from '../i18n/index.jsx';
 
-/* ---------------- editor de un día ---------------- */
-export default function EditorDia({ fecha, entrada, pacto, onGuardar, onCerrar }) {
+/* ---------------- editor de un día ----------------
+   `solo` limita la hoja a UN dato: es lo que abre el anillo de medir
+   del aparato, donde ya has elegido qué vas a apuntar y enseñarte los
+   otros cuatro campos sería deshacer esa elección. Sin `solo` sale la
+   hoja entera, que es lo que abre el "+" de la barra de abajo.
+
+   No son dos editores: es el mismo con menos campos a la vista. Lo que
+   no se ve, no se toca — se guarda `undefined` y el valor que hubiera
+   se queda como estaba. */
+export default function EditorDia({ fecha, entrada, pacto, onGuardar, onCerrar, solo = null }) {
   const t = useT();
+  const ver = (campo) => !solo || solo === campo;
   const [v, setV] = useState({
     peso: entrada.peso ?? '',
     pasos: entrada.pasos ?? '',
@@ -43,19 +52,22 @@ export default function EditorDia({ fecha, entrada, pacto, onGuardar, onCerrar }
   return (
     <Hoja onCerrar={onCerrar}>
       <>
-        <h3 className="mf-h3">{fecha}</h3>
+        <h3 className="mf-h3">{solo ? t('anillo.' + solo) : fecha}</h3>
         {!abierto && (
           <div className="mf-aviso suave">
             {t('dia.cerrado')}
           </div>
         )}
-        <Campo et={t('dia.peso')} u={t('comun.kg')} paso="0.1" v={v.peso} on={(x) => setV({ ...v, peso: x })} />
-        <Campo et={t('dia.pasos')} paso="100" v={v.pasos} on={(x) => setV({ ...v, pasos: x })} />
-        <Campo et={t('dia.entreno')} u={t('comun.min')} paso="5" v={v.entrenoMin} on={(x) => setV({ ...v, entrenoMin: x })} />
-        <Campo et={t('dia.comida')} u={t('comun.kcal')} paso="50" v={v.comidaKcal} on={(x) => setV({ ...v, comidaKcal: x })} />
-        <Campo et={t('dia.sueno')} u={t('comun.horas')} paso="0.5" v={v.suenoHoras} on={(x) => setV({ ...v, suenoHoras: x })} />
+        {ver('peso') && <Campo et={t('dia.peso')} u={t('comun.kg')} paso="0.1" v={v.peso} on={(x) => setV({ ...v, peso: x })} />}
+        {ver('pasos') && <Campo et={t('dia.pasos')} paso="100" v={v.pasos} on={(x) => setV({ ...v, pasos: x })} />}
+        {ver('entreno') && <Campo et={t('dia.entreno')} u={t('comun.min')} paso="5" v={v.entrenoMin} on={(x) => setV({ ...v, entrenoMin: x })} />}
+        {ver('comida') && <Campo et={t('dia.comida')} u={t('comun.kcal')} paso="50" v={v.comidaKcal} on={(x) => setV({ ...v, comidaKcal: x })} />}
+        {ver('sueno') && <Campo et={t('dia.sueno')} u={t('comun.horas')} paso="0.5" v={v.suenoHoras} on={(x) => setV({ ...v, suenoHoras: x })} />}
 
-        <div className="mf-ejs">
+        {/* Las macros van con la comida, y los ejercicios con el
+            entreno: es donde tienen sentido cuando la hoja viene
+            filtrada desde el aparato. */}
+        <div className="mf-ejs" hidden={!ver('comida')}>
           <div className="mf-ejs-cab">
             <button className="mf-ejs-titulo" type="button"
                     onClick={() => setVerMacros((m) => !m)}>
@@ -73,7 +85,9 @@ export default function EditorDia({ fecha, entrada, pacto, onGuardar, onCerrar }
           )}
         </div>
 
-        <ListaEjercicios ejercicios={ejercicios} hechos={hechos} onCambiar={setHechos} />
+        {ver('entreno') && (
+          <ListaEjercicios ejercicios={ejercicios} hechos={hechos} onCambiar={setHechos} />
+        )}
 
         <div className="mf-hoja-pie">
           <button className="mf-boton" onClick={onCerrar}>{t('comun.cancelar')}</button>

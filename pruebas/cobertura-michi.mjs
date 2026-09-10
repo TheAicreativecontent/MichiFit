@@ -45,20 +45,62 @@ const PERFILES = {
   'nunca ha apuntado':    {},
 };
 
+/* Los dos ultimos aun no estan dibujados: los hara Alberto. Mientras
+   falten, el aparato cae al michi de pie y no se rompe nada — pero la
+   prueba ya vigila que sean ALCANZABLES, para que el dia que existan no
+   haya que descubrir que nadie los ve. */
 const TODOS = ['michi', 'michi_contento', 'michi_cansado', 'michi_triste',
                'michi_andando', 'michi_comiendo', 'michi_entrenando',
-               'michi_durmiendo', 'michi_celebrando'];
+               'michi_durmiendo', 'michi_celebrando',
+               'michi_sediento', 'michi_asqueado'];
 
 const vistos = new Set();
 
+/* El michi bien atendido es el caso normal: si no se pasa `cuidados`, el
+   reloj cuenta desde que se creo el pacto —hace 40 dias en esta prueba—
+   y sale sediento en TODOS los perfiles. Eso ya paso: la primera version
+   de las barras dejo `michi_contento` y `michi` inalcanzables, y esta
+   prueba lo caza. Ver el comentario de `estadoVisual` en michi.js. */
+const atendido = { agua: Date.now(), orden: Date.now() };
+
 console.log('%s %s %s', 'perfil'.padEnd(22), 'humor'.padEnd(9), 'dibujo que sale');
 for (const [n, entradas] of Object.entries(PERFILES)) {
-  const est = M.calcularEstado({ pacto, entradas, perfil, carino: [] });
+  const est = M.calcularEstado({ pacto, entradas, perfil, carino: [], cuidados: atendido });
   const v = M.estadoVisual(est);
   const esc = E.escenaAutomatica(entradas[iso(0)] ?? {}, null, v.humor);
   const dibujo = 'michi' + (esc.pose ? '_' + esc.pose : '');
   vistos.add(dibujo);
   console.log('%s %s %s', n.padEnd(22), String(v.humor).padEnd(9), dibujo);
+}
+
+/* Y los dos que salen cuando le falta algo. Se comprueba sobre el perfil
+   que MEJOR cumple: si ni asi se ven, es que cumplir los tapa siempre y
+   los dibujos sobran. */
+console.log('\ncon el michi desatendido (perfil que mas cumple):');
+for (const [que, marcas] of [['sed', { agua: 0, orden: Date.now() }],
+                             ['casa sucia', { agua: Date.now(), orden: 0 }]]) {
+  const est = M.calcularEstado({ pacto, entradas: PERFILES['a medio gas'],
+                                 perfil, carino: [], cuidados: marcas });
+  const v = M.estadoVisual(est);
+  const esc = E.escenaAutomatica(PERFILES['a medio gas'][iso(0)] ?? {}, null, v.humor);
+  const dibujo = 'michi' + (esc.pose ? '_' + esc.pose : '');
+  vistos.add(dibujo);
+  console.log('  %s %s %s', que.padEnd(20), String(v.humor).padEnd(9), dibujo);
+}
+
+/* Y al reves: cumplir a tope tiene que GANARLE a la sed, o quien no
+   descubra el boton del agua no vuelve a ver a su michi contento. */
+{
+  const est = M.calcularEstado({ pacto, entradas: PERFILES['cumple a tope'],
+                                 perfil, carino: [], cuidados: { agua: 0, orden: 0 } });
+  const v = M.estadoVisual(est);
+  console.log('\n  cumpliendo a tope y con sed -> %s', v.humor);
+  if (v.humor !== 'contento') {
+    console.log('  NO  la sed le gana a cumplir: el michi nunca saldra contento');
+    process.exitCode = 1;
+  } else {
+    console.log('  si  cumplir manda sobre la sed');
+  }
 }
 
 /* Las que salen al apuntar algo (duran unos segundos) y las del boton

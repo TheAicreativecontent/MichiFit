@@ -14,10 +14,22 @@
    caricias. Si bastara con eso, la app dejaría de hablar de tu vida.
    ============================================================ */
 
-export const MIMO_TOPE = 22;        // lo máximo que puede aportar el cariño
+/* Los cuatro números que gobiernan el ritmo de la barra. Subidos el
+   2026-09-11 (2,2 → 3,4 por hora y tope 32 → 44) a petición de Alberto:
+   con los botones del aparato convertidos en interfaz, la barra tiene
+   que bajar lo bastante rápido como para dar un motivo de volver.
+
+   Lo que hace que esto NO se convierta en un castigo es que el desgaste
+   se mide desde el ÚLTIMO cuidado, no acumulado: en cuanto mimas al
+   michi o apuntas algo, el reloj vuelve a cero y la barra se recupera
+   entera. Baja antes, pero se arregla igual de fácil.
+
+   Si al usarlo cansa, bájalos; si aburre, súbelos. Son estos cuatro y
+   ningún otro sitio. */
+export const MIMO_TOPE = 28;        // lo máximo que puede aportar el cariño
 export const MIMO_SUAVIDAD = 4;     // cuántos mimos para acercarse al tope
-export const DESGASTE_POR_HORA = 2.2;
-export const DESGASTE_TOPE = 32;
+export const DESGASTE_POR_HORA = 3.4;
+export const DESGASTE_TOPE = 44;
 export const VENTANA_CARINO_H = 12; // los mimos se olvidan pasadas estas horas
 
 /* De noche la barra se congela. Nadie tiene que levantarse a las cuatro

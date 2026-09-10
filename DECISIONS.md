@@ -1,5 +1,41 @@
 # DECISIONS.md — Decisiones de diseno y su razon
 
+## 2026-09-11 — El bucle tamagotchi pasa a ser el anzuelo
+
+Los tres botones del aparato dejan de ser un juguete y pasan a ser la
+interfaz principal —dos anillos, cuidar y medir— y aparecen dos barras
+nuevas, agua y orden, que bajan solas y se rellenan pulsando. Decisión
+de Alberto.
+
+**Qué cambia respecto a lo que estaba escrito.** `MECANICA.md` §8b
+decía: «los mimos suben poco y cada vez menos; si bastara con eso, la
+app dejaría de hablar de tu vida». La apuesta era que el michi solo
+reflejara tu vida. La nueva es distinta: **el bucle de cuidados es el
+anzuelo que te mete en la app, y una vez dentro registras**. En palabras
+de Alberto: «esto da un motivo al usuario para entrar de tanto en tanto
+a limpiar la casa, darle de beber y darle amor al michi. Y ya que está,
+registra los pasos y las comidas».
+
+Se acepta porque es como funcionan las apps de hábitos con mascota, y
+porque resuelve un problema real: el aparato estaba desaprovechado y la
+gente no entendía para qué servía el gato.
+
+En consecuencia, HAPPY baja más rápido (2,2 → 3,4 por hora, tope 32 →
+44) y los mimos pesan algo más (22 → 28).
+
+**Los tres límites que NO se mueven**, todos de `MECANICA.md` §10:
+
+1. el agua y el orden **no tocan ningún número** de la mecánica — ni
+   experiencia, ni nivel, ni HAPPY, ni cumplimiento. `pruebas/cuidados.mjs`
+   lo comprueba campo por campo, y si algún día se pone en rojo es que
+   el bucle ha empezado a premiar pulsar botones en vez de cuidarte;
+2. **sin culpa**: no hay muerte, ni castigo, ni reproche, y las barras
+   siguen congeladas de noche;
+3. **cumplir manda sobre tener sed**: el michi de quien lleva el pacto
+   al día sale contento aunque no haya tocado el botón del agua. Al
+   revés, quien no descubriera ese botón no volvería a verlo contento
+   nunca.
+
 ## 2026-09-08 — Inicio se queda con el michi y cuatro barras
 - Fuera el globo de texto y la tarjeta de nivel: el nivel y su barra de
   experiencia van DENTRO de la pantalla del huevo, como en un tamagotchi.

@@ -28,6 +28,10 @@ const VACIO = {
   nivelVisto: null,
   entradas: {},         // { 'AAAA-MM-DD': { pasos, entrenoMin, comidaKcal, ... } }
   carino: [],           // marcas de tiempo de los mimos, para la felicidad
+  /* La última vez que se llenó el cuenco y que se recogió la casa. Dos
+     números sueltos, no listas: no hay nada que acumular, solo cuándo
+     fue. Ver `engine/cuidados.js`. */
+  cuidados: { agua: null, orden: null },
 };
 
 export function leer() {
@@ -79,7 +83,17 @@ function estructuraCompleta(d) {
     pacto: esObjeto(dat.pacto) && esObjeto(dat.pacto.dias) ? dat.pacto : null,
     entradas: esObjeto(dat.entradas) ? dat.entradas : {},
     carino: Array.isArray(dat.carino) ? dat.carino.filter(Number.isFinite) : [],
+    cuidados: marcasDeCuidado(dat.cuidados),
   };
+}
+
+/* Solo marcas de tiempo, y solo si son números de verdad. Una fecha
+   futura tampoco vale: dejaría el cuenco lleno para siempre. */
+function marcasDeCuidado(c) {
+  const marca = (v) =>
+    Number.isFinite(v) && v > 0 && v <= Date.now() ? v : null;
+  const o = esObjeto(c) ? c : {};
+  return { agua: marca(o.agua), orden: marca(o.orden) };
 }
 
 /* --- exportación --- */

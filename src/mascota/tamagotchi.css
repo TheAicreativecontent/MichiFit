@@ -164,6 +164,74 @@
 .mf-tamapng-nivel.feliz .barra i { background: #F0568C; }
 .mf-tamapng-nivel.feliz.denoche .barra i { background: #7C86C8; }
 
+/* Agua y orden: las dos que se rellenan con un botón. Van más bajas y
+   más finas que las de nivel y felicidad, porque son el anzuelo y no la
+   mecánica, y no deben pesar más que ellas de un vistazo. */
+.mf-tamapng-nivel.agua .barra i  { background: #3E8BD8; }
+.mf-tamapng-nivel.orden .barra i { background: #7BAE5C; }
+.mf-tamapng-nivel.agua .barra,
+.mf-tamapng-nivel.orden .barra { height: 5px; }
+.mf-tamapng-nivel.agua .et,
+.mf-tamapng-nivel.orden .et { font-size: 5px; color: #5A4A3C; }
+
+/* El anillo de iconos: lo que sale al pulsar el botón izquierdo o el
+   central. Va en mitad de la pantalla, sobre el michi, con un fondo
+   claro para que los iconos se lean sobre cualquier escenario. */
+/* Va arriba, pegado a las barras, y NO en mitad de la pantalla: el
+   michi se apoya abajo y centrar el anillo le tapaba la cabeza justo
+   cuando la vista previa quiere que lo veas haciendo la cosa. Una sola
+   fila: los iconos a la izquierda y el nombre a la derecha, para que
+   ocupe la mitad de alto y quepa en el hueco libre. */
+.mf-tamapng-anillo {
+  position: absolute; left: 4%; right: 4%; top: 31%; z-index: 5;
+  padding: 3px 3px 2px;
+  background: rgba(255, 250, 240, .93);
+  border: 2px solid #3A2D24; border-radius: 4px;
+  text-align: center; pointer-events: none;
+}
+.mf-tamapng-anillo .iconos {
+  display: flex; align-items: center; justify-content: center; gap: 1px;
+}
+/* 11 px y no 13: con cinco iconos, el nombre al lado y 96 px de ancho,
+   a 13 la fila se desbordaba, el nombre se partía en tres líneas y el
+   anillo crecía hasta taparle la cara al michi. */
+.mf-tamapng-anillo .it {
+  font-size: 11px; line-height: 1;
+  padding: 1px 2px; border-radius: 2px;
+  opacity: .4; filter: saturate(.35);
+}
+/* El seleccionado: recuadro y a todo color; el resto, apagado, para ver
+   de un vistazo dónde está el cursor. El recuadro va con `outline`, que
+   NO ocupa sitio: con `border` la fila se movía al cambiar de icono. */
+.mf-tamapng-anillo .it.sel {
+  opacity: 1; filter: none;
+  outline: 2px solid #3A2D24; background: #FFE9B8;
+}
+/* Aquí NO se usa Press Start 2P, y es a propósito: esa fuente solo trae
+   alfabeto latino y «comida» en japonés saldría en cuadrados. Todo lo
+   demás de la pantallita va transliterado para poder usarla, pero este
+   rótulo es el que enseña qué hace cada icono — justo lo que la gente no
+   entendía— así que manda que se lea, no que parezca una LCD. */
+.mf-tamapng-anillo .nombre {
+  margin-top: 2px;
+  font-family: var(--fuente); font-weight: 800; font-size: 7px; line-height: 1;
+  letter-spacing: .2px; color: #3A2D24; text-transform: uppercase;
+  /* Una sola línea pase lo que pase: en tailandés «ทำความสะอาด» es
+     largo, y si se parte, el anillo crece y tapa al michi. */
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+/* Las cacas, en el suelo de la pantalla. Se apoyan en la misma línea
+   que el michi y se reparten a los lados para no taparlo. */
+.mf-tamapng-cacas {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 3;
+  pointer-events: none; font-size: 11px; line-height: 1;
+}
+.mf-tamapng-cacas .caca { position: absolute; bottom: 2px; }
+.mf-tamapng-cacas .caca.c0 { left: 6%; }
+.mf-tamapng-cacas .caca.c1 { right: 8%; }
+.mf-tamapng-cacas .caca.c2 { left: 26%; bottom: 0; font-size: 9px; }
+
 /* --- diálogo del botón azul, dentro de la pantalla --- */
 .mf-tamapng-dialogo {
   position: absolute; left: 6%; right: 6%; bottom: 6%; z-index: 4;
@@ -179,8 +247,9 @@
    sólido para no tapar el escenario: se lee por el contorno oscuro,
    como los marcadores de las maquinitas. */
 .mf-tamapng-rotulo {
-  position: absolute; top: 19%; left: 0; right: 0; z-index: 2;
-  text-align: center; pointer-events: none;
+  /* En el flujo de la cabecera, no a una altura fija: cae solo debajo
+     de la última barra. Ver el comentario en TamagotchiPNG.jsx. */
+  margin-top: 2px; text-align: center; pointer-events: none;
   font-family: 'Press Start 2P', monospace; font-size: 6.5px;
   letter-spacing: 1px; color: #FFF6EC;
   text-shadow: 1px 1px 0 #3A2D24, -1px 1px 0 #3A2D24,

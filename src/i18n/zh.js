@@ -221,6 +221,22 @@ export default {
     pie: 'MichiFit 是一个鼓励你的工具，不是医疗建议。如果你有健康方面的疑问，请咨询专业人士。💛',
   },
 
+  anillo: {
+    cuidar: '照顾',
+    registrar: '记录',
+    siguiente: '下一个',
+    aceptar: '确认',
+    mimar: '摸摸',
+    agua: '喝水',
+    limpiar: '打扫',
+    salir: '退出',
+    comida: '饮食',
+    entreno: '运动',
+    pasos: '步数',
+    sueno: '睡眠',
+    ayuda: '左：照顾 · 中：下一个 · 右：确认',
+  },
+
   aparato: {
     titulo: '你的米奇',
     mimar: '摸摸它',
@@ -231,7 +247,7 @@ export default {
     liso: '平滑',
     pixel: '像素',
     color: '颜色',
-    nota: '不管你选哪只猫，三个按钮的作用都不变 — 从左到右依次是摸摸它、换场景、让它睡觉。',
+    nota: '左边的按钮用来照顾米奇，中间的打开你想记录的项目，右边的用来确认。不管你选哪只猫，功能都一样。',
     michi: '你的猫',
     michis: { naranja: '橘猫', gris: '灰猫', blanco: '白猫' },
     colores: {

@@ -245,3 +245,52 @@ de mantenimiento), cuatro variables muertas, la `t` del traductor tapada
 dentro de `tocarLogo`, un `%s` de Python dentro de un `.mjs`, y a
 `_CUARENTENA/` los nombres de días en castellano fijo y cuatro PNG
 sueltos de la raíz.
+
+### 2026-09-11 (tarde) — El aparato deja de ser un adorno
+
+Alberto lo planteó bien: los tres botones del michigotchi no servían
+para nada relevante. El izquierdo daba corazones, el central cambiaba el
+decorado, el derecho dormía al michi. **Ninguno tocaba un dato.** Un
+salvapantallas con botones.
+
+Ahora son la interfaz, con la gramática de un tamagotchi de verdad: dos
+anillos, izquierda abre cuidar, centro abre medir y avanza, derecha
+acepta. Lo mejor no es el menú sino la **vista previa**: al pasar el
+cursor por «pasos» sale ya el michi andando por la calle, y por
+«comida», comiendo en casa. Es media explicación sin escribir una
+palabra, y va directo a la queja original — que nadie entendía el gato.
+
+Y dos barras nuevas, agua y orden, que bajan solas y se rellenan
+pulsando, con cacas kawaii cuando la casa se ensucia.
+
+**Lo importante de esta sesión no es lo que se construyó sino los dos
+límites que se sostuvieron**, porque las dos veces el código ya escrito
+me llevaba a romperlos:
+
+Primero, «que no toquen nada» tenía que dejar de ser una frase.
+`pruebas/cuidados.mjs` compara nivel, experiencia, HAPPY, forma, energía,
+ánimo, racha y cumplimiento con el cuenco lleno y con el cuenco vacío, y
+exige que salgan idénticos. El día que esa prueba se ponga roja, el bucle
+ha empezado a premiar pulsar botones en vez de cuidarte.
+
+Segundo, y este casi se escapa: puse «tiene sed» por delante de «viene
+cumpliendo» en el humor del michi. Como el cuenco se vacía solo cada
+dieciséis horas, **quien no descubriera el botón del agua no volvería a
+ver a su michi contento nunca.** `pruebas/cobertura-michi.mjs` lo cazó en
+la primera ejecución: `michi_contento` y `michi` inalcanzables. Cumplir
+manda sobre tener sed, y punto.
+
+De regalo salió un fallo viejo: la cadena de respaldo de los dibujos
+tenía **dos eslabones idénticos con el michi naranja**, que es el de por
+defecto. Al faltar un dibujo, reintentaba la misma URL para siempre y el
+gato se quedaba invisible. Llevaba ahí desde que existe la cadena, y solo
+apareció al pedir `michi_sediento`, que aún no está dibujado.
+
+También se cambió, a propósito y anotado en `DECISIONS.md`, la apuesta de
+`MECANICA.md` §8b: el bucle de cuidados pasa a ser el **anzuelo** que te
+mete en la app, y ya dentro registras. HAPPY baja más rápido (2,2 → 3,4
+por hora) y los mimos pesan algo más (22 → 28).
+
+Queda pendiente de Alberto: los ocho iconos en pixel art y los dibujos
+de `michi_sediento` y `michi_asqueado`. Mientras falten, el aparato cae
+al michi de pie y no se rompe nada.

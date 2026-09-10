@@ -7,6 +7,30 @@
       Con Vercel no hace falta: sirve desde la raíz del dominio.
 
 ## Después
+- [ ] **Los iconos de los anillos, en pixel art** (Alberto). Ocho, a
+      96x96 con píxel duro, que se verán a ~13 px: corazón, vaso de
+      agua, cepillo, comida, mancuerna, huellas, luna y una ✕. Ahora
+      mismo son emoji, que funcionan pero no son de la casa. Se cambian
+      en `src/mascota/anillos.js`, campo `icono`.
+
+- [ ] **Los dos dibujos nuevos del michi** (Alberto): `michi_sediento`
+      y `michi_asqueado` (cara verde, mano en la nariz). Van en
+      `public/michi/` con esos nombres exactos. Mientras falten, el
+      aparato cae al michi de pie y no se rompe nada;
+      `pruebas/cobertura-michi.mjs` ya vigila que sean alcanzables.
+
+- [ ] **Ajustar el ritmo de las barras cuando se use de verdad.** Los
+      números están en un solo sitio cada uno: `AGUA_HORAS` y
+      `ORDEN_HORAS` en `engine/cuidados.js` (16 y 24 horas de vigilia),
+      y los cuatro de la felicidad en `engine/felicidad.js`. Si cansa,
+      se bajan; si aburre, se suben.
+
+- [ ] **Enseñar los botones la primera vez.** La gramática de dos
+      anillos es la de un tamagotchi, y un tamagotchi venía con manual.
+      Hay tres salidas y el rótulo del icono seleccionado, pero falta un
+      cartelito las primeras veces. Está `anillo.ayuda` en el
+      diccionario, sin usar todavía.
+
 - [ ] **Contar el lore dentro de la app.** Decidido el 2026-09-10: se
       muestra al empezar, y queda un botón para volver a verlo cuando
       quieras. Con hueco para **fotos y vídeos del Ninja real**. Es lo más urgente de esta
@@ -40,6 +64,10 @@
 
 
 ## Hecho
+- [x] 2026-09-11 — Los tres botones del aparato pasan a ser la interfaz:
+      dos anillos (cuidar y medir), con vista previa de la escena
+      mientras eliges y el editor del día filtrado a un solo dato.
+      Y dos barras nuevas: agua y orden, con cacas kawaii.
 - [x] 2026-09-11 — Revisión del código: la caché del service worker
       estaba desfasada **en producción**, los tres botones del tamagotchi
       hablaban castellano en los cinco idiomas, y si el navegador no deja
