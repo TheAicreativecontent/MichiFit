@@ -34,10 +34,10 @@ export const ESPERA_MS = 8000;
 /* Cuidar: lo cosmético. NADA de esto toca la mecánica — ni experiencia,
    ni nivel, ni cumplimiento del pacto. Ver `engine/cuidados.js`. */
 export const CUIDAR = [
-  { id: 'mimar',   icono: '❤️', clave: 'anillo.mimar' },
-  { id: 'agua',    icono: '💧', clave: 'anillo.agua' },
-  { id: 'limpiar', icono: '🧹', clave: 'anillo.limpiar' },
-  { id: 'salir',   icono: '✕',  clave: 'anillo.salir' },
+  { id: 'mimar',   clave: 'anillo.mimar' },
+  { id: 'agua',    clave: 'anillo.agua' },
+  { id: 'limpiar', clave: 'anillo.limpiar' },
+  { id: 'salir',   clave: 'anillo.salir' },
 ];
 
 /* Medir: los cuatro datos de verdad. `escena` es lo que se ve en la
@@ -45,12 +45,17 @@ export const CUIDAR = [
    sí sola: el michi andando por la calle dice «pasos» sin escribirlo.
    `campo` es el del editor del día que se abre al aceptar. */
 export const MEDIR = [
-  { id: 'comida',  icono: '🍚', clave: 'anillo.comida',  escena: 'comer',    campo: 'comida' },
-  { id: 'entreno', icono: '🏋', clave: 'anillo.entreno', escena: 'entrenar', campo: 'entreno' },
-  { id: 'pasos',   icono: '👟', clave: 'anillo.pasos',   escena: 'pasear',   campo: 'pasos' },
-  { id: 'sueno',   icono: '🌙', clave: 'anillo.sueno',   escena: 'dormir',   campo: 'sueno' },
-  { id: 'salir',   icono: '✕',  clave: 'anillo.salir' },
+  { id: 'comida',  clave: 'anillo.comida',  escena: 'comer',    campo: 'comida' },
+  { id: 'entreno', clave: 'anillo.entreno', escena: 'entrenar', campo: 'entreno' },
+  { id: 'pasos',   clave: 'anillo.pasos',   escena: 'pasear',   campo: 'pasos' },
+  { id: 'sueno',   clave: 'anillo.sueno',   escena: 'dormir',   campo: 'sueno' },
+  { id: 'salir',   clave: 'anillo.salir' },
 ];
+
+/* La ruta del icono sale del id: los PNG se llaman igual. Un icono
+   que faltara dejaria un hueco y nada mas — el nombre debajo sigue
+   diciendo lo que hace. */
+export const iconoDe = (id) => `/iconos-anillo/${id}.png`;
 
 export const anilloDe = (modo) => (modo === 'cuidar' ? CUIDAR : modo === 'medir' ? MEDIR : null);
 

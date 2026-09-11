@@ -37,18 +37,15 @@ pantallas y el motor entero.
   los botones del aparato dicen lo que hacen, y los objetivos están
   completos — perder, mantener, estar en forma, ganar y otro, cada uno
   con su sentido de comida. Ver abajo.
-- **Próximo paso (2026-09-12): los ocho iconos de los anillos**, que
-  Alberto hará con Magnific. Ahora son emoji y desentonan con todo lo
-  demás. Ficha: 96x96, píxel duro, se verán a ~13 px, y a ese tamaño lo
-  único que se lee es la SILUETA. Se cambian en `mascota/anillos.js`,
-  campo `icono`: corazón, vaso de agua, cepillo, comida, mancuerna,
-  huellas, luna y una ✕.
+- Última acción (2026-09-12): **los ocho iconos de los anillos**, ya
+  dibujados. Ver abajo.
+- Próximo paso: las fotos del Ninja real y las viñetas del cómic.
 - Después: las fotos del Ninja real (`src/datos/ninja.js`) y las 21
   viñetas del cómic (`ESCENAS` en `pantallas/Lore.jsx`). El sitio está
   hecho en los tres casos, es cambiar rutas.
-- Bloqueadores: **Magnific está añadido pero SIN AUTORIZAR**. Falta
-  `claude mcp login magnific` en una terminal interactiva, y luego abrir
-  sesión nueva para que las herramientas se vean.
+- Bloqueadores: **Magnific está conectado pero el plan no da acceso por
+  MCP** («requires a premium account»). Desde la web funciona; desde
+  aquí, no. Para los iconos dio igual — ver abajo.
 - **Desplegada en https://michifit.vercel.app** (proyecto Vercel
   `the-ai-creative-content/michifit`).
   El repo YA está conectado en Vercel → Settings → Git: **cada `git push`
@@ -240,6 +237,39 @@ de momento; se cambian ahí por los PNG de Alberto cuando estén.
 **Tres salidas, y hacen falta**: el icono ✕, el botón izquierdo desde
 cualquier sitio, y la vuelta sola a los 8 s. Un tamagotchi venía con
 manual de papel; esto no.
+
+### Los iconos de los anillos
+
+Ocho, en `public/iconos-anillo/`, que los genera
+`pixel/iconos_anillo.py` desde una rejilla de **12x12 escrita en texto**
+dentro del propio archivo. Para cambiar uno se edita ahí y se vuelve a
+lanzar; no hace falta abrir un editor de imágenes.
+
+Se llaman igual que el `id` del anillo, así que `iconoDe(id)` deduce la
+ruta sola y añadir un icono nuevo no toca el JSX.
+
+**Se ven a 12 px y el archivo mide 96** — una reducción de 8 a 1 exacta,
+que no emborrona. Si algún día hay que cambiar ese tamaño, que sea a un
+divisor de 96 (12, 16, 24, 32) y no a un número cualquiera.
+
+Tres cosas que costaron intentos, por si hay que dibujar más:
+
+- **La escoba no cabe a 12 px.** Con el palo en diagonal desaparecía —un
+  píxel de ancho no existe—, y recto y gordo el resultado se leía como
+  un triángulo o una lámpara. Acabó siendo un cubo. Y **verde, no azul**,
+  porque el icono del agua está al lado en el mismo anillo.
+- **El cuenco era casi blanco** sobre el fondo claro del anillo y se
+  perdía. Ahora el cuenco va naranja y la comida crema.
+- **La ✕ era de contorno hueco**: ampliada se leía perfecta, a 12 px era
+  una mancha con agujeros. Maciza.
+
+Por eso la hoja de contacto (`--hoja`) tiene DOS filas: ampliada se ve
+qué píxel está mal puesto, y a tamaño real se ve si el icono se
+entiende. No es lo mismo, y los tres fallos de arriba solo salieron en
+una de las dos.
+
+Y el atenuado de los no elegidos subió de 0,4 a 0,62: con emoji colaba,
+con dibujos de 12 px desaparecían.
 
 ### Los botones dicen lo que hacen
 

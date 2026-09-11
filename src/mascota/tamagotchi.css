@@ -215,13 +215,23 @@
 .mf-tamapng-anillo .iconos {
   display: flex; align-items: center; justify-content: center; gap: 1px;
 }
-/* 11 px y no 13: con cinco iconos, el nombre al lado y 96 px de ancho,
-   a 13 la fila se desbordaba, el nombre se partía en tres líneas y el
-   anillo crecía hasta taparle la cara al michi. */
+/* 12 px, que es la rejilla en la que estan dibujados: el archivo mide
+   96 y se ve a 12, una reduccion de 8 a 1 exacta. Cualquier otro tamano
+   los emborrona, asi que si un dia hace falta cambiarlo, que sea a un
+   divisor de 96 (12, 16, 24, 32) y no a un numero cualquiera. */
 .mf-tamapng-anillo .it {
-  font-size: 11px; line-height: 1;
+  line-height: 0;
   padding: 1px 2px; border-radius: 2px;
-  opacity: .4; filter: saturate(.35);
+  /* Los no elegidos se apagan, pero MENOS que antes. Con emoji, 0,4 de
+     opacidad colaba porque un emoji es gordo y de mucho contraste; con
+     estos dibujos de 12 px desaparecian y el anillo parecia tener un
+     solo icono. El recuadro del elegido ya dice donde esta el cursor:
+     esto solo tiene que ponerlos en segundo plano. */
+  opacity: .62; filter: saturate(.6);
+}
+.mf-tamapng-anillo .it img {
+  display: block; width: 12px; height: 12px;
+  image-rendering: pixelated;
 }
 /* El seleccionado: recuadro y a todo color; el resto, apagado, para ver
    de un vistazo dónde está el cursor. El recuadro va con `outline`, que

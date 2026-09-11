@@ -19,16 +19,6 @@
       y ya: ahora mismo la historia se ilustra con el propio michi gris
       sobre los escenarios que hay.
 
-- [ ] **Los iconos de los anillos, en pixel art** (Alberto). Ocho, a
-      96x96 con píxel duro, que se verán a ~13 px: corazón, vaso de
-      agua, cepillo, comida, mancuerna, huellas, luna y una ✕. Ahora
-      mismo son emoji, que funcionan pero no son de la casa. Se cambian
-      en `src/mascota/anillos.js`, campo `icono`.
-      Alberto está aprendiendo **Spaces de Magnific** para esto, para
-      los michis y para las viñetas. La primera prueba —el callejón de
-      la viñeta 1— está muy por encima de lo que se puede componer con
-      los sprites sueltos.
-
 - [ ] **Ajustar el ritmo de las barras cuando se use de verdad.** Los
       números están en un solo sitio cada uno: `AGUA_HORAS` y
       `ORDEN_HORAS` en `engine/cuidados.js` (16 y 24 horas de vigilia),
@@ -62,6 +52,10 @@
 
 
 ## Hecho
+- [x] 2026-09-12 — **Los ocho iconos de los anillos**, dibujados píxel a
+      píxel en `pixel/iconos_anillo.py`. Rejilla de 12x12 escrita en
+      texto, así que se editan abriendo el archivo. Si quieres rehacer
+      alguno con Magnific, adelante: el sitio es el mismo.
 - [x] 2026-09-11 — **Mantenerse es una banda.** Cumplir es quedarse
       cerca de las calorías por arriba y por abajo, no solo no pasarse.
       También en «estar más en forma», que apunta al mismo número.

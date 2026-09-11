@@ -23,7 +23,8 @@ import { readFileSync } from 'node:fs';
 /* Carpetas cuyas imagenes NO llevan hash en el nombre. Las de
    `dist/assets` si lo llevan y se apañan solas. */
 const VIGILADAS = ['public/michi', 'public/fondos', 'public/iconos',
-                   'public/iconos-app', 'public/karma'];
+                   'public/iconos-app', 'public/iconos-anillo',
+                   'public/karma', 'public/ninja'];
 
 const git = (...args) => execFileSync('git', args, { encoding: 'utf8' }).trim();
 

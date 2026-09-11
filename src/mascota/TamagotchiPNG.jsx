@@ -17,7 +17,7 @@
 import { useEffect, useState } from 'react';
 import { useT } from '../i18n/index.jsx';
 import Tamagotchi from './Tamagotchi.jsx';
-import { rotulosDeBotones } from './anillos.js';
+import { rotulosDeBotones, iconoDe } from './anillos.js';
 import './tamagotchi.css';
 
 /* Geometría medida sobre el PNG del huevo (660x900): el hueco de la
@@ -105,7 +105,7 @@ export default function TamagotchiPNG({
   felicidad = null,    // 0-100, o null para no pintar la barra
   denoche = false,     // de noche la barra se congela y se dice
   cuidado = null,      // { agua, orden, cacas, sed, sucio } de engine/cuidados.js
-  menu = null,         // { items: [{ id, icono, etiqueta }], indice } — el anillo
+  menu = null,         // { items: [{ id, etiqueta }], indice } — el anillo
   pose = null,         // 'dormido' | 'comiendo' | 'entrenando' | null (manda sobre el cuerpo)
   rotulo = null,       // qué está haciendo, entre las barras y el michi
   mensaje = null,      // texto que sale al tocar la PANTALLA ("cómo va")
@@ -234,14 +234,15 @@ export default function TamagotchiPNG({
             se medía contra la zona del michi y no contra la pantalla, y
             acababa cayendo en mitad del gato.
 
-            Los iconos son emoji de momento. Cuando Alberto tenga los
-            suyos en pixel art, se cambia `icono` por una <img> y ya. */}
+            Los iconos son pixel art de 12x12 dibujados a mano, y se
+            pintan A SU TAMANO exacto: el archivo mide 96 y se ve a 12,
+            que es una reduccion de 8 a 1 justa y no emborrona nada. */}
         {menu?.items?.length > 0 && (
           <div className="mf-tamapng-anillo">
             <div className="iconos">
               {menu.items.map((it, i) => (
                 <span key={it.id} className={`it ${i === menu.indice ? 'sel' : ''}`}>
-                  {it.icono}
+                  <img src={iconoDe(it.id)} alt="" />
                 </span>
               ))}
             </div>

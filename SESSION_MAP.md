@@ -450,3 +450,37 @@ y no del id, para que un objetivo nuevo herede la suya sin tocar nada:
 
 Comprobado en pantalla con el mismo dato: 1.780 kcal salen ✅ con meta
 1.794, ⬜ con 2.242 en banda y ⬜ con 2.542 en volumen.
+
+### 2026-09-12 — Los ocho iconos, dibujados píxel a píxel
+
+Alberto autorizó Magnific y preguntó si el arte podía hacerlo yo.
+Respuesta corta: el MCP de Magnific pide plan premium y el suyo no lo
+tiene, así que desde aquí no.
+
+Respuesta larga, y es la interesante: **para estos ocho daba igual**.
+Se ven a 12 px. A ese tamaño no hay estilo, hay silueta — 144 píxeles
+encendidos o apagados— y eso no se pide, se coloca. Un generador da
+«estilo pixel art» precioso a 1024 que al bajarlo a 12 es una mancha.
+
+Así que `pixel/iconos_anillo.py`: cada icono es una rejilla de 12x12
+escrita en texto dentro del archivo, se edita abriéndolo, y se exporta a
+96 (8x exacto) para que el navegador lo reduzca sin emborronar.
+
+Tres se rehicieron y los tres por la misma razón — **mirarlos a los dos
+tamaños**:
+
+- la **escoba** no cabe a 12 px. En diagonal desaparecía (un píxel de
+  ancho), recta y gorda se leía como un triángulo. Acabó siendo un cubo,
+  y verde: el agua está al lado en el mismo anillo y dos manchas azules
+  juntas no se distinguen;
+- el **cuenco** era casi blanco sobre el fondo claro del anillo;
+- la **✕** era de contorno hueco: ampliada perfecta, a 12 px una mancha
+  con agujeros.
+
+De ahí que la hoja de contacto tenga dos filas. Es el complemento de la
+lección de los michis: allí los fallos eran invisibles a tamaño real,
+aquí uno era invisible AMPLIADO. Hay que mirar las dos.
+
+De paso, dos huecos tapados: `pruebas/cache-sw.mjs` no vigilaba la
+carpeta nueva —ni `public/ninja`, que tampoco existía cuando se
+escribió— y la hoja de contacto se estaba publicando con la app.
