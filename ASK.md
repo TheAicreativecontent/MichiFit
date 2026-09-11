@@ -37,13 +37,15 @@
       La (c) es la que mas me gusta: convierte el problema en el primer
       gesto de cuidarlo. Cuesta una pantalla mas en la bienvenida.
 
-- [ ] **Cuando renombrar Michigochi -> MichiFit en el codigo.** Ahora hay
-      incoherencia entre el nombre del producto y el del codigo.
 
 ## Dudas tecnicas sin resolver
 - [ ] (ninguna)
 
 ## Cerradas
+- 2026-09-11 **Renombrar Michigochi en el codigo**: se cerro sola. Al
+  revisar el codigo antes de abrir al publico se comprobo que la palabra
+  ya no aparece en ninguna linea viva — solo en los documentos, donde es
+  historia y esta bien que este.
 - 2026-09-11 **«Mantenerme» pasa a ser una BANDA**: cumplir es quedarse
   cerca por arriba Y por abajo, con el mismo margen del 10% que ya se
   usaba. Antes bastaba con no pasarse, asi que comer 700 kcal por debajo
