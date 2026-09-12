@@ -733,3 +733,22 @@ Redibujo `limpiar` otra vez (una escoba mejor) y `comida`, que ahora
 lleva palillos y verdura. Estaban solo en `public/`, donde el generador
 se los habria llevado por delante: los dos pasan a
 `pixel/iconos-a-mano/`, que es la carpeta que manda. Cache a v5.
+
+### Cierre del dia
+
+Queda anotada una idea de Alberto para cuando haya calma: que «dormir» y
+«sueño» acaben siendo el MISMO icono, o que se diferencien con una
+siesta. Expresamente NO se hace ahora.
+
+La duda de fondo que hay debajo es buena y por eso se deja escrita en
+`TODO.md` y no solo el cambio: hoy son dos iconos porque por dentro son
+dos cosas distintas —un cuidado y un dato—, y esa es una razon del
+CODIGO, no de quien usa la app. Es justo el tipo de cosa que toca mirar
+en la conversacion de simplificar.
+
+Y ese es el otro hilo abierto: Alberto quiere sentarse a ver como hacer
+la app HIPER sencilla de entender. Dijo dos veces que por ahora no se
+borre ni se reduzca nada, que tal como esta, esta bien. Lo que hay que
+llevar a esa conversacion no es una lista de recortes, sino el mapa de
+lo que la app pide entender: cuantos conceptos hay, cuales se explican
+solos en la pantalla y cuales hay que deducir.

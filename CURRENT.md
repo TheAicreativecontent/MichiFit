@@ -54,7 +54,17 @@ pantallas y el motor entero.
   Barras de cuidados más vivas, gráfica sin comprimir, y los documentos
   que mentían (`ROADMAP.md`, `PROTOCOL.md`, el código muerto). Ver
   `SESSION_MAP.md`.
-- Próximo paso: las fotos del Ninja real y las viñetas del cómic.
+- Próximo paso: **las fotos del Ninja real**. Alberto las mandó por el
+  chat el 2026-09-12 y desde ahí no se pueden guardar en disco: hacen
+  falta en `public/ninja/`. Son tres, y la del gato sentado de frente
+  mirando a cámara es la buena para la pantalla del final.
+- Y en cuanto haya un rato con calma, la conversación que Alberto quiere
+  tener: **cómo hacerla HIPER sencilla de entender**. Dijo
+  explícitamente que por ahora NO se borre ni se reduzca nada — tal como
+  está, está bien. Lo que pidió preparar no es una propuesta de
+  recortes, sino un mapa de lo que la app le pide al usuario que
+  entienda: cuántos conceptos hay, cuáles se explican solos en la propia
+  pantalla y cuáles hay que deducir.
 - Después: las fotos del Ninja real (`src/datos/ninja.js`) y las 21
   viñetas del cómic (`ESCENAS` en `pantallas/Lore.jsx`). El sitio está
   hecho en los tres casos, es cambiar rutas.

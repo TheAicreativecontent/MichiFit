@@ -10,6 +10,22 @@
       no se retira. PromptPay admite también un e-Wallet ID, que no es tu
       teléfono.
 
+- [ ] **Los iconos de «dormir» y «sueño», repensados juntos.** Idea de
+      Alberto (2026-09-12), y no hay prisa: puede que acaben siendo el
+      MISMO icono, o que se diferencien con una siesta.
+      Hoy son dos: tres z para ponerlo a dormir y una luna para apuntar
+      las horas. Se dibujaron por separado y con la regla de que dos
+      lunas seguidas en el mismo anillo no se distinguen, pero la duda
+      de fondo es otra y es buena: si son dos acciones distintas de
+      verdad para quien usa la app, o si las estamos separando solo
+      porque por dentro son cosas distintas —una es un cuidado y la otra
+      un dato—. Eso es razón del código, no del usuario.
+      Si se unifican, hay que decidir qué pasa al aceptar: abrir el
+      editor, dormirlo, o las dos cosas. Los textos ya están separados en
+      las cinco lenguas («Ponerlo a dormir» / «Apuntar sueño»), así que
+      la vuelta atrás es barata.
+      Encaja con la conversación de simplificar, no antes.
+
 - [ ] **Las fotos de Ninja, en el ordenador.** Alberto las mandó por el
       chat y ahí no se pueden guardar en disco. Déjalas en
       `public/ninja/` (o en cualquier carpeta y se recortan desde ahí):
