@@ -144,8 +144,8 @@ export default function Lore({ onCerrar, onAdoptar, aparato, onAparato }) {
                 <figure key={m.archivo}>
                   {esVideo(m.archivo)
                     ? <video src={rutaNinja(m.archivo)} controls playsInline preload="metadata" />
-                    : <img src={rutaNinja(m.archivo)} alt={m.pie ?? ''} loading="lazy" />}
-                  {m.pie && <figcaption>{m.pie}</figcaption>}
+                    : <img src={rutaNinja(m.archivo)} alt={m.clave ? t(m.clave) : ''} loading="lazy" />}
+                  {m.clave && <figcaption>{t(m.clave)}</figcaption>}
                 </figure>
               ))}
             </div>

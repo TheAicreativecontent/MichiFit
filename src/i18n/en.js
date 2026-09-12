@@ -261,6 +261,10 @@ export default {
     colorTitulo: 'Now he is yours',
     colorTexto: 'Ninja is grey, but the one you look after is your choice. And the device, whatever colour you like. You can change both any time in Settings.',
     sinFotos: 'His photos will go here.',
+    fotos: {
+      enCasa: 'At home',
+      durmiendo: 'Asleep, as usual',
+    },
     actos: [
       { t: 'The alley',
         d: 'Ninja lived in an alley in Bangkok, scavenging for food. A nurse would leave him something on her way home from her shift; they had greeted each other from a distance for months, never touching.' },

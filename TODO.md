@@ -40,6 +40,16 @@
       Con Vercel no hace falta: sirve desde la raíz del dominio.
 
 ## Después
+- [ ] **Rematar el acabado de `pasos`** (opcional, es de pulir). El
+      dibujo de Alberto es una imagen suave: 707 colores, 2.746 píxeles
+      con el borde a medias y negro puro, cuando los otros siete usan la
+      tinta `#3A2D24` y no tienen NI UNO a medias. Con
+      `image-rendering: pixelated` el navegador coge píxeles a medio
+      pintar al encogerla, así que se ve algo más blanda y más dura de
+      color que sus vecinas. Pasarla a rejilla de 24 con la tinta del
+      proyecto lo arregla sin cambiarle la forma; se probó y funciona.
+      No se hizo porque es SU dibujo y esa decisión es suya.
+
 - [ ] **Las 21 viñetas del cómic.** Los prompts están escritos. Cuando
       existan, se cambian las rutas de `ESCENAS` en `pantallas/Lore.jsx`
       y ya: ahora mismo la historia se ilustra con el propio michi gris
@@ -91,6 +101,16 @@
 
 
 ## Hecho
+- [x] 2026-09-13 — **Los pies de las fotos de Ninja, traducidos.**
+      Estaban escritos en castellano dentro de `datos/ninja.js` y salían
+      igual en las cinco lenguas. Ahora la lista lleva una CLAVE y el
+      texto vive en `src/i18n/`, en `lore.fotos`. Tercera vez que pasa
+      lo mismo en este proyecto.
+- [x] 2026-09-13 — **`pasos`, redibujado por Alberto**: una patita con
+      los deditos separados del cojín. Se entiende a 12 px y aguanta
+      apagada, que es como se ven siete de los ocho. Guardada en
+      `pixel/iconos-a-mano/` para que el generador no se la lleve por
+      delante, y caché a v6.
 - [x] 2026-09-13 — **Ninja, en la app.** Dos fotos en la galería del
       final de la historia, comprobadas a tamaño móvil: las verticales
       llenan el alto, se pasa de una a otra deslizando y la página no

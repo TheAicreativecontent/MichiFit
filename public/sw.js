@@ -27,13 +27,21 @@
    se quedó en v2. Quien hubiera abierto la app en medio se quedaba con
    los gatos rotos para siempre.
    `node pruebas/cache-sw.mjs` avisa si vuelve a pasar. */
+/* v6 (2026-09-13): Alberto dibujo `pasos` de nuevo —una patita con los
+   deditos separados del cojin, que a 12 px se entiende y la de antes
+   no—. Mismo nombre de archivo y sin hash, asi que sin subir esto quien
+   ya tenga la app abierta seguiria viendo la patita vieja para siempre.
+   Las fotos de Ninja que entraron el mismo dia NO pedian subirla: eran
+   archivos nuevos, o sea URLs nuevas, y la cache no puede tapar lo que
+   no tiene guardado. */
+
 /* v5 (2026-09-12, mas tarde): Alberto redibujo `limpiar` otra vez —una
    escoba mejor— y tambien `comida`, que ahora lleva palillos y verdura.
    Los iconos del anillo no llevan hash en el nombre, asi que sin subir
    esto quien ya tuviera la app seguiria viendo los de antes.
 
    v4 fue por lo mismo: `limpiar` paso de cubo a escoba. */
-const CACHE = 'michifit-v5';
+const CACHE = 'michifit-v6';
 
 /* Lo mínimo para arrancar sin red. El resto se va guardando solo según
    se usa: la app es pequeña y se cachea entera en la primera visita. */

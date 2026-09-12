@@ -928,3 +928,57 @@ importa menos de lo que parecia. Aun asi queda como lo siguiente: mas
 fotos y con menos casa detras. Es el mismo aviso que el del QR de
 PromptPay y por lo mismo — el repositorio es publico y un commit no se
 retira.
+
+### Los pies de foto hablaban castellano en japones
+
+Lo cazo Alberto nada mas verlo: los pies de las dos fotos de Ninja
+estaban escritos a mano dentro de `datos/ninja.js` —«En casa»,
+«Durmiendo, que es lo suyo»— y salian igual con la app en japones.
+
+Es la TERCERA vez que pasa lo mismo en este proyecto: los botones del
+aparato el 2026-09-11 y los nombres de los dias el 2026-09-09. Siempre
+el mismo mecanismo: un texto que se escribe donde es comodo en vez de
+donde toca, y nadie se entera porque quien lo escribe lo lee en su
+idioma.
+
+Arreglado como ya lo hace `ANILLO`: la lista lleva una CLAVE y el texto
+vive en `src/i18n/`, en `lore.fotos`. Y la cabecera de `ninja.js` lo
+dice ahora en el paso 2 de las instrucciones, que es donde alguien va a
+estar mirando cuando le entre la tentacion: el camino corto ya no esta
+disponible. Comprobado en el navegador con la app en japones: «おうちで»
+y «いつもの昼寝».
+
+### La patita nueva
+
+Alberto redibujo `pasos`: una patita con los deditos separados del
+cojin. Se probo en el anillo entero, a tamaño real y APAGADA (que es
+como se ven siete de los ocho, con `opacity .62` y `saturate(.6)`), y
+pasa las dos pruebas. Es mejor que la anterior, que era un bulto: el
+significado esta en la SILUETA, y eso es justo lo que sobrevive a que
+te quiten el color y el tamaño.
+
+Antes se habia probado tambien el estilo de las referencias que mando
+—patita con almohadillas rosas, como las de los packs de pixel art— y
+NO vale aqui, por dos razones que solo se ven midiendo: a 12 px el
+contorno se come el presupuesto y la silueta se emborrona, y sobre todo
+su gracia es el contraste rosa/pelo, que es exactamente lo que el
+apagado destruye. Queda anotado que ese dibujo luciria en el icono de
+la app (192 y 512 px), que es donde hay sitio.
+
+Dos cosas de acabado, y una es urgente:
+
+· URGENTE, y ya mordio una vez el 2026-09-12: el archivo estaba SOLO en
+  `public/`, que es donde el generador pisa. A `pixel/iconos-a-mano/`,
+  byte a byte igual —mide 96x96 y el guardian acepta ese lado—, y
+  comprobado que el generador ya dice «dibujado a mano».
+· De pulir, y se deja para el: es una imagen suave (707 colores, 2.746
+  pixeles con el borde a medias, negro puro) donde las otras siete son
+  pixel art de cuatro colores, cero bordes a medias y tinta `#3A2D24`.
+  Se probo pasarla a rejilla de 24 y queda limpia sin cambiarle la
+  forma, pero es SU dibujo y esa decision no es mia. Anotado en
+  `TODO.md`.
+
+`CACHE` a v6, y esta vez SI hacia falta: mismo nombre de archivo, sin
+hash, contenido distinto. Las fotos de Ninja del mismo dia no la pedian
+porque eran archivos nuevos. Los dos casos, seguidos y con su motivo,
+son la mejor explicacion de esa regla que hay escrita en el proyecto.

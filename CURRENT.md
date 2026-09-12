@@ -71,6 +71,11 @@ pantallas y el motor entero.
   enseña. Dejó también dos vídeos —el envenenamiento y el veterinario—
   y decidió que **no entran**: su sitio es TikTok, y aquí lo que hace
   falta es evergreen y positivo. Ver `DECISIONS.md`.
+- Última acción (2026-09-13, cierre de verdad): **los pies de foto ya
+  se traducen** —estaban en castellano duro dentro de `ninja.js` y se
+  veían igual en japonés; lo cazó Alberto—, y **`pasos` es una patita
+  nueva**, dibujada por él, a salvo en `pixel/iconos-a-mano/`. Caché a
+  v6.
 - Próximo paso: **más fotos de Ninja**, y con menos casa en el
   encuadre — el repositorio es público. Las dos que hay valen; es
   ampliar la galería, no arreglarla.

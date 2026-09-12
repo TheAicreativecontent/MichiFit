@@ -267,6 +267,10 @@ export default {
     colorTitulo: 'Ahora es tuyo',
     colorTexto: 'Ninja es gris, pero el que vas a cuidar lo eliges tú. Y el aparato, del color que quieras. Se puede cambiar cuando quieras en Ajustes.',
     sinFotos: 'Aquí irán sus fotos.',
+    fotos: {
+      enCasa: 'En casa',
+      durmiendo: 'Durmiendo, que es lo suyo',
+    },
     actos: [
       { t: 'El callejón',
         d: 'Ninja vivía en un callejón de Bangkok, rebuscando comida. Una enfermera le dejaba algo de comer al salir del turno; se saludaban de lejos, sin tocarse, desde hacía meses.' },

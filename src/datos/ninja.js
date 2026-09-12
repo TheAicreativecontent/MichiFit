@@ -26,7 +26,14 @@
    CÓMO AÑADIR UNA FOTO O UN VÍDEO
    -------------------------------
    1. Deja el archivo en `public/ninja/`.
-   2. Añádelo a la lista de abajo, con su nombre exacto.
+   2. Añádelo a la lista de abajo, con su nombre exacto. El pie NO se
+      escribe aquí: se pone una CLAVE y el texto va a `src/i18n/`, en
+      las cinco lenguas, dentro de `lore.fotos`. Si no quieres pie,
+      quita la clave y la foto sale sola.
+      Hasta el 2026-09-13 los pies estaban escritos aquí, en castellano
+      duro, y se veían igual en japonés: lo cazó Alberto. Es la tercera
+      vez que pasa lo mismo en este proyecto, asi que el camino corto
+      -escribir el texto donde estas- ya no esta disponible.
    3. **Si es una FOTO**, sube `const CACHE` en `public/sw.js`: no
       llevan hash en el nombre, así que sin eso quien ya tenga la app
       instalada no la vería. `node pruebas/cache-sw.mjs` avisa.
@@ -55,8 +62,8 @@
    ============================================================ */
 
 export const NINJA = [
-  { archivo: 'Ninja_at_home_01.jpeg', pie: 'En casa' },
-  { archivo: 'Ninja_at_home_02.jpeg', pie: 'Durmiendo, que es lo suyo' },
+  { archivo: 'Ninja_at_home_01.jpeg', clave: 'lore.fotos.enCasa' },
+  { archivo: 'Ninja_at_home_02.jpeg', clave: 'lore.fotos.durmiendo' },
 ];
 
 const VIDEO = /\.(mp4|webm|mov)$/i;
