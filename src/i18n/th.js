@@ -282,7 +282,6 @@ export default {
     mimar: 'ลูบ',
     agua: 'น้ำ',
     limpiar: 'ทำความสะอาด',
-    salir: 'ออก',
     comida: 'อาหาร',
     entreno: 'ออกกำลังกาย',
     pasos: 'ก้าว',

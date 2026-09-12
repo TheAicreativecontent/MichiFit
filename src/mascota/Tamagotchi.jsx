@@ -10,7 +10,6 @@
    pixelada encima, que es justo lo que no queremos.
    ============================================================ */
 
-import { MICHIS, PALETA, TAM } from '../../pixel/michis.js';
 import './tamagotchi.css';
 
 /* --- carcasa --- */
@@ -25,31 +24,34 @@ const BANDA = '#EFE3B0';      // banda de iconos, amarillenta
 const BANDA_PIE = '#F2650F';
 
 /* Geometría. El michi manda: 32 píxeles a paso 3,4 son 108,8, y todo
-   lo demás se construye alrededor. */
+   lo demás se construye alrededor.
+
+   TAM venía de `pixel/michis.js` (en `_CUARENTENA/cuerpos-antiguos/`
+   desde el 2026-09-13). Se queda aquí como número propio porque ya no
+   mide un sprite —este componente no dibuja ninguno— sino la REJILLA
+   del LCD: 32 cuadritos de lado, al mismo paso que tendría el píxel de
+   un michi. Esa coincidencia es la estética entera, ver la cabecera. */
+const TAM = 32;
 const PX = 3.4;
 const LADO = TAM * PX;
 const PANT = { x: 46, y: 66, w: 128, h: 162 };
 const BANDA_ALTA = 16;
 const BANDA_BAJA = 19;
 
+/* Esto dibuja LA CARCASA Y NADA MAS: el michi lo pone una imagen
+   encima, y por eso no hay aqui ni sprite ni `estado` ni `cara`.
+
+   Hasta el 2026-09-13 si los habia: se leian siempre y se pintaban
+   nunca, porque el dibujo estaba tras un `!sinMichi` y el unico sitio
+   que monta este componente —el respaldo de `TamagotchiPNG` para
+   cuando falta el PNG del huevo— pasaba siempre `sinMichi`. Con el
+   sprite fuera, el prop sobra: ya no hay otra cosa que hacer. */
 export default function Tamagotchi({
-  estado = 'kawaii',
-  cara = 'neutro',
   size = 230,
   iconos = [],
   puntos = 0,
   dormido = false,
-  sinMichi = false,   // dibuja solo la carcasa: el michi lo pone una imagen encima
 }) {
-  /* Las cinco siluetas de cuerpo retiradas el 2026-09-09, y esta linea
-     es la unica que las menciona. Se lee siempre y se PINTA nunca: el
-     dibujo esta detras de `!sinMichi` (mas abajo) y el unico sitio que
-     monta este componente —el respaldo de `TamagotchiPNG` para cuando
-     falta el PNG del huevo— pasa siempre `sinMichi`. Ver el aviso de
-     `pixel/michis.js`. `kawaii` como red es el cuerpo «normal» de
-     entonces, no un humor. */
-  const sprite = MICHIS[estado] ?? MICHIS.kawaii;
-
   const zonaY = PANT.y + BANDA_ALTA;
   const zonaAlto = PANT.h - BANDA_ALTA - BANDA_BAJA;
   const x0 = PANT.x + (PANT.w - LADO) / 2;
@@ -58,14 +60,17 @@ export default function Tamagotchi({
   const cols = Math.ceil(PANT.w / PX);
   const filas = Math.ceil(zonaAlto / PX);
 
+  /* El SVG va DECORATIVO (`aria-hidden`), igual que el `<img alt="">`
+     al que sustituye: quien lo monta ya pone el michi aparte. Antes
+     llevaba `role="img"` con una etiqueta que nombraba el sprite —y en
+     castellano, en una app que habla cinco lenguas—. */
   return (
     <svg
       className={`mf-tama ${dormido ? 'dormido' : ''}`}
       width={size}
       height={size * (300 / 220)}
       viewBox="0 0 220 300"
-      role="img"
-      aria-label={`Michi ${estado}, ${cara}`}
+      aria-hidden="true"
     >
       <defs>
         <linearGradient id="mf-shell" x1="0.2" y1="0" x2="0.7" y2="1">
@@ -160,20 +165,6 @@ export default function Tamagotchi({
             Fitness Points
           </text>
         </g>
-
-        {/* el michi */}
-        {!sinMichi && (
-        <g className="mf-tama-michi" clipPath="url(#mf-clip-zona)">
-          {sprite.map((fila, y) =>
-            [...fila].map((ch, x) =>
-              ch === '.' ? null : (
-                <rect key={`${x}-${y}`} x={x0 + x * PX} y={y0 + y * PX}
-                      width={PX} height={PX} fill={PALETA[ch]} />
-              )
-            )
-          )}
-        </g>
-        )}
 
         {dormido && (
           <text className="mf-tama-zzz" x={PANT.x + 104} y={zonaY + 46}

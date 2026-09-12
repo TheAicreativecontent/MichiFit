@@ -36,7 +36,10 @@
 - No dejar que el michi muera. Nunca.
 - **No precargar datos personales de nadie.** La app es pública: todo arranca a
   cero y lo rellena cada usuario. Nada de perfiles de ejemplo en el código.
-- No tocar `pixel/michis.js` a mano: se genera con `pixel/generar_michis.py`.
+- No tocar a mano los archivos GENERADOS de `pixel/`: cada uno dice arriba
+  qué script lo hace. Los iconos del anillo salen de
+  `pixel/iconos_anillo.py`, salvo los que estén dibujados a mano en
+  `pixel/iconos-a-mano/`, que mandan sobre la rejilla.
 
 ## Cómo prefiero que me responda Claude
 - Explicaciones cortas, código directo, sin relleno.
@@ -46,4 +49,6 @@
 ## Comandos
 - Entorno: `npm run dev` (puerto 5173)
 - Build: `npm run build`
-- Sprites: `cd pixel && python generar_michis.py`
+- Iconos del anillo: `python pixel/iconos_anillo.py --hoja`
+  (`--hoja` regenera además `pixel/_iconos_revisar.png`, que es para
+  mirarla, no para servirla)

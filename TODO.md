@@ -37,22 +37,6 @@
       desde `/`, y en `usuario.github.io/repo/` la app saldría en blanco.
       Con Vercel no hace falta: sirve desde la raíz del dominio.
 
-- [ ] **El michi SVG y las cinco siluetas viejas.** `pixel/michis.js`
-      sigue trayendo los cinco cuerpos retirados el 2026-09-09
-      (esqueletico, gordo, kawaii, fit, hipertrofiado) y **no se dibujan
-      en ninguna pantalla**: `Tamagotchi.jsx` solo pinta el sprite si
-      `!sinMichi`, y su único llamante pasa siempre `sinMichi`. De ese
-      archivo solo se usan hoy `PALETA` y `TAM`.
-      No se ha tocado porque son los dibujos originales del proyecto y
-      eso se decide mirándolos, no de pasada. Lo que sí se hizo
-      (2026-09-12) es dejarlo escrito en los dos archivos y deshacer la
-      colisión de nombres: el de los tres colores pasó a llamarse
-      `COLORES_MICHI`.
-
-- [ ] **`salir.png` ya no se usa.** Se quedó sin sitio cuando el botón
-      derecho pasó a cerrar el anillo. Su rejilla sigue en
-      `pixel/iconos_anillo.py` por si vuelve.
-
 ## Después
 - [ ] **Las fotos y los vídeos del Ninja de verdad** (Alberto). La
       última pantalla de la historia ya tiene su sitio: deja los
@@ -113,6 +97,17 @@
 
 
 ## Hecho
+- [x] 2026-09-13 — **El código muerto, fuera.** Las cinco siluetas
+      (`pixel/michis.js` y su generador) a `_CUARENTENA/cuerpos-antiguos/`,
+      con los PNG de esos mismos cuerpos que ya estaban allí desde el
+      2026-09-09. Con ellas se fue lo que las sostenía en
+      `Tamagotchi.jsx`: el sprite que se leía siempre y se pintaba nunca,
+      y los props `estado`, `cara` y `sinMichi` que solo existían para
+      decirle que NO dibujara. Ese componente ya solo sabe hacer una
+      cosa —la carcasa— y por eso no hace falta pedírselo.
+      `salir.png` borrado del todo: PNG, rejilla y el rótulo en las cinco
+      lenguas. Los ocho iconos servidos salen byte a byte idénticos, así
+      que la caché se queda en v5.
 - [x] 2026-09-12 — **El panel de pruebas dejó de tumbar la app.** Usaba
       una constante `CUERPOS` que no existía en ninguna parte, así que
       los siete toques en el logo dejaban la pantalla en blanco. Ahora

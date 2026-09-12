@@ -287,7 +287,6 @@ export default {
     mimar: 'Pet',
     agua: 'Water',
     limpiar: 'Clean',
-    salir: 'Exit',
     comida: 'Food',
     entreno: 'Workout',
     pasos: 'Steps',

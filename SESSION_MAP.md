@@ -752,3 +752,85 @@ borre ni se reduzca nada, que tal como esta, esta bien. Lo que hay que
 llevar a esa conversacion no es una lista de recortes, sino el mapa de
 lo que la app pide entender: cuantos conceptos hay, cuales se explican
 solos en la pantalla y cuales hay que deducir.
+
+## 2026-09-13
+- Contexto: Alberto vuelve al portatil de casa despues de trabajar en el
+  otro. Se pone al dia (4 commits del 12), y pide limpiar el codigo
+  muerto que quedaba anotado en `TODO.md`: las cinco siluetas y
+  `salir.png`.
+
+### Las cinco siluetas, la otra mitad
+
+Los 16 PNG de los cuatro cuerpos sobrantes se fueron a `_CUARENTENA/` el
+2026-09-09. Las REJILLAS no: `pixel/michis.js` siguio cuatro dias
+exportando esos mismos cinco cuerpos como texto de 32x32, y
+compilandose con la app. `Tamagotchi.jsx` hacia `MICHIS[estado] ??
+MICHIS.kawaii` en cada render: se leian siempre y se pintaban NUNCA,
+porque el dibujo estaba tras un `!sinMichi` y el unico sitio que monta
+ese componente pasa siempre `sinMichi`.
+
+Van a `_CUARENTENA/cuerpos-antiguos/`, con los dibujos, y con ellas su
+generador: `generar_michis.py` solo hacia eso —los PNG por estado, la
+hoja de contactos y el propio `michis.js`— y ningun otro script de
+`pixel/` lo importa.
+
+**Lo unico vivo de ese archivo era `TAM = 32`**, y no medía lo que
+parece. No es el tamaño de un sprite: es el de la REJILLA DEL LCD. Que
+el cuadrito de la rejilla y el pixel del michi midan igual es la
+estetica entera del aparato —lo dice la cabecera del componente desde el
+primer dia—, asi que el 32 se queda en `Tamagotchi.jsx` como numero
+propio, con su porque al lado.
+
+Y con el sprite se fueron tres props que solo existian para decirle al
+componente que NO dibujara: `estado`, `cara` y `sinMichi`. Eso deshace
+de paso la trampa que ya mordio una vez el 2026-09-12 —un `estado`
+que significaba una cosa en el componente SVG y otra en el de PNG, y que
+dejo la bienvenida pintando siempre el michi naranja en produccion—:
+ahora solo hay un `estado` en todo el arbol.
+
+La etiqueta de accesibilidad decia «Michi kawaii, neutro»: en
+castellano, en una app que habla cinco lenguas, y describiendo algo que
+no se pintaba. El SVG pasa a `aria-hidden`, que es lo que corresponde a
+lo que sustituye —un `<img alt="">`— porque el michi lo pone otra
+imagen encima.
+
+### salir.png, borrado y no guardado
+
+El PNG, su rejilla en `iconos_anillo.py` y el rotulo `anillo.salir` en
+las cinco lenguas. **Borrado del todo, no movido a cuarentena, y a
+proposito**: es una equis de 12x12 que se rehace en dos minutos y el
+historial de git es sitio de sobra. En `_CUARENTENA/` va lo que costaria
+recuperar, no todo lo que existio alguna vez; si entra cualquier cosa,
+deja de ser una carpeta que se pueda leer.
+
+Se quedo sin sitio el 2026-09-12, cuando el boton derecho paso a cerrar
+el anillo. Llevaba un dia en la carpeta de iconos vivos fingiendo que se
+usaba.
+
+### Lo que se comprobo antes de dar por bueno el borrado
+
+- Que `anillo.salir` no lo pedia ningun `t(...)`: los rotulos del anillo
+  salen de `ANILLO` en `anillos.js`, y ahi no esta.
+- Que los ocho iconos que quedan se regeneran **byte a byte identicos**
+  (`python pixel/iconos_anillo.py --hoja`). Por eso `CACHE` SE QUEDA EN
+  v5: lo que tapa la cache son los archivos modificados, y aqui solo hay
+  uno borrado. Lo dice la propia `pruebas/cache-sw.mjs`.
+- Que la hoja de contacto se regenera tambien. Se le olvidaba facil —va
+  detras de `--hoja`— y una hoja con un icono que ya no existe es
+  exactamente el problema de «los documentos que mentian» del dia
+  anterior, en imagen.
+- Y el componente que se toco **en el navegador**, no solo compilando:
+  el respaldo en SVG solo sale si falla `huevo.png`, asi que se forzo el
+  error a mano. Dibuja carcasa, LCD, banda y los tres botones, con el
+  michi encima; `aria-hidden` puesto, `role` fuera, cero errores en
+  consola. Un respaldo que nadie ha visto renderizar es un respaldo
+  roto, que es la leccion de PromptPay del dia anterior.
+
+### Documentos
+
+`PROTOCOL.md` mandaba generar los sprites con un script que ya no esta
+ahi; ahora la regla es generica (no editar a mano lo generado, cada
+archivo dice quien lo hace) y el comando que queda es el de los iconos.
+`DECISIONS.md` afirmaba en presente que «el michi sigue siendo datos, no
+una imagen»: se marca como dejo de ser verdad sin borrar la decision,
+que es historia y explica el aparato.

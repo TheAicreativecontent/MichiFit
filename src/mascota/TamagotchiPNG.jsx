@@ -54,12 +54,14 @@ export const ESTILOS = ['pixel'];
    conservando el relieve, los mofletes y los ojos.
 
    Se llamaba `MICHIS` hasta el 2026-09-12, y ese era el problema:
-   `pixel/michis.js` exporta OTRO `MICHIS` que no tiene nada que ver
-   —son las cinco siluetas de cuerpo de antes del replanteamiento del
-   michi, ver ahi— y `Tamagotchi.jsx` importa aquel mientras Ajustes y
-   Lore importan este. Dos cosas distintas con el mismo nombre en el
-   mismo arbol de archivos es de las que muerden a los seis meses,
-   buscando una y encontrando la otra. */
+   `pixel/michis.js` exportaba OTRO `MICHIS` que no tenia nada que ver
+   —las cinco siluetas de cuerpo de antes del replanteamiento— y
+   `Tamagotchi.jsx` importaba aquel mientras Ajustes y Lore importaban
+   este. Dos cosas distintas con el mismo nombre en el mismo arbol es
+   de las que muerden a los seis meses, buscando una y encontrando la
+   otra. Aquel archivo se fue a `_CUARENTENA/cuerpos-antiguos/` el
+   2026-09-13, asi que la colision ya no puede volver; el nombre largo
+   se queda porque describe mejor lo que hay: colores, no michis. */
 export const COLORES_MICHI = ['naranja', 'gris', 'blanco'];
 export const COLORES = ['naranja', 'rojo', 'amarillo', 'verde', 'azul', 'blanco', 'negro'];
 /* El michi arranca GRIS porque Ninja es gris (ver `LORE.md`). El huevo
@@ -113,17 +115,19 @@ export default function TamagotchiPNG({
   /* OJO: `estado` es el NOMBRE DEL ARCHIVO del michi, no un humor ni un
      cuerpo. `michi` -> michi.png / michi-gris.png / michi-blanco.png.
 
-     Se llama asi por herencia del componente SVG de al lado, donde SI es
-     otra cosa: alli `estado` es la clave de una tabla de sprites
-     (`MICHIS[estado]` en `Tamagotchi.jsx`) y `kawaii` es una clave
-     valida. Aqui `kawaii` no puede funcionar NUNCA, porque no existe
-     ningun `kawaii*.png`: la cadena de respaldo se lo come y acaba
+     Se llamaba asi por herencia del componente SVG de al lado, donde
+     `estado` era la clave de una tabla de sprites y `kawaii` una clave
+     valida. Aqui `kawaii` no podia funcionar NUNCA, porque no existe
+     ningun `kawaii*.png`: la cadena de respaldo se lo comia y acababa
      cayendo a `michi.png`, que es el naranja.
 
      Era el valor por defecto hasta el 2026-09-12, y eso significa que
      cualquiera que olvidara pasar `estado` perdia el color elegido sin
      enterarse. Le paso a la bienvenida. Ahora el defecto es `michi`,
-     que es el unico dibujo que existe seguro para los tres colores. */
+     que es el unico dibujo que existe seguro para los tres colores.
+
+     El equivoco ya no puede repetirse: desde el 2026-09-13 el
+     componente de al lado no recibe `estado` ni dibuja sprites. */
   estado = 'michi',
   size = 230,
   iconos = [],
@@ -191,14 +195,14 @@ export default function TamagotchiPNG({
          style={{ width: size, height: size * (1024 / 751) }}>
       {sinHuevo ? (
         <div className="mf-tamapng-huevo">
-          {/* `kawaii` literal, y NO el `estado` de arriba: este es el
-              componente SVG, donde `estado` es la clave de la tabla de
-              sprites y no un nombre de archivo. Pasarle `michi` caeria
-              igualmente al `?? MICHIS.kawaii` del otro lado, pero por
-              accidente. Va `sinMichi`, asi que de esa tabla solo se usa
-              la carcasa: el gato lo pone la imagen de encima. */}
-          <Tamagotchi estado="kawaii" size={size} iconos={iconos}
-                      puntos={puntos} dormido={dormido} sinMichi {...resto} />
+          {/* Solo la carcasa: el gato lo pone la imagen de encima.
+              Hasta el 2026-09-13 habia que decirlo con dos props —un
+              `estado="kawaii"` literal, clave de una tabla de sprites
+              que ya no existe, y un `sinMichi` para que no la pintara—.
+              Ahora ese componente no sabe dibujar michis y no hace
+              falta pedirselo. */}
+          <Tamagotchi size={size} iconos={iconos}
+                      puntos={puntos} dormido={dormido} {...resto} />
         </div>
       ) : (
         <img className="mf-tamapng-huevo" src={rutaHuevo(aparato)} alt=""

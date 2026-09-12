@@ -281,7 +281,6 @@ export default {
     mimar: '摸摸',
     agua: '喝水',
     limpiar: '打扫',
-    salir: '退出',
     comida: '饮食',
     entreno: '运动',
     pasos: '步数',

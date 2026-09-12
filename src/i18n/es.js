@@ -293,7 +293,6 @@ export default {
     mimar: 'Mimar',
     agua: 'Agua',
     limpiar: 'Limpiar',
-    salir: 'Salir',
     comida: 'Comida',
     entreno: 'Entreno',
     pasos: 'Pasos',

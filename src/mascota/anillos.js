@@ -39,8 +39,10 @@
    con manual de papel y esto no: el botón derecho, la vuelta sola a los
    ocho segundos (`ESPERA_MS`), y tocar fuera. Lo que desapareció es el
    icono de SALIR dentro del anillo, que sobra cuando hay un botón
-   dedicado a cerrar. Su dibujo sigue en `pixel/iconos_anillo.py` por si
-   vuelve.
+   dedicado a cerrar. Su dibujo se retiró el 2026-09-13 —la rejilla de
+   `pixel/iconos_anillo.py`, el PNG y el rótulo en las cinco lenguas—:
+   estaba en el historial de git, que es donde tiene que esperar una
+   equis, y no en la carpeta de iconos vivos fingiendo que se usa.
    ============================================================ */
 
 /* Vuelta sola a neutral. Ocho segundos es lo que tarda alguien en

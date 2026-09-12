@@ -282,7 +282,6 @@ export default {
     mimar: 'なでる',
     agua: 'みず',
     limpiar: 'そうじ',
-    salir: 'とじる',
     comida: 'しょくじ',
     entreno: 'うんどう',
     pasos: 'ほすう',

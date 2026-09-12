@@ -95,3 +95,65 @@ Estaban en la **raíz del repositorio**, subidos a GitHub, y no los
 nombraba ni el código, ni el HTML, ni el manifest, ni el service worker.
 El acabado liso vive en `carcasas-lisas/`, que es donde toca; esto era lo
 que quedó del banco de pruebas.
+
+---
+
+## Revisión del 2026-09-13
+
+### michis.js y generar_michis.py — las cinco siluetas, en datos
+
+`pixel/michis.js` y `pixel/generar_michis.py` → `cuerpos-antiguos/`, junto
+a los 16 PNG de esos mismos cuerpos que llegaron aquí el 2026-09-09.
+
+Es la otra mitad de aquella retirada, y se quedó fuera cuatro días. Los
+dibujos se movieron; las **rejillas** —los mismos cinco cuerpos escritos
+como texto de 32x32— siguieron en `pixel/`, exportadas y compilándose con
+la app. `Tamagotchi.jsx` hacía `MICHIS[estado] ?? MICHIS.kawaii` en cada
+render, así que se leían siempre y se pintaban **nunca**: el dibujo estaba
+detrás de un `!sinMichi` y el único sitio que monta ese componente pasaba
+siempre `sinMichi`.
+
+El generador viene con ellas porque solo hacía esto: los PNG por estado (en
+`cuerpos-antiguos/`), la hoja de contactos y el propio `michis.js`. Ningún
+otro script de `pixel/` lo importa.
+
+**Del archivo solo estaba vivo `TAM = 32`**, y ni siquiera para lo que
+parece: no mide un sprite, mide la **rejilla del LCD**. Que el cuadrito de
+la rejilla y el píxel del michi midan lo mismo es la estética entera del
+aparato. Ese 32 se quedó en `Tamagotchi.jsx` como número propio, con su
+porqué escrito al lado.
+
+Con el sprite se fueron también los props `estado`, `cara` y `sinMichi`:
+los tres existían para decirle a ese componente que **no** dibujara un
+michi. Ahora no sabe, y no hay que pedírselo. La etiqueta de
+accesibilidad decía «Michi kawaii, neutro» —en castellano, en una app que
+habla cinco lenguas, describiendo algo que no se pintaba—; el SVG pasa a
+`aria-hidden`, igual que el `<img alt="">` al que sustituye.
+
+#### Si algún día vuelven
+
+Lo de `cuerpos-antiguos/LEEME.md` sigue valiendo entero, y ahora es más
+barato: los datos están aquí al lado. Habría que devolver los dos archivos
+a `pixel/`, reimportar `MICHIS` y `PALETA` en `Tamagotchi.jsx` y recuperar
+el bloque del sprite. Está en el historial: `git log -S "MICHIS" -- src/mascota/Tamagotchi.jsx`.
+
+Y antes, leer la sección 5 de `MECANICA.md`, que es la razón de producto
+por la que se fueron. No es una limpieza técnica lo que las quitó.
+
+### salir.png — este NO se guarda, se borra
+
+`public/iconos-anillo/salir.png`, su rejilla en `pixel/iconos_anillo.py` y
+el rótulo `anillo.salir` en las cinco lenguas. **Borrado, no movido**, y a
+propósito: es una equis de 12x12 que se rehace en dos minutos, y el
+historial de git ya es sitio de sobra para eso. Aquí dentro va lo que
+costaría recuperar, no todo lo que alguna vez existió.
+
+Se quedó sin sitio el 2026-09-12, cuando el botón derecho pasó a cerrar el
+anillo: un icono de SALIR dentro del anillo sobra cuando hay un botón
+dedicado. Llevaba un día en la carpeta de iconos vivos fingiendo que se
+usaba.
+
+Los ocho iconos que quedan se regeneraron (`python pixel/iconos_anillo.py
+--hoja`) y salen **byte a byte idénticos**, así que `CACHE` se queda en v5.
+La propia prueba lo dice: un archivo borrado no tapa nada en la caché, solo
+los modificados.

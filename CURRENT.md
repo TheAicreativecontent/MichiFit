@@ -54,6 +54,13 @@ pantallas y el motor entero.
   Barras de cuidados más vivas, gráfica sin comprimir, y los documentos
   que mentían (`ROADMAP.md`, `PROTOCOL.md`, el código muerto). Ver
   `SESSION_MAP.md`.
+- Última acción (2026-09-13): **el código muerto, fuera**. Las cinco
+  siluetas (`pixel/michis.js` y su generador) a
+  `_CUARENTENA/cuerpos-antiguos/`, con los PNG de esos mismos cuerpos; y
+  `salir.png` borrado del todo. Con las siluetas se fueron los props
+  `estado`, `cara` y `sinMichi` de `Tamagotchi.jsx`, que solo existían
+  para decirle que no dibujara. La caché se queda en v5: los ocho
+  iconos servidos salen byte a byte idénticos. Ver `SESSION_MAP.md`.
 - Próximo paso: **las fotos del Ninja real**. Alberto las mandó por el
   chat el 2026-09-12 y desde ahí no se pueden guardar en disco: hacen
   falta en `public/ninja/`. Son tres, y la del gato sentado de frente

@@ -204,8 +204,15 @@ En consecuencia, HAPPY baja más rápido (2,2 → 3,4 por hora, tope 32 →
   verde con rejilla de pixeles, tres botones y anilla.
 - Razon: es lo que Alberto queria de referencia, y ademas el marco del aparato
   da contexto al michi: se entiende que es una mascota virtual, no un adorno.
-- **El michi sigue siendo datos, no una imagen**: `pixel/michis.js` son rejillas
-  de 32x32 que se pintan como rectangulos. Sigue cambiando con los datos.
+- **El michi eran datos, no una imagen**: `pixel/michis.js` eran rejillas de
+  32x32 que se pintaban como rectangulos.
+  **Esto dejo de ser verdad.** El 2026-09-09 las cinco siluetas se retiraron
+  (ver esa fecha mas abajo) y el michi paso a ser PNG dibujado a mano; el
+  2026-09-13 el archivo se fue a `_CUARENTENA/cuerpos-antiguos/` junto con su
+  generador. Del aparato sobrevive la carcasa en SVG, que hoy solo se dibuja
+  como respaldo si falta `huevo.png`. La decision de que el michi sea pixel
+  art DENTRO de un tamagotchi sigue en pie: lo que cambio es de que esta hecho
+  el gato.
 
 ## 2026-09-07 — Familia visual con Michi Finanzas y MichiMind
 - Decision: fondo crema `#FFF8EE`, tinta calida `#4A3A40`, Baloo 2 y radios
