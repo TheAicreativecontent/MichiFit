@@ -197,6 +197,28 @@ En consecuencia, HAPPY baja más rápido (2,2 → 3,4 por hora, tope 32 →
 - Lo unico propio de MichiFit es el **naranja del logo** `#F2650F`, donde
   MichiFin usa azul y MichiMind rosa.
 
+## 2026-09-13 — En la app, solo Ninja feliz; lo duro va a TikTok
+- Contexto: Alberto dejo cuatro archivos en `public/ninja/`. Dos fotos del
+  gato en casa, y dos VIDEOS: el envenenamiento y el veterinario, que son
+  los actos 4 y 5 de la historia grabados de verdad.
+- Decision de Alberto: **los videos fuera de la app**. Se borran de
+  `public/ninja/` y nunca llegan a git. En la galeria solo van fotos de
+  Ninja viviendo feliz.
+- Razon, con sus palabras: eso ya se conto en TikTok -lo hizo su chica y
+  recibio mucho apoyo- y ese es su sitio. En la app lo que hace falta es
+  algo **evergreen y positivo**.
+- Y encaja con la mecanica: el veneno YA esta contado en el acto 4, en
+  texto, donde esta medido. La ultima pantalla es el epilogo y existe para
+  cerrar en calma; una imagen dura ahi trabaja en contra de la frase que
+  lleva al lado. La app promete no usar el miedo (`MECANICA.md` 10), y eso
+  vale tambien para lo que se enseña, no solo para lo que se dice.
+- Detalle tecnico que pesaba en la decision: el `<video>` va con
+  `preload="metadata"` y SIN `poster`, asi que el PRIMER FOTOGRAMA es la
+  miniatura. No queda detras de un boton de play: el del envenenamiento
+  empieza ya con el gato en el suelo, y se veria sin haberlo pedido.
+- Pendiente, de Alberto: mas fotos, y con menos casa en el encuadre. El
+  repositorio es publico.
+
 ## 2026-09-07 — El michi es pixel art dentro de un tamagotchi
 - Contexto: la mascota era un SVG vectorial suelto sobre la tarjeta.
 - Decision: **pixel art naranja** (el atigrado del logo) dentro de un

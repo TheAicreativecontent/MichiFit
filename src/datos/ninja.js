@@ -5,6 +5,24 @@
    trozo de la historia lo enseña, porque saber que el gato es real
    cambia lo que la app pide de ti.
 
+   QUÉ ENTRA AQUÍ: Ninja viviendo feliz. Nada más.
+   -----------------------------------------------
+   Decisión de Alberto, 2026-09-13, y no es una cuestión de gusto: los
+   vídeos del envenenamiento y del veterinario existen, y se quedan
+   FUERA. Su sitio es TikTok, donde su chica ya contó esa parte y
+   recibió mucho apoyo, porque ahí ese vídeo pide algo —atención,
+   ayuda, rabia— y dura lo que dura la ola. Aquí no: esta pantalla es
+   el final de la historia y sirve para cerrar en calma. Lo que hace
+   falta es evergreen y en positivo, el gato vivo y en casa.
+
+   Y hay una razón de mecánica: la historia YA cuenta el veneno en el
+   acto 4, en texto, donde está medido. Enseñarlo además en imagen, y
+   justo debajo de «duerme mucho y sigue robando comida de la mesa»,
+   deshace lo que esa pantalla viene a hacer.
+
+   Ojo además con el ENCUADRE: el repositorio es público y estas fotos
+   se ven enteras. Mejor que salga Ninja y poco de alrededor.
+
    CÓMO AÑADIR UNA FOTO O UN VÍDEO
    -------------------------------
    1. Deja el archivo en `public/ninja/`.
@@ -37,8 +55,8 @@
    ============================================================ */
 
 export const NINJA = [
-  // { archivo: 'ninja-01.jpg', pie: 'Recién llegado a casa' },
-  // { archivo: 'ninja-siesta.mp4', pie: 'La siesta de las cuatro' },
+  { archivo: 'Ninja_at_home_01.jpeg', pie: 'En casa' },
+  { archivo: 'Ninja_at_home_02.jpeg', pie: 'Durmiendo, que es lo suyo' },
 ];
 
 const VIDEO = /\.(mp4|webm|mov)$/i;

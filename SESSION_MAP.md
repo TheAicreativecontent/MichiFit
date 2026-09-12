@@ -873,3 +873,58 @@ Y `datos/ninja.js` decia que los videos eran `.mp4`, cuando `esVideo`
 acepta tambien `.webm` y `.mov`. Importa justo ahora: lo que graba el
 iPhone de Alberto es `.mov`, y el comentario le habria hecho creer que
 tenia que convertirlo.
+
+### Ninja, por fin
+
+Alberto dejo cuatro archivos en `public/ninja/`: dos fotos del gato en
+casa y DOS VIDEOS que no habia mencionado. Se miraron los cuatro antes
+de montar nada, y menos mal.
+
+Las fotos, bien y montadas: el atigrado sentado en la silla mirando a
+camara —la que el mismo habia señalado como la buena— y otra durmiendo
+estirado en la cama. Verticales de movil, 1080x1920 y 1134x2016, unos
+190 kB cada una.
+
+Comprobado en el navegador a 375x812, que era lo que quedaba por ver de
+la galeria: las VERTICALES caen bien (llenan el alto, se recortan a lo
+ancho), se pasa de una a otra deslizando, y la pagina NO desborda a lo
+ancho. El pie de la segunda parecia cortarse en la captura; medido, no
+se sale de su figura — era el recorte de la captura, no la app.
+
+`CACHE` se queda en v5 y esta vez por otro motivo: son archivos NUEVOS,
+o sea URLs nuevas, y la cache no puede tapar lo que no tiene guardado.
+La prueba lo dice desde el principio y aqui se aplico solo.
+
+### Los videos: el envenenamiento y el veterinario
+
+Eran los actos 4 y 5 de la historia GRABADOS DE VERDAD. Ninja tirado en
+el suelo mojado sin poder levantarse, y despues en el veterinario con el
+cono y la via.
+
+Decision de Alberto: fuera. Su sitio es TikTok —su chica ya conto esa
+parte alli y recibio mucho apoyo— y en la app solo Ninja viviendo feliz,
+que es mas evergreen y positivo. Coincidio con la recomendacion, que
+iba por las mismas dos razones:
+
+· La pantalla es el EPILOGO. Lleva al lado «Vive en Bangkok, duerme
+  mucho y sigue robando comida de la mesa», y existe para cerrar en
+  calma. El veneno ya esta contado en el acto 4, en texto, donde esta
+  medido.
+· Y un detalle tecnico que pesaba: el `<video>` va con
+  `preload="metadata"` y SIN `poster`, o sea que el PRIMER FOTOGRAMA es
+  la miniatura. No queda detras de un boton de play: se veria sin
+  haberlo pedido.
+
+Queda escrito en `DECISIONS.md` y, sobre todo, en la cabecera de
+`datos/ninja.js`, que es el archivo que alguien va a abrir el dia que
+quiera añadir algo. Una decision de producto solo sirve donde muerde.
+
+Los videos se borraron de `public/ninja/` y nunca llegaron a `git add`.
+
+### Y el aviso del repositorio publico
+
+Las fotos son de un piso de Airbnb, no de su casa, asi que el encuadre
+importa menos de lo que parecia. Aun asi queda como lo siguiente: mas
+fotos y con menos casa detras. Es el mismo aviso que el del QR de
+PromptPay y por lo mismo — el repositorio es publico y un commit no se
+retira.

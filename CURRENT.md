@@ -66,10 +66,14 @@ pantallas y el motor entero.
   rechaza, así que cada trozo dejaba un fallo sin recoger dentro del
   SW. Ahora las peticiones con `Range` van derechas a la red. Se veía
   bien igual, pero por suerte. Comprobado con un mp4 de prueba.
-- Próximo paso: **las fotos del Ninja real**. Alberto las mandó por el
-  chat el 2026-09-12 y desde ahí no se pueden guardar en disco: hacen
-  falta en `public/ninja/`. Son tres, y la del gato sentado de frente
-  mirando a cámara es la buena para la pantalla del final.
+- Última acción (2026-09-13, cierre): **Ninja ya está en la app**.
+  Alberto dejó las fotos en `public/ninja/` y la galería del final las
+  enseña. Dejó también dos vídeos —el envenenamiento y el veterinario—
+  y decidió que **no entran**: su sitio es TikTok, y aquí lo que hace
+  falta es evergreen y positivo. Ver `DECISIONS.md`.
+- Próximo paso: **más fotos de Ninja**, y con menos casa en el
+  encuadre — el repositorio es público. Las dos que hay valen; es
+  ampliar la galería, no arreglarla.
 - Y en cuanto haya un rato con calma, la conversación que Alberto quiere
   tener: **cómo hacerla HIPER sencilla de entender**. Dijo
   explícitamente que por ahora NO se borre ni se reduzca nada — tal como

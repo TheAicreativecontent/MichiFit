@@ -26,11 +26,13 @@
       la vuelta atrás es barata.
       Encaja con la conversación de simplificar, no antes.
 
-- [ ] **Las fotos de Ninja, en el ordenador.** Alberto las mandó por el
-      chat y ahí no se pueden guardar en disco. Déjalas en
-      `public/ninja/` (o en cualquier carpeta y se recortan desde ahí):
-      hay tres, dos durmiendo en la cama y una sentado de frente
-      mirando a cámara — esa es la buena para la pantalla del final.
+- [ ] **Más fotos de Ninja** (Alberto). Las dos que hay funcionan; esto
+      es ampliar, no arreglar. Con menos casa en el encuadre: el
+      repositorio es público y se ven enteras. Se dejan en
+      `public/ninja/` y se añaden a la lista de `src/datos/ninja.js`.
+      Acuérdate de subir `const CACHE` en `public/sw.js` solo si
+      SUSTITUYES una foto por otra con el mismo nombre; una foto nueva
+      trae una URL nueva y la caché no la tapa.
 
 - [ ] **Si algún día se publica en GitHub Pages**: poner `base:
       '/<nombre-repo>/'` en `vite.config.js`. Vite compila con rutas absolutas
@@ -38,13 +40,6 @@
       Con Vercel no hace falta: sirve desde la raíz del dominio.
 
 ## Después
-- [ ] **Las fotos y los vídeos del Ninja de verdad** (Alberto). La
-      última pantalla de la historia ya tiene su sitio: deja los
-      archivos en `public/ninja/`, añádelos a la lista de
-      `src/datos/ninja.js` y sube `const CACHE` en `public/sw.js`.
-      Mientras no haya ninguno, esa pantalla enseña al michi contento y
-      funciona igual.
-
 - [ ] **Las 21 viñetas del cómic.** Los prompts están escritos. Cuando
       existan, se cambian las rutas de `ESCENAS` en `pantallas/Lore.jsx`
       y ya: ahora mismo la historia se ilustra con el propio michi gris
@@ -57,7 +52,6 @@
       solo sitio cada uno: `AGUA_HORAS` y `ORDEN_HORAS` en
       `engine/cuidados.js`, y los cuatro de la felicidad en
       `engine/felicidad.js`. Si cansa, se suben; si aburre, se bajan.
-
 
 - [ ] Add-ons cosméticos al llegar a nivel 5 (batidos, mancuernas, gafas).
       Se pierden al bajar de nivel y se recuperan al volver a subir.
@@ -97,6 +91,14 @@
 
 
 ## Hecho
+- [x] 2026-09-13 — **Ninja, en la app.** Dos fotos en la galería del
+      final de la historia, comprobadas a tamaño móvil: las verticales
+      llenan el alto, se pasa de una a otra deslizando y la página no
+      desborda a lo ancho. No hizo falta subir `CACHE`: archivos nuevos,
+      URLs nuevas.
+- [x] 2026-09-13 — **Decidido qué entra en esa galería**: solo Ninja
+      feliz. Los vídeos del envenenamiento y del veterinario se quedan
+      fuera y van a TikTok. Ver `DECISIONS.md`.
 - [x] 2026-09-13 — **Los vídeos de Ninja y el service worker.** Un
       vídeo no se pide entero: el navegador lo pide por trozos y el
       servidor contesta 206. `res.ok` es verdad para un 206, así que el
