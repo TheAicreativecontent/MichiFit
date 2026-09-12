@@ -9,9 +9,13 @@
    -------------------------------
    1. Deja el archivo en `public/ninja/`.
    2. Añádelo a la lista de abajo, con su nombre exacto.
-   3. Sube `const CACHE` en `public/sw.js` — estas imágenes NO llevan
-      hash en el nombre, así que sin eso quien ya tenga la app
-      instalada no las vería. `node pruebas/cache-sw.mjs` avisa.
+   3. **Si es una FOTO**, sube `const CACHE` en `public/sw.js`: no
+      llevan hash en el nombre, así que sin eso quien ya tenga la app
+      instalada no la vería. `node pruebas/cache-sw.mjs` avisa.
+      Los VÍDEOS no lo necesitan, porque no pasan por la caché nunca
+      (el porqué, largo, está en `public/sw.js`). Si la prueba te lo
+      reclama por haber cambiado uno, es de más: hazle caso igual, que
+      subir el número no cuesta nada y no equivocarse sí.
 
    No hace falta tocar nada más: si la lista está vacía, la sección
    entera no se pinta y la historia acaba igual de bien.
@@ -20,8 +24,16 @@
    sirve como archivos estáticos, sin servidor que pueda listar un
    directorio. Un manifiesto es la forma honesta de hacerlo.
 
-   Formatos: `.png`, `.jpg` y `.webp` para foto; `.mp4` para vídeo.
-   Que no pesen mucho — esto se abre en móviles y a veces con datos.
+   Formatos: `.png`, `.jpg` y `.webp` para foto; `.mp4`, `.webm` y
+   `.mov` para vídeo — `.mov` porque es lo que graba el iPhone y sería
+   absurdo obligar a convertirlo. Quien decide si algo es vídeo es
+   `esVideo`, aquí abajo: si algún día hace falta otro formato, se
+   añade ahí y no en este comentario.
+
+   Que no pesen mucho — esto se abre en móviles y a veces con datos, y
+   un vídeo no se guarda para verlo sin cobertura: se pide a la red
+   cada vez. Un `.webm` bien comprimido pesa bastante menos que el
+   `.mov` que saca el teléfono.
    ============================================================ */
 
 export const NINJA = [

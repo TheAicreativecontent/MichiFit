@@ -61,6 +61,11 @@ pantallas y el motor entero.
   `estado`, `cara` y `sinMichi` de `Tamagotchi.jsx`, que solo existían
   para decirle que no dibujara. La caché se queda en v5: los ocho
   iconos servidos salen byte a byte idénticos. Ver `SESSION_MAP.md`.
+- Última acción (2026-09-13, después): **el service worker y los
+  vídeos**. Los vídeos se piden por trozos (206) y `cache.put` los
+  rechaza, así que cada trozo dejaba un fallo sin recoger dentro del
+  SW. Ahora las peticiones con `Range` van derechas a la red. Se veía
+  bien igual, pero por suerte. Comprobado con un mp4 de prueba.
 - Próximo paso: **las fotos del Ninja real**. Alberto las mandó por el
   chat el 2026-09-12 y desde ahí no se pueden guardar en disco: hacen
   falta en `public/ninja/`. Son tres, y la del gato sentado de frente

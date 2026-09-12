@@ -834,3 +834,42 @@ archivo dice quien lo hace) y el comando que queda es el de los iconos.
 `DECISIONS.md` afirmaba en presente que «el michi sigue siendo datos, no
 una imagen»: se marca como dejo de ser verdad sin borrar la decision,
 que es historia y explica el aparato.
+
+### Y una pregunta de Alberto: ¿ahi se puede poner un video?
+
+Si, y ya estaba montado: misma lista `src/datos/ninja.js`, se distingue
+por la extension y `Lore.jsx` pinta un `<video controls playsInline
+preload="metadata">` en vez de un `<img>`.
+
+Pero al mirarlo salio una sospecha, y esta vez se comprobo ANTES de
+contarla como arreglada. Un video no se pide entero: el navegador lo
+pide POR TROZOS, con cabecera `Range`, y el servidor contesta 206.
+
+Con un mp4 de prueba y el service worker al mando: el video se veia y NO
+quedaba en la cache. Las dos cosas por el mismo motivo. `res.ok` es
+TRUE para un 206 —es un 2xx—, asi que el trozo pasaba el filtro y
+`cache.put` lo rechazaba con un `TypeError: Partial response (status
+code 206) is unsupported`. Comprobado a mano, no deducido. Esa promesa
+no la recogia nadie: un fallo no controlado por cada trozo de video, e
+invisible desde la consola de la pagina porque ocurre dentro del worker.
+Se veia bien porque el error salta DESPUES de devolver la respuesta. Por
+suerte, no por diseño.
+
+Arreglado en `public/sw.js`: lo que lleva `Range` va derecho a la red,
+sin tocar la cache ni al servir ni al guardar. Y de segundo cerrojo, se
+guarda solo el `200` exacto en vez de todo el 2xx. Comprobado despues:
+el video se reproduce, se ADELANTA (que es lo que se rompe cuando la
+cache se mete de por medio), y los iconos y los michis se siguen
+guardando con 200.
+
+Que un video no se pueda ver sin cobertura es ademas lo que conviene:
+son los archivos mas pesados de la app y llenar la cache del movil con
+ellos para que el michi arranque sin red es un mal cambio.
+
+`CACHE` se queda en v5: no ha cambiado ninguna imagen sin hash. Lo que
+cambia es la logica del worker, y esa se actualiza sola.
+
+Y `datos/ninja.js` decia que los videos eran `.mp4`, cuando `esVideo`
+acepta tambien `.webm` y `.mov`. Importa justo ahora: lo que graba el
+iPhone de Alberto es `.mov`, y el comentario le habria hecho creer que
+tenia que convertirlo.

@@ -97,6 +97,13 @@
 
 
 ## Hecho
+- [x] 2026-09-13 — **Los vídeos de Ninja y el service worker.** Un
+      vídeo no se pide entero: el navegador lo pide por trozos y el
+      servidor contesta 206. `res.ok` es verdad para un 206, así que el
+      trozo entraba a la caché y `cache.put` lo rechazaba con un error
+      que no recogía nadie. Ahora lo que lleva `Range` va derecho a la
+      red. Los vídeos no se guardan para verlos sin cobertura, y es lo
+      que conviene: son lo más pesado de la app.
 - [x] 2026-09-13 — **El código muerto, fuera.** Las cinco siluetas
       (`pixel/michis.js` y su generador) a `_CUARENTENA/cuerpos-antiguos/`,
       con los PNG de esos mismos cuerpos que ya estaban allí desde el

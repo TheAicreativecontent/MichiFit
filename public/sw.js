@@ -71,6 +71,35 @@ self.addEventListener('fetch', (e) => {
      otros dominios ni envíos de formulario. */
   if (req.method !== 'GET' || new URL(req.url).origin !== self.location.origin) return;
 
+  /* Los VIDEOS no pasan por la cache, y hay que decirlo aparte porque
+     no llegan como una imagen: el navegador los pide POR TROZOS, con
+     una cabecera `Range`, y el servidor contesta 206 Partial Content.
+
+     Eso rompia las dos mitades de aqui abajo:
+
+     · Al GUARDAR. `res.ok` es TRUE para un 206 —es un 2xx— asi que el
+       trozo entraba en el `if` de mas abajo... y `cache.put` rechaza
+       las respuestas parciales con un TypeError. La promesa no la
+       recoge nadie, o sea un fallo no controlado por cada trozo de
+       video, invisible desde la consola de la pagina porque ocurre
+       aqui dentro.
+     · Al SERVIR. Si alguna vez llegara a haber una copia entera
+       guardada, `caches.match` se la devolveria TAL CUAL a una
+       peticion que pedia del byte 100.000 al 200.000. Eso no es lo que
+       se ha pedido, y con ello el video no se puede ni adelantar.
+
+     Comprobado el 2026-09-13 con un mp4 de prueba y el service worker
+     al mando: se veia bien y no quedaba en la cache, porque el error
+     salta DESPUES de devolver la respuesta. Se veia bien por suerte,
+     no por diseño.
+
+     Asi que los trozos van derechos a la red. Que un video no se
+     guarde para verlo sin cobertura es ademas lo que conviene: los de
+     Ninja son los archivos mas pesados de la app, y llenar la cache
+     del movil con ellos para que el michi arranque sin red es un mal
+     cambio. */
+  if (req.headers.has('range')) return;
+
   const esPagina = req.mode === 'navigate';
 
   if (esPagina) {
@@ -89,8 +118,14 @@ self.addEventListener('fetch', (e) => {
   e.respondWith(
     caches.match(req).then((guardado) => guardado ?? fetch(req).then((res) => {
       /* Solo se guarda lo que salió bien: cachear un 404 lo dejaría
-         roto hasta que cambie la versión de la caché. */
-      if (res.ok) {
+         roto hasta que cambie la versión de la caché.
+
+         Y `200` en vez de `res.ok`, que abarca todo el 2xx: un 206 es
+         un 2xx y `cache.put` lo rechaza. Arriba ya se apartan los
+         trozos por la cabecera `Range`, asi que esto es el segundo
+         cerrojo — un 206 sin `Range` no deberia existir, pero el que
+         se cuele no tiene por que dejar un fallo sin recoger. */
+      if (res.status === 200) {
         const copia = res.clone();
         caches.open(CACHE).then((c) => c.put(req, copia));
       }
