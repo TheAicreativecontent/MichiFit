@@ -1,6 +1,24 @@
 # TODO.md — Backlog
 
 ## Ahora
+- [ ] **El QR de PromptPay** (Alberto). El bloque está hecho y apagado.
+      Sácalo de tu app del banco, déjalo en
+      `public/karma/promptpay_qr.png`, pon `ACTIVO = true` en
+      `src/datos/promptpay.js` y sube `const CACHE` en `public/sw.js`.
+      **Antes, lee el aviso de ese archivo**: el repositorio es público y
+      ese QR lleva dentro tu número de teléfono o de identidad. Un commit
+      no se retira. PromptPay admite también un e-Wallet ID, que no es tu
+      teléfono.
+
+- [ ] **¿Te vale el icono de dormir?** Son tres z de tamaño creciente. A
+      12 px se leen; ampliado queda algo encadenado. Si quieres otro,
+      dibújalo y déjalo en `pixel/iconos-a-mano/dormir.png` — desde hoy
+      esa carpeta manda sobre la rejilla de texto.
+
+- [ ] **¿`PASOS_MIN` a 2.000 o a 0?** Es el tope del simulador que menos
+      claro tengo: 2.000 es poco para quien sale de casa y mucho para un
+      día en cama. Está en `engine/constantes.js`, es cambiar un número.
+
 - [ ] **Si algún día se publica en GitHub Pages**: poner `base:
       '/<nombre-repo>/'` en `vite.config.js`. Vite compila con rutas absolutas
       desde `/`, y en `usuario.github.io/repo/` la app saldría en blanco.
@@ -52,6 +70,21 @@
 
 
 ## Hecho
+- [x] 2026-09-12 — **Los botones, versión buena**: izquierda pasa al
+      siguiente, centro acepta, derecha cierra — la disposición A/B/C de
+      los tamagotchis de Bandai. Un solo anillo de ocho en vez de dos, y
+      `dormir` pasa de botón a icono. En reposo el centro y la derecha no
+      hacen nada. Dormido, el primer toque solo despierta.
+- [x] 2026-09-12 — **El color se elige al adoptarlo**, gato y huevo, al
+      final de la historia. El michi arranca GRIS, que es el color de
+      Ninja. De paso se destapó que la bienvenida pintaba siempre el
+      naranja: `estado="kawaii"` no existe como archivo.
+- [x] 2026-09-12 — **La escoba de Alberto** en `limpiar`, y
+      `pixel/iconos-a-mano/` para que el generador no vuelva a pisar un
+      dibujo hecho fuera.
+- [x] 2026-09-12 — **Los rangos del simulador** dejan de ser de atleta.
+      Los de comida salen de la persona, no de dos números fijos.
+- [x] 2026-09-12 — **PromptPay** montado y apagado, a falta del QR.
 - [x] 2026-09-12 — **Los ocho iconos de los anillos**, dibujados píxel a
       píxel en `pixel/iconos_anillo.py`. Rejilla de 12x12 escrita en
       texto, así que se editan abriendo el archivo. Si quieres rehacer
