@@ -11,7 +11,7 @@ import { DIAS } from '../engine/constantes.js';
 import { tmb, imc, avisosDeSeguridad, planEnergetico } from '../engine/calculos.js';
 import { pactoPorDefecto } from '../engine/pacto.js';
 
-export default function Bienvenida({ onEmpezar }) {
+export default function Bienvenida({ onEmpezar, aparato }) {
   const t = useT();
   const [p, setP] = useState({
     sexo: 'hombre', edad: '', altura: '',
@@ -68,7 +68,19 @@ export default function Bienvenida({ onEmpezar }) {
   return (
     <div className="mf-pagina">
       <div className="mf-escena">
-        <Tamagotchi estado="kawaii" cara="feliz" size={210} escenario="casa" />
+        {/* Con el gato que se acaba de elegir al final de la historia.
+            Sin `aparato` esta pantalla pintaba siempre el naranja de
+            fabrica: adoptabas un michi blanco y la pantalla siguiente
+            te ensenaba otro. */}
+        {/* `estado` es el NOMBRE DEL ARCHIVO del michi, no un humor:
+            aqui decia "kawaii" —herencia del componente SVG viejo, donde
+            era la clave de una tabla de sprites— y `kawaii-blanco.png` no
+            existe, asi que la cadena de respaldo caia siempre a
+            `michi.png`, que es el naranja. El color elegido no se veia
+            nunca en esta pantalla. Es `michi`, como en Inicio
+            (`visual.cuerpo`, ver `engine/michi.js`). */}
+        <Tamagotchi estado="michi" cara="feliz" size={210} escenario="casa"
+                    aparato={aparato} />
         <p className="mf-globo">
           {t('bienvenida.globo')}
         </p>

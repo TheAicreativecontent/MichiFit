@@ -83,6 +83,10 @@ export default {
     copiado: 'Copiado ✓',
     copiar: 'Copiar LNURL',
     compatible: 'Compatible con Wallet of Satoshi, Phoenix, Muun y cualquier cartera LNURL.',
+    promptpayTitulo: '🇹🇭 PromptPay',
+    promptpayIntro: 'Si estás en Tailandia, escanea con la app de tu banco. Es la forma normal de pagar allí.',
+    promptpayQrAlt: 'Código QR de PromptPay para una propina',
+    promptpayCompatible: 'Funciona con cualquier banco tailandés: SCB, Kasikorn, Krungthai, Bangkok Bank y los demás.',
   },
 
   dia: {
@@ -260,6 +264,8 @@ export default {
     verLore: 'Ver su historia',
     realTitulo: 'Ninja existe',
     realTexto: 'No es un personaje. Vive en Bangkok, duerme mucho y sigue robando comida de la mesa.',
+    colorTitulo: 'Ahora es tuyo',
+    colorTexto: 'Ninja es gris, pero el que vas a cuidar lo eliges tú. Y el aparato, del color que quieras. Se puede cambiar cuando quieras en Ajustes.',
     sinFotos: 'Aquí irán sus fotos.',
     actos: [
       { t: 'El callejón',
@@ -282,6 +288,8 @@ export default {
     registrar: 'Registrar',
     siguiente: 'Siguiente',
     aceptar: 'Aceptar',
+    cerrar: 'Cerrar',
+    abrir: 'Menú',
     mimar: 'Mimar',
     agua: 'Agua',
     limpiar: 'Limpiar',
@@ -290,7 +298,7 @@ export default {
     entreno: 'Entreno',
     pasos: 'Pasos',
     sueno: 'Sueño',
-    ayuda: 'Izquierda: cuidar · Centro: siguiente · Derecha: aceptar',
+    ayuda: 'Izquierda: siguiente · Centro: aceptar · Derecha: cerrar',
   },
 
   aparato: {

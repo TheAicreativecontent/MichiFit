@@ -1,16 +1,6 @@
 # ASK.md — Preguntas pendientes (para Alberto)
 
 ## Decisiones pendientes
-- [ ] **Si avisar cuando la meta de peso es MUY alta.** Hay suelo de IMC
-      (avisa si tu meta baja de 18,5) pero no techo. Con «ganar peso» ya
-      se puede poner una meta muy por encima de lo saludable y la app no
-      dice nada.
-      La simetria pediria avisar. Pero `MECANICA.md` §10 promete que la
-      app **no juzga tu cuerpo**, y todo el replanteamiento del michi
-      salio de que la gente no queria identificarse con un cuerpo
-      grande. Un aviso ahi puede leerse como un reproche.
-      Es una decision de valores, no tecnica.
-
 - [ ] **La camara para calcular calorias de una foto.** Se puede hacer,
       pero necesita una API de vision y se paga por uso. Es la misma
       decision que ya cerraste con la cuota de imagenes de Gemini, en
@@ -25,23 +15,21 @@
       todos los moviles, sin permisos ni coste, y las alarmas las pone
       el sistema. Esta en el TODO como lo siguiente.
 
-- [ ] **De que color arranca la app.** Ninja es GRIS en el lore (decidido
-      el 2026-09-10 por la noche) pero la app arranca en NARANJA, que es
-      el color de marca: el huevo y el logo son naranjas. Tal como esta,
-      «adopta a Ninja» te da un gato que no es Ninja.
-      Tres salidas, y es decision tuya:
-        a) arrancar en gris, y que el naranja sea otro gato mas;
-        b) dejar el naranja de fabrica y que el lore diga que el color lo
-           eliges tu al adoptarlo;
-        c) preguntarlo en la bienvenida, justo despues del cuento.
-      La (c) es la que mas me gusta: convierte el problema en el primer
-      gesto de cuidarlo. Cuesta una pantalla mas en la bienvenida.
-
 
 ## Dudas tecnicas sin resolver
 - [ ] (ninguna)
 
 ## Cerradas
+- 2026-09-12 **De que color arranca la app**: GRIS de fabrica, porque
+  Ninja es gris, y el usuario elige al final de la historia — el color
+  del gato Y el del huevo. Es la opcion (c) de las tres que habia, y la
+  que convierte el problema en el primer gesto de cuidarlo. El huevo
+  sigue naranja por defecto: ese es el color de marca. Decision de
+  Alberto.
+- 2026-09-12 **Avisar cuando la meta de peso es MUY alta**: NO se hace.
+  Queda como esta. La asimetria con el suelo de IMC es deliberada: la
+  app promete no juzgar tu cuerpo (`MECANICA.md` 10) y un techo se lee
+  como un reproche. Decision de Alberto.
 - 2026-09-11 **Renombrar Michigochi en el codigo**: se cerro sola. Al
   revisar el codigo antes de abrir al publico se comprobo que la palabra
   ya no aparece en ninguna linea viva — solo en los documentos, donde es

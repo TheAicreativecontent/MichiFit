@@ -92,7 +92,11 @@ const sucios = git('status', '--porcelain', '--', ...VIGILADAS)
   .split('\n')
   .filter(Boolean)
   .filter((l) => l.trim().startsWith('M'))
-  .map((l) => l.slice(3))
+  /* `slice(3)` no vale: `git()` recorta la salida, asi que la PRIMERA
+     linea pierde el espacio de la izquierda del porcelain y el nombre
+     salia comido por delante — «ublic/...» en vez de «public/...».
+     Solo se veia en el archivo que saliera el primero. */
+  .map((l) => l.replace(/^\s*\S+\s+/, ''))
   .filter((f) => !/\.(txt|md)$/i.test(f));
 
 comprobar(sucios.length === 0,

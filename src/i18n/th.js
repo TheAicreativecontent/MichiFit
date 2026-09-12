@@ -82,6 +82,10 @@ export default {
     copiado: 'คัดลอกแล้ว ✓',
     copiar: 'คัดลอก LNURL',
     compatible: 'ใช้ได้กับ Wallet of Satoshi, Phoenix, Muun และกระเป๋า LNURL อื่น ๆ',
+    promptpayTitulo: '🇹🇭 พร้อมเพย์',
+    promptpayIntro: 'สแกนด้วยแอปธนาคารของคุณได้เลย',
+    promptpayQrAlt: 'คิวอาร์โค้ดพร้อมเพย์สำหรับให้ทิป',
+    promptpayCompatible: 'ใช้ได้กับทุกธนาคาร: ไทยพาณิชย์ กสิกรไทย กรุงไทย กรุงเทพ และอื่นๆ',
   },
 
   dia: {
@@ -249,6 +253,8 @@ export default {
     verLore: 'อ่านเรื่องของเขา',
     realTitulo: 'นินจามีอยู่จริง',
     realTexto: 'เขาไม่ใช่ตัวละคร เขาอาศัยอยู่ในกรุงเทพฯ นอนเยอะ และยังขโมยอาหารจากโต๊ะอยู่เลย',
+    colorTitulo: 'ตอนนี้เขาเป็นของคุณแล้ว',
+    colorTexto: 'นินจาเป็นสีเทา แต่คุณเลือกเองได้ว่าจะดูแลตัวไหน และเครื่องจะสีอะไรก็ได้ เปลี่ยนได้ทุกเมื่อในการตั้งค่า',
     sinFotos: 'รูปของเขาจะอยู่ตรงนี้',
     actos: [
       { t: 'ตรอกเล็ก',
@@ -271,6 +277,8 @@ export default {
     registrar: 'บันทึก',
     siguiente: 'ถัดไป',
     aceptar: 'ตกลง',
+    cerrar: 'ปิด',
+    abrir: 'เมนู',
     mimar: 'ลูบ',
     agua: 'น้ำ',
     limpiar: 'ทำความสะอาด',
@@ -279,7 +287,7 @@ export default {
     entreno: 'ออกกำลังกาย',
     pasos: 'ก้าว',
     sueno: 'การนอน',
-    ayuda: 'ซ้าย: ดูแล · กลาง: ถัดไป · ขวา: ตกลง',
+    ayuda: 'ซ้าย: ถัดไป · กลาง: ตกลง · ขวา: ปิด',
   },
 
   aparato: {

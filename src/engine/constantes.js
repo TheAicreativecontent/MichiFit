@@ -104,6 +104,34 @@ export const RITMO_MAXIMO_SEMANAL = 0.01; // 1% del peso corporal
    1.365. El mismo numero fijo trataba igual a cuerpos muy distintos. */
 export const DEFICIT_MAXIMO = 0.20;
 
+/* --- rangos del simulador -----------------------------------------
+   Los topes de los tres deslizadores de «¿y si...?». Estaban escritos a
+   mano dentro del JSX y eran de atleta: 20.000 pasos al dia, 600 minutos
+   de entreno a la semana (DIEZ horas) y 4.000 kcal. Con margenes asi, el
+   simulador contestaba con fechas de meta que no se iban a cumplir —y
+   una fecha optimista en una app de orientacion es lo contrario de
+   orientar.
+
+   Por abajo tambien: 1.000 kcal esta por debajo del suelo que la propia
+   app defiende en `KCAL_MINIMAS`. Un deslizador que te deja ponerte en
+   un sitio donde la app va a avisarte de que eso no es sano es una
+   trampa; el aviso sigue existiendo, pero no hace falta invitar.
+
+   LA COMIDA NO ESTA AQUI, y no por olvido: su rango depende de la
+   persona. El suelo es `KCAL_MINIMAS` segun el sexo y el techo es el
+   gasto total por `1 + SUPERAVIT_MAXIMO`, que es lo mas que esta app
+   considera sensato comer de mas. Los mismos numeros que usa
+   `planEnergetico`, para que el deslizador no pueda contradecir al
+   motor. Lo calcula `Simulador.jsx`.
+
+   `PASOS_MIN` es el mas discutible de los cuatro: 2.000 pasos es poco
+   para alguien que sale de casa y mucho para un dia en cama. Se elige
+   pensando en que esto simula un habito sostenido y no un dia suelto. */
+export const PASOS_MIN = 2000;
+export const PASOS_MAX = 16000;
+export const PASOS_PASO = 250;
+export const ENTRENO_SEMANA_MAX = 420;   // 7 h; el 0 se queda, no entrenar es una respuesta
+
 /* --- pacto -------------------------------------------------- */
 export const DIAS = ['lun', 'mar', 'mie', 'jue', 'vie', 'sab', 'dom'];
 /* Los NOMBRES de los días ya no viven aquí: están en el diccionario,

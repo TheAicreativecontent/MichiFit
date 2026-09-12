@@ -10,6 +10,7 @@
 
 import { useState } from 'react';
 import { useT } from '../i18n/index.jsx';
+import { ACTIVO as PROMPTPAY, QR as PROMPTPAY_QR } from '../datos/promptpay.js';
 
 const BUY_ME_A_COFFEE = 'https://www.buymeacoffee.com/MichiFinanzas';
 const LIGHTNING_LNURL =
@@ -86,6 +87,33 @@ export default function Karma() {
           {t('karma.compatible')}
         </p>
       </div>
+
+      {/* PromptPay: el estandar de QR de Tailandia, que es de donde son
+          los amigos que lo pidieron. Sale solo si Alberto ha puesto su
+          QR — ver `datos/promptpay.js`, que explica como y que hay que
+          pensarse antes (el repositorio es publico y el QR lleva dentro
+          su numero).
+
+          Va DESPUES de los otros dos y no antes aunque sea el mas comodo
+          para quien esta alli: los otros dos funcionan para todo el
+          mundo, y este solo dentro de Tailandia.
+
+          Sin boton de «abrir el banco»: alli no hay un esquema de URL
+          comun, cada banco lleva el suyo. El QR se enseña tambien en el
+          movil, que es justo donde se escanea. */}
+      {PROMPTPAY && (
+        <div className="mf-tarjeta mf-karma-bloque">
+          <h3 className="mf-h3">{t('karma.promptpayTitulo')}</h3>
+          <p className="mf-nota" style={{ marginTop: 0, marginBottom: 12 }}>
+            {t('karma.promptpayIntro')}
+          </p>
+          <img className="mf-karma-qr" src={PROMPTPAY_QR}
+               alt={t('karma.promptpayQrAlt')} width="200" height="200" />
+          <p className="mf-nota" style={{ fontSize: 11 }}>
+            {t('karma.promptpayCompatible')}
+          </p>
+        </div>
+      )}
 
       <div className="mf-karma-michi">
         <img src="/karma/michi_love.png" alt="" />

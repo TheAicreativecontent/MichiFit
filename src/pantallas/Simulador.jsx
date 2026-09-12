@@ -8,6 +8,8 @@ import { useMemo, useState } from 'react';
 import T from '../i18n/Texto.jsx';
 import { useT, useFormato } from '../i18n/index.jsx';
 import { simular, avisosDeSeguridad, planEnergetico } from '../engine/calculos.js';
+import { PASOS_MIN, PASOS_MAX, PASOS_PASO, ENTRENO_SEMANA_MAX,
+         KCAL_MINIMAS, SUPERAVIT_MAXIMO } from '../engine/constantes.js';
 import { Titulo } from './Ayuda.jsx';
 
 /* La misma ayuda en los dos estados de la pantalla (con perfil y sin
@@ -22,10 +24,30 @@ const AYUDA = () => (
 export default function Simulador({ perfil, pacto }) {
   const t = useT();
   const fmt = useFormato();
+  /* El arranque sale del pacto, que puede estar fuera de la banda del
+     deslizador: hay quien tiene pactados 18.000 pasos. Se estira la
+     banda en `min`/`max` en vez de recortarle el numero. */
   const [pasos, setPasos] = useState(pacto?.dias?.mar?.pasos ?? 6000);
   const [entreno, setEntreno] = useState(120);
   const arranque = planEnergetico(perfil, pacto);
   const [comida, setComida] = useState(pacto?.comidaKcal ?? arranque?.comida ?? 2000);
+
+  /* El rango de la COMIDA sale de la persona, no de dos numeros fijos.
+     El suelo es el que la app defiende en `KCAL_MINIMAS` y el techo es
+     lo mas que considera sensato comer de mas (`SUPERAVIT_MAXIMO`), o
+     sea los mismos limites que usa `planEnergetico`: asi el deslizador
+     no puede llevarte a un sitio que el motor considera imposible.
+
+     El `Math.min`/`Math.max` con `comida` no es de adorno. Si alguien
+     escribio su objetivo A MANO (`comidaManual`) puede estar fuera de la
+     banda, y un deslizador que arranca fuera de su propio rango se
+     coloca solo en el extremo y le cambia el numero al usuario sin que
+     lo pida. Antes que eso, se ensancha la banda. */
+  const gasto = arranque?.total ?? null;
+  const pasosMin = Math.min(pasos, PASOS_MIN);
+  const pasosMax = Math.max(pasos, PASOS_MAX);
+  const comidaMin = Math.min(comida, KCAL_MINIMAS[perfil?.sexo === 'mujer' ? 'mujer' : 'hombre']);
+  const comidaMax = Math.max(comida, Math.round((gasto ?? 2600) * (1 + SUPERAVIT_MAXIMO)));
 
   const r = useMemo(
     () => simular({ perfil, pasos, minEntrenoSemana: entreno, comidaKcal: comida }),
@@ -56,9 +78,12 @@ export default function Simulador({ perfil, pacto }) {
         <p className="mf-globo">
           {t('simulador.globo')}
         </p>
-        <Deslizador etiqueta={t('simulador.pasosDia')} v={pasos} set={setPasos} min={0} max={20000} paso={500} unidad="" />
-        <Deslizador etiqueta={t('simulador.entrenoSemana')} v={entreno} set={setEntreno} min={0} max={600} paso={15} unidad=" min" />
-        <Deslizador etiqueta={t('simulador.comidaDia')} v={comida} set={setComida} min={1000} max={4000} paso={25} unidad=" kcal" />
+        <Deslizador etiqueta={t('simulador.pasosDia')} v={pasos} set={setPasos}
+                    min={pasosMin} max={pasosMax} paso={PASOS_PASO} unidad="" />
+        <Deslizador etiqueta={t('simulador.entrenoSemana')} v={entreno} set={setEntreno}
+                    min={0} max={ENTRENO_SEMANA_MAX} paso={15} unidad=" min" />
+        <Deslizador etiqueta={t('simulador.comidaDia')} v={comida} set={setComida}
+                    min={comidaMin} max={comidaMax} paso={25} unidad=" kcal" />
       </div>
 
       <div className={`mf-meta ${r.alcanzable ? '' : 'inalcanzable'}`}>

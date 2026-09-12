@@ -54,7 +54,15 @@ export const ESTILOS = ['pixel'];
    conservando el relieve, los mofletes y los ojos. */
 export const MICHIS = ['naranja', 'gris', 'blanco'];
 export const COLORES = ['naranja', 'rojo', 'amarillo', 'verde', 'azul', 'blanco', 'negro'];
-export const APARATO_POR_DEFECTO = { estilo: 'pixel', color: 'naranja', michi: 'naranja' };
+/* El michi arranca GRIS porque Ninja es gris (ver `LORE.md`). El huevo
+   sigue naranja: ese es el color de marca, y el logo va a juego.
+
+   Hasta el 2026-09-12 arrancaba naranja, y eso hacia que «Adoptar a
+   Ninja» te diera un gato que no era Ninja. Decision de Alberto: gris
+   de fabrica, y el color se elige al final de la historia — los dos,
+   el del huevo y el del gato. El naranja y el blanco no son otro
+   Ninja, son otros gatos. */
+export const APARATO_POR_DEFECTO = { estilo: 'pixel', color: 'naranja', michi: 'gris' };
 
 /* El sufijo del color del michi. El naranja no lleva: sus archivos son
    los originales y renombrarlos habria roto el respaldo. */
@@ -94,7 +102,21 @@ const BOTONES = [
 const BOTON_Y = 84.6;
 
 export default function TamagotchiPNG({
-  estado = 'kawaii',
+  /* OJO: `estado` es el NOMBRE DEL ARCHIVO del michi, no un humor ni un
+     cuerpo. `michi` -> michi.png / michi-gris.png / michi-blanco.png.
+
+     Se llama asi por herencia del componente SVG de al lado, donde SI es
+     otra cosa: alli `estado` es la clave de una tabla de sprites
+     (`MICHIS[estado]` en `Tamagotchi.jsx`) y `kawaii` es una clave
+     valida. Aqui `kawaii` no puede funcionar NUNCA, porque no existe
+     ningun `kawaii*.png`: la cadena de respaldo se lo come y acaba
+     cayendo a `michi.png`, que es el naranja.
+
+     Era el valor por defecto hasta el 2026-09-12, y eso significa que
+     cualquiera que olvidara pasar `estado` perdia el color elegido sin
+     enterarse. Le paso a la bienvenida. Ahora el defecto es `michi`,
+     que es el unico dibujo que existe seguro para los tres colores. */
+  estado = 'michi',
   size = 230,
   iconos = [],
   puntos = 0,
@@ -118,7 +140,7 @@ export default function TamagotchiPNG({
   const [sinHuevo, setSinHuevo] = useState(false);
   const [intento, setIntento] = useState(0);
   /* Lo que dice cada botón depende de si hay anillo abierto. */
-  const rotulos = rotulosDeBotones(menu ? 'abierto' : null);
+  const rotulos = rotulosDeBotones(Boolean(menu));
 
   /* Cadena de respaldo, de lo más específico a lo más general:
        1. el michi en esta pose   (michi_durmiendo.png)
@@ -161,7 +183,13 @@ export default function TamagotchiPNG({
          style={{ width: size, height: size * (1024 / 751) }}>
       {sinHuevo ? (
         <div className="mf-tamapng-huevo">
-          <Tamagotchi estado={estado} size={size} iconos={iconos}
+          {/* `kawaii` literal, y NO el `estado` de arriba: este es el
+              componente SVG, donde `estado` es la clave de la tabla de
+              sprites y no un nombre de archivo. Pasarle `michi` caeria
+              igualmente al `?? MICHIS.kawaii` del otro lado, pero por
+              accidente. Va `sinMichi`, asi que de esa tabla solo se usa
+              la carcasa: el gato lo pone la imagen de encima. */}
+          <Tamagotchi estado="kawaii" size={size} iconos={iconos}
                       puntos={puntos} dormido={dormido} sinMichi {...resto} />
         </div>
       ) : (
@@ -288,7 +316,7 @@ export default function TamagotchiPNG({
 
         {/* El cristal entero es un botón: tocarlo es preguntarle al
             michi cómo va. Fue el botón del medio hasta que ese pasó a
-            abrir el anillo de medir. */}
+            abrir el anillo. */}
         {onPantalla && !sinHuevo && (
           <button className="mf-tamapng-toque" onClick={onPantalla}
                   aria-label={t('aparato.comoVa')} title={t('aparato.comoVa')} />
@@ -299,10 +327,16 @@ export default function TamagotchiPNG({
             generosa: el dibujo es un círculo de 27 px y un dedo no
             acierta. */}
         {onBoton && !sinHuevo && BOTONES.map((b) => (
+          /* `rotulos[b.id]` es `null` cuando ese boton no hace nada
+             ahora mismo: en reposo, el centro y la derecha. Se pinta
+             igual —quitarlo movería los otros dos de sitio— pero
+             apagado, y sin nombre que leer en voz alta. */
           <button key={b.id} className={`mf-tamapng-boton ${b.id}`}
                   style={{ left: `${b.cx}%`, top: `${BOTON_Y}%` }}
                   onClick={() => onBoton(b.id)}
-                  aria-label={t(rotulos[b.id])} title={t(rotulos[b.id])} />
+                  disabled={!rotulos[b.id]}
+                  aria-label={rotulos[b.id] ? t(rotulos[b.id]) : undefined}
+                  title={rotulos[b.id] ? t(rotulos[b.id]) : undefined} />
         ))}
       </div>
 
@@ -338,9 +372,30 @@ export default function TamagotchiPNG({
                   Va en linea y no en el CSS porque depende de `size`. */
                marginTop: -Math.round(size * (1024 / 751) * 0.036),
              }}>
-          {BOTONES.map((b) => (
-            <span key={`et-${b.id}`}>{t(rotulos[b.id])}</span>
-          ))}
+          {/* Solo los que hacen algo. Un `span` vacio NO es inofensivo:
+              lleva fondo y borde, asi que se veria como una pastilla en
+              blanco, y ademas ocupa sitio y descoloca a los demas.
+
+              Y cuando queda UNO SOLO —en reposo, donde solo la izquierda
+              hace algo— se coloca debajo de SU boton en vez de en el
+              centro del grupo. Centrado parecia el rotulo del boton del
+              medio, que es justo el que no hace nada. Con uno solo no
+              hay riesgo de solape, que es lo que obligo a agrupar los
+              tres. */}
+          {(() => {
+            const activos = BOTONES.filter((b) => rotulos[b.id]);
+            if (activos.length === 1) {
+              const b = activos[0];
+              return (
+                <span className="solo" style={{ left: `${b.cx}%` }}>
+                  {t(rotulos[b.id])}
+                </span>
+              );
+            }
+            return activos.map((b) => (
+              <span key={`et-${b.id}`}>{t(rotulos[b.id])}</span>
+            ));
+          })()}
         </div>
       )}
     </>

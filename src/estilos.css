@@ -838,6 +838,19 @@ input[type=time]:focus { outline: none; border-color: var(--rosa); }
   padding: 14px 2px 6px;
 }
 .mf-lore-texto > * { flex: 0 0 auto; }
+
+/* Los dos selectores de color del último paso (ver `Lore.jsx`).
+
+   Van DENTRO de `.mf-lore-texto`, que es un flex en columna cuyos hijos
+   llevan `flex: 0 0 auto` — y ese cero del medio es `flex-shrink`. Sin
+   mandarles un ancho, las dos rejillas lo toman de su CONTENIDO, no
+   encogen, y sacan el texto por la derecha: con siete huevos en fila se
+   comía media frase. El `min-width: 0` es el de siempre en rejillas de
+   `1fr`, que por defecto no bajan del tamaño de lo que llevan dentro. */
+.mf-lore-texto .mf-michis,
+.mf-lore-texto .mf-huevos { width: 100%; min-width: 0; }
+.mf-lore-texto .mf-michis button,
+.mf-lore-texto .mf-huevos button { min-width: 0; }
 .mf-lore-texto > h3 { margin-top: auto; }
 .mf-lore-texto > p:last-child { margin-bottom: auto; }
 .mf-lore-texto h3 {

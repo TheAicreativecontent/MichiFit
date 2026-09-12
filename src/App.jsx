@@ -15,6 +15,7 @@ import Karma from './pantallas/Karma.jsx';
 import EditorDia from './pantallas/EditorDia.jsx';
 import Ajustes from './pantallas/Ajustes.jsx';
 import Lore from './pantallas/Lore.jsx';
+import { APARATO_POR_DEFECTO } from './mascota/TamagotchiPNG.jsx';
 import { calcularEstado } from './engine/michi.js';
 import { sincronizarPacto } from './engine/calculos.js';
 import { hoyISO } from './engine/pacto.js';
@@ -55,7 +56,7 @@ export default function App() {
   const [pestana, setPestana] = useState('inicio');
   /* `false` cerrado · `true` la hoja entera (el "+" de la barra) ·
      'comida' | 'entreno' | 'pasos' | 'sueno' un solo dato, que es lo
-     que abre el anillo de medir del aparato. */
+     que abre el anillo del aparato al aceptar un dato. */
   const [registrando, setRegistrando] = useState(false);
   /* Lo que apuntas, el michi lo hace: si registras comida se pone a
      comer, si registras entreno se pone a levantar pesas. La animación no
@@ -180,7 +181,29 @@ export default function App() {
   };
 
   if (cuentaLaHistoria) {
-    return <Lore onCerrar={cerrarLore} onAdoptar={!listo ? cerrarLore : null} />;
+    return (
+      <Lore onCerrar={cerrarLore} onAdoptar={!listo ? cerrarLore : null}
+            aparato={datos.perfil?.aparato}
+            /* El color se elige ANTES de que exista el perfil: la
+               bienvenida viene después de la historia. No se pierde
+               porque `onEmpezar` fusiona (`{...d.perfil, ...perfil}`) y
+               el perfil que arma la bienvenida no trae `aparato`.
+
+               Llega solo el campo que se ha tocado, y se fusiona aquí
+               dentro contra `d`, no contra lo que Lore tuviera en las
+               props: si no, dos toques seguidos antes de repintar leen
+               los dos el mismo estado y el segundo borra al primero
+               —elegir gato y huevo deprisa dejaba solo el huevo. */
+            onAparato={(campos) =>
+              setDatos((d) => ({
+                ...d,
+                perfil: {
+                  ...d.perfil,
+                  aparato: { ...APARATO_POR_DEFECTO, ...(d.perfil?.aparato ?? {}), ...campos },
+                },
+              }))
+            } />
+    );
   }
 
   if (!listo) {
@@ -198,6 +221,7 @@ export default function App() {
         <main>
           {avisoGuardado}
           <Bienvenida
+            aparato={datos.perfil?.aparato}
             onEmpezar={({ perfil, pacto }) =>
               setDatos((d) => ({ ...d, perfil: { ...d.perfil, ...perfil }, pacto }))
             }

@@ -24,6 +24,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useT } from '../i18n/index.jsx';
 import { NINJA, esVideo, rutaNinja } from '../datos/ninja.js';
+import { COLORES, MICHIS, APARATO_POR_DEFECTO } from '../mascota/TamagotchiPNG.jsx';
 
 /* Qué se ve en cada acto. El michi va en gris porque Ninja es gris; el
    naranja y el blanco son otros gatos (ver LORE.md).
@@ -41,12 +42,22 @@ const ESCENAS = [
   { michi: '/michi/michi_contento-gris.png',   fondo: '/fondos/casa.png' },
 ];
 
-export default function Lore({ onCerrar, onAdoptar }) {
+export default function Lore({ onCerrar, onAdoptar, aparato, onAparato }) {
   const t = useT();
   const actos = t('lore.actos');
   const total = Array.isArray(actos) ? actos.length : 0;
-  /* Una pantalla más que actos: la última es la del Ninja de verdad. */
-  const ultima = total;
+
+  /* Elegir el color es el último paso, y SOLO al adoptarlo. Volviendo a
+     ver la historia desde Ajustes esa pantalla sobra: los mismos dos
+     selectores están tres dedos más abajo, en la propia pantalla de
+     Ajustes desde la que has entrado. */
+  const eligeColor = !!onAdoptar && typeof onAparato === 'function';
+
+  /* Una pantalla más que actos (la del Ninja de verdad), y otra más si
+     hay que elegir el color. */
+  const elReal = total;
+  const elColor = total + 1;
+  const ultima = eligeColor ? elColor : elReal;
   const [i, setI] = useState(0);
   const caja = useRef(null);
 
@@ -84,9 +95,18 @@ export default function Lore({ onCerrar, onAdoptar }) {
     setI((v) => (dx < 0 ? Math.min(ultima, v + 1) : Math.max(0, v - 1)));
   };
 
-  const enElFinal = i === ultima;
+  const enElReal = i === elReal;
+  const enElColor = eligeColor && i === elColor;
+  const enUnActo = !enElReal && !enElColor;
   const escena = ESCENAS[Math.min(i, ESCENAS.length - 1)];
-  const acto = !enElFinal && Array.isArray(actos) ? actos[i] : null;
+  const acto = enUnActo && Array.isArray(actos) ? actos[i] : null;
+
+  /* Lo elegido se guarda al tocarlo, no al salir: así el michi de esta
+     misma pantalla cambia de color delante de ti, que es la mitad de la
+     gracia. `APARATO_POR_DEFECTO` rellena lo que falte porque aquí
+     todavía no hay perfil — la bienvenida viene DESPUÉS de la historia. */
+  const aparatoActual = { ...APARATO_POR_DEFECTO, ...(aparato ?? {}) };
+  const ponerColor = (campos) => onAparato?.(campos);
 
   return (
     <div className="mf-lore" onTouchStart={empieza} onTouchEnd={acaba}>
@@ -100,11 +120,21 @@ export default function Lore({ onCerrar, onAdoptar }) {
         </button>
       </header>
 
-      {!enElFinal ? (
+      {enUnActo ? (
         <div className={`mf-lore-vineta ${escena.oscuro ? 'oscura' : ''}`}>
           <img className="fondo" src={escena.fondo} alt="" />
           <img className="michi" src={escena.michi} alt="" />
           {escena.oscuro && <div className="lluvia" aria-hidden="true" />}
+        </div>
+      ) : enElColor ? (
+        /* El gato elegido, en su casa y a tamaño grande. Se ve lo que
+           estás eligiendo mientras lo eliges: es el mismo dibujo que
+           cierra la historia, pero ya en TU color. */
+        <div className="mf-lore-vineta">
+          <img className="fondo" src="/fondos/casa.png" alt="" />
+          <img className="michi"
+               src={`/michi/michi_contento${aparatoActual.michi === 'naranja' ? '' : '-' + aparatoActual.michi}.png`}
+               alt="" />
         </div>
       ) : (
         <div className="mf-lore-real">
@@ -132,7 +162,38 @@ export default function Lore({ onCerrar, onAdoptar }) {
       )}
 
       <div className="mf-lore-texto" ref={caja}>
-        {enElFinal ? (
+        {enElColor ? (
+          <>
+            <h3>{t('lore.colorTitulo')}</h3>
+            <p>{t('lore.colorTexto')}</p>
+
+            <p className="mf-sub" style={{ margin: '14px 0 8px' }}>{t('aparato.michi')}</p>
+            <div className="mf-michis">
+              {MICHIS.map((c) => (
+                <button key={c} className={aparatoActual.michi === c ? 'sel' : ''}
+                        aria-label={t('aparato.michis.' + c)}
+                        title={t('aparato.michis.' + c)}
+                        onClick={() => ponerColor({ michi: c })}>
+                  <img src={`/michi/michi${c === 'naranja' ? '' : '-' + c}.png`}
+                       alt="" loading="lazy" />
+                </button>
+              ))}
+            </div>
+
+            <p className="mf-sub" style={{ margin: '18px 0 8px' }}>{t('aparato.color')}</p>
+            <div className="mf-huevos">
+              {COLORES.map((c) => (
+                <button key={c} className={aparatoActual.color === c ? 'sel' : ''}
+                        aria-label={t('aparato.colores.' + c)}
+                        title={t('aparato.colores.' + c)}
+                        onClick={() => ponerColor({ color: c })}>
+                  <img src={`/michi/huevo-${aparatoActual.estilo}-${c}.png`}
+                       alt="" loading="lazy" />
+                </button>
+              ))}
+            </div>
+          </>
+        ) : enElReal ? (
           <>
             <h3>{t('lore.realTitulo')}</h3>
             <p>{t('lore.realTexto')}</p>
@@ -157,7 +218,7 @@ export default function Lore({ onCerrar, onAdoptar }) {
           ))}
         </div>
 
-        {enElFinal ? (
+        {i === ultima ? (
           <button className="mf-boton principal"
                   onClick={() => (onAdoptar ?? onCerrar)?.()}>
             {onAdoptar ? t('lore.adoptar') : t('comun.cerrar')}

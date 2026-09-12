@@ -123,6 +123,12 @@
   display: flex; justify-content: center; align-items: center;
   gap: 5px; position: relative; z-index: 4;
 }
+/* El unico rotulo que queda en reposo, clavado bajo SU boton. Con tres
+   no se puede hacer esto —se solapan, los botones estan a 48 px y
+   «Registrar» mide 64— pero con uno solo no hay con quien chocar. */
+.mf-tamapng-rotulos span.solo {
+  position: absolute; left: 50%; transform: translateX(-50%);
+}
 .mf-tamapng-rotulos span {
   flex: 0 1 auto; min-width: 0;
   padding: 2px 8px; border-radius: 999px;

@@ -24,7 +24,11 @@ const VACIO = {
     objetivo: 'perder',
     objetivoTexto: '',
     escalaTexto: 1,   // tamano de la letra, ver estilos.css
-    aparato: { estilo: 'pixel', color: 'naranja', michi: 'naranja' },
+    /* El gato arranca GRIS: Ninja es gris. El huevo se queda naranja,
+       que es el color de marca. Se eligen los dos al final de la
+       historia, y luego se cambian en Ajustes. Mismo valor que
+       `APARATO_POR_DEFECTO` en `mascota/TamagotchiPNG.jsx`. */
+    aparato: { estilo: 'pixel', color: 'naranja', michi: 'gris' },
   },
   pacto: null,
   /* El ultimo nivel que el usuario ha visto. Sirve para celebrar una

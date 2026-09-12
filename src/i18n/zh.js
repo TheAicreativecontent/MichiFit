@@ -81,6 +81,10 @@ export default {
     copiado: '已复制 ✓',
     copiar: '复制 LNURL',
     compatible: '支持 Wallet of Satoshi、Phoenix、Muun 以及任何 LNURL 钱包。',
+    promptpayTitulo: '🇹🇭 PromptPay',
+    promptpayIntro: '如果你在泰国，用你的银行 App 扫码即可。当地都是这样付款的。',
+    promptpayQrAlt: '用于打赏的 PromptPay 二维码',
+    promptpayCompatible: '支持泰国各家银行：SCB、开泰、泰京、盘谷等。',
   },
 
   dia: {
@@ -248,6 +252,8 @@ export default {
     verLore: '看看它的故事',
     realTitulo: '忍者是真的',
     realTexto: '它不是虚构角色。它住在曼谷，很爱睡觉，到现在还会偷桌上的食物。',
+    colorTitulo: '现在它是你的了',
+    colorTexto: '忍者是灰色的，但要照顾哪一只由你决定。机器也可以选你喜欢的颜色。随时都能在设置里更改。',
     sinFotos: '它的照片会放在这里。',
     actos: [
       { t: '小巷',
@@ -270,6 +276,8 @@ export default {
     registrar: '记录',
     siguiente: '下一个',
     aceptar: '确认',
+    cerrar: '关闭',
+    abrir: '菜单',
     mimar: '摸摸',
     agua: '喝水',
     limpiar: '打扫',
@@ -278,7 +286,7 @@ export default {
     entreno: '运动',
     pasos: '步数',
     sueno: '睡眠',
-    ayuda: '左：照顾 · 中：下一个 · 右：确认',
+    ayuda: '左：下一个 · 中：确认 · 右：关闭',
   },
 
   aparato: {

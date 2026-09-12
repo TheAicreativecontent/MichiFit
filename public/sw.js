@@ -27,7 +27,10 @@
    se quedó en v2. Quien hubiera abierto la app en medio se quedaba con
    los gatos rotos para siempre.
    `node pruebas/cache-sw.mjs` avisa si vuelve a pasar. */
-const CACHE = 'michifit-v3';
+/* v4 (2026-09-12): `limpiar.png` cambio de cubo a escoba —dibujo de
+   Alberto— y los iconos del anillo tampoco llevan hash. Sin subir esto,
+   quien ya tuviera la app seguiria viendo el cubo para siempre. */
+const CACHE = 'michifit-v4';
 
 /* Lo mínimo para arrancar sin red. El resto se va guardando solo según
    se usa: la app es pequeña y se cachea entera en la primera visita. */

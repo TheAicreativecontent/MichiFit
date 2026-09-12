@@ -23,6 +23,16 @@ Reglas que sostienen que se lean a ese tamano:
     sprites del michi.
   - Formas gordas y centradas. Una linea de un pixel se pierde.
 
+UN DIBUJO A MANO MANDA SOBRE LA REJILLA. Deja el PNG en
+`pixel/iconos-a-mano/<nombre>.png` y ese se usa en vez de la rejilla,
+ampliado a 96 con NEAREST. El lado tiene que ser divisor entero de 96
+(12, 16, 24, 32, 48, 96) para que no se invente ni un pixel.
+
+Asi se puede dibujar un icono fuera, con mas detalle del que cabe en
+12x12, sin que el siguiente que lance el script se lo cargue. La escoba
+de `limpiar` es el primero: aqui abajo esta escrita como un cubo porque
+a 12 px no cabia, y a 16 si cabe.
+
 Uso:  python pixel/iconos_anillo.py            genera los ocho
       python pixel/iconos_anillo.py --hoja     ademas, una hoja de
                                                contacto ampliada para
@@ -173,6 +183,34 @@ ICONOS = {
     ],
     # MACIZA. La primera version era una equis hecha de contorno hueco:
     # ampliada se entendia, y a 12 px era una mancha con agujeros.
+    # DORMIR: apagar la pantalla y que se eche a dormir. NO es lo mismo
+    # que "sueno", que es apuntar las horas que dormiste — ese es la
+    # luna. Idea de Alberto: tres Z de tamano creciente.
+    #
+    # Van en DIAGONAL y no en fila. En fila, tres Z de 3, 4 y 5 px de
+    # ancho suman 12 sin un solo hueco entre ellas y se leen como una
+    # reja. En diagonal se usa la caja entera, y ademas es como se ha
+    # dibujado siempre el sueno en una vineta: subiendo.
+    #
+    # Solidas en tinta, sin relleno de color, que es la excepcion a la
+    # regla del contorno: a 3 px de ancho no cabe contorno MAS relleno,
+    # y una letra oscura sobre el fondo claro del anillo ya tiene todo
+    # el contraste que necesita. Lo que la hace legible es la forma de
+    # la letra, no el color.
+    "dormir": [
+        ".......#####",
+        "..........#.",
+        ".........#..",
+        "........#...",
+        ".......#####",
+        "...####.....",
+        ".....#......",
+        "....#.......",
+        "...####.....",
+        "###.........",
+        ".#..........",
+        "###.........",
+    ],
     "salir": [
         "............",
         "............",
@@ -226,15 +264,66 @@ def hojaDeContacto(imagenes, escala=24):
     return hoja
 
 
+A_MANO = "pixel/iconos-a-mano"
+
+
+def dibujoAMano(nombre):
+    """El dibujo a mano de `nombre`, si lo hay, ya a 96x96. Si no, None.
+
+    Manda SIEMPRE sobre la rejilla de texto. Que un icono este aqui no
+    es una excepcion ni un parche: es que alguien lo ha dibujado mejor
+    de lo que cabe en 12x12, y eso gana.
+
+    El primero fue la escoba. Aqui abajo esta escrita como un CUBO,
+    porque a 12 px el palo en diagonal desaparecia; Alberto la dibujo a
+    16 y a 16 si cabe. La rejilla del cubo se deja donde esta a
+    proposito: documenta por que se intento, y vuelve sola si algun dia
+    se borra el dibujo.
+
+    La primera version de esta guarda comparaba FECHAS —si el PNG es mas
+    nuevo que el script, no lo toques— copiando lo que hace
+    `tenir_michi.py`. Alli vale porque hay un archivo original con el que
+    comparar; aqui el original es el propio script, asi que EDITARLO
+    desprotegia todos los dibujos de golpe. Se cargo la escoba a los dos
+    minutos de escribirla. Y ademas un `git checkout` reescribe las
+    fechas, o sea que en una maquina recien clonada no habria protegido
+    nada. Una carpeta se ve, se puede mirar, y sobrevive a git.
+
+    El lado tiene que ser divisor o multiplo ENTERO de 96 (12, 16, 24,
+    32, 48, 96): se amplia con NEAREST, sin inventar un solo pixel.
+    """
+    ruta = os.path.join(A_MANO, nombre + ".png")
+    if not os.path.exists(ruta):
+        return None
+    im = Image.open(ruta).convert("RGBA")
+    lado = im.size[0]
+    destino = LADO * ESCALA          # 96
+    if im.size[0] != im.size[1] or destino % lado:
+        raise SystemExit(
+            "%s mide %dx%d, y tiene que ser cuadrado y con el lado divisor "
+            "de %d (12, 16, 24, 32, 48, 96)" % (ruta, im.size[0], im.size[1], destino))
+    return im.resize((destino, destino), Image.NEAREST)
+
+
 def main():
     os.makedirs(DESTINO, exist_ok=True)
     hechos = {}
+    respetados = 0
     for nombre, mapa in ICONOS.items():
         if len(mapa) != LADO:
             raise SystemExit("%s tiene %d filas y no %d" % (nombre, len(mapa), LADO))
+        ruta = os.path.join(DESTINO, nombre + ".png")
+
+        aMano = dibujoAMano(nombre)
+        if aMano is not None:
+            respetados += 1
+            hechos[nombre] = aMano
+            aMano.save(ruta, optimize=True)
+            print("  %-11s   dibujado a mano en %s/" % (nombre, A_MANO))
+            continue
+
         im = dibujar(mapa)
         hechos[nombre] = im
-        ruta = os.path.join(DESTINO, nombre + ".png")
         im.resize((LADO * ESCALA, LADO * ESCALA), Image.NEAREST).save(ruta, optimize=True)
         llenos = sum(1 for f in mapa for c in f if c != ".")
         print("  %-11s %4d px encendidos de %d   %.1f kB"

@@ -484,3 +484,178 @@ aquí uno era invisible AMPLIADO. Hay que mirar las dos.
 De paso, dos huecos tapados: `pruebas/cache-sw.mjs` no vigilaba la
 carpeta nueva —ni `public/ninja`, que tampoco existía cuando se
 escribió— y la hoja de contacto se estaba publicando con la app.
+
+---
+
+## 2026-09-12 · El color se elige al adoptarlo, y el gato arranca gris
+
+Se cierran las dos preguntas que quedaban en `ASK.md`, las dos decididas
+por Alberto.
+
+**El color.** Ninja es gris en el lore, pero la app arrancaba naranja:
+«Adoptar a Ninja» te daba un gato que no era Ninja. De las tres salidas
+que estaban escritas se eligió la (c), que era la mejor y la más cara:
+se pregunta. Una pantalla más al final de la historia, después de «Ninja
+existe», con los dos selectores —el gato y el huevo— y el michi grande
+detrás cambiando de color mientras eliges. El de fábrica pasa a ser
+GRIS; el huevo se queda naranja, que es el color de marca.
+
+Solo sale al ADOPTARLO. Volviendo a ver la historia desde Ajustes esa
+pantalla sobra: los mismos dos selectores están unas líneas más abajo en
+la pantalla desde la que has entrado.
+
+**La meta de peso demasiado alta**: no se avisa. La asimetría con el
+suelo de IMC es deliberada y queda escrita como tal.
+
+### Tres cosas que salieron al probarlo, y ninguna se veía leyendo
+
+**La rejilla sacaba el texto de la pantalla.** Los dos selectores viven
+dentro de `.mf-lore-texto`, que es un flex en columna con los hijos a
+`flex: 0 0 auto` — y ese cero del medio es `flex-shrink`. Sin ancho
+mandado, las rejillas lo toman de su contenido, no encogen, y con siete
+huevos en fila se comían media frase por la derecha. Ancho al 100% y
+`min-width: 0`, que es el de siempre en rejillas de `1fr`.
+
+**Dos toques seguidos y el segundo borraba al primero.** `ponerColor`
+fusionaba contra el `aparato` de las props, así que elegir gato y huevo
+antes de que repintara dejaba solo el huevo: los dos toques leían el
+mismo estado. Ahora sube solo el campo tocado y la fusión se hace dentro
+del `setDatos`, contra `d`. Un dedo humano no llega a provocarlo; el
+guion de pruebas sí, y por eso se vio.
+
+**Y el que ya estaba y no era de esta sesión**: la bienvenida pintaba
+siempre el michi NARANJA. Pasaba `estado="kawaii"`, que es herencia del
+componente SVG viejo —allí `estado` era la clave de una tabla de
+sprites— pero en el de PNG `estado` es el NOMBRE DEL ARCHIVO.
+`kawaii-blanco.png` no existe, así que la cadena de respaldo caía
+siempre al último eslabón, `michi.png`, que es el naranja. Nadie lo
+había notado porque hasta ahora el de fábrica TAMBIÉN era naranja: el
+fallo estaba tapado por la coincidencia, y al cambiar el color por
+defecto se destapó solo. Es `estado="michi"`, como en Inicio.
+
+Comprobado en móvil de 375: elegir blanco + azul, adoptar, y que la
+bienvenida salga con el huevo azul y el gato blanco. Las seis pruebas en
+verde, lint sin errores y build limpio.
+
+---
+
+## 2026-09-12 (noche) · Los botones, versión buena
+
+Cambio de gramática pedido por Alberto después de que sus amigos
+probaran la app: izquierda pasa al siguiente, centro acepta, derecha
+cierra. Y un solo anillo de ocho iconos en vez de dos.
+
+Lo importante es que no es una opinión contra otra: es la disposición
+A/B/C de los tamagotchis de Bandai, así que quien haya tenido uno ya se
+la sabe. Y arregla dos cosas concretas de lo que había —el botón central
+significaba dos cosas según dónde estuvieras, y aceptar vivía en el
+borde— que además yo mismo había defendido por escrito en `anillos.js`.
+
+En reposo el centro y la derecha **no hacen nada**, y salen con
+`disabled`. Es deliberado.
+
+`dormir` pasa de ser el botón derecho a ser un icono del anillo. Su
+dibujo son tres z de tamaño creciente (idea de Alberto): la luna ya es
+«sueño», que es apuntar las horas dormidas, y dos lunas seguidas en el
+mismo anillo no se distinguen — la misma lección que dejó el cubo verde
+al lado de la gota azul. Costó tres intentos: encadenadas en diagonal
+las tres z se leían como un zigzag, y con las barras de dos de ellas en
+la misma fila se emborronaban.
+
+### Dos fallos que solo salieron probándolo
+
+**El anillo no daba la vuelta.** Al añadir la regla de «dormido, el
+primer toque despierta» use `dormido`, que incluye la VISTA PREVIA: con
+el cursor sobre «sueño» la pantalla enseña ya la escena de dormir. Así
+que al llegar a ese icono los botones se creían que el michi estaba
+dormido y se ponían a despertarlo en vez de avanzar. Ahora miran
+`dormidoDeVerdad`.
+
+**Los rótulos vacíos.** Al quedar solo uno en reposo, los otros dos se
+pintaban como pastillas en blanco y descolocaban al que quedaba: «Menú»
+acababa en el centro, justo debajo del botón que NO hace nada. Ahora
+solo se pintan los que hacen algo, y cuando queda uno se clava bajo su
+botón — con uno solo no hay con quien solaparse, que es lo que obligó a
+agruparlos en su día.
+
+### El audit de «kawaii»
+
+Alberto pidió mirar dónde más mordía. Resultado: **ningún fallo vivo
+más**, pero sí la mina que lo causaba.
+
+`estado` significa DOS COSAS distintas, y las dos conviven en
+`TamagotchiPNG.jsx`. Para el componente de PNG es el NOMBRE DEL ARCHIVO
+del michi; para el SVG de al lado es la clave de una tabla de sprites,
+donde `kawaii` sí es válida. El valor por defecto del de PNG era
+`kawaii`, o sea un valor que no puede funcionar nunca: cualquiera que
+olvidara pasar `estado` perdía el color elegido sin enterarse. Ahora el
+defecto es `michi` y la línea que alimenta al SVG lleva `kawaii`
+literal, no el `estado` de arriba.
+
+Solo hay dos sitios que dibujan el aparato —Inicio y la bienvenida— y
+los dos pasan `estado` explícito, así que no había más casos. Lo que
+queda anotado es que `pixel/michis.js` sigue exportando las CINCO
+siluetas viejas (esqueletico, gordo, kawaii, fit, hipertrofiado) que se
+retiraron el 2026-09-09, y que exporta un `MICHIS` que no tiene nada que
+ver con el `MICHIS` de `TamagotchiPNG.jsx` — aquél son cuerpos, éste son
+los tres colores. Mismo nombre, dos cosas.
+
+### La escoba de Alberto, y una guarda que se rompio sola
+
+Alberto dibujo `limpiar` por su cuenta mientras se trabajaba: una
+ESCOBA, a 16x16. Aqui estaba escrita como un cubo justamente porque a
+12 px el palo en diagonal desaparecia — a 16 si cabe, y se lee incluso
+reducida.
+
+Dos cosas hubo que resolver. La primera, que venia a 16 y la familia va
+a 96 (8x de 12): 16 a 12 no es entero y emborrona. Se guarda a 96
+ampliando x6 con NEAREST, o sea con SUS pixeles, sin inventar ninguno.
+
+Y la segunda, que el generador se la llevaba por delante. La primera
+guarda que escribi comparaba FECHAS, copiando la de `tenir_michi.py`: si
+el PNG es mas nuevo que el script, no lo toques. Alli funciona porque
+hay un archivo original con el que comparar; aqui el original ES el
+script, asi que editarlo desprotege todos los dibujos a la vez. Se cargo
+la escoba dos minutos despues de escribirla, delante de mi. Y encima un
+`git checkout` reescribe las fechas, asi que en una maquina recien
+clonada no habria protegido nada.
+
+Ahora es una CARPETA: `pixel/iconos-a-mano/`. Lo que este ahi manda
+sobre la rejilla, punto. Se ve, se puede mirar y sobrevive a git. La
+rejilla del cubo se deja escrita a proposito: documenta por que se
+intento y vuelve sola si algun dia se borra el dibujo.
+
+De paso, la cache del service worker sube a **v4**: `limpiar.png` cambio
+y los iconos del anillo tampoco llevan hash. Y `pruebas/cache-sw.mjs`
+tenia un fallo de un caracter en lo que IMPRIME: `slice(3)` sobre una
+salida ya recortada se comia la primera letra del primer archivo de la
+lista («ublic/...»). Cazaba bien, pero mandaba a buscar un archivo que
+no existe.
+
+### El simulador y PromptPay
+
+**Los rangos del simulador** eran de atleta y estaban escritos a mano
+dentro del JSX: 20.000 pasos, 600 minutos de entreno semanal —diez
+horas— y 4.000 kcal. Y por abajo, 1.000 kcal, que esta por debajo del
+suelo que la propia app defiende. Un simulador con esos margenes
+contesta fechas de meta que no se van a cumplir.
+
+Lo unico que tiene algo de gracia es la COMIDA: no lleva numeros fijos.
+Su rango sale de la persona —`KCAL_MINIMAS` por abajo, el gasto por
+`1 + SUPERAVIT_MAXIMO` por arriba— que son los mismos limites que usa
+`planEnergetico`. Asi el deslizador no puede contradecir al motor, y el
+dia que se cambie un limite se cambia en un sitio y se mueven los dos.
+Los otros dos van a `constantes.js`, que es donde `PROTOCOL.md` dice.
+
+Y los tres estiran su banda si el valor de arranque cae fuera. Un
+deslizador que arranca fuera de su rango se coloca solo en el extremo y
+le cambia el numero al usuario sin que lo pida.
+
+**PromptPay** queda montado y apagado, a falta del QR, que solo puede
+sacar Alberto de su app del banco. Lo que hay es el sitio, las
+instrucciones y el aviso que importa: el repositorio es publico y ese QR
+lleva dentro su numero de telefono — y un commit no se retira.
+
+Se comprobo encendiendolo con otro QR de sustituto, porque un bloque que
+nadie ha visto renderizar es un bloque que se rompe el dia que se
+enciende.

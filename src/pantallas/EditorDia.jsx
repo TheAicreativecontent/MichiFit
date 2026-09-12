@@ -12,7 +12,7 @@ import Hoja from './Hoja.jsx';
 import { useT } from '../i18n/index.jsx';
 
 /* ---------------- editor de un día ----------------
-   `solo` limita la hoja a UN dato: es lo que abre el anillo de medir
+   `solo` limita la hoja a UN dato: es lo que abre el anillo
    del aparato, donde ya has elegido qué vas a apuntar y enseñarte los
    otros cuatro campos sería deshacer esa elección. Sin `solo` sale la
    hoja entera, que es lo que abre el "+" de la barra de abajo.

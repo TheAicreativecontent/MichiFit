@@ -42,23 +42,23 @@ export default function Inicio({ estado, entradas, pacto, onCarino, onCuidar, on
                                 pruebas = false, onCerrarPruebas, aparato }) {
   const t = useT();
   const [gesto, setGesto] = useState(null);      // 'mimar' | 'estado' | null
-  /* Escena elegida a mano. Ya solo la mueve el botón derecho, para
-     dormir al michi: el ciclo por las cinco escenas se fue cuando el
-     botón del medio pasó a abrir el anillo de medir. En `null` manda lo
-     que has apuntado hoy, que es lo normal. */
+  /* Escena elegida a mano. Ya solo la mueve `dormir`, que desde el
+     2026-09-12 es un icono del anillo y no un botón: el ciclo por las
+     cinco escenas se fue cuando los botones pasaron a ser la interfaz.
+     En `null` manda lo que has apuntado hoy, que es lo normal. */
   const [escenaId, setEscenaId] = useState(null);
   const [prueba, setPrueba] = useState(null);   // { cuerpo, pose } o null
 
   /* ---- los tres botones ------------------------------------------
      La gramática entera está explicada en `mascota/anillos.js`. Aquí
-     solo vive el estado: en qué anillo estamos y sobre qué icono.
+     solo vive el estado: si el anillo está abierto y sobre qué icono.
 
      Va ANTES de calcular la escena porque la escena depende de él: al
-     pasear el cursor por el anillo de medir, la pantalla enseña ya lo
+     pasear el cursor por el anillo, la pantalla enseña ya lo
      que vas a apuntar. */
-  const [modo, setModo] = useState(null);        // null | 'cuidar' | 'medir'
+  const [abierto, setAbierto] = useState(false);   // ¿hay anillo abierto?
   const [indice, setIndice] = useState(0);
-  const anillo = anilloDe(modo);
+  const anillo = anilloDe(abierto);
   const item = anillo?.[indice] ?? null;
 
   const visual = estadoVisual(estado);
@@ -68,41 +68,63 @@ export default function Inicio({ estado, entradas, pacto, onCarino, onCuidar, on
 
   /* Lo que se ve ahora, de más fuerte a más débil:
        1. el panel de pruebas, si está abierto;
-       2. la vista previa del anillo de medir — con el cursor sobre
+       2. la vista previa del anillo — con el cursor sobre
           «pasos» ya sale el michi andando por la calle. Es media
           explicación sin escribir una palabra, que es justo lo que
           hacía falta: la queja era que no se entendía el gato;
        3. la escena elegida a mano;
        4. y si no, lo que hayas apuntado hoy. */
-  const escena = (modo === 'medir' && item?.escena ? porId(item.escena) : null)
+  const escena = (item?.escena ? porId(item.escena) : null)
     ?? porId(escenaId)
     ?? escenaAutomatica(entradaHoy, accion, visual.humor);
   const dormido = escena.dormido || estado.dormido;
 
-  const aNeutral = () => { setModo(null); setIndice(0); };
+  /* Dormido DE VERDAD, que no es lo mismo que `dormido` de arriba.
+
+     `dormido` incluye la VISTA PREVIA: con el cursor sobre «sueño» el
+     anillo enseña ya la escena de dormir, y eso apaga la pantalla
+     aunque el michi esté despierto. Si los botones miraran ese, al
+     llegar a «sueño» dejarían de pasar al icono siguiente y se pondrían
+     a «despertarlo» — o sea que no se podría dar la vuelta al anillo.
+     Pasó, y solo se vio probándolo. */
+  const dormidoDeVerdad = estado.dormido || escenaId === 'dormir';
+
+  const aNeutral = () => { setAbierto(false); setIndice(0); };
 
   /* Si te distraes, el anillo se cierra solo. Sin esto, dejar el menú
      abierto tapa al michi hasta que vuelvas, y quien lo abriera sin
      querer no sabría cómo salir. Ver las tres salidas en `anillos.js`. */
   useEffect(() => {
-    if (!modo) return undefined;
+    if (!abierto) return undefined;
     const id = setTimeout(aNeutral, ESPERA_MS);
     return () => clearTimeout(id);
-  }, [modo, indice]);
+  }, [abierto, indice]);
 
   const aceptar = () => {
-    if (!item || item.id === 'salir') { aNeutral(); return; }
-    if (modo === 'cuidar') {
+    if (!item) { aNeutral(); return; }
+
+    if (item.cuidado) {
       /* Cuidar despierta al michi: darle agua a una pantalla apagada no
-         se entiende. */
-      setEscenaId((e) => (e === 'dormir' ? null : e));
+         se entiende. `dormir` es la excepción evidente — ése la apaga. */
+      if (item.id !== 'dormir') setEscenaId((e) => (e === 'dormir' ? null : e));
+
       if (item.id === 'mimar') { onCarino?.(); setGesto('mimar');
         setTimeout(() => setGesto((g) => (g === 'mimar' ? null : g)), 2600); }
       if (item.id === 'agua') onCuidar?.('agua');
       if (item.id === 'limpiar') onCuidar?.('orden');
+      if (item.id === 'dormir') {
+        /* Alterna: el mismo icono lo duerme y lo despierta. Era el botón
+           derecho hasta el 2026-09-12. */
+        const durmiendo = escenaId === 'dormir';
+        setEscenaId(durmiendo ? null : 'dormir');
+        sonidos.dormir(!durmiendo);
+        aNeutral();
+        return;
+      }
       sonidos.mimar?.();
+    } else {
+      onMedir?.(item.campo);
     }
-    if (modo === 'medir') onMedir?.(item.campo);
     aNeutral();
   };
 
@@ -110,34 +132,46 @@ export default function Inicio({ estado, entradas, pacto, onCarino, onCuidar, on
     despertarAudio();
     setGesto(null);
 
-    /* IZQUIERDA · abre el anillo de cuidar, y desde dentro sale.
-       Es la salida de emergencia: haga lo que haga la pantalla, este
-       botón siempre te devuelve a un sitio conocido. */
+    /* Dormido, el primer toque DESPIERTA y nada más. Antes los botones
+       seguían funcionando con la pantalla apagada, así que el anillo se
+       abría y se pintaba encima del cristal oscuro: quedaba raro y lo
+       dijeron desde fuera. Y es lo que hace un tamagotchi de verdad —
+       no se le da de comer a oscuras. */
+    if (dormidoDeVerdad) {
+      setEscenaId((e) => (e === 'dormir' ? null : e));
+      aNeutral();
+      sonidos.dormir(false);
+      return;
+    }
+
+    /* IZQUIERDA · abre el anillo, y dentro pasa al siguiente icono
+       dando la vuelta. Es la única puerta de entrada, así que también es
+       el botón que siempre hace algo. */
     if (id === 'mimar') {
       sonidos.accion();
-      if (modo) { aNeutral(); return; }
-      setModo('cuidar'); setIndice(0);
+      if (!abierto) { setAbierto(true); setIndice(0); return; }
+      setIndice(siguienteIndice);
       return;
     }
 
-    /* CENTRO · desde neutral abre el anillo de medir; dentro de un
-       anillo pasa al siguiente icono. */
+    /* CENTRO · acepta. En reposo no hay nada que aceptar y NO HACE NADA:
+       que un botón se busque un trabajo cuando está libre es justo lo
+       que se vino a quitar. */
     if (id === 'accion') {
+      if (!abierto) return;
       sonidos.accion();
-      if (!modo) { setModo('medir'); setIndice(0); return; }
-      setIndice((i) => siguienteIndice(modo, i));
+      aceptar();
       return;
     }
 
-    /* DERECHA · acepta. Fuera de los anillos no hay nada que aceptar,
-       así que se queda como el atajo de siempre para dormir al michi. */
-    if (modo) { aceptar(); return; }
-    setEscenaId((e) => (e === 'dormir' ? null : 'dormir'));
-    sonidos.dormir(escenaId !== 'dormir');
+    /* DERECHA · cierra. En reposo tampoco hace nada. */
+    if (!abierto) return;
+    sonidos.accion();
+    aNeutral();
   };
 
   /* Tocar el cristal: el michi cuenta cómo va. Fue el botón del medio
-     hasta que ese pasó a abrir el anillo de medir. */
+     hasta que los tres botones pasaron a ser la interfaz. */
   const tocarPantalla = () => {
     despertarAudio();
     if (dormido) return;            // dormido no habla

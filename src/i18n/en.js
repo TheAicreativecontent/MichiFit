@@ -87,6 +87,10 @@ export default {
     copiado: 'Copied ✓',
     copiar: 'Copy LNURL',
     compatible: 'Works with Wallet of Satoshi, Phoenix, Muun and any LNURL wallet.',
+    promptpayTitulo: '🇹🇭 PromptPay',
+    promptpayIntro: 'If you are in Thailand, scan this with your banking app. It is how everyone pays there.',
+    promptpayQrAlt: 'PromptPay QR code for a tip',
+    promptpayCompatible: 'Works with any Thai bank: SCB, Kasikorn, Krungthai, Bangkok Bank and the rest.',
   },
 
   dia: {
@@ -254,6 +258,8 @@ export default {
     verLore: 'Read his story',
     realTitulo: 'Ninja is real',
     realTexto: 'He is not a character. He lives in Bangkok, sleeps a lot, and still steals food off the table.',
+    colorTitulo: 'Now he is yours',
+    colorTexto: 'Ninja is grey, but the one you look after is your choice. And the device, whatever colour you like. You can change both any time in Settings.',
     sinFotos: 'His photos will go here.',
     actos: [
       { t: 'The alley',
@@ -276,6 +282,8 @@ export default {
     registrar: 'Log',
     siguiente: 'Next',
     aceptar: 'Accept',
+    cerrar: 'Close',
+    abrir: 'Menu',
     mimar: 'Pet',
     agua: 'Water',
     limpiar: 'Clean',
@@ -284,7 +292,7 @@ export default {
     entreno: 'Workout',
     pasos: 'Steps',
     sueno: 'Sleep',
-    ayuda: 'Left: care · Middle: next · Right: accept',
+    ayuda: 'Left: next · Middle: accept · Right: close',
   },
 
   aparato: {

@@ -39,6 +39,15 @@ pantallas y el motor entero.
   con su sentido de comida. Ver abajo.
 - Última acción (2026-09-12): **los ocho iconos de los anillos**, ya
   dibujados. Ver abajo.
+- Última acción (2026-09-12, tarde): **el color se elige al adoptarlo**
+  y el gato arranca GRIS. Cerradas las dos preguntas que quedaban en
+  `ASK.md`. Ver abajo.
+- Última acción (2026-09-12, noche): **los botones cambian de
+  gramática** — izquierda pasa, centro acepta, derecha cierra — y un
+  solo anillo de ocho iconos. Ver abajo.
+- Última acción (2026-09-12, cierre): **los rangos del simulador** ya no
+  son de atleta, y PromptPay queda montado a falta del QR de Alberto.
+  Ver abajo.
 - Próximo paso: las fotos del Ninja real y las viñetas del cómic.
 - Después: las fotos del Ninja real (`src/datos/ninja.js`) y las 21
   viñetas del cómic (`ESCENAS` en `pantallas/Lore.jsx`). El sitio está
@@ -215,16 +224,45 @@ cuatro PNG sueltos de la raíz.
 Comprobado en el navegador: los botones en japonés, y el aviso de guardado
 apareciendo y desapareciendo al romper y arreglar `localStorage`.
 
-## El aparato es la interfaz (2026-09-11)
+## Los botones, versión buena (2026-09-12)
 
-Los tres botones eran un juguete —corazones, cambiar decorado, dormir— y
-no tocaban ningún dato. Ahora:
+La gramática del 2026-09-11 confundía a la gente que probó la app, y
+tenían razón las dos veces: el botón CENTRAL significaba dos cosas según
+dónde estuvieras —lo defendí aquí diciendo que «el contexto lo hace
+inequívoco», y no lo hacía— y ACEPTAR estaba en el borde, que es donde
+va lo que no quieres pulsar sin querer.
 
-| Botón | En reposo | Dentro de un anillo |
+| Botón | En reposo | Con el anillo abierto |
 |---|---|---|
-| izquierda | anillo de CUIDAR | salir |
-| centro | anillo de MEDIR | siguiente icono |
-| derecha | dormir | aceptar |
+| izquierda | abre el anillo | siguiente icono (da la vuelta) |
+| centro | **nada** | aceptar |
+| derecha | **nada** | cerrar |
+
+No es un invento: A pasa, B acepta y C cancela es la disposición de los
+tamagotchis de Bandai. Que en reposo el centro y la derecha no hagan
+nada es deliberado —salen apagados, con `disabled`— porque un botón que
+se busca trabajo cuando está libre es justo lo que se vino a quitar.
+
+**Un solo anillo de ocho**, no dos: con la izquierda como única puerta,
+dos anillos no tienen cómo distinguirse. El orden no es arbitrario y
+está razonado en `anillos.js` — primero los cuidados, que son de un
+toque y son el anzuelo, y después los datos, que abren el editor.
+`dormir` es ahora un icono del anillo (era el botón derecho) y su dibujo
+son tres z de tamaño creciente, idea de Alberto: la luna ya la usa
+«sueño», que es otra cosa —apuntar las horas— y dos lunas juntas no se
+distinguirían.
+
+**Dormido, el primer toque solo DESPIERTA.** Antes los botones seguían
+funcionando con la pantalla apagada y el anillo se pintaba sobre el
+cristal oscuro; quedaba raro y lo dijeron desde fuera.
+
+Cuidado con una trampa que ya mordió: `dormido` incluye la VISTA PREVIA
+del anillo, porque con el cursor sobre «sueño» la pantalla enseña ya la
+escena de dormir. Los botones tienen que mirar `dormidoDeVerdad`, que no
+la incluye. Con el otro, al llegar a «sueño» el anillo dejaba de avanzar
+y no se podía dar la vuelta.
+
+### Lo que había antes (2026-09-11)
 
 Cuidar: mimar · agua · limpiar. Medir: comida · entreno · pasos · sueño,
 y al aceptar se abre `EditorDia` **filtrado a ese dato** (prop `solo`).
@@ -237,6 +275,20 @@ de momento; se cambian ahí por los PNG de Alberto cuando estén.
 **Tres salidas, y hacen falta**: el icono ✕, el botón izquierdo desde
 cualquier sitio, y la vuelta sola a los 8 s. Un tamagotchi venía con
 manual de papel; esto no.
+
+### Si dibujas un icono a mano
+
+Va en **`pixel/iconos-a-mano/<nombre>.png`** y ahi manda sobre la
+rejilla de texto. El lado tiene que ser divisor entero de 96 (12, 16,
+24, 32, 48, 96): se amplia con NEAREST y no se inventa un solo pixel.
+Reducir de 16 a 12 NO es entero y emborrona, por eso se guarda a 96.
+
+El primero es la escoba de `limpiar`, de Alberto. La rejilla de aqui
+dice un CUBO —a 12 px el palo en diagonal desaparecia— y se deja escrita
+a proposito: documenta el intento y vuelve sola si se borra el dibujo.
+
+**Al cambiar un icono hay que subir `const CACHE` en `public/sw.js`**:
+no llevan hash en el nombre. Lo vigila `pruebas/cache-sw.mjs`.
 
 ### Los iconos de los anillos
 
@@ -426,6 +478,94 @@ está en `DECISIONS.md`. `pruebas/avisos.mjs` fija los dos números de
 cae y hay que decidirlo, no que pase de refilón.
 
 Está calibrado para no ser ruido: salta a 47 g y se calla a 50.
+
+## El color, al adoptarlo (2026-09-12)
+
+Ninja es gris en el lore pero la app arrancaba naranja, así que «Adoptar
+a Ninja» te daba un gato que no era Ninja. Ahora **el de fábrica es
+gris** y el color se elige en una pantalla más al final de la historia,
+detrás de «Ninja existe»: el gato Y el huevo, con el michi grande
+cambiando de color mientras eliges. El huevo se queda naranja de
+fábrica, que es el color de marca.
+
+Esa pantalla **solo sale al adoptarlo**. Volviendo a ver la historia
+desde Ajustes sobra, porque los mismos dos selectores están unas líneas
+más abajo en la pantalla desde la que has entrado.
+
+El color se elige ANTES de que exista el perfil —la bienvenida viene
+después de la historia— y no se pierde porque `onEmpezar` fusiona
+(`{...d.perfil, ...perfil}`) y el perfil que arma la bienvenida no trae
+`aparato`. Si algún día esa fusión pasa a ser un reemplazo, esto se cae
+sin avisar.
+
+**`estado` es el NOMBRE DEL ARCHIVO del michi, no un humor.** En el
+componente SVG viejo era la clave de una tabla de sprites y el nombre se
+quedó; en `TamagotchiPNG` se usa para construir la ruta. La bienvenida
+pasaba `estado="kawaii"`, `kawaii-blanco.png` no existe y la cadena de
+respaldo caía siempre a `michi.png` — el naranja. No se notaba porque el
+de fábrica también era naranja: lo destapó cambiar el color por defecto.
+
+Y si añades algo a `.mf-lore-texto`: es un flex en columna con los hijos
+a `flex: 0 0 auto`, o sea que **no encogen**. Lo que lleve dentro una
+rejilla necesita `width: 100%` y `min-width: 0` o se sale por la
+derecha, sin error y sin barra de desplazamiento.
+
+## Los rangos del simulador (2026-09-12)
+
+Estaban escritos a mano dentro del JSX y eran de atleta: 20.000 pasos al
+día, 600 minutos de entreno a la semana (diez horas) y 4.000 kcal. Con
+esos márgenes el simulador contestaba con fechas de meta que no se iban
+a cumplir, y una fecha optimista en una app de orientación es lo
+contrario de orientar. Por abajo igual: 1.000 kcal está por debajo del
+suelo que la propia app defiende en `KCAL_MINIMAS`.
+
+Ahora: pasos **2.000–16.000** (paso de 250) y entreno **0–420 min**. El
+0 de entreno se queda porque no entrenar es una respuesta legítima.
+Viven en `engine/constantes.js`, que es donde dice `PROTOCOL.md` que
+tienen que estar.
+
+**La comida NO tiene números fijos, y eso es lo importante**: su rango
+sale de la persona. El suelo es `KCAL_MINIMAS` según el sexo y el techo
+es el gasto total por `1 + SUPERAVIT_MAXIMO` — los mismos límites que
+usa `planEnergetico`, para que el deslizador no pueda llevarte a un
+sitio que el motor considera imposible. Con el pacto de Alberto sale
+1.500–2.413.
+
+Los tres deslizadores **estiran su banda** si el valor de arranque cae
+fuera (alguien con 18.000 pasos pactados, o un objetivo de comida
+escrito a mano). Un deslizador que arranca fuera de su rango se coloca
+solo en el extremo y le cambia el número al usuario sin que lo pida.
+
+`PASOS_MIN` es el más discutible de los cuatro y está anotado como tal:
+2.000 pasos es poco para quien sale de casa y mucho para un día en cama.
+Se eligió pensando en que esto simula un hábito sostenido.
+
+## PromptPay, montado y apagado (2026-09-12)
+
+Lo pidieron los amigos tailandeses de Alberto. PromptPay es el estándar
+nacional de QR de allí: lo escanea cualquier app bancaria tailandesa.
+
+Encaja con la app porque un QR de PromptPay es una **imagen estática**,
+igual que el de Lightning: ni API, ni backend, ni tocar la CSP, ni un
+dato saliendo del dispositivo.
+
+Está **apagado** (`ACTIVO = false` en `src/datos/promptpay.js`) porque
+el QR tiene que ponerlo Alberto: sale de su app del banco. Ahí están las
+instrucciones, los cuatro pasos y las dos advertencias.
+
+**La importante: el repositorio es PÚBLICO y un QR de PromptPay lleva
+dentro el número de teléfono o de identidad.** Cualquiera puede leerlo
+con un lector de QR, y una vez en un commit se queda en el historial
+aunque se borre el archivo. PromptPay admite también un e-Wallet ID, que
+no es el teléfono.
+
+Es un interruptor a mano y no una comprobación de si el archivo existe,
+por lo mismo que `datos/ninja.js`: la app se sirve estática y preguntar
+por un archivo que no está deja un 404 en la consola de todos.
+
+Comprobado encendiéndolo con otro QR de sustituto: el bloque sale el
+tercero, la imagen carga, no hay scroll lateral y no hay errores. Luego
+se volvió a apagar.
 
 ## Seguridad (revisado el 2026-09-09)
 - Las cabeceras van en `vercel.json`: CSP, X-Frame-Options, nosniff,

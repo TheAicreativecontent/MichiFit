@@ -82,6 +82,10 @@ export default {
     copiado: 'コピーしました ✓',
     copiar: 'LNURLをコピー',
     compatible: 'Wallet of Satoshi、Phoenix、Muun、その他のLNURL対応ウォレットで使えます。',
+    promptpayTitulo: '🇹🇭 プロンプトペイ',
+    promptpayIntro: 'タイにいるなら、銀行アプリで読み取ってください。現地ではこれが普通の支払い方法です。',
+    promptpayQrAlt: 'チップ用のプロンプトペイQRコード',
+    promptpayCompatible: 'タイのどの銀行でも使えます（SCB、カシコン、クルンタイ、バンコク銀行など）。',
   },
 
   dia: {
@@ -249,6 +253,8 @@ export default {
     verLore: 'この子の話を読む',
     realTitulo: 'ニンジャは実在します',
     realTexto: 'キャラクターではありません。バンコクに住んでいて、よく寝て、いまだにテーブルの食べ物を盗みます。',
+    colorTitulo: 'これであなたの子です',
+    colorTexto: 'ニンジャは灰色ですが、お世話する子はあなたが選べます。本体の色もお好みで。設定でいつでも変更できます。',
     sinFotos: 'ここに写真が入ります。',
     actos: [
       { t: '路地',
@@ -271,6 +277,8 @@ export default {
     registrar: 'きろく',
     siguiente: 'つぎへ',
     aceptar: 'けってい',
+    cerrar: 'とじる',
+    abrir: 'メニュー',
     mimar: 'なでる',
     agua: 'みず',
     limpiar: 'そうじ',
@@ -279,7 +287,7 @@ export default {
     entreno: 'うんどう',
     pasos: 'ほすう',
     sueno: 'すいみん',
-    ayuda: '左：おせわ · 中：つぎへ · 右：けってい',
+    ayuda: '左：つぎへ · 中：けってい · 右：とじる',
   },
 
   aparato: {
