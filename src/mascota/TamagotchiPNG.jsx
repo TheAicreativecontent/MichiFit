@@ -51,8 +51,16 @@ export const ESTILOS = ['pixel'];
 
 /* Los colores del michi. El naranja son los dibujos originales, sin
    sufijo; los otros los genera `pixel/tenir_michi.py` a partir de ellos
-   conservando el relieve, los mofletes y los ojos. */
-export const MICHIS = ['naranja', 'gris', 'blanco'];
+   conservando el relieve, los mofletes y los ojos.
+
+   Se llamaba `MICHIS` hasta el 2026-09-12, y ese era el problema:
+   `pixel/michis.js` exporta OTRO `MICHIS` que no tiene nada que ver
+   —son las cinco siluetas de cuerpo de antes del replanteamiento del
+   michi, ver ahi— y `Tamagotchi.jsx` importa aquel mientras Ajustes y
+   Lore importan este. Dos cosas distintas con el mismo nombre en el
+   mismo arbol de archivos es de las que muerden a los seis meses,
+   buscando una y encontrando la otra. */
+export const COLORES_MICHI = ['naranja', 'gris', 'blanco'];
 export const COLORES = ['naranja', 'rojo', 'amarillo', 'verde', 'azul', 'blanco', 'negro'];
 /* El michi arranca GRIS porque Ninja es gris (ver `LORE.md`). El huevo
    sigue naranja: ese es el color de marca, y el logo va a juego.
@@ -67,7 +75,7 @@ export const APARATO_POR_DEFECTO = { estilo: 'pixel', color: 'naranja', michi: '
 /* El sufijo del color del michi. El naranja no lleva: sus archivos son
    los originales y renombrarlos habria roto el respaldo. */
 function sufijoMichi(aparato) {
-  const c = MICHIS.includes(aparato?.michi) ? aparato.michi : MICHIS[0];
+  const c = COLORES_MICHI.includes(aparato?.michi) ? aparato.michi : COLORES_MICHI[0];
   return c === 'naranja' ? '' : `-${c}`;
 }
 

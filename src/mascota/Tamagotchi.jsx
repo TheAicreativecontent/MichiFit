@@ -41,6 +41,13 @@ export default function Tamagotchi({
   dormido = false,
   sinMichi = false,   // dibuja solo la carcasa: el michi lo pone una imagen encima
 }) {
+  /* Las cinco siluetas de cuerpo retiradas el 2026-09-09, y esta linea
+     es la unica que las menciona. Se lee siempre y se PINTA nunca: el
+     dibujo esta detras de `!sinMichi` (mas abajo) y el unico sitio que
+     monta este componente —el respaldo de `TamagotchiPNG` para cuando
+     falta el PNG del huevo— pasa siempre `sinMichi`. Ver el aviso de
+     `pixel/michis.js`. `kawaii` como red es el cuerpo «normal» de
+     entonces, no un humor. */
   const sprite = MICHIS[estado] ?? MICHIS.kawaii;
 
   const zonaY = PANT.y + BANDA_ALTA;

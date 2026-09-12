@@ -53,6 +53,43 @@ export default function App() {
   useEffect(() => {
     document.documentElement.style.setProperty('--escala', datos.perfil?.escalaTexto ?? 1);
   }, [datos.perfil?.escalaTexto]);
+  /* CUANTO TAPA EL TECLADO DEL MOVIL.
+
+     La hoja de registrar va anclada abajo, que es donde llega el pulgar,
+     y el teclado sale justo ahi: se escribian los pasos y el boton de
+     guardar quedaba DEBAJO del teclado, sin manera de llegar a el. Lo
+     vio Alberto usandola en el movil.
+
+     `visualViewport` es lo que ve el usuario de verdad; `innerHeight`
+     sigue siendo la pagina entera. La diferencia es lo tapado. El
+     `offsetTop` cuenta porque iOS ademas DESPLAZA la ventana hacia
+     arriba al enfocar un campo.
+
+     En Chrome de Android esto suele dar 0, y es correcto: alli el propio
+     navegador encoge la pagina por el `interactive-widget` del meta de
+     `index.html`, asi que no hay nada que compensar. Las dos medidas no
+     se suman nunca.
+
+     `scroll` ademas de `resize` porque en iOS el teclado no siempre
+     dispara `resize`. Y no hay nada que limpiar si el navegador es viejo
+     y no trae `visualViewport`: entonces la variable se queda en 0 y la
+     hoja se comporta como siempre. */
+  useEffect(() => {
+    const vv = window.visualViewport;
+    if (!vv) return undefined;
+    const medir = () => {
+      const tapado = Math.max(0, window.innerHeight - vv.height - vv.offsetTop);
+      document.documentElement.style.setProperty('--teclado', `${Math.round(tapado)}px`);
+    };
+    medir();
+    vv.addEventListener('resize', medir);
+    vv.addEventListener('scroll', medir);
+    return () => {
+      vv.removeEventListener('resize', medir);
+      vv.removeEventListener('scroll', medir);
+    };
+  }, []);
+
   const [pestana, setPestana] = useState('inicio');
   /* `false` cerrado · `true` la hoja entera (el "+" de la barra) ·
      'comida' | 'entreno' | 'pasos' | 'sueno' un solo dato, que es lo

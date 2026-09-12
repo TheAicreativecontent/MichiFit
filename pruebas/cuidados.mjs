@@ -11,7 +11,7 @@
 
    Uso:  node pruebas/cuidados.mjs        (desde la raiz)
 */
-const { calcularCuidados, atender, CACAS_MAX } = await import('../src/engine/cuidados.js');
+const { calcularCuidados, atender, CACAS_MAX, AGUA_HORAS } = await import('../src/engine/cuidados.js');
 const { calcularEstado } = await import('../src/engine/michi.js');
 const { pactoPorDefecto } = await import('../src/engine/pacto.js');
 
@@ -29,12 +29,21 @@ const aDia = (d, h = 10) => new Date(2026, 8, d, h, 0, 0).getTime();
 console.log('\n### el agua baja con las horas de vigilia');
 {
   const lleno = aDia(1, 8);
+  /* La mitad del camino se mide contra AGUA_HORAS y no contra un numero
+     escrito aqui. Antes decia «a las 8 horas va por la mitad», que era
+     verdad SOLO mientras AGUA_HORAS valiera 16: al bajarlo a 10 la
+     prueba se puso roja sin que nada estuviera mal. Una prueba atada a
+     la constante comprueba la FORMA de la curva —que baja recta y llega
+     a la mitad a mitad de camino— y sobrevive a que se retoque el
+     ritmo, que es algo que `TODO.md` dice que va a pasar. */
+  const mitad = AGUA_HORAS / 2;
   const c0 = calcularCuidados({ cuidados: { agua: lleno }, ahora: lleno });
-  const c1 = calcularCuidados({ cuidados: { agua: lleno }, ahora: lleno + 8 * HORA });
+  const c1 = calcularCuidados({ cuidados: { agua: lleno }, ahora: lleno + mitad * HORA });
   const c2 = calcularCuidados({ cuidados: { agua: lleno }, ahora: lleno + 40 * HORA });
 
   comprobar(c0.agua === 100, `recien llenado esta al 100 (${c0.agua})`);
-  comprobar(c1.agua > 30 && c1.agua < 70, `a las 8 horas va por la mitad (${c1.agua})`);
+  comprobar(c1.agua > 40 && c1.agua < 60,
+    `a mitad de camino (${mitad} h) va por la mitad (${c1.agua})`);
   comprobar(c2.agua === 0, `pasado dia y medio esta vacio (${c2.agua})`);
   comprobar(c2.sed === true, 'y el michi tiene sed');
 }
@@ -120,11 +129,27 @@ console.log('\n### sin datos no molesta a nadie');
   comprobar(alAdoptar.agua === 100 && alAdoptar.orden === 100,
     `al adoptarlo, todo lleno (${alAdoptar.agua} / ${alAdoptar.orden})`);
 
-  /* Y ese mismo dia por la tarde sigue sin quejarse: baja, pero no llega
-     ni de lejos a tener sed. */
+  /* Y ese mismo dia por la tarde: se ha MOVIDO pero todavia no pide.
+
+     Las dos mitades importan y por eso se comprueban las dos.
+
+     Que no pida es la promesa de `MECANICA.md`: un michi recien adoptado
+     no recibe a nadie con sed. `sed` y `sucio` solo saltan a CERO, asi
+     que esa es la comprobacion de verdad.
+
+     Que se haya movido es la queja de Alberto del 2026-09-12: «cuando
+     entro en la app apenas se ha movido». Una barra quieta no pide nada
+     y no engancha a nadie, asi que aqui abajo se exige que haya bajado.
+     Antes esta linea decia `agua > 55`, que era un numero puesto a ojo y
+     que al acelerar las barras (16→10 h) se caia sin que nada estuviera
+     mal: a las seis horas quedan 40, que no es tener sed, es haber
+     bebido. Un proxy que se cae cuando cambias lo que mide no estaba
+     midiendo lo que decia. */
   const porLaTarde = calcularCuidados({ cuidados: {}, pacto, ahora: adopcion + 6 * HORA });
-  comprobar(!porLaTarde.sed && !porLaTarde.sucio && porLaTarde.agua > 55,
+  comprobar(!porLaTarde.sed && !porLaTarde.sucio,
     `seis horas despues aun no pide nada (${porLaTarde.agua} / ${porLaTarde.orden})`);
+  comprobar(porLaTarde.agua < 100 && porLaTarde.orden < 100,
+    `pero las dos barras se han movido (${porLaTarde.agua} / ${porLaTarde.orden})`);
 
   const sinNada = calcularCuidados({});
   comprobar(sinNada.agua === 100 && sinNada.orden === 100,

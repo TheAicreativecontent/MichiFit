@@ -2,6 +2,10 @@
 
 :root {
   color-scheme: light;
+  /* Cuantos pixeles tapa el teclado del movil por abajo. Lo escribe
+     App.jsx midiendo el `visualViewport`; vale 0 mientras no haya
+     teclado, y en un ordenador vale 0 siempre. */
+  --teclado: 0px;
   /* Escala del texto. 1 es el tamano de siempre; Ajustes la sube para
      quien necesite la letra mas grande. Los emoji y el pixel art NO
      escalan: viven en cajas de tamano fijo y desbordarian. */
@@ -358,15 +362,27 @@ input[type=range]::-moz-range-thumb {
 .mf-real { color: var(--bien); font-weight: 800; }
 
 /* --- hoja emergente para editar un día --- */
+/* La hoja va anclada ABAJO, que es donde llega el pulgar. El precio es
+   que el teclado del movil aparece justo ahi y la tapaba: se escribian
+   los pasos y el boton de guardar quedaba debajo del teclado, sin
+   manera de llegar a el. Lo vio Alberto usandola en el movil.
+
+   `--teclado` lo mide App.jsx. Va como relleno del fondo oscuro y no
+   como `bottom`, para que la hoja SUBA entera y la sombra siga
+   cubriendo la pantalla. */
 .mf-hoja {
   position: fixed; inset: 0; z-index: 50; display: flex; align-items: flex-end;
-  justify-content: center; background: rgba(40, 30, 40, .45); padding: 0;
+  justify-content: center; background: rgba(40, 30, 40, .45);
+  padding: 0 0 var(--teclado);
   animation: entra .2s ease both;
 }
+/* Y la caja encoge otro tanto: si no, con el teclado abierto no cabria y
+   lo de arriba se saldria por encima de la pantalla en vez de poder
+   desplazarse. */
 .mf-hoja-caja {
   background: var(--papel); width: 100%; max-width: 520px;
   border-radius: 24px 24px 0 0; padding: 20px 18px calc(20px + env(safe-area-inset-bottom));
-  box-shadow: var(--sombra); max-height: 88vh; overflow-y: auto;
+  box-shadow: var(--sombra); max-height: calc(88vh - var(--teclado)); overflow-y: auto;
 }
 .mf-hoja-pie { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 14px; }
 .mf-hoja-pie .mf-boton { margin: 0; }

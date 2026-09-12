@@ -124,10 +124,16 @@ export const DEFICIT_MAXIMO = 0.20;
    `planEnergetico`, para que el deslizador no pueda contradecir al
    motor. Lo calcula `Simulador.jsx`.
 
-   `PASOS_MIN` es el mas discutible de los cuatro: 2.000 pasos es poco
-   para alguien que sale de casa y mucho para un dia en cama. Se elige
-   pensando en que esto simula un habito sostenido y no un dia suelto. */
-export const PASOS_MIN = 2000;
+   `PASOS_MIN` es CERO por decision de Alberto (2026-09-12). Estuvo en
+   2.000 unas horas con el argumento de que esto simula un habito
+   sostenido y no un dia suelto, pero no andar nada es una respuesta
+   legitima —un dia en cama, una lesion, una semana de trabajo sentado—
+   y un simulador que no te deja preguntar «y si no ando?» deja de
+   simular. Es el mismo criterio que el 0 de `ENTRENO_SEMANA_MAX`.
+
+   El techo sigue siendo el que importaba: 20.000 pasos daba fechas de
+   meta que no se cumplen. */
+export const PASOS_MIN = 0;
 export const PASOS_MAX = 16000;
 export const PASOS_PASO = 250;
 export const ENTRENO_SEMANA_MAX = 420;   // 7 h; el 0 se queda, no entrenar es una respuesta

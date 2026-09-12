@@ -15,7 +15,7 @@
 
 import { useEffect, useState } from 'react';
 import { useT } from '../i18n/index.jsx';
-import Tamagotchi from '../mascota/TamagotchiPNG.jsx';
+import Tamagotchi, { COLORES_MICHI } from '../mascota/TamagotchiPNG.jsx';
 import Marcador from './Marcador.jsx';
 import { estadoVisual } from '../engine/michi.js';
 import { hoyISO } from '../engine/pacto.js';
@@ -28,8 +28,18 @@ import { anilloDe, siguienteIndice, ESPERA_MS } from '../mascota/anillos.js';
    reales. No sale nunca solo: se abre dando siete toques al logo de la
    cabecera (ver `tocarLogo` en App.jsx). Se queda en el código a
    propósito, es la forma de revisar los dibujos en el móvil. */
-/* Ya no hay cuerpos que probar: el michi tiene una sola silueta. Lo que
-   se revisa aquí son sus poses y sus humores. */
+/* Ya no hay cuerpos que probar: el michi tiene una sola silueta desde el
+   2026-09-09. Lo que se revisa aquí son sus POSES y sus tres COLORES.
+
+   Hasta el 2026-09-12 quedaba una fila de botones pintada a partir de
+   una constante `CUERPOS` que ya no existía en ninguna parte: ni
+   definida ni importada. O sea que abrir el panel lanzaba un
+   `ReferenceError` y tumbaba la pantalla entera — se quedaba en blanco.
+   Lo encontró Alberto dando los siete toques en el móvil.
+
+   Que el lint no lo viera es normal: `oxlint` sin comprobación de tipos
+   no persigue variables libres. Que no lo viera nadie más es porque
+   esto no sale nunca solo. */
 const POSES = [
   { id: null, et: 'de pie' }, { id: 'comiendo', et: 'come' },
   { id: 'entrenando', et: 'entrena' }, { id: 'durmiendo', et: 'duerme' },
@@ -47,7 +57,7 @@ export default function Inicio({ estado, entradas, pacto, onCarino, onCuidar, on
      cinco escenas se fue cuando los botones pasaron a ser la interfaz.
      En `null` manda lo que has apuntado hoy, que es lo normal. */
   const [escenaId, setEscenaId] = useState(null);
-  const [prueba, setPrueba] = useState(null);   // { cuerpo, pose } o null
+  const [prueba, setPrueba] = useState(null);   // { pose, color } o null
 
   /* ---- los tres botones ------------------------------------------
      La gramática entera está explicada en `mascota/anillos.js`. Aquí
@@ -207,7 +217,9 @@ export default function Inicio({ estado, entradas, pacto, onCarino, onCuidar, on
           mensaje={gesto === 'estado' ? resumen(estado, pendientes, t) : null}
           onBoton={pulsar}
           onPantalla={tocarPantalla}
-          aparato={aparato}
+          /* Con el panel de pruebas abierto se puede mirar otro color sin
+             guardarlo: se sustituye aquí y en ningún sitio más. */
+          aparato={prueba?.color ? { ...aparato, michi: prueba.color } : aparato}
         />
       </div>
 
@@ -220,10 +232,13 @@ export default function Inicio({ estado, entradas, pacto, onCarino, onCuidar, on
               ✕
             </button>
           </b>
+          {/* Los tres colores. Es SOLO vista previa: no toca el aparato
+              guardado, así que se pueden revisar los dibujos sin
+              cambiarle el gato a nadie. */}
           <div className="fila">
-            {CUERPOS.map((c) => (
-              <button key={c} className={prueba?.cuerpo === c ? 'on' : ''}
-                      onClick={() => setPrueba((p) => ({ cuerpo: c, pose: p?.pose ?? null }))}>
+            {COLORES_MICHI.map((c) => (
+              <button key={c} className={prueba?.color === c ? 'on' : ''}
+                      onClick={() => setPrueba((p) => ({ pose: p?.pose ?? null, color: c }))}>
                 {c.slice(0, 4)}
               </button>
             ))}
@@ -232,7 +247,7 @@ export default function Inicio({ estado, entradas, pacto, onCarino, onCuidar, on
             {POSES.map((p) => (
               <button key={p.et}
                       className={prueba && prueba.pose === p.id ? 'on' : ''}
-                      onClick={() => setPrueba((v) => ({ cuerpo: v?.cuerpo ?? 'kawaii', pose: p.id }))}>
+                      onClick={() => setPrueba((v) => ({ color: v?.color, pose: p.id }))}>
                 {p.et}
               </button>
             ))}

@@ -30,16 +30,34 @@
 
 import { horasDespierto } from './felicidad.js';
 
-/* Horas DE VIGILIA en vaciarse del todo. Con 16, un cuenco llenado por
-   la mañana llega vacío a la mañana siguiente: toca más o menos una vez
-   al día, que es lo que se buscaba. Súbelo si cansa, bájalo si aburre.
-   Son los dos números que gobiernan el ritmo de todo esto. */
-export const AGUA_HORAS = 16;
-export const ORDEN_HORAS = 24;
+/* Horas DE VIGILIA en vaciarse del todo. Son los dos números que
+   gobiernan el ritmo de todo esto.
+
+   Bajados el 2026-09-12 (16→10 y 24→14) después de que Alberto lo usara
+   unos días: «cuando entro en la app apenas se ha movido». Tenía razón,
+   y la cuenta lo explica — son horas DESPIERTO, no horas de reloj. Con
+   16 y unas 16 horas de vigilia al día, el agua tardaba justo un día
+   entero en vaciarse: quien abra la app dos veces al día se la
+   encontraba casi llena siempre, y una barra que no se mueve no pide
+   nada.
+
+   Con 10, el agua se vacía en algo más de medio día de vigilia, así que
+   pide de beber una o dos veces al día. Con 14, la casa se ensucia del
+   todo en algo menos de un día. Siguen sin castigar: `MECANICA.md` 8b y
+   `pruebas/cuidados.mjs` garantizan que esto NO toca la mecánica.
+
+   Súbelo si cansa, bájalo si aburre. */
+export const AGUA_HORAS = 10;
+export const ORDEN_HORAS = 14;
 
 /* Cuántas cacas kawaii llegan a salir con la casa del todo sucia. Van
-   apareciendo de una en una según baja la barra. */
-export const CACAS_MAX = 3;
+   apareciendo de una en una según baja la barra.
+
+   De 3 a 5 el 2026-09-12, también a petición de Alberto. Con 3, cada
+   caca aparecía al bajar 33 puntos enteros de barra, así que el suelo
+   se veía igual la mayor parte del tiempo; con 5, cada 20 puntos, y se
+   nota que la cosa va a peor mientras no recojas. */
+export const CACAS_MAX = 5;
 
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
 

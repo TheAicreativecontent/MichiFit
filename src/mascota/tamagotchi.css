@@ -122,6 +122,20 @@
      cosas sueltas sin relacion entre ellas. */
   display: flex; justify-content: center; align-items: center;
   gap: 5px; position: relative; z-index: 4;
+
+  /* ALTURA FIJA, y es lo que impide que la pagina pegue un salto.
+
+     En reposo solo queda un rotulo y va `position: absolute` —para
+     clavarlo bajo SU boton—, o sea que sale del flujo y dejaba la fila
+     con altura CERO. Al abrir el anillo aparecian tres en flujo normal,
+     la fila crecia de golpe y todo lo de abajo —el marcador de racha,
+     pasos, sueno— bajaba de un tiron. Lo vio Alberto en el movil.
+
+     La cuenta es la caja del propio rotulo: el texto por su
+     interlineado, mas 2+2 de relleno y 1+1 de borde. Escrita con las
+     MISMAS variables que `span`, para que siga cuadrando si algun dia
+     se cambia el cuerpo de letra o la escala. */
+  min-height: calc(9px * var(--escala) * 1.5 + 6px);
 }
 /* El unico rotulo que queda en reposo, clavado bajo SU boton. Con tres
    no se puede hacer esto —se solapan, los botones estan a 48 px y

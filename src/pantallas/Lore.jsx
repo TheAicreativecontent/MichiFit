@@ -24,7 +24,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useT } from '../i18n/index.jsx';
 import { NINJA, esVideo, rutaNinja } from '../datos/ninja.js';
-import { COLORES, MICHIS, APARATO_POR_DEFECTO } from '../mascota/TamagotchiPNG.jsx';
+import { COLORES, COLORES_MICHI, APARATO_POR_DEFECTO } from '../mascota/TamagotchiPNG.jsx';
 
 /* Qué se ve en cada acto. El michi va en gris porque Ninja es gris; el
    naranja y el blanco son otros gatos (ver LORE.md).
@@ -169,7 +169,7 @@ export default function Lore({ onCerrar, onAdoptar, aparato, onAparato }) {
 
             <p className="mf-sub" style={{ margin: '14px 0 8px' }}>{t('aparato.michi')}</p>
             <div className="mf-michis">
-              {MICHIS.map((c) => (
+              {COLORES_MICHI.map((c) => (
                 <button key={c} className={aparatoActual.michi === c ? 'sel' : ''}
                         aria-label={t('aparato.michis.' + c)}
                         title={t('aparato.michis.' + c)}

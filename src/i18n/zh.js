@@ -285,7 +285,7 @@ export default {
     comida: '饮食',
     entreno: '运动',
     pasos: '步数',
-    sueno: '睡眠',
+    sueno: '记录睡眠',
     ayuda: '左：下一个 · 中：确认 · 右：关闭',
   },
 

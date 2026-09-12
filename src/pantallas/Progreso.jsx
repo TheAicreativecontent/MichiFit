@@ -159,8 +159,37 @@ function Grafica({ pesajes, pesoActual, pesoMeta, ritmo, bajando, semanas }) {
   const diasFuturo = bajando ? Math.max(7, Math.round(semanas * 7)) : 56;
   const finW = bajando ? pesoMeta : pesoActual + (ritmo ?? 0) * (diasFuturo / 7);
 
-  const xs = puntos.map((p) => p.d).concat([0, diasFuturo]);
-  const ws = puntos.map((p) => p.w).concat([pesoActual, pesoMeta, finW].filter((v) => v != null));
+  /* CUANTO FUTURO SE ENSEÑA.
+
+     La prevision puede ser de 165 dias contra 28 de historial, y
+     entonces lo que ya has hecho ocupa un 14% del ancho: los pesajes se
+     apelotonan contra el borde izquierdo y no se distingue un dia de
+     otro. La gráfica acababa siendo sobre todo una raya recta de algo
+     que no ha pasado.
+
+     Decision de Alberto (2026-09-12): antes numeros legibles que
+     caberlo todo. Se enseña como mucho VEZ Y MEDIA el historial, con un
+     suelo de 28 dias para que no se quede en nada cuando solo llevas dos
+     pesajes. Con 28 dias apuntados, el historial pasa de ocupar el 14%
+     del ancho a ocupar el 40%.
+
+     Si la meta cae mas alla, la linea se SALE por el borde y se dice con
+     una punta de flecha; la fecha exacta ya esta escrita con todas las
+     letras en la tarjeta de arriba, asi que aqui no hace falta
+     repetirla. */
+  const historial = Math.max(0, -Math.min(0, ...puntos.map((p) => p.d)));
+  const diasVisibles = Math.min(diasFuturo, Math.max(28, Math.round(historial * 1.5)));
+  const cortada = diasVisibles < diasFuturo;
+
+  /* Donde queda la linea de prevision en el borde, si se corta. Es la
+     misma recta, evaluada antes de tiempo. */
+  const finVisibleW = cortada
+    ? pesoActual + (finW - pesoActual) * (diasVisibles / diasFuturo)
+    : finW;
+
+  const xs = puntos.map((p) => p.d).concat([0, diasVisibles]);
+  const ws = puntos.map((p) => p.w)
+    .concat([pesoActual, pesoMeta, finVisibleW].filter((v) => v != null));
   const xMin = Math.min(...xs), xMax = Math.max(...xs, xMin + 7);
   let yMin = Math.min(...ws) - 0.8, yMax = Math.max(...ws) + 0.8;
   if (yMax - yMin < 1.5) yMax = yMin + 1.5;
@@ -199,8 +228,17 @@ function Grafica({ pesajes, pesoActual, pesoMeta, ritmo, bajando, semanas }) {
       <text x={X(0)} y={H - 14} textAnchor="middle" fontSize="15" fontWeight="800"
             fill="var(--tinta-flojo)" fontFamily={FF}>{t('progreso.hoy')}</text>
 
-      <line x1={X(0)} y1={Y(pesoActual)} x2={X(diasFuturo)} y2={Y(finW)}
+      <line x1={X(0)} y1={Y(pesoActual)} x2={X(diasVisibles)} y2={Y(finVisibleW)}
             stroke="var(--menta)" strokeWidth="4" strokeDasharray="8 7" strokeLinecap="round" />
+
+      {/* La prevision sigue mas alla del borde: punta de flecha en el
+          sentido que lleva la linea. Sin esto, cortarla parece que la
+          meta esta justo ahi. */}
+      {cortada && (
+        <polygon
+          points={`${X(diasVisibles)},${Y(finVisibleW) - 9} ${X(diasVisibles) + 15},${Y(finVisibleW)} ${X(diasVisibles)},${Y(finVisibleW) + 9}`}
+          fill="var(--menta)" />
+      )}
 
       {puntos.length >= 2 && (
         <polyline points={linea} fill="none" stroke="var(--rosa)" strokeWidth="4.5"
@@ -210,11 +248,15 @@ function Grafica({ pesajes, pesoActual, pesoMeta, ritmo, bajando, semanas }) {
         <circle key={i} cx={X(p.d)} cy={Y(p.w)} r="5" fill="var(--rosa)" />
       ))}
 
-      {bajando && (
+      {/* El trofeo solo si la meta ENTRA. Cortada, caeria fuera del
+          dibujo o —peor— justo en el borde, y se leeria como que ya casi
+          estas. La linea de la meta sigue pintada de lado a lado, asi
+          que hacia donde vas se ve igual. */}
+      {bajando && !cortada && (
         <>
-          <circle cx={X(diasFuturo)} cy={Y(pesoMeta)} r="7" fill="var(--bien)"
+          <circle cx={X(diasVisibles)} cy={Y(pesoMeta)} r="7" fill="var(--bien)"
                   stroke="var(--papel)" strokeWidth="2" />
-          <text x={X(diasFuturo)} y={Y(pesoMeta) - 16} textAnchor="middle" fontSize="18">🏆</text>
+          <text x={X(diasVisibles)} y={Y(pesoMeta) - 16} textAnchor="middle" fontSize="18">🏆</text>
         </>
       )}
     </svg>

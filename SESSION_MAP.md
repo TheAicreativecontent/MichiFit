@@ -659,3 +659,77 @@ lleva dentro su numero de telefono — y un commit no se retira.
 Se comprobo encendiendolo con otro QR de sustituto, porque un bloque que
 nadie ha visto renderizar es un bloque que se rompe el dia que se
 enciende.
+
+---
+
+## 2026-09-12 (tarde) · Lo que salio de probarla en el movil
+
+Alberto la uso en el movil y salieron cuatro cosas, tres de ellas
+fallos de verdad. Vale la pena decirlo: en dos dias, TODO lo que ha
+mejorado de verdad esta app ha salido de alguien usandola, no de
+leerla.
+
+**La pagina pegaba un salto al abrir el anillo.** Culpa mia de ayer: en
+reposo queda un solo rotulo y va `position: absolute` para clavarlo bajo
+su boton, o sea que sale del flujo y dejaba la fila con altura CERO. Al
+abrir el anillo aparecian tres en flujo normal y todo lo de abajo bajaba
+de golpe. Altura fija escrita con las mismas variables que el rotulo.
+
+**El teclado del movil tapaba el boton de guardar.** La hoja de
+registrar va anclada abajo, que es donde llega el pulgar, y el teclado
+sale justo ahi. Dos arreglos que no se pisan: `interactive-widget=
+resizes-content` en el meta —que lo resuelve en Chrome de Android
+haciendo que el navegador encoja la pagina— y una medida de
+`visualViewport` en `--teclado` para iOS, que no lo soporta. Donde el
+primero funciona, el segundo mide cero.
+
+**El panel de pruebas tumbaba la app.** Siete toques en el logo dejaban
+la pantalla en blanco. La razon: `CUERPOS.map(...)` en `Inicio.jsx`
+sobre una constante que NO EXISTIA —ni definida ni importada— desde que
+se retiraron las cinco siluetas. Un `ReferenceError` en render se lleva
+por delante el arbol entero. `oxlint` sin tipos no persigue variables
+libres, y como el panel no sale nunca solo, nadie lo piso en tres dias.
+Ahora enseña los tres colores (vista previa, sin guardarlos), las poses
+y los escenarios.
+
+**Y las barras apenas se movian.** Tenia razon y la cuenta lo explica:
+son horas DESPIERTO, asi que con 16 el agua tardaba un dia entero de
+vigilia en vaciarse y quien abriera la app dos veces al dia la
+encontraba casi llena siempre. A 10 y 14, y las cacas de 3 a 5.
+
+Eso puso en rojo dos comprobaciones de `pruebas/cuidados.mjs`, y
+ninguna porque nada estuviera mal: las dos estaban escritas contra
+NUMEROS del ritmo viejo. `agua > 55` a las seis horas era un proxy de
+«no molesta», cuando lo que de verdad mide eso es `!sed && !sucio`
+—las dos solo saltan a cero—; y «a las 8 horas va por la mitad» era
+verdad solo mientras `AGUA_HORAS` valiera 16. Las dos se reescribieron
+contra la intencion y contra la constante, y la primera ademas se
+partio en dos para exigir tambien que las barras SE MUEVAN, que es la
+mitad que faltaba. Un proxy que se cae al cambiar lo que mide no estaba
+midiendo lo que decia.
+
+### Los documentos que mentian
+
+`ROADMAP.md` reescrito entero: daba por pendiente la persistencia en
+IndexedDB —que esta DESCARTADA con razones en `TODO.md`—, dejaba sin
+marcar la PWA y las pantallas, hechas hace semanas, y seguia esperando
+una «fusion con la MichiFit original» que ya ocurrio via el importador
+de CSV. Ahora dice donde estamos, y recoge el punto de decision que
+Alberto abrio hoy: si la app se va a Hostinger con usuarios y login.
+
+`PROTOCOL.md` decia que la mascota es «SVG parametrico, cambia de
+silueta segun los datos, no es una imagen y no puede serlo». Las tres
+cosas dejaron de ser verdad el 2026-09-09. Es y sera PIXEL ART (Alberto).
+
+Y el codigo muerto de las cinco siluetas queda anotado en los dos sitios
+sin borrarlo, porque son los dibujos originales y eso se decide
+mirandolos. Lo que si se arreglo es la colision de nombres: habia dos
+`MICHIS` distintos —cuerpos en `pixel/michis.js`, colores en
+`TamagotchiPNG.jsx`— y el segundo pasa a ser `COLORES_MICHI`.
+
+### Y mas dibujos de Alberto
+
+Redibujo `limpiar` otra vez (una escoba mejor) y `comida`, que ahora
+lleva palillos y verdura. Estaban solo en `public/`, donde el generador
+se los habria llevado por delante: los dos pasan a
+`pixel/iconos-a-mano/`, que es la carpeta que manda. Cache a v5.

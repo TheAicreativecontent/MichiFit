@@ -48,6 +48,12 @@ pantallas y el motor entero.
 - Última acción (2026-09-12, cierre): **los rangos del simulador** ya no
   son de atleta, y PromptPay queda montado a falta del QR de Alberto.
   Ver abajo.
+- Última acción (2026-09-12, tras probarla en el móvil): arreglado el
+  **salto de la página** al abrir el anillo, el **teclado que tapaba el
+  botón de guardar**, y el **panel de pruebas, que tumbaba la app**.
+  Barras de cuidados más vivas, gráfica sin comprimir, y los documentos
+  que mentían (`ROADMAP.md`, `PROTOCOL.md`, el código muerto). Ver
+  `SESSION_MAP.md`.
 - Próximo paso: las fotos del Ninja real y las viñetas del cómic.
 - Después: las fotos del Ninja real (`src/datos/ninja.js`) y las 21
   viñetas del cómic (`ESCENAS` en `pantallas/Lore.jsx`). El sitio está

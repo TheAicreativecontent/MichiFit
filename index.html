@@ -4,7 +4,13 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <!-- `interactive-widget=resizes-content`: al abrir el teclado del movil,
+         que encoja la pagina en vez de taparla. Sin esto, una hoja anclada
+         abajo se queda DEBAJO del teclado y el boton de guardar no se ve.
+         Lo entiende Chrome de Android; iOS no, y para ese va la cuenta de
+         `--teclado` en App.jsx. Las dos no se pisan: donde esto funciona,
+         aquella mide cero. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content" />
     <!-- El naranja de la marca: es lo que tiñe la barra del navegador -->
     <meta name="theme-color" content="#F2650F" />
     <meta name="description" content="Your ideal weight, one little step at a time. A michi that looks after you while you look after it." />

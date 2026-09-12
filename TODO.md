@@ -10,19 +10,32 @@
       no se retira. PromptPay admite también un e-Wallet ID, que no es tu
       teléfono.
 
-- [ ] **¿Te vale el icono de dormir?** Son tres z de tamaño creciente. A
-      12 px se leen; ampliado queda algo encadenado. Si quieres otro,
-      dibújalo y déjalo en `pixel/iconos-a-mano/dormir.png` — desde hoy
-      esa carpeta manda sobre la rejilla de texto.
-
-- [ ] **¿`PASOS_MIN` a 2.000 o a 0?** Es el tope del simulador que menos
-      claro tengo: 2.000 es poco para quien sale de casa y mucho para un
-      día en cama. Está en `engine/constantes.js`, es cambiar un número.
+- [ ] **Las fotos de Ninja, en el ordenador.** Alberto las mandó por el
+      chat y ahí no se pueden guardar en disco. Déjalas en
+      `public/ninja/` (o en cualquier carpeta y se recortan desde ahí):
+      hay tres, dos durmiendo en la cama y una sentado de frente
+      mirando a cámara — esa es la buena para la pantalla del final.
 
 - [ ] **Si algún día se publica en GitHub Pages**: poner `base:
       '/<nombre-repo>/'` en `vite.config.js`. Vite compila con rutas absolutas
       desde `/`, y en `usuario.github.io/repo/` la app saldría en blanco.
       Con Vercel no hace falta: sirve desde la raíz del dominio.
+
+- [ ] **El michi SVG y las cinco siluetas viejas.** `pixel/michis.js`
+      sigue trayendo los cinco cuerpos retirados el 2026-09-09
+      (esqueletico, gordo, kawaii, fit, hipertrofiado) y **no se dibujan
+      en ninguna pantalla**: `Tamagotchi.jsx` solo pinta el sprite si
+      `!sinMichi`, y su único llamante pasa siempre `sinMichi`. De ese
+      archivo solo se usan hoy `PALETA` y `TAM`.
+      No se ha tocado porque son los dibujos originales del proyecto y
+      eso se decide mirándolos, no de pasada. Lo que sí se hizo
+      (2026-09-12) es dejarlo escrito en los dos archivos y deshacer la
+      colisión de nombres: el de los tres colores pasó a llamarse
+      `COLORES_MICHI`.
+
+- [ ] **`salir.png` ya no se usa.** Se quedó sin sitio cuando el botón
+      derecho pasó a cerrar el anillo. Su rejilla sigue en
+      `pixel/iconos_anillo.py` por si vuelve.
 
 ## Después
 - [ ] **Las fotos y los vídeos del Ninja de verdad** (Alberto). La
@@ -37,11 +50,13 @@
       y ya: ahora mismo la historia se ilustra con el propio michi gris
       sobre los escenarios que hay.
 
-- [ ] **Ajustar el ritmo de las barras cuando se use de verdad.** Los
-      números están en un solo sitio cada uno: `AGUA_HORAS` y
-      `ORDEN_HORAS` en `engine/cuidados.js` (16 y 24 horas de vigilia),
-      y los cuatro de la felicidad en `engine/felicidad.js`. Si cansa,
-      se bajan; si aburre, se suben.
+- [ ] **Seguir ajustando el ritmo de las barras.** Se bajaron una vez
+      el 2026-09-12 (16→10 h el agua, 24→14 h el orden, y las cacas de 3
+      a 5) porque Alberto dijo que al entrar apenas se habían movido.
+      Ahora el agua pide una o dos veces al día. Los números están en un
+      solo sitio cada uno: `AGUA_HORAS` y `ORDEN_HORAS` en
+      `engine/cuidados.js`, y los cuatro de la felicidad en
+      `engine/felicidad.js`. Si cansa, se suben; si aburre, se bajan.
 
 
 - [ ] Add-ons cosméticos al llegar a nivel 5 (batidos, mancuernas, gafas).
@@ -57,19 +72,47 @@
   asíncrono a cambio de nada. Si algún día se guardan fotos, se reabre: solo
   toca `datos/almacen.js`.
 
+## Guardadas, decididas por ahora que no (siguen en `ASK.md`)
+- [ ] **La cámara para calcular calorías de una foto.** Necesita una API
+      de visión y se paga por uso. «Quizás no lo hacemos» (Alberto,
+      2026-09-12), pero que siga apareciendo.
+- [ ] **Notificaciones push de verdad.** Necesitan un servidor con claves
+      VAPID, y eso rompe que los datos no salgan del dispositivo. Mismo
+      estado que la anterior — y ojo, que depende del punto de decisión
+      abierto en `ROADMAP.md`: Alberto se está planteando Hostinger con
+      sistema de usuarios y login, y con servidor esto deja de estar
+      bloqueado.
+
 ## Ideas / quizás algún día
 - [ ] En la ventana de cada día del pacto, poder apuntar **qué entreno toca**
       (pecho, piernas, cardio...). El hueco ya está preparado.
 - [ ] Más escenarios: cocina para las comidas, parque, cama para dormir.
 - [ ] Michi propio para la pantalla de Karma: el actual viene de Michi
       Finanzas y lleva traje.
-- [ ] En la gráfica, la historia queda comprimida cuando la meta está muy
-      lejos (28 días de datos contra 165 de previsión). Se leería mejor con
-      un eje partido o limitando el horizonte visible.
+- [ ] Repasar el horizonte de la gráfica con datos de verdad. Desde el
+      2026-09-12 se enseña como mucho vez y media el historial y la línea
+      se corta con una flecha; el número (1,5) está puesto a ojo y solo
+      se sabrá si es el bueno mirándolo con meses de pesajes.
 - [ ] Marcar en la gráfica los tramos con pocos datos.
 
 
 ## Hecho
+- [x] 2026-09-12 — **El panel de pruebas dejó de tumbar la app.** Usaba
+      una constante `CUERPOS` que no existía en ninguna parte, así que
+      los siete toques en el logo dejaban la pantalla en blanco. Ahora
+      enseña los tres colores (solo vista previa, no los guarda), las
+      poses y los escenarios.
+- [x] 2026-09-12 — **El teclado del móvil ya no tapa el botón de
+      guardar** en la hoja de registrar.
+- [x] 2026-09-12 — **Documentos que mentían**: `ROADMAP.md` reescrito
+      entero, `PROTOCOL.md` decía que la mascota era SVG paramétrico, y
+      el código muerto de las cinco siluetas queda anotado donde está.
+- [x] 2026-09-12 — **Las barras de cuidados, más vivas** y más cacas.
+- [x] 2026-09-12 — **La gráfica deja de comprimir el historial**: se
+      enseña como mucho vez y media lo andado y la previsión se sale por
+      el borde con una flecha.
+- [x] 2026-09-12 — **«Ponerlo a dormir» y «Apuntar sueño»** dejan de
+      llamarse las dos casi igual. En inglés las dos decían «Sleep».
 - [x] 2026-09-12 — **Los botones, versión buena**: izquierda pasa al
       siguiente, centro acepta, derecha cierra — la disposición A/B/C de
       los tamagotchis de Bandai. Un solo anillo de ocho en vez de dos, y

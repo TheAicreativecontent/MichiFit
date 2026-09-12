@@ -13,7 +13,7 @@ import { aCSV, descargar } from '../datos/almacen.js';
 import { leerCSV, fusionar } from '../datos/importar.js';
 import { Titulo } from './Ayuda.jsx';
 import Hoja from './Hoja.jsx';
-import { ESTILOS, COLORES, MICHIS, APARATO_POR_DEFECTO } from '../mascota/TamagotchiPNG.jsx';
+import { ESTILOS, COLORES, COLORES_MICHI, APARATO_POR_DEFECTO } from '../mascota/TamagotchiPNG.jsx';
 
 export default function Ajustes({ perfil, entradas, pacto, onCambiar, onReiniciar,
                                  onImportar, onVerLore }) {
@@ -214,7 +214,7 @@ function Aparato({ perfil, onCambiar }) {
 
       <p className="mf-sub" style={{ margin: '18px 0 8px' }}>{t('aparato.michi')}</p>
       <div className="mf-michis">
-        {MICHIS.map((c) => (
+        {COLORES_MICHI.map((c) => (
           <button key={c} className={(actual.michi ?? 'naranja') === c ? 'sel' : ''}
                   aria-label={t('aparato.michis.' + c)}
                   title={t('aparato.michis.' + c)}

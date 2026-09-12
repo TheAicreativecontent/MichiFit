@@ -4,6 +4,31 @@
 
    Cada sprite son 32 cadenas de 32 caracteres. Cada carácter es un
    color de PALETA; '.' es transparente.
+
+   ----------------------------------------------------------------
+   AVISO (2026-09-12): ESTO YA NO SE DIBUJA EN NINGUNA PANTALLA.
+
+   `MICHIS` son las CINCO SILUETAS DE CUERPO —esqueletico, gordo,
+   kawaii, fit, hipertrofiado— que se retiraron el 2026-09-09, cuando el
+   michi dejo de reflejar tu cuerpo y paso a reflejar tu constancia
+   (`MECANICA.md` 5). Varias personas dijeron lo mismo sin ponerse de
+   acuerdo: no querian identificarse con un cuerpo grande ni con uno
+   pequeño.
+
+   Lo unico que importa hoy de este archivo son `PALETA` y `TAM`, que
+   usa la carcasa SVG. El sprite se quedo colgando de una rama que ya no
+   se recorre: `Tamagotchi.jsx` hace `MICHIS[estado] ?? MICHIS.kawaii`,
+   pero solo lo DIBUJA si `!sinMichi` — y su unico llamante, el respaldo
+   de `TamagotchiPNG.jsx` para cuando falta el PNG del huevo, pasa
+   siempre `sinMichi`. O sea que la tabla se lee y no se pinta nunca.
+
+   No se borra porque son los dibujos originales del proyecto y hay que
+   decidirlo mirandolos, no de pasada. Esta anotado en `TODO.md`.
+
+   Y OJO CON EL NOMBRE: este `MICHIS` son CUERPOS. El `COLORES_MICHI` de
+   `mascota/TamagotchiPNG.jsx` son los tres COLORES de pelaje (naranja,
+   gris, blanco), que es lo vivo. Hasta el 2026-09-12 los dos se
+   llamaban `MICHIS`.
    ============================================================ */
 
 export const PALETA = {

@@ -286,7 +286,7 @@ export default {
     comida: 'しょくじ',
     entreno: 'うんどう',
     pasos: 'ほすう',
-    sueno: 'すいみん',
+    sueno: 'すいみんを記録',
     ayuda: '左：つぎへ · 中：けってい · 右：とじる',
   },
 

@@ -9,8 +9,20 @@
   leer la fecha del sistema por su cuenta. `hoy` siempre entra por parámetro,
   para poder probar cualquier día.
 - Los números ajustables van en `src/engine/constantes.js`. Nunca sueltos.
-- La mascota es **SVG paramétrico**: cambia de silueta según los datos. No es
-  una imagen y no puede serlo.
+- La mascota es **PIXEL ART, en PNG**, dentro de una carcasa dibujada en SVG.
+  Es y será pixel art (Alberto, 2026-09-12). Los dibujos viven en
+  `public/michi/`; los tres colores (naranja, gris, blanco) salen de teñir
+  los naranjas con `pixel/tenir_michi.py`, no de redibujarlos.
+
+  Esta línea decía hasta el 2026-09-12 que la mascota era «SVG paramétrico,
+  cambia de silueta según los datos, no es una imagen y no puede serlo».
+  Las tres cosas dejaron de ser verdad el 2026-09-09, cuando se retiraron las
+  cinco siluetas de cuerpo: **el michi no refleja tu cuerpo, refleja tu
+  constancia**, y lo que cambia es lo que hace y cómo se siente, no su forma.
+  Lo paramétrico que queda es la carcasa del huevo, que sí es SVG.
+- **El michi nunca refleja el cuerpo del usuario.** Es la regla que salió de
+  que varias personas probaran la app y dijeran lo mismo sin ponerse de
+  acuerdo. Ver `MECANICA.md` §5.
 
 ## Cosas que NUNCA debe hacer Claude sin preguntar
 - No cambiar la mecánica de `MECANICA.md` sin leerla entera. Está diseñada para
