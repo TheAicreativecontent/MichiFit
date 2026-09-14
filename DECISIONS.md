@@ -1,5 +1,61 @@
 # DECISIONS.md — Decisiones de diseno y su razon
 
+## 2026-09-14 — El aparato se puede ampliar, y el zoom va en un BOTÓN
+
+Petición de Alberto, y con una razón de fondo que conviene no perder:
+**en el futuro quiere que el anillo se vea SIEMPRE en la parte de abajo,
+dentro de la pantalla del michi.** El zoom no es un capricho de ver más
+grande: es el sitio donde va a caber eso.
+
+Dijo «un botón o clicar la pantalla». Va en un botón, y no por gusto:
+**el cristal ya está cogido**. Tocarlo hace que el michi te cuente cómo
+vas, desde que los tres botones pasaron a ser la interfaz el 2026-09-11.
+Poner el zoom ahí habría quitado algo que ya existía y funciona.
+
+Se amplía con `transform: scale()` y no pasando un tamaño mayor al
+aparato. La diferencia no es de estilo: dentro de la pantalla está todo
+en píxeles fijos —barras de 7 px, sus rótulos de 6, iconos de 12—, así
+que con un aparato más grande habrían crecido la carcasa y el escenario
+y el resto se habría quedado igual de pequeño dentro de una pantalla
+mayor. Que es lo contrario de ampliar.
+
+En un móvil de 375 sale un factor de **1,25**, y para llegar ahí el
+aparato se sale de los 18 px de aire que la página deja a los lados: sin
+eso el factor se quedaba en 1,10, y 1,10 no se nota. El aire de la
+página está para el texto, y aquí no hay texto.
+
+**Lo que habrá que decidir el día del anillo permanente**: al ampliar, el
+pixel art deja de caer en rejilla exacta. Los iconos están dibujados a
+96 px y se pintan a 12 —una reducción justa de 8 a 1— y a 1,25 pasan a
+15. Se ve bien porque no se interpola, pero algunas filas de píxeles
+salen un pelo más anchas. Es el mismo trato que ya se le da a la
+carcasa, que mide 751 y se pinta a 300. Si el anillo va a vivir siempre
+dentro, quizá toque redibujar los iconos a una rejilla mayor.
+
+El zoom **no se guarda**: es un mando de ver, como el de un mapa. Si
+resulta que quien lo amplía lo quiere ampliado siempre, pasa a Ajustes.
+
+## 2026-09-14 — Inicio ya tiene su «?»
+
+Era la única pantalla sin ayuda y la que más cosas enseña: 29 de los 42
+conceptos de la app, según el recuento de `SIMPLICIDAD.md`. Es el primer
+punto de la lista que salió de ese mapa, y el más barato.
+
+Dice tres cosas, y las tres son las que el mapa señaló como invisibles:
+
+1. que el michi refleja tu **constancia** y nunca tu cuerpo, y cómo
+   funcionan los tres botones;
+2. que las barras de dentro de la pantalla —HAPPY, WATER y CLEAN— son
+   **cuidado** y **no puntúan**;
+3. que lo que sí cuenta está **debajo**.
+
+La 2 es la importante. Que el agua no toque nada está muy bien pensado y
+muy bien defendido en `MECANICA.md` §8c, pero el usuario no lee
+`MECANICA.md`, y los dos sistemas se dibujan con las mismas barras de
+píxel, uno al lado del otro. Eso no producía confusión: producía una
+creencia equivocada y estable, que es peor porque nada la contradice.
+
+
 ## 2026-09-14 — Dormir y apuntar el sueño son UN solo botón
 
 Eran dos iconos en el anillo: las tres **z** para ponerlo a dormir y la

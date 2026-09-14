@@ -299,6 +299,8 @@ export default {
   },
 
   aparato: {
+    ampliar: 'Zoom in',
+    reducir: 'Back to normal size',
     titulo: 'Your michi',
     mimar: 'Pet',
     escena: 'Change the scene',
@@ -420,6 +422,9 @@ export default {
   nivelesCorto: { 1: 'BABY', 2: 'YOUNG', 3: 'FIT', 4: 'ATHLETE', 5: 'LEGEND' },
 
   inicio: {
+    ayuda1: 'Your michi reflects your <b>consistency</b>, never your body. The three buttons are the controls: left opens the menu and moves to the next icon, middle accepts, right closes. Tap the glass and it tells you how you’re doing.',
+    ayuda2: 'The bars inside the screen —HAPPY, WATER and CLEAN— are your michi’s <b>care</b> and they <b>don’t score</b>: no experience, and they don’t count towards your goal. They’re there so it’s worth opening the app on a Tuesday with nothing to log.',
+    ayuda3: 'What does count is <b>below</b>: streak, steps, sleep, food and level. That comes from what you log, and it’s what really moves your michi.',
     hoy: 'Today',
     sueno: 'Sleep',
     diaDescanso: 'Rest day',

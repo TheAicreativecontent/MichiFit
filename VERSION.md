@@ -7,12 +7,12 @@
 
 ## La estándar, hoy
 
-**v0.7.1** — 14 de septiembre de 2026.
+**v0.7.2** — 14 de septiembre de 2026.
 
 | Dónde | Qué vale |
 |---|---|
-| Etiqueta de Git | `v0.7.1` |
-| `package.json` | `"version": "0.7.1"` |
+| Etiqueta de Git | `v0.7.2` |
+| `package.json` | `"version": "0.7.2"` |
 | Caché del service worker | `michifit-v7` |
 | Dentro de la app | Ajustes, última línea |
 | En vivo | https://michifit.vercel.app |
@@ -85,6 +85,8 @@ Al cerrar una tanda de trabajo que merezca marcarse:
 
 ## Historial
 
+- **v0.7.2** (2026-09-14) — El aparato se puede ampliar, y la pantalla
+  de Inicio ya tiene su «?». Caché `michifit-v7`.
 - **v0.7.1** (2026-09-14) — Dormir y apuntar el sueño pasan a ser UN
   solo botón del anillo, con la luna; cancelar el editor deja al michi
   dormido igual. Y la versión se ve en Ajustes. Caché `michifit-v7`.

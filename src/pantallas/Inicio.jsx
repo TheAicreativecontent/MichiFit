@@ -13,8 +13,9 @@
    la mecánica — ver la cabecera de `engine/cuidados.js`.
    ============================================================ */
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useT } from '../i18n/index.jsx';
+import Ayuda from './Ayuda.jsx';
 import Tamagotchi, { COLORES_MICHI } from '../mascota/TamagotchiPNG.jsx';
 import Marcador from './Marcador.jsx';
 import { estadoVisual } from '../engine/michi.js';
@@ -48,6 +49,89 @@ const POSES = [
   { id: 'celebrando', et: 'celebra' },
 ];
 
+/* ---- EL ZOOM DEL APARATO ----------------------------------------------
+   El aparato mide 300 px de ancho, que en un móvil de 375 deja la
+   pantallita del michi en unos 150. Se ve, pero se ve pequeña, y ahí
+   dentro caben cuatro barras, un rótulo, el michi y el anillo.
+
+   Se amplía con `transform: scale()` y NO pasando un `size` mayor, y la
+   diferencia importa: dentro de la pantalla está TODO en píxeles fijos
+   —las barras miden 7 px de alto, sus rótulos 6, los iconos del anillo
+   12—. Con un `size` mayor crecerían la carcasa y el escenario, y todo
+   lo demás se quedaría igual de pequeño en mitad de una pantalla más
+   grande. Que es lo contrario de ampliar.
+
+   AVISO para cuando esto crezca: al ampliar, el pixel art deja de caer
+   en una rejilla exacta —los iconos del anillo están dibujados a 96 px
+   y se pintan a 12, que es una reducción justa de 8 a 1, y a 1,25 pasan
+   a 15—. Se ve bien porque `image-rendering: pixelated` no interpola,
+   pero algunas filas de píxeles salen un pelo más anchas que otras. Es
+   el mismo trato que ya se le da a la carcasa, que mide 751 y se pinta
+   a 300. El día que el anillo viva SIEMPRE dentro de la pantalla —que
+   es a donde va esto, idea de Alberto del 2026-09-14— habrá que decidir
+   si los iconos se redibujan a una rejilla mayor. */
+const TAM = 300;
+const PROPORCION = 1024 / 751;
+const ZOOM_MAX = 2;
+/* Cuánto de la altura de la ventana puede ocupar el aparato ampliado.
+   El resto es para la cabecera y para que se vea que hay más abajo: un
+   aparato que llena la pantalla entera parece una pantalla sin salida. */
+const ALTO_UTIL = 0.78;
+
+function useZoom(ampliado) {
+  const lupa = useRef(null);
+  /* El ALTO del aparato se MIDE, no se calcula. `TAM * PROPORCION` da
+     solo la carcasa, y dentro de la lupa va también la fila de rótulos
+     de los botones («Menú», «Siguiente»...). Calculándolo se reservaban
+     100 px de menos y el marcador de abajo se metía encima.
+
+     Y se mide con `ResizeObserver` y no una vez al ampliar, porque
+     medirlo una vez sale MAL: al hacerlo justo al pulsar, la fila de
+     rótulos todavía no tenía su altura final —la fuente de la marca aún
+     no había cargado— y devolvía 409 en vez de 511. El aparato salía
+     bien y el hueco reservado se quedaba corto. Un observador no
+     depende de en qué momento se mire. */
+  /* Las TRES medidas juntas y tomadas a la vez. Estaban en dos estados
+     separados —el alto por un lado y la ventana por otro— y se
+     desincronizaban: la ventana se medía una sola vez al montar, cuando
+     todavía no era la de verdad, y el alto seguía actualizándose solo.
+     Resultado: un factor calculado con una ventana vieja y un alto
+     nuevo, que daba 1 y no ampliaba nada. */
+  const [medida, setMedida] = useState({
+    alto: TAM * PROPORCION, ventanaAncho: null, ventanaAlto: null,
+  });
+
+  useEffect(() => {
+    const el = lupa.current;
+    if (!el) return undefined;
+
+    const medir = () => setMedida({
+      alto: el.offsetHeight,
+      ventanaAncho: document.documentElement.clientWidth,
+      ventanaAlto: window.innerHeight,
+    });
+
+    const ro = new ResizeObserver(medir);
+    ro.observe(el);
+    medir();
+    window.addEventListener('resize', medir);
+    return () => { ro.disconnect(); window.removeEventListener('resize', medir); };
+  }, []);
+
+  const { alto, ventanaAncho, ventanaAlto } = medida;
+
+  /* El factor se redondea hacia abajo a múltiplos de 0,05 para que no
+     baile al girar el móvil. En un móvil de 375 sale 1,20. */
+  const cabe = ventanaAncho
+    ? Math.min(ventanaAncho / TAM, (ventanaAlto * ALTO_UTIL) / alto)
+    : 1;
+  const k = ampliado
+    ? Math.min(ZOOM_MAX, Math.max(1, Math.floor(cabe * 20) / 20))
+    : 1;
+
+  return [lupa, k, alto * k];
+}
+
 export default function Inicio({ estado, entradas, pacto, onCarino, onCuidar, onMedir, accion,
                                 pruebas = false, onCerrarPruebas, aparato }) {
   const t = useT();
@@ -68,6 +152,12 @@ export default function Inicio({ estado, entradas, pacto, onCarino, onCuidar, on
      que vas a apuntar. */
   const [abierto, setAbierto] = useState(false);   // ¿hay anillo abierto?
   const [indice, setIndice] = useState(0);
+  /* El zoom no se guarda: es un mando de ver, como el de un mapa, y a
+     la siguiente visita se vuelve al tamaño de siempre. Si resulta que
+     quien lo amplía lo quiere ampliado SIEMPRE, esto pasa a Ajustes y
+     se guarda con el resto del aparato. */
+  const [ampliado, setAmpliado] = useState(false);
+  const [lupa, k, altoZoom] = useZoom(ampliado);
   const anillo = anilloDe(abierto);
   const item = anillo?.[indice] ?? null;
 
@@ -202,10 +292,34 @@ export default function Inicio({ estado, entradas, pacto, onCarino, onCuidar, on
 
   return (
     <div className="mf-pagina">
+      {/* La barra de mandos de Inicio. A la derecha y pequeña: no es
+          contenido, son dos mandos. El «?» es el que faltaba —era la
+          única pantalla sin ayuda, y es la que más cosas enseña: ver
+          `SIMPLICIDAD.md`—. */}
+      <div className="mf-inicio-barra">
+        <button className="mf-inicio-zoom" aria-pressed={ampliado}
+                aria-label={t(ampliado ? 'aparato.reducir' : 'aparato.ampliar')}
+                title={t(ampliado ? 'aparato.reducir' : 'aparato.ampliar')}
+                onClick={() => setAmpliado((a) => !a)}>
+          {ampliado ? '⤡' : '⤢'}
+        </button>
+        <Ayuda>
+          <p dangerouslySetInnerHTML={{ __html: t('inicio.ayuda1') }} />
+          <p dangerouslySetInnerHTML={{ __html: t('inicio.ayuda2') }} />
+          <p dangerouslySetInnerHTML={{ __html: t('inicio.ayuda3') }} />
+        </Ayuda>
+      </div>
+
       <div className="mf-escena">
+        {/* El contenedor reserva el hueco que ocupa el aparato YA
+            escalado. `transform` no cambia el sitio que algo ocupa en la
+            página, así que sin esta altura el marcador de abajo se
+            quedaría donde estaba y el aparato le pasaría por encima. */}
+        <div className={`mf-zoom ${ampliado ? 'ampliado' : ''}`} style={{ height: altoZoom }}>
+        <div className="mf-zoom-lupa" ref={lupa} style={{ width: TAM, transform: `scale(${k})` }}>
         <Tamagotchi
           estado={visual.cuerpo}
-          size={300}
+          size={TAM}
           dormido={prueba ? prueba.pose === 'durmiendo' : dormido}
           /* Lo que HACE gana a cómo se siente: si está comiendo, sale
              comiendo aunque ande triste. El humor solo se ve cuando no
@@ -231,6 +345,8 @@ export default function Inicio({ estado, entradas, pacto, onCarino, onCuidar, on
              guardarlo: se sustituye aquí y en ningún sitio más. */
           aparato={prueba?.color ? { ...aparato, michi: prueba.color } : aparato}
         />
+        </div>
+        </div>
       </div>
 
       {pruebas && (

@@ -1088,3 +1088,60 @@ cancelar → sigue dormido, pulsar → despierta.
 - Que quedo pendiente: la conversacion de simplificar, el QR de
   PromptPay, y mas fotos de Ninja. El contraste de `--tinta-flojo`,
   anotado arriba, si alguna vez se quiere abrir.
+
+## 2026-09-14 (noche) — El zoom, y el «?» que faltaba
+- Contexto: Alberto manda una captura de la pantalla del michi y pide
+  poder ampliarla. Y dice para que: **quiere que el anillo se vea
+  SIEMPRE en la parte de abajo, dentro de la pantalla**. Pide tambien el
+  «?» de Inicio, que salio del mapa de la conversacion anterior.
+- Que se hizo:
+
+**El zoom, en un boton y no en el cristal.** Alberto dijo «un boton o
+clicar la pantalla». El cristal ya esta cogido desde el 2026-09-11:
+tocarlo hace que el michi cuente como vas. Poner ahi el zoom habria
+quitado algo que ya existe y funciona, asi que va en un boton, arriba a
+la derecha, al lado del «?».
+
+Se amplia con `transform: scale()` y NO pasando un tamanio mayor al
+aparato. Dentro de la pantalla esta todo en pixeles fijos —barras de 7
+px, rotulos de 6, iconos de 12—, asi que con un aparato mas grande
+habrian crecido la carcasa y el escenario y el resto se habria quedado
+igual de pequenio. Que es lo contrario de ampliar.
+
+**Tres cosas que solo se vieron midiendo**, y las tres eran de verdad:
+
+· El factor se quedaba en **1,10** porque medía contra el ancho del
+  contenedor, que lleva los 18 px de aire de la pagina. Con
+  `margin-inline: -18px` al ampliar, sale **1,25**. Y 1,10 no se nota.
+· La altura reservada se quedaba **100 px corta**: se calculaba como
+  `tamanio * proporcion`, que es solo la carcasa, y dentro va tambien la
+  fila de rotulos de los botones. Ahora se mide.
+· Y el gordo: medir una vez al pulsar salia MAL, porque la fila de
+  rotulos aun no tenia su altura final. Se paso a `ResizeObserver`... y
+  entonces el factor se quedaba en **1 del todo**. La causa era un
+  BUCLE: `.mf-zoom` es flex, y por defecto un hijo se estira a la altura
+  del contenedor — que se calcula a partir de la altura del hijo. La
+  lupa crecia, el contenedor crecia, la lupa se estiraba mas... hasta
+  que ya no cabia y el factor caia a 1. Un `align-items: flex-start` lo
+  cierra.
+
+Ninguna de las tres se ve mirando la pantalla: el aparato salia bien en
+los tres casos. Se cazaron leyendo las medidas desde la consola.
+
+**El «?» de Inicio.** Primer punto de `SIMPLICIDAD.md` y el mas barato.
+Tres parrafos en las cinco lenguas, y los tres dicen justo lo que el
+mapa marco como invisible: que el michi refleja la constancia y nunca el
+cuerpo y como van los botones; que HAPPY, WATER y CLEAN son cuidado y
+**no puntuan**; y que lo que si cuenta esta debajo. El segundo es el que
+importa: los dos sistemas se dibujan con las mismas barras de pixel, y
+eso no producia confusion sino una creencia equivocada y estable.
+
+Se corrigieron ademas las tres frases de `SIMPLICIDAD.md` que el propio
+«?» dejaba desfasadas. Un documento que describe la app tiene que dejar
+de mentir el mismo dia que la app cambia.
+
+- Que quedo pendiente: **el anillo permanente dentro de la pantalla**,
+  que es a donde va todo esto, anotado en `TODO.md`. Antes hay que
+  decidir si los iconos se redibujan a una rejilla mayor: a 1,25 los de
+  12 px pasan a 15 y dejan de ser una reduccion exacta desde los 96 del
+  archivo.

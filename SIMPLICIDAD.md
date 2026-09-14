@@ -6,13 +6,15 @@
 > cuáles se explican solos en la propia pantalla, y cuáles hay que
 > deducir.
 >
-> Escrito el 2026-09-14. Nada de lo de aquí se ha aplicado al código.
+> Escrito el 2026-09-14. Nada de lo de aquí se aplicó al escribirlo.
+> Lo único que se ha hecho desde entonces es el punto 1 de la última
+> sección —el «?» de Inicio—, y está marcado como tal.
 
 ## El recuento
 
 **42 conceptos**, en siete capas. No están repartidos: **29 de los 42
-viven en la pantalla de Inicio**, que es además la única pantalla sin
-botón de ayuda.
+viven en la pantalla de Inicio**, que era además la única pantalla sin
+botón de ayuda hasta ese mismo día — ver el punto 1 del final.
 
 ### 1 · El michi (4)
 La pose y el escenario · la expresión · las cacas en el suelo · el gato
@@ -137,29 +139,32 @@ produce una creencia equivocada y estable. Quien crea que rellenar el
 agua sirve para algo, seguirá creyéndolo durante meses y no verá nada
 que le contradiga.
 
-### 3. La pantalla con 29 de los 42 conceptos es la única sin botón de ayuda
+### 3. La pantalla con 29 de los 42 conceptos era la única sin botón de ayuda
 
 Pacto, Progreso, Simular, Ajustes y Logros tienen su «?» con dos
 párrafos cada uno, y están bien escritos: cuentan **por qué** las cosas
 son como son, que es la regla que se fijó en `Ayuda.jsx`.
 
-Inicio no tiene ninguno. Y Karma tampoco, aunque ahí importa menos.
+Inicio no tenía ninguno. Y Karma sigue sin él, aunque ahí importa menos.
 
-No es que falte documentación: es que el hueco está exactamente donde
-más densidad hay.
+No es que faltara documentación: es que el hueco estaba exactamente
+donde más densidad hay. **Se puso el mismo día**: es lo único de este
+documento que ya no describe la app tal como está.
 
 ---
 
 ## Si algún día decides simplificar
 
-Ordenado por lo que arregla dividido por lo que cuesta. **Nada de esto
-está hecho.** Lo pongo para que la conversación tenga de dónde tirar, no
-como propuesta.
+Ordenado por lo que arregla dividido por lo que cuesta. De esta lista
+**solo está hecho el punto 1**; los otros cuatro siguen sin tocar, y
+están aquí para que la conversación tenga de dónde tirar, no como
+propuesta.
 
-1. **Un «?» en Inicio.** Es lo más barato que existe y ataca el hallazgo
-   3 entero. Dos párrafos, cinco idiomas, ningún cambio de mecánica.
-   Diría dos cosas: que las barras de arriba son el cuidado y no puntúan,
-   y que abajo está lo que sí cuenta para tu objetivo.
+1. ~~**Un «?» en Inicio.**~~ **HECHO el 2026-09-14**, el mismo día que
+   este mapa. Tres párrafos en las cinco lenguas: qué refleja el michi y
+   cómo van los botones, que las barras de dentro son cuidado y **no
+   puntúan**, y que lo que sí cuenta está debajo. Ataca el hallazgo 3
+   entero y la mitad del 2.
 2. **Una leyenda para el corazón roto y el escudo.** La primera vez que
    aparece un corazón roto, decirlo: «el michi te cubrió el martes». Ya
    está escrito así en `MECANICA.md` §4 y no ha llegado a la pantalla.

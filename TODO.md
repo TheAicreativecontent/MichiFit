@@ -24,6 +24,13 @@
       Con Vercel no hace falta: sirve desde la raíz del dominio.
 
 ## Después
+- [ ] **El anillo, SIEMPRE visible dentro de la pantalla**, abajo. Idea
+      de Alberto (2026-09-14) y la razón por la que se hizo el zoom: con
+      el aparato ampliado hay sitio. Antes de hacerlo hay que decidir lo
+      que dice `DECISIONS.md`: si los iconos se redibujan a una rejilla
+      mayor, porque a 1,25 los de 12 px pasan a 15 y dejan de caer en
+      una reducción exacta desde los 96 del archivo.
+
 - [ ] **Rematar el acabado de `pasos`** (opcional, es de pulir). El
       dibujo de Alberto es una imagen suave: 707 colores, 2.746 píxeles
       con el borde a medias y negro puro, cuando los otros siete usan la
@@ -85,6 +92,8 @@
 
 
 ## Hecho
+- [x] 2026-09-14 — **El aparato se amplía** con un botón, y el «?» de
+      Inicio. Ver `DECISIONS.md` y `SIMPLICIDAD.md`.
 - [x] 2026-09-14 — **Dormir y apuntar el sueño son un solo botón**, y se
       quedó la luna. Cancelar el editor deja al michi dormido igual, así
       que el mismo gesto sirve para apagarlo por la noche y para apuntar

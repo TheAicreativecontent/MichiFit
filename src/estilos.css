@@ -135,6 +135,43 @@ body {
   padding: 4px 0 12px; display: flex; flex-direction: column;
   align-items: center; margin-bottom: 10px;
 }
+/* La barra de mandos de Inicio: el zoom y el «?». `flex-wrap` con la
+   ayuda a ancho completo para que, al desplegarla, el texto caiga
+   DEBAJO de los dos botones y no se meta a su lado como una columna
+   estrecha. */
+.mf-inicio-barra {
+  display: flex; flex-wrap: wrap; justify-content: flex-end;
+  align-items: center; gap: 8px; padding: 0 2px;
+}
+.mf-inicio-barra .mf-ayuda { flex: 1 0 100%; }
+.mf-inicio-zoom {
+  width: 28px; height: 28px; border-radius: 999px; cursor: pointer;
+  background: var(--chip); border: 1px solid var(--linea);
+  color: var(--tinta-flojo); font-size: calc(14px * var(--escala));
+  line-height: 1; display: flex; align-items: center; justify-content: center;
+}
+.mf-inicio-zoom[aria-pressed="true"] { background: var(--rosa-suave); color: var(--tinta); }
+
+/* El aparato ampliado. El contenedor lleva la altura ya escalada —la
+   pone el JSX, porque depende del factor— y la lupa escala desde
+   ARRIBA y por el CENTRO: así el aparato crece hacia abajo y no se
+   sale por los lados ni se mete bajo la cabecera.
+
+   `margin-inline` negativo: al ampliar, el aparato se sale de los 18 px
+   de aire que `.mf-pagina` deja a los lados y usa el ancho ENTERO de la
+   ventana. Sin esto el factor se quedaba en 1,10 en un móvil de 375, y
+   1,10 no se nota; con esto sale 1,25, que sí. El aire de la página
+   está para el texto, y aquí no hay texto: hay un aparato centrado. */
+/* `align-items: flex-start` NO es aseo, arregla un bucle. Por defecto un
+   hijo de un flex se ESTIRA a la altura del contenedor — y la altura del
+   contenedor se calcula a partir de la altura del hijo. Así que al
+   ampliar, la lupa crecía, lo que hacía crecer al contenedor, lo que
+   volvía a estirar a la lupa... hasta que ya no cabía y el factor se
+   quedaba en 1: el botón no ampliaba nada. */
+.mf-zoom { display: flex; justify-content: center; align-items: flex-start; width: 100%; }
+.mf-zoom.ampliado { margin-inline: -18px; width: auto; }
+.mf-zoom-lupa { transform-origin: top center; transition: transform .18s ease; }
+@media (prefers-reduced-motion: reduce) { .mf-zoom-lupa { transition: none; } }
 .mf-globo {
   background: var(--rosa-suave); border-radius: 16px 16px 16px 5px;
   padding: 11px 14px; font-weight: 700; font-size: calc(13.5px * var(--escala));

@@ -293,6 +293,8 @@ export default {
   },
 
   aparato: {
+    ampliar: '放大屏幕',
+    reducir: '恢复正常大小',
     titulo: '你的米奇',
     mimar: '摸摸它',
     escena: '换场景',
@@ -417,6 +419,9 @@ export default {
   nivelesCorto: { 1: 'BAO BAO', 2: 'NIAN QING', 3: 'JIAN KANG', 4: 'YUN DONG', 5: 'CHUAN QI' },
 
   inicio: {
+    ayuda1: '猫咪反映的是你的<b>坚持</b>，而不是你的身材。三个按钮就是操作键：左键打开菜单并切换图标，中键确认，右键关闭。点一下屏幕，它会告诉你最近怎么样。',
+    ayuda2: '屏幕里的几条——HAPPY、WATER 和 CLEAN——是对猫咪的<b>照顾</b>，<b>不计分</b>：不给经验，也不算进你的目标。它们的作用是让你在没什么要记录的日子也愿意打开这个应用。',
+    ayuda3: '真正计分的在<b>下面</b>：连续天数、步数、睡眠、饮食和等级。这些都来自你记录的内容，也是真正让猫咪改变的东西。',
     hoy: '今天',
     sueno: '睡眠',
     diaDescanso: '休息日',

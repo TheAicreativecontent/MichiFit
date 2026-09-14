@@ -92,16 +92,25 @@ pantallas y el motor entero.
   que el gesto sea uno es que **cancelar el editor deja al michi dormido
   igual**: no pulsaste «apuntar», pulsaste «se va a dormir». Probado
   entero en el navegador. Ver `DECISIONS.md`.
+- Última acción (2026-09-14, tarde): **el aparato se amplía** y **Inicio
+  ya tiene su «?»**. El zoom va en un botón y no en el cristal, porque
+  el cristal ya está cogido —tocarlo hace que el michi cuente cómo vas—,
+  y se hace con `transform: scale()` porque dentro de la pantalla está
+  todo en píxeles fijos. En un móvil sale 1,25. Es el paso previo a lo
+  que Alberto quiere de verdad: **que el anillo se vea siempre en la
+  parte de abajo, dentro de la pantalla**. Y el «?» es el primer punto
+  de `SIMPLICIDAD.md`, el mapa de conceptos de esta misma sesión.
 - Próximo paso: **más fotos de Ninja**, y con menos casa en el
   encuadre — el repositorio es público. Las dos que hay valen; es
   ampliar la galería, no arreglarla.
-- Y en cuanto haya un rato con calma, la conversación que Alberto quiere
-  tener: **cómo hacerla HIPER sencilla de entender**. Dijo
-  explícitamente que por ahora NO se borre ni se reduzca nada — tal como
-  está, está bien. Lo que pidió preparar no es una propuesta de
-  recortes, sino un mapa de lo que la app le pide al usuario que
-  entienda: cuántos conceptos hay, cuáles se explican solos en la propia
-  pantalla y cuáles hay que deducir.
+- La conversación de **hacerla HIPER sencilla** ya se tuvo, el
+  2026-09-14: el mapa está en `SIMPLICIDAD.md`. **No se borró ni se
+  redujo nada**, que es lo que Alberto pidió. 42 conceptos, 29 de ellos
+  en Inicio, y tres hallazgos — el mismo dato se presenta hasta cuatro
+  veces con cuatro caras; las barras de cuidado y las de la mecánica se
+  dibujan igual y obedecen a reglas opuestas; e Inicio era la única
+  pantalla sin ayuda. De las cinco cosas que propone al final, solo está
+  hecha la primera (el «?»).
 - Después: las 21 viñetas del cómic (`ESCENAS` en `pantallas/Lore.jsx`).
   El sitio está hecho, es cambiar rutas. (Esta línea decía hasta el
   2026-09-14 que faltaban también las fotos de Ninja; entraron el 13 y
@@ -123,7 +132,7 @@ pantallas y el motor entero.
 - Build de producción OK, sin errores de consola.
 
 ## Despliegue
-- **Versión estándar: `v0.7.1`.** Se ve en Ajustes, última línea. Qué es
+- **Versión estándar: `v0.7.2`.** Se ve en Ajustes, última línea. Qué es
   y cómo retomarla desde el móvil o el otro portátil, en `VERSION.md`.
 - Repo: https://github.com/TheAicreativecontent/MichiFit
 - Vercel enlazado con la CLI (`vercel link --project michifit`). El enlace

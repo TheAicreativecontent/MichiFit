@@ -305,6 +305,8 @@ export default {
   },
 
   aparato: {
+    ampliar: 'Ampliar la pantalla',
+    reducir: 'Volver al tamaño normal',
     titulo: 'Tu michi',
     mimar: 'Mimar',
     escena: 'Cambiar de escena',
@@ -431,6 +433,9 @@ export default {
   nivelesCorto: { 1: 'BEBÉ', 2: 'JOVEN', 3: 'EN FORMA', 4: 'ATLETA', 5: 'LEYENDA' },
 
   inicio: {
+    ayuda1: 'El michi refleja tu <b>constancia</b>, nunca tu cuerpo. Los tres botones son el mando: el izquierdo abre el menú y pasa de icono, el del medio acepta y el derecho cierra. Toca el cristal y te cuenta cómo vas.',
+    ayuda2: 'Las barras de dentro de la pantalla —HAPPY, WATER y CLEAN— son el <b>cuidado</b> del michi y <b>no puntúan</b>: no dan experiencia ni cuentan para tu objetivo. Están para que apetezca abrir la app un martes sin nada que apuntar.',
+    ayuda3: 'Lo que sí cuenta está <b>debajo</b>: la racha, los pasos, el sueño, la comida y el nivel. Eso sale de lo que tú apuntas, y es lo que de verdad mueve al michi.',
     hoy: 'Hoy',
     sueno: 'Sueño',
     diaDescanso: 'Día de descanso',
