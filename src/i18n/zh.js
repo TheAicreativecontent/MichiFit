@@ -288,7 +288,7 @@ export default {
     comida: '饮食',
     entreno: '运动',
     pasos: '步数',
-    sueno: '记录睡眠',
+    sueno: '睡觉并记录',
     ayuda: '左：下一个 · 中：确认 · 右：关闭',
   },
 
@@ -296,7 +296,6 @@ export default {
     titulo: '你的米奇',
     mimar: '摸摸它',
     escena: '换场景',
-    dormir: '让它睡觉',
     comoVa: '状态如何',
     acabado: '质感',
     liso: '平滑',

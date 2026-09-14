@@ -1029,3 +1029,62 @@ el mismo hash (`index-SMTa-lIt.js`) que ya estaba en produccion.
   de aqui. Y la propuesta de enseniar la version DENTRO de la app, en
   Ajustes — se dejo sin hacer porque toca interfaz y los cinco idiomas, y
   eso se decide, no se cuela en una tanda de mantenimiento.
+
+## 2026-09-14 (tarde) — Un solo boton para dormir, y la version a la vista
+- Contexto: Alberto aprueba lo de enseniar la version en la app («lo
+  aplicare al resto de aplicaciones») y cierra la duda de dormir/sueno
+  describiendo el comportamiento que quiere.
+- Que se hizo:
+
+**La version, en Ajustes.** Ultima linea de la pantalla. El numero NO
+esta escrito en el codigo: entra al compilar desde `package.json` via
+`__VERSION__`, definido en `vite.config.js`. Escrito a mano se queda
+viejo el dia que nadie lo cambie en los dos sitios, y entonces la app
+mentiria sobre que version es — que es justo el problema que se venia a
+resolver esta manana.
+
+Un detalle que salio de mirarlo: se puso primero a 10 px con
+`opacity: .55`, y eso da menos de 3:1 de contraste. Para un dato que se
+viene a buscar a proposito, y en un movil, es al reves de lo que hace
+falta. Ahora usa el mismo tratamiento que `.mf-pie`, que es la
+convencion del proyecto.
+
+Queda dicho, y no se toca aqui: **toda la familia `--tinta-flojo` anda
+por 3:1** —notas, pies, todo—, por debajo del 4,5:1 que se considera
+legible. Eso es una decision de diseno de toda la app, no un arreglo
+que se cuela en un commit de otra cosa.
+
+**Dormir y apuntar el sueno pasan a ser UN boton.** Eran dos iconos
+—tres z y luna— separados porque por dentro son un cuidado y un dato.
+Razon del codigo, no del usuario. El comportamiento lo describio
+Alberto y es el que se implemento: aceptar duerme al michi Y abre el
+editor; **cancelar deja al michi dormido igual**; despierta con
+cualquier boton, que ya funcionaba asi.
+
+Lo que hace que el gesto sea uno es lo de cancelar. No pulsaste
+«apuntar», pulsaste «se va a dormir»: eso ya ha ocurrido, y el editor
+es una oferta, no un peaje. Asi el mismo boton sirve a quien solo
+apaga el gato por la noche y a quien viene a apuntar las horas, sin
+preguntarle cual es.
+
+Se quedo la **luna**, y la razon buena no es de gusto: **el michi
+dormido ya lleva las tres z dibujadas encima**. Como icono del anillo
+repetian lo que la pantalla iba a enseniar un segundo despues. La luna
+dice «noche» y deja que la respuesta la de el gato. La segunda razon es
+de dibujo: a 12 px una silueta maciza se lee y tres trazos finos de
+tinta no, y por eso las z eran la unica excepcion a la regla de contorno
+mas relleno del resto de iconos.
+
+El anillo pasa de ocho iconos a **siete**. El dibujo de las z se retira
+igual que la equis de `salir` el 13: rejilla de `iconos_anillo.py`, PNG
+y rotulo en las cinco lenguas. Espera en el historial de git. Se
+comprobo que los siete que quedan se regeneran **byte a byte
+identicos**, asi que la cache NO hacia falta subirla.
+
+Probado entero en el navegador a 375x812: el anillo con la luna y el
+rotulo «DORMIR Y APUNTAR», aceptar → gato dormido y editor abierto,
+cancelar → sigue dormido, pulsar → despierta.
+
+- Que quedo pendiente: la conversacion de simplificar, el QR de
+  PromptPay, y mas fotos de Ninja. El contraste de `--tinta-flojo`,
+  anotado arriba, si alguna vez se quiere abrir.

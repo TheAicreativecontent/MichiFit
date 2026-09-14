@@ -1,5 +1,69 @@
 # DECISIONS.md — Decisiones de diseno y su razon
 
+## 2026-09-14 — Dormir y apuntar el sueño son UN solo botón
+
+Eran dos iconos en el anillo: las tres **z** para ponerlo a dormir y la
+**luna** para apuntar las horas. Se separaron porque por dentro son
+cosas distintas —una es un cuidado, que no toca la mecánica, y la otra
+es un dato, que sí—. Esa es razón del CÓDIGO. Para quien usa la app es
+un solo momento: se va a dormir.
+
+Decisión de Alberto, y el comportamiento lo describió él:
+
+> al clicarlo aparece el menú para registrar el sueño, el usuario lo
+> escribe y el gato se queda durmiendo hasta que clique en otro botón o
+> haga otra acción. Si cancelase el registro, el gato seguiría durmiendo
+> sin afectar en nada.
+
+Lo que hace que funcione es **qué pasa al cancelar**. Cancelar no
+deshace nada, porque lo que pulsaste no fue «apuntar»: fue «se va a
+dormir», y eso ya ha ocurrido. Así que el mismo botón sirve a los dos
+usos sin preguntar cuál eres — quien solo quiere apagarlo por la noche
+pulsa y cierra; quien viene a apuntar lo que durmió, lo apunta.
+
+Y despierta como despertaba antes: con cualquier botón. Eso no hubo que
+escribirlo, ya estaba.
+
+### Se queda la LUNA
+
+Alberto no se decidía entre las dos. Gana la luna por dos razones, y la
+primera se ve sola al abrir la app:
+
+1. **El michi dormido ya lleva las tres z dibujadas encima.** Como icono
+   del anillo repetían lo que la pantalla iba a enseñar un segundo
+   después. La luna dice «noche» y deja que la respuesta —el gato
+   dormido con sus z— la dé la pantalla. Una cosa lleva a la otra en vez
+   de decir dos veces lo mismo.
+2. **A 12 px, una silueta maciza se lee y tres trazos finos no.** Los
+   otros iconos del anillo son formas macizas con relleno de color; las
+   z eran tinta sobre transparente, y la excepción no venía de una
+   decisión de estilo sino de que a 3 px de ancho no cabía contorno más
+   relleno.
+
+Las z no se pierden: siguen donde funcionan, encima del michi dormido.
+El dibujo de las tres z se retira como se retiró la equis de `salir` el
+2026-09-13 — la rejilla de `pixel/iconos_anillo.py`, el PNG y el rótulo
+en las cinco lenguas—, y espera en el historial de git, que es donde
+tiene que esperar un dibujo que ya no se usa.
+
+El rótulo del anillo pasa a decir las dos cosas: «Dormir y apuntar».
+
+## 2026-09-14 — La versión se ve dentro de la app
+
+En Ajustes, la última línea. Idea que salió de la confusión del v5/v6
+de esta misma mañana: Alberto abre la app desde tres sitios y no tenía
+forma de saber, mirando el móvil, si lo que veía era lo último que subió
+o una copia guardada de hace días.
+
+El número **no se escribe a mano en el código**: entra al compilar desde
+`package.json` (`__VERSION__`, definido en `vite.config.js`). Escrito a
+mano se queda viejo el día que nadie lo cambie en los dos sitios, y
+entonces la app miente sobre qué versión es — que es exactamente el
+problema que se venía a resolver.
+
+Sin traducir: `v0.7.1` se lee igual en las cinco lenguas.
+
+
 ## 2026-09-11 — «Mi pacto» pasa a llamarse «Mi objetivo»
 
 Decisión de Alberto: *«mi pacto es un poco ambiguo, ¿no crees?»*. Y sí.

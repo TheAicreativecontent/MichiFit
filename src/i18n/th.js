@@ -289,7 +289,7 @@ export default {
     comida: 'อาหาร',
     entreno: 'ออกกำลังกาย',
     pasos: 'ก้าว',
-    sueno: 'บันทึกการนอน',
+    sueno: 'นอนและบันทึก',
     ayuda: 'ซ้าย: ถัดไป · กลาง: ตกลง · ขวา: ปิด',
   },
 
@@ -297,7 +297,6 @@ export default {
     titulo: 'มิจิของคุณ',
     mimar: 'ลูบ',
     escena: 'เปลี่ยนฉาก',
-    dormir: 'ทำให้นอน',
     comoVa: 'เป็นยังไงบ้าง',
     acabado: 'พื้นผิว',
     liso: 'เรียบ',

@@ -113,6 +113,14 @@ body {
 .mf-sub { font-size: calc(12px * var(--escala)); color: var(--tinta-flojo); font-weight: 700; margin: 0 0 14px; }
 .mf-nota { font-size: calc(11.5px * var(--escala)); color: var(--tinta-flojo); font-weight: 600; line-height: 1.5; margin: 10px 0 0; }
 .mf-pie { font-size: calc(11px * var(--escala)); color: var(--tinta-flojo); font-weight: 600; line-height: 1.5; text-align: center; margin: 18px 0; }
+/* La version, al final de Ajustes. Discreta, pero NO desvaida: es un
+   dato que se viene a buscar a proposito, y en un movil. Se probo a
+   10 px con `opacity: .55` y daba 2,8:1 de contraste — por debajo del
+   4,5:1 que se considera legible, o sea justo lo contrario de lo que
+   hace falta. Sin opacidad se queda en el tono flojo de la marca, que
+   ya esta medido.
+   `tabular-nums` para que los digitos no bailen al subir de version. */
+.mf-version { font-size: calc(11px * var(--escala)); color: var(--tinta-flojo); font-weight: 700; text-align: center; margin: 0 0 18px; font-variant-numeric: tabular-nums; }
 
 .mf-tarjeta {
   background: var(--papel); border-radius: 22px; padding: 16px 18px;

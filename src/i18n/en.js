@@ -294,7 +294,7 @@ export default {
     comida: 'Food',
     entreno: 'Workout',
     pasos: 'Steps',
-    sueno: 'Log sleep',
+    sueno: 'Sleep & log',
     ayuda: 'Left: next · Middle: accept · Right: close',
   },
 
@@ -302,7 +302,6 @@ export default {
     titulo: 'Your michi',
     mimar: 'Pet',
     escena: 'Change the scene',
-    dormir: 'Put to sleep',
     comoVa: 'How is it going',
     acabado: 'Finish',
     liso: 'Smooth',

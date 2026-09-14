@@ -115,23 +115,33 @@ export default function Inicio({ estado, entradas, pacto, onCarino, onCuidar, on
 
     if (item.cuidado) {
       /* Cuidar despierta al michi: darle agua a una pantalla apagada no
-         se entiende. `dormir` es la excepción evidente — ése la apaga. */
-      if (item.id !== 'dormir') setEscenaId((e) => (e === 'dormir' ? null : e));
+         se entiende. */
+      setEscenaId((e) => (e === 'dormir' ? null : e));
 
       if (item.id === 'mimar') { onCarino?.(); setGesto('mimar');
         setTimeout(() => setGesto((g) => (g === 'mimar' ? null : g)), 2600); }
       if (item.id === 'agua') onCuidar?.('agua');
       if (item.id === 'limpiar') onCuidar?.('orden');
-      if (item.id === 'dormir') {
-        /* Alterna: el mismo icono lo duerme y lo despierta. Era el botón
-           derecho hasta el 2026-09-12. */
-        const durmiendo = escenaId === 'dormir';
-        setEscenaId(durmiendo ? null : 'dormir');
-        sonidos.dormir(!durmiendo);
-        aNeutral();
-        return;
-      }
       sonidos.mimar?.();
+    } else if (item.duerme) {
+      /* SUEÑO · el michi se duerme Y se abre el editor, en ese orden.
+         Un solo icono desde el 2026-09-14; antes eran dos y había que
+         saber cuál era cuál.
+
+         Lo importante es lo que pasa DESPUÉS, y es lo que hace que el
+         gesto sea uno: apuntes las horas o CANCELES, el michi se queda
+         dormido. Cancelar no es deshacer — tú no pulsaste «apuntar»,
+         pulsaste «se va a dormir», y eso ya ha ocurrido. Así que quien
+         solo quiera apagarlo por la noche pulsa y cierra, y quien venga
+         a apuntar lo que durmió lo apunta. El mismo botón sirve a los
+         dos sin preguntar cuál eres.
+
+         Se despierta como se despertaba antes: pulsando cualquier
+         botón, que es lo que hace el `if (dormidoDeVerdad)` de
+         `pulsar`. No hace falta nada aquí para eso. */
+      setEscenaId('dormir');
+      sonidos.dormir(true);
+      onMedir?.(item.campo);
     } else {
       onMedir?.(item.campo);
     }

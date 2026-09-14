@@ -300,7 +300,7 @@ export default {
     comida: 'Comida',
     entreno: 'Entreno',
     pasos: 'Pasos',
-    sueno: 'Apuntar sueño',
+    sueno: 'Dormir y apuntar',
     ayuda: 'Izquierda: siguiente · Centro: aceptar · Derecha: cerrar',
   },
 
@@ -308,7 +308,6 @@ export default {
     titulo: 'Tu michi',
     mimar: 'Mimar',
     escena: 'Cambiar de escena',
-    dormir: 'Ponerlo a dormir',
     comoVa: 'Cómo va',
     acabado: 'Acabado',
     liso: 'Liso',

@@ -84,6 +84,14 @@ pantallas y el motor entero.
   `VERSION.md`, que es el documento nuevo por el que se empieza al
   sentarse desde otro dispositivo. Nada del código cambió: los seis
   tests pasan y el build sale idéntico al que ya estaba en producción.
+- Última acción (2026-09-14, sesión): **dormir y apuntar el sueño son
+  UN solo botón**, y la **versión se ve en Ajustes**. El anillo pasa de
+  ocho iconos a siete: se queda la luna, y las tres z se retiran al
+  historial de git —el michi dormido ya las lleva dibujadas encima, así
+  que como icono repetían lo que la pantalla iba a enseñar—. Lo que hace
+  que el gesto sea uno es que **cancelar el editor deja al michi dormido
+  igual**: no pulsaste «apuntar», pulsaste «se va a dormir». Probado
+  entero en el navegador. Ver `DECISIONS.md`.
 - Próximo paso: **más fotos de Ninja**, y con menos casa en el
   encuadre — el repositorio es público. Las dos que hay valen; es
   ampliar la galería, no arreglarla.
@@ -115,8 +123,8 @@ pantallas y el motor entero.
 - Build de producción OK, sin errores de consola.
 
 ## Despliegue
-- **Versión estándar: `v0.7.0`.** Qué es y cómo retomarla desde el móvil
-  o el otro portátil, en `VERSION.md`.
+- **Versión estándar: `v0.7.1`.** Se ve en Ajustes, última línea. Qué es
+  y cómo retomarla desde el móvil o el otro portátil, en `VERSION.md`.
 - Repo: https://github.com/TheAicreativecontent/MichiFit
 - Vercel enlazado con la CLI (`vercel link --project michifit`). El enlace
   desde el MCP fallaba: el proyecto no era visible con el ámbito del token.

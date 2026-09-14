@@ -289,7 +289,7 @@ export default {
     comida: 'しょくじ',
     entreno: 'うんどう',
     pasos: 'ほすう',
-    sueno: 'すいみんを記録',
+    sueno: '寝かせて記録',
     ayuda: '左：つぎへ · 中：けってい · 右：とじる',
   },
 
@@ -297,7 +297,6 @@ export default {
     titulo: 'あなたのミチ',
     mimar: 'なでる',
     escena: '場面を変える',
-    dormir: '寝かしつける',
     comoVa: '調子はどう',
     acabado: '質感',
     liso: 'なめらか',

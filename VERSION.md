@@ -7,30 +7,35 @@
 
 ## La estándar, hoy
 
-**v0.7.0** — 14 de septiembre de 2026.
+**v0.7.1** — 14 de septiembre de 2026.
 
 | Dónde | Qué vale |
 |---|---|
-| Etiqueta de Git | `v0.7.0` |
-| `package.json` | `"version": "0.7.0"` |
+| Etiqueta de Git | `v0.7.1` |
+| `package.json` | `"version": "0.7.1"` |
 | Caché del service worker | `michifit-v7` |
+| Dentro de la app | Ajustes, última línea |
 | En vivo | https://michifit.vercel.app |
 | Repositorio | https://github.com/TheAicreativecontent/MichiFit |
 
-Los cuatro números van **juntos a propósito**. Si algún día no coinciden,
+Todos esos sitios dicen lo mismo **a propósito**. Si algún día no coinciden,
 el que manda es la etiqueta de Git: lo demás se pone al día con ella.
 
-## Qué es la v0.7.0
+## Qué es la v0.7.x
 
 La app entera y funcionando: motor de cálculo, cinco objetivos, PWA
 instalable que se abre sin cobertura, cinco idiomas, el aparato con sus
-tres botones y el anillo de ocho iconos, la historia de Ninja con sus
+tres botones y el anillo de siete iconos, la historia de Ninja con sus
 fotos de verdad, e importador del CSV de la MichiFit antigua.
 
 Es la primera versión que se numera. Hasta hoy el proyecto vivía en
 `0.0.0` y la única forma de saber qué tenías delante era mirar el último
 commit — lo cual funciona en el portátil donde está el repositorio y no
 funciona en el móvil.
+
+Y desde la `0.7.1` **el número se ve dentro de la app**, al final de
+Ajustes. Ahí es donde de verdad hace falta: es la única forma de saber,
+con el móvil en la mano, si lo que tienes delante es lo último.
 
 ## Trabajar desde otro sitio
 
@@ -80,6 +85,9 @@ Al cerrar una tanda de trabajo que merezca marcarse:
 
 ## Historial
 
+- **v0.7.1** (2026-09-14) — Dormir y apuntar el sueño pasan a ser UN
+  solo botón del anillo, con la luna; cancelar el editor deja al michi
+  dormido igual. Y la versión se ve en Ajustes. Caché `michifit-v7`.
 - **v0.7.0** (2026-09-14) — Primera versión numerada. Base estándar de
   trabajo. Caché `michifit-v7`.
 - Antes de esto, el historial vive en `SESSION_MAP.md`, día a día desde

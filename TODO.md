@@ -10,22 +10,6 @@
       no se retira. PromptPay admite también un e-Wallet ID, que no es tu
       teléfono.
 
-- [ ] **Los iconos de «dormir» y «sueño», repensados juntos.** Idea de
-      Alberto (2026-09-12), y no hay prisa: puede que acaben siendo el
-      MISMO icono, o que se diferencien con una siesta.
-      Hoy son dos: tres z para ponerlo a dormir y una luna para apuntar
-      las horas. Se dibujaron por separado y con la regla de que dos
-      lunas seguidas en el mismo anillo no se distinguen, pero la duda
-      de fondo es otra y es buena: si son dos acciones distintas de
-      verdad para quien usa la app, o si las estamos separando solo
-      porque por dentro son cosas distintas —una es un cuidado y la otra
-      un dato—. Eso es razón del código, no del usuario.
-      Si se unifican, hay que decidir qué pasa al aceptar: abrir el
-      editor, dormirlo, o las dos cosas. Los textos ya están separados en
-      las cinco lenguas («Ponerlo a dormir» / «Apuntar sueño»), así que
-      la vuelta atrás es barata.
-      Encaja con la conversación de simplificar, no antes.
-
 - [ ] **Más fotos de Ninja** (Alberto). Las dos que hay funcionan; esto
       es ampliar, no arreglar. Con menos casa en el encuadre: el
       repositorio es público y se ven enteras. Se dejan en
@@ -101,6 +85,13 @@
 
 
 ## Hecho
+- [x] 2026-09-14 — **Dormir y apuntar el sueño son un solo botón**, y se
+      quedó la luna. Cancelar el editor deja al michi dormido igual, así
+      que el mismo gesto sirve para apagarlo por la noche y para apuntar
+      las horas. El dibujo de las tres z se retira al historial de git.
+      Ver `DECISIONS.md`.
+- [x] 2026-09-14 — **La versión se ve en Ajustes**, tomada de
+      `package.json` al compilar, así que no se puede quedar vieja.
 - [x] 2026-09-13 — **Los pies de las fotos de Ninja, traducidos.**
       Estaban escritos en castellano dentro de `datos/ninja.js` y salían
       igual en las cinco lenguas. Ahora la lista lleva una CLAVE y el

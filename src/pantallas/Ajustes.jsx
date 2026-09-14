@@ -167,6 +167,18 @@ export default function Ajustes({ perfil, entradas, pacto, onCambiar, onReinicia
       <p className="mf-pie">
         {t('ajustes.pie')}
       </p>
+
+      {/* La VERSIÓN, y es lo último de la pantalla a propósito: no es
+          algo que nadie venga a buscar, pero cuando hace falta hace
+          mucha falta. Alberto abre la app desde tres sitios —este
+          portátil, otro y el móvil— y hasta hoy no había forma de
+          saber, mirando el móvil, si lo que tenías delante era lo
+          último que subiste o una copia guardada de hace tres días.
+
+          El número entra al compilar desde `package.json` (ver
+          `vite.config.js`), así que no se puede quedar desfasado.
+          Sin traducir: `v0.7.0` se lee igual en las cinco lenguas. */}
+      <p className="mf-version">v{__VERSION__}</p>
     </div>
   );
 }

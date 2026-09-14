@@ -58,9 +58,19 @@ export const ESPERA_MS = 8000;
    (`MECANICA.md` 8b). Ponerlos detrás de cuatro pulsaciones los
    escondía.
 
-   `dormir` cierra la vuelta. Estaba en el botón derecho hasta hoy, y al
-   pasar ése a cerrar se quedó sin sitio; aquí dentro es un cuidado más,
-   que es lo que siempre fue.
+   `sueno` cierra la vuelta, y **es un icono solo desde el 2026-09-14**.
+   Hasta entonces eran dos: `dormir` (tres z, ponerlo a dormir) y
+   `sueno` (una luna, apuntar las horas). Eran dos porque por dentro son
+   cosas distintas —una es un cuidado y la otra un dato—, y esa es razón
+   del código, no de quien usa la app. Para el usuario es UN gesto: «se
+   va a dormir». Ahora el gesto es uno y hace las dos cosas — duerme al
+   michi Y abre el editor — con el detalle de que si CANCELAS el editor
+   el michi se queda dormido igual. Ver `DECISIONS.md`.
+
+   Se quedó la LUNA. Las tres z ya están dibujadas encima del michi
+   dormido, así que como icono repetían lo que la pantalla iba a
+   enseñar; la luna dice «noche» y deja que la respuesta la dé el gato.
+   Y a 12 px una silueta maciza se lee y tres trazos finos no.
 
    NADA de `cuidado: true` toca la mecánica — ni experiencia, ni nivel,
    ni cumplimiento del pacto. Eso lo vigila `pruebas/cuidados.mjs`, y el
@@ -75,11 +85,12 @@ export const ANILLO = [
   { id: 'mimar',   clave: 'anillo.mimar',   cuidado: true },
   { id: 'agua',    clave: 'anillo.agua',    cuidado: true },
   { id: 'limpiar', clave: 'anillo.limpiar', cuidado: true },
-  { id: 'dormir',  clave: 'aparato.dormir', cuidado: true },
   { id: 'pasos',   clave: 'anillo.pasos',   escena: 'pasear',   campo: 'pasos' },
   { id: 'entreno', clave: 'anillo.entreno', escena: 'entrenar', campo: 'entreno' },
   { id: 'comida',  clave: 'anillo.comida',  escena: 'comer',    campo: 'comida' },
-  { id: 'sueno',   clave: 'anillo.sueno',   escena: 'dormir',   campo: 'sueno' },
+  /* El único que duerme al michi Y abre el editor. `duerme: true` es lo
+     que lo separa de los otros tres datos, y lo mira `Inicio.jsx`. */
+  { id: 'sueno',   clave: 'anillo.sueno',   escena: 'dormir',   campo: 'sueno', duerme: true },
 ];
 
 /* La ruta del icono sale del id: los PNG se llaman igual. Un icono

@@ -181,36 +181,6 @@ ICONOS = {
         "....####....",
         "............",
     ],
-    # MACIZA. La primera version era una equis hecha de contorno hueco:
-    # ampliada se entendia, y a 12 px era una mancha con agujeros.
-    # DORMIR: apagar la pantalla y que se eche a dormir. NO es lo mismo
-    # que "sueno", que es apuntar las horas que dormiste — ese es la
-    # luna. Idea de Alberto: tres Z de tamano creciente.
-    #
-    # Van en DIAGONAL y no en fila. En fila, tres Z de 3, 4 y 5 px de
-    # ancho suman 12 sin un solo hueco entre ellas y se leen como una
-    # reja. En diagonal se usa la caja entera, y ademas es como se ha
-    # dibujado siempre el sueno en una vineta: subiendo.
-    #
-    # Solidas en tinta, sin relleno de color, que es la excepcion a la
-    # regla del contorno: a 3 px de ancho no cabe contorno MAS relleno,
-    # y una letra oscura sobre el fondo claro del anillo ya tiene todo
-    # el contraste que necesita. Lo que la hace legible es la forma de
-    # la letra, no el color.
-    "dormir": [
-        ".......#####",
-        "..........#.",
-        ".........#..",
-        "........#...",
-        ".......#####",
-        "...####.....",
-        ".....#......",
-        "....#.......",
-        "...####.....",
-        "###.........",
-        ".#..........",
-        "###.........",
-    ],
 }
 
 
