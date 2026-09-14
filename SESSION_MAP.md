@@ -982,3 +982,50 @@ Dos cosas de acabado, y una es urgente:
 hash, contenido distinto. Las fotos de Ninja del mismo dia no la pedian
 porque eran archivos nuevos. Los dos casos, seguidos y con su motivo,
 son la mejor explicacion de esa regla que hay escrita en el proyecto.
+
+## 2026-09-14
+- Contexto: Alberto pide el estado de la app leyendolo de Vercel, y al
+  cruzarlo con el disco sale una diferencia: produccion servia
+  `michifit-v6` y aqui ponia `v5`.
+- Que se hizo:
+
+**Lo del v5/v6, aclarado.** No era un despliegue fantasma ni se habia
+perdido nada: esta copia del repositorio estaba **cuatro commits atras**.
+Se clono el 12, el 13 se trabajo desde otro sitio, y aqui no se hizo
+`git pull`. Los cuatro commits (`ab22c8b`, `97ecc56`, `a8485ad`,
+`08869fb`) estaban en GitHub y en produccion desde el dia 13.
+
+La leccion no es «haz pull» —eso ya se sabe—, es que **desde fuera no se
+distingue** una copia local atrasada de un despliegue hecho a mano sin
+commitear. Las dos se ven igual: produccion adelantada respecto al disco.
+Lo que lo desempato fue leer el comentario del `sw.js` desplegado, que
+contaba por que subia a v6. Los comentarios honestos en el codigo
+sirvieron de bitacora.
+
+**La v0.7.0, base estandar.** El proyecto llevaba desde el 7 de
+septiembre en `"version": "0.0.0"`. En el portatil daba igual —el ultimo
+commit lo dice todo— pero Alberto trabaja tambien desde el movil y desde
+otro portatil, y ahi no hay forma de saber que tienes delante. Ahora hay
+un numero, y esta en cuatro sitios que dicen lo mismo: la etiqueta de Git
+`v0.7.0`, `package.json`, la cache `michifit-v7` y `VERSION.md`.
+
+`VERSION.md` es el documento nuevo, y no es un changelog: es por donde se
+empieza cuando te sientas desde otro sitio y no sabes por donde ibas.
+Lleva los comandos de clonar, de arrancar, y el `git pull` de antes de
+nada — con lo de este mismo dia escrito al lado como la razon de que este
+ahi.
+
+La cache sube a v7 **sin que haya cambiado ninguna imagen**, que es la
+excepcion a la regla del proyecto. El motivo, escrito en el propio
+`sw.js` para que no parezca costumbre: obliga a los dispositivos que ya
+tienen la app instalada a tirar la cache vieja y arrancar todos en la
+misma base, en lugar de ir cada uno con un resto distinto de v5 o v6.
+Cuesta una descarga de 125 KB, una sola vez.
+
+Del codigo no se toco **nada**: los seis tests pasan y el build sale con
+el mismo hash (`index-SMTa-lIt.js`) que ya estaba en produccion.
+
+- Que quedo pendiente: la sesion de trabajo de hoy, que empieza a partir
+  de aqui. Y la propuesta de enseniar la version DENTRO de la app, en
+  Ajustes — se dejo sin hacer porque toca interfaz y los cinco idiomas, y
+  eso se decide, no se cuela en una tanda de mantenimiento.

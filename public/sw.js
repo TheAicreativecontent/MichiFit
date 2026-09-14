@@ -27,6 +27,16 @@
    se quedó en v2. Quien hubiera abierto la app en medio se quedaba con
    los gatos rotos para siempre.
    `node pruebas/cache-sw.mjs` avisa si vuelve a pasar. */
+/* v7 (2026-09-14): esta NO va por una imagen. Es la base estandar
+   `v0.7.0`, la version con la que Alberto trabaja desde tres sitios —este
+   portatil, el otro y el movil—. Subirla obliga a los dispositivos que ya
+   tienen la app instalada a tirar la cache vieja y arrancar limpios en la
+   misma base, en vez de ir cada uno con un resto distinto de v5 o v6.
+   Cuesta una descarga de 125 KB una sola vez.
+   Regla normal: se sube al cambiar una imagen SIN hash. Esta es la
+   excepcion, y queda escrita para que no parezca que se subio por
+   costumbre. Ver `VERSION.md`. */
+
 /* v6 (2026-09-13): Alberto dibujo `pasos` de nuevo —una patita con los
    deditos separados del cojin, que a 12 px se entiende y la de antes
    no—. Mismo nombre de archivo y sin hash, asi que sin subir esto quien
@@ -41,7 +51,7 @@
    esto quien ya tuviera la app seguiria viendo los de antes.
 
    v4 fue por lo mismo: `limpiar` paso de cubo a escoba. */
-const CACHE = 'michifit-v6';
+const CACHE = 'michifit-v7';
 
 /* Lo mínimo para arrancar sin red. El resto se va guardando solo según
    se usa: la app es pequeña y se cachea entera en la primera visita. */

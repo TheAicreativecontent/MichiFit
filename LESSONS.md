@@ -367,3 +367,37 @@ por el primer `: ` y trabajar con la derecha. Es feo y no falla. Y
 despues de cualquier cambio masivo en los diccionarios, comparar la
 lista de claves de los cinco: si una lengua tiene una clave distinta, es
 que algo se ha renombrado sin querer.
+
+## Una copia atrasada y un despliegue a mano se ven igual desde fuera
+
+El 2026-09-14 produccion servia `michifit-v6` y el disco ponia `v5`. La
+lectura inmediata fue la alarmante: alguien habia desplegado a mano algo
+que no estaba commiteado, o sea trabajo que solo existia en Vercel y que
+se podia perder.
+
+Era lo contrario, y lo tranquilo: **esta copia del repositorio estaba
+cuatro commits atras**. Se clono el 12, el 13 se trabajo desde otro sitio,
+y aqui nadie hizo `git pull`. Todo estaba a salvo en GitHub.
+
+Las dos situaciones producen exactamente el mismo sintoma —produccion por
+delante del disco— y ninguna se distingue de la otra mirando solo lo
+local. Lo que las separa es **una sola orden**, y va antes que cualquier
+diagnostico:
+
+```
+git fetch --all && git log --all --oneline
+```
+
+Si aparecen commits que no tenias, era una copia atrasada. Si no aparece
+nada y produccion sigue por delante, entonces si: hay un despliegue sin
+commitear y hay prisa.
+
+Lo que ademas ayudo a entenderlo fue leer el `sw.js` **desplegado**: su
+comentario contaba por que subia a v6 y de que dia era. Los comentarios
+que explican el motivo, y no el mecanismo, funcionaron de bitacora desde
+dentro de produccion.
+
+**Regla:** ante cualquier desajuste entre lo desplegado y el disco, lo
+primero es `git fetch`, antes de sacar conclusiones. Y al empezar sesion
+en un proyecto que se toca desde varios sitios, `git pull` de entrada —
+por eso esta ahora en `VERSION.md` y en el punto 0 de `CLAUDE.md`.

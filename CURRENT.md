@@ -76,6 +76,14 @@ pantallas y el motor entero.
   veían igual en japonés; lo cazó Alberto—, y **`pasos` es una patita
   nueva**, dibujada por él, a salvo en `pixel/iconos-a-mano/`. Caché a
   v6.
+- Última acción (2026-09-14): **la app tiene versión**. Es la
+  **v0.7.0**, y es la base estándar de trabajo — el proyecto llevaba
+  desde el principio en `0.0.0` y no había forma de saber desde el móvil
+  qué versión tenías delante. Cuatro sitios dicen lo mismo ahora:
+  la etiqueta de Git `v0.7.0`, `package.json`, la caché `michifit-v7` y
+  `VERSION.md`, que es el documento nuevo por el que se empieza al
+  sentarse desde otro dispositivo. Nada del código cambió: los seis
+  tests pasan y el build sale idéntico al que ya estaba en producción.
 - Próximo paso: **más fotos de Ninja**, y con menos casa en el
   encuadre — el repositorio es público. Las dos que hay valen; es
   ampliar la galería, no arreglarla.
@@ -86,9 +94,10 @@ pantallas y el motor entero.
   recortes, sino un mapa de lo que la app le pide al usuario que
   entienda: cuántos conceptos hay, cuáles se explican solos en la propia
   pantalla y cuáles hay que deducir.
-- Después: las fotos del Ninja real (`src/datos/ninja.js`) y las 21
-  viñetas del cómic (`ESCENAS` en `pantallas/Lore.jsx`). El sitio está
-  hecho en los tres casos, es cambiar rutas.
+- Después: las 21 viñetas del cómic (`ESCENAS` en `pantallas/Lore.jsx`).
+  El sitio está hecho, es cambiar rutas. (Esta línea decía hasta el
+  2026-09-14 que faltaban también las fotos de Ninja; entraron el 13 y
+  se quedó sin actualizar.)
 - Bloqueadores: **Magnific está conectado pero el plan no da acceso por
   MCP** («requires a premium account»). Desde la web funciona; desde
   aquí, no. Para los iconos dio igual — ver abajo.
@@ -106,6 +115,8 @@ pantallas y el motor entero.
 - Build de producción OK, sin errores de consola.
 
 ## Despliegue
+- **Versión estándar: `v0.7.0`.** Qué es y cómo retomarla desde el móvil
+  o el otro portátil, en `VERSION.md`.
 - Repo: https://github.com/TheAicreativecontent/MichiFit
 - Vercel enlazado con la CLI (`vercel link --project michifit`). El enlace
   desde el MCP fallaba: el proyecto no era visible con el ámbito del token.
