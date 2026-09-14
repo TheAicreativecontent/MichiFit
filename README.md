@@ -49,6 +49,7 @@ funciones. Por dónde entrar:
 | `SESSION_MAP.md` | Diario de sesiones, día a día |
 | `TODO.md` · `ROADMAP.md` | Lo que falta |
 | `LESSONS.md` · `DECISIONS.md` | Errores ya cometidos y decisiones cerradas |
+| `SIMPLICIDAD.md` | Qué le pide la app al usuario que entienda |
 | `ARCHITECTURE.md` · `SETUP.md` · `GLOSSARY.md` | Referencia |
 
 ## Stack
