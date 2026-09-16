@@ -100,6 +100,11 @@ pantallas y el motor entero.
   que Alberto quiere de verdad: **que el anillo se vea siempre en la
   parte de abajo, dentro de la pantalla**. Y el «?» es el primer punto
   de `SIMPLICIDAD.md`, el mapa de conceptos de esta misma sesión.
+- Última acción (2026-09-16): **tercera foto de Ninja**, recortada para
+  que solo se le vea a él. Y el vídeo del envenenamiento, que estaba
+  suelto en `public/ninja/`, fuera del repositorio: a
+  `../_ARCHIVO/ninja-material-crudo/`. Estaba a un `git add -A` de
+  publicarse.
 - Próximo paso: **más fotos de Ninja**, y con menos casa en el
   encuadre — el repositorio es público. Las dos que hay valen; es
   ampliar la galería, no arreglarla.

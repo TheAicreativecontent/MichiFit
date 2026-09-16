@@ -64,6 +64,7 @@
 export const NINJA = [
   { archivo: 'Ninja_at_home_01.jpeg', clave: 'lore.fotos.enCasa' },
   { archivo: 'Ninja_at_home_02.jpeg', clave: 'lore.fotos.durmiendo' },
+  { archivo: 'Ninja_at_home_03.jpeg', clave: 'lore.fotos.aGusto' },
 ];
 
 const VIDEO = /\.(mp4|webm|mov)$/i;

@@ -264,6 +264,7 @@ export default {
     fotos: {
       enCasa: 'At home',
       durmiendo: 'Asleep, as usual',
+      aGusto: 'Comfy',
     },
     actos: [
       { t: 'The alley',

@@ -258,6 +258,7 @@ export default {
     fotos: {
       enCasa: '在家',
       durmiendo: '又在睡觉',
+      aGusto: '心满意足',
     },
     actos: [
       { t: '小巷',

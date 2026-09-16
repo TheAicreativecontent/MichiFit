@@ -270,6 +270,7 @@ export default {
     fotos: {
       enCasa: 'En casa',
       durmiendo: 'Durmiendo, que es lo suyo',
+      aGusto: 'A gusto',
     },
     actos: [
       { t: 'El callejón',

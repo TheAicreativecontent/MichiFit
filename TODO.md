@@ -92,6 +92,10 @@
 
 
 ## Hecho
+- [x] 2026-09-16 — **Tercera foto de Ninja**, recortada a él solo, con su
+      pie en las cinco lenguas. Y el vídeo del envenenamiento sacado de
+      `public/` —la carpeta que se publica— a `../_ARCHIVO/`: el
+      descarte ya no depende de que nadie se equivoque.
 - [x] 2026-09-14 — **El aparato se amplía** con un botón, y el «?» de
       Inicio. Ver `DECISIONS.md` y `SIMPLICIDAD.md`.
 - [x] 2026-09-14 — **Dormir y apuntar el sueño son un solo botón**, y se

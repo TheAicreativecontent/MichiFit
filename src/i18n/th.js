@@ -259,6 +259,7 @@ export default {
     fotos: {
       enCasa: 'ที่บ้าน',
       durmiendo: 'นอนอีกแล้ว ตามเคย',
+      aGusto: 'สบายใจ',
     },
     actos: [
       { t: 'ตรอกเล็ก',

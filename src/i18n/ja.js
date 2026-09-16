@@ -259,6 +259,7 @@ export default {
     fotos: {
       enCasa: 'おうちで',
       durmiendo: 'いつもの昼寝',
+      aGusto: 'ごきげん',
     },
     actos: [
       { t: '路地',
