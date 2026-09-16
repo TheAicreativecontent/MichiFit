@@ -94,8 +94,12 @@
      define su propio transform y borraría el translateX.
      Al 60% el michi deja respirar el escenario: el sprite ya trae margen
      transparente, así que el gato visible queda bastante más pequeño. */
-  position: absolute; bottom: 3%; left: 0; right: 0; margin: 0 auto;
-  height: 60%; width: auto;
+  /* Mas grande y mas alto desde el 2026-09-16, a ojo de Albert: con la
+     banda de iconos abajo la zona se acorto y el gato se quedo
+     pequeño. Del 60% al 72%, y separado 10% del suelo en vez del 3%,
+     que lo despega de la banda y le deja ver los pies. */
+  position: absolute; bottom: 10%; left: 0; right: 0; margin: 0 auto;
+  height: 72%; width: auto;
   /* Sin suavizado: es pixel art, tiene que verse duro */
   image-rendering: pixelated;
   animation: mf-tama-respira 2.4s steps(2, end) infinite;
