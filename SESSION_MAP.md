@@ -1333,3 +1333,20 @@ Que la banda y la escena miden LO MISMO abierta y cerrada (41 y 178 px):
 la linea del nombre se pinta siempre, con un espacio duro en reposo,
 para que la escena no de un salto al abrir el menu. Es el fallo de los
 rotulos del 12, evitado a proposito esta vez.
+
+### Y la sombra de un pixel
+
+Los cuatro rotulos de las barras —BEBE, HAPPY, WATER, CLEAN— van sobre
+el escenario y sin fondo, y sobre la calle, que es el mas cargado, se
+leian justos. Pidio Albert la sombra de un pixel y se la puso.
+
+No es una sombra difuminada: es un CONTORNO de un pixel en las cuatro
+diagonales, sin desenfoque. Un `blur` sobre pixel art desentona
+inmediatamente.
+
+Y es la misma tecnica que ya usaba el rotulo de «que esta haciendo»
+—«EN CASA», «PASEANDO»— solo que al reves: aquel es crema con contorno
+oscuro porque cae en mitad de la escena; estos son oscuros con contorno
+claro porque caen arriba, donde casi siempre hay pared o cielo. Dos
+colores y un solo idioma, en vez de dos maneras distintas de resolver
+lo mismo.

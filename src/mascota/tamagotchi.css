@@ -209,6 +209,25 @@
   display: grid; grid-template-columns: 46px 1fr; align-items: center;
   gap: 5px; font-family: 'Press Start 2P', monospace;
 }
+/* Los cuatro rótulos van SOBRE el escenario, sin fondo, así que
+   necesitan despegarse de él: un contorno de un píxel en crema, en las
+   cuatro diagonales y sin difuminar —es pixel art, una sombra borrosa
+   desentonaría—.
+
+   Es la MISMA técnica que usa el rótulo de «qué está haciendo» un poco
+   más abajo, solo que al revés: aquel es crema con contorno oscuro
+   porque cae en mitad de la escena; estos son oscuros con contorno
+   claro porque caen sobre la parte de arriba, que suele ser pared o
+   cielo. Dos colores, un solo idioma.
+
+   Hizo falta el 2026-09-16, cuando las cuatro barras pasaron a medir lo
+   mismo: con más letra encima del escenario, sobre la calle —que es el
+   fondo más cargado— se leían justas. */
+.mf-tamapng-nivel .et,
+.mf-tamapng-nivel .xp {
+  text-shadow: 1px 1px 0 #FFF6EC, -1px 1px 0 #FFF6EC,
+               1px -1px 0 #FFF6EC, -1px -1px 0 #FFF6EC;
+}
 .mf-tamapng-nivel .et { font-size: 6px; color: #3A2D24; white-space: nowrap;
                         text-transform: uppercase; }
 .mf-tamapng-nivel .xp { font-size: 5.5px; color: #3A2D24; white-space: nowrap; }
