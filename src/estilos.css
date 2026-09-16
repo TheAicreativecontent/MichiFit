@@ -911,13 +911,19 @@ input[type=time]:focus { outline: none; border-color: var(--rosa); }
   image-rendering: pixelated;
 }
 
-/* El bocadillo: una banda que se funde con el dibujo por arriba en vez
-   de cortarlo con una linea recta. Asi tapa lo menos posible y el texto
-   siempre se lee, sea cual sea la viñeta que hay debajo. */
+/* El bocadillo: una banda que se funde con el dibujo en vez de cortarlo
+   con una linea recta, asi tapa lo menos posible y el texto se lee sobre
+   cualquier viñeta.
+
+   VA ARRIBA desde el 2026-09-16, y lo pidio Albert con la razon
+   correcta: casi toda la accion de estas viñetas pasa en la mitad de
+   ABAJO —el gato en el suelo, el bol, la basura, la carrera— asi que un
+   bocadillo abajo competia con el dibujo por la misma zona. Arriba casi
+   siempre hay cielo, pared o cables. */
 .mf-lore-bocadillo {
-  position: absolute; left: 0; right: 0; bottom: 0;
-  padding: 34px 14px 12px;
-  background: linear-gradient(to top,
+  position: absolute; left: 0; right: 0; top: 0;
+  padding: 12px 14px 34px;
+  background: linear-gradient(to bottom,
               rgba(26, 20, 24, .94) 0%,
               rgba(26, 20, 24, .86) 55%,
               rgba(26, 20, 24, 0) 100%);

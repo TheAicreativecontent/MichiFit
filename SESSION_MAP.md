@@ -1480,3 +1480,30 @@ alto, que es lo que se queria.
 Y `calle.png` se queda sin usar: era el fondo de pasear —que se fue al
 parque— y el de la historia —que ahora es el comic—. Anotado donde toca
 en vez de borrarlo.
+
+### Albert lee el comic, y lo mejora
+
+Lo leyo montado y lo devolvio con tres cambios, los tres buenos:
+
+· EL TEXTO ARRIBA. Casi toda la accion de estas viñetas pasa en la
+  mitad de abajo —el gato, el bol, la basura, la carrera— y la banda de
+  abajo competia con el dibujo por la misma zona. Arriba hay cielo,
+  pared o cables. Es el tipo de cosa que no se ve hasta tener las doce
+  seguidas delante.
+
+· CATORCE VIÑETAS, y dos de ellas SIN TEXTO: la del veterinario y la de
+  Ninja recuperado. Son de accion y se explican solas. Se resolvio con
+  el texto vacio en el diccionario y no con una lista de numeros aparte,
+  para que ponerles o quitarles texto sea editar el idioma y nada mas.
+
+· LOS TEXTOS, suyos, con nombre: la enfermera es ANNA. Pidio que los
+  mejorara si veia donde, y se tocaron poco y con un criterio —acortar
+  lo que el dibujo ya cuenta—. El unico cambio de fondo se le dejo
+  anotado para que lo decida: en la 10 habia escrito «convulsionando»,
+  y la regla del comic es que del envenenamiento no se enseña nada
+  explicito, tampoco con palabras.
+
+Y un susto de medida que merece nota: a media comprobacion la viñeta
+dio 6x6 px. Era el panel del navegador OCULTO —la ventana media 0x0—, no
+un fallo. Se repitio a 375x812 y las catorce miden 347x642. Antes de
+creerse una medida rara, mirar el tamaño de la ventana.

@@ -41,12 +41,13 @@ import { COLORES, COLORES_MICHI, APARATO_POR_DEFECTO } from '../mascota/Tamagotc
    mismo: si alguna vez no coinciden, manda el texto —`total` sale de
    ahi— y aqui faltaria un dibujo. */
 const VINETAS = [
-  '/comic/01-callejon.jpg', '/comic/02-enfermera.jpg',
-  '/comic/03-sombra.jpg',   '/comic/04-huida.jpg',
-  '/comic/05-hambre.jpg',   '/comic/06-amanece.jpg',
-  '/comic/07-bol.jpg',      '/comic/08-come.jpg',
-  '/comic/09-veneno.jpg',   '/comic/10-lluvia.jpg',
-  '/comic/11-despierta.jpg', '/comic/12-familia.jpg',
+  '/comic/01-callejon.jpg',    '/comic/02-anna.jpg',
+  '/comic/03-peligro.jpg',     '/comic/04-huida.jpg',
+  '/comic/05-hambre.jpg',      '/comic/06-amanece.jpg',
+  '/comic/07-trampa.jpg',      '/comic/08-atracon.jpg',
+  '/comic/09-noche.jpg',       '/comic/10-carrera.jpg',
+  '/comic/11-veterinario.jpg', '/comic/12-recuperacion.jpg',
+  '/comic/13-recuperado.jpg',  '/comic/14-casa.jpg',
 ];
 
 
@@ -134,10 +135,20 @@ export default function Lore({ onCerrar, onAdoptar, aparato, onAparato }) {
            ilustraciones son verticales 9:16 y asi se perdian. */
         <figure className="mf-lore-vineta comic">
           <img src={VINETAS[Math.min(i, VINETAS.length - 1)]} alt="" />
-          <figcaption className="mf-lore-bocadillo">
-            <h3><span className="num">{i + 1}</span> {acto?.t}</h3>
-            <p>{acto?.d}</p>
-          </figcaption>
+          {/* DOS viñetas van SIN banda: la del veterinario y la de Ninja
+              ya recuperado en casa. Son de accion y se explican solas
+              —lo dijo Albert— y ponerles texto seria repetir con
+              palabras lo que el dibujo ya cuenta.
+
+              Se detecta por el TEXTO vacio y no por una lista de
+              numeros aparte: asi quitar o poner texto a una viñeta es
+              editar el diccionario y nada mas. */}
+          {acto?.t ? (
+            <figcaption className="mf-lore-bocadillo">
+              <h3><span className="num">{i + 1}</span> {acto.t}</h3>
+              <p>{acto.d}</p>
+            </figcaption>
+          ) : null}
         </figure>
       ) : enElColor ? (
         /* El gato elegido, en su casa y a tamaño grande. Se ve lo que

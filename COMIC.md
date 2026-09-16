@@ -53,39 +53,46 @@ with one warm lamp glow`.
 Ninja **es muy pequeño y flaco al principio** y va llenándose a partir de
 la viñeta 6. En la 10 ya es un gato sano.
 
-## Los 22 planos
+## Lo que hay en la app: 14 viñetas
 
-`Archivo` es lo que hay generado en `IMG/Comic/` (fuera de git: pesa).
-**En la app** marca los once que se usan.
+Albert leyó el cómic montado y lo reordenó el 2026-09-16: la enfermera
+se llama **Anna**, entran el veterinario y Ninja ya recuperado, y el
+saludo a distancia **no hace falta** — «funciona tal cual».
 
-| # | Qué pasa | Por qué está | Archivo | En la app |
-|---|---|---|---|---|
-| 1 | Ninja rebusca en la basura | Fija al personaje. Se genera primero y es la referencia de las otras veinte | `Act_01` | **1** |
-| 2 | La enfermera deja comida | Ella entra por lo que hace, no por lo que dice | `Act_01_v01` | **2** |
-| 3 | El saludo a distancia | La más importante del acto: la 22 la responde | — | |
-| 4 | Ninja come solo | La soledad se cuenta con el encuadre: mucho vacío alrededor | `Act_01b` | |
-| 5 | La sombra con la escoba | Del agresor **solo se ve la sombra**. El susto lo pone la cara de Ninja, no la violencia | `Act_02` | **3** |
-| 6 | Escapa por los pelos | El escobazo golpea el suelo, no al gato | `Act_02b_v2` | **4** |
-| 7 | A salvo en su escondite | El respiro. Vuelve el calor a la paleta | `Act_03_v03` | |
-| 8 | Le suenan las tripas | El hambre es lo que le lleva a la trampa. Sin esto, la 10 no se entiende | `Act_03b_v03` | **5** |
-| 9 | Se duerme con hambre | Cierra el acto en calma. **Primera de las tres veces que duerme** | — | |
-| 10 | Amanece en Bangkok | El respiro más bonito, justo antes de lo peor. El contraste es deliberado | `Act_04_v02` | |
-| 11 | Un bol demasiado bonito | El lector ve que está demasiado limpio; Ninja no. Ahí está toda la tensión | `Act_04a_v02` | **6** |
-| 12 | Come de la trampa · página completa | Él está feliz y eso es lo que duele | `Act_05_v01` | **7** |
-| 13 | Vuelve feliz, con la barriga llena | El único momento en que Ninja está gordito y contento | — | |
-| 14 | Se duerme satisfecho | Eco de la 9 al revés. **Segunda vez que duerme** | `Act_06_v01` | |
-| 15 | Envenenado · página completa | Cenital, lluvia y un solo foco. Sin sangre: el dolor se cuenta con la luz | `Act_07_v03` | **8** |
-| 16 | Ella lo encuentra | Su cara pasa del reconocimiento al horror | `Act_08_v02` | |
-| 17 | Corriendo bajo la lluvia | Vertical puro: ella ocupa el alto y la ciudad se emborrona | `Act_08a_v03` | **9** |
-| 18 | Llama al veterinario | Un solo rectángulo de luz cálida en toda la noche | — | |
-| 19 | El veterinario lo coge | El tema son las manos: alguien más se hace cargo | `Act_09_v01` | |
-| 20 | En la camilla | Se ve pequeñísimo entre los aparatos. Eso mide la gravedad sin decirla | `Act_09a_v03` | |
-| 21 | Dormido, aún no recuperado | **Tercera vez que duerme.** Las tres se parecen a propósito | `Act_09b_v03` | |
-| 22 | Abre los ojos y ella sigue ahí | El clímax. De «casi se muere» a «familia feliz» faltaba el momento en que se salva | `Act_09c_v02` | **10** |
-| 23 | La familia · página completa | Responde a la 3: allí se saludaban de lejos, aquí ya no hay distancia | `Act_11` | **11** |
+| # | Título | Archivo en `IMG/Comic/` | En `public/comic/` |
+|---|---|---|---|
+| 1 | Las calles de Bangkok | `Act_01` | `01-callejon.jpg` |
+| 2 | Anna, la enfermera | `Act_01_v01` | `02-anna.jpg` |
+| 3 | El peligro | `Act_02` | `03-peligro.jpg` |
+| 4 | ¡Escapó por los pelos! | `Act_02b_v2` | `04-huida.jpg` |
+| 5 | Las noches con hambre | `Act_03b_v03` | `05-hambre.jpg` |
+| 6 | El amanecer | `Act_04_v02` | `06-amanece.jpg` |
+| 7 | La trampa | `Act_04a_v02` | `07-trampa.jpg` |
+| 8 | El atracón | `Act_05_v01` | `08-atracon.jpg` |
+| 9 | La noche | `Act_07_v03` | `09-noche.jpg` |
+| 10 | La carrera al veterinario | `Act_08a_v03` | `10-carrera.jpg` |
+| 11 | *(sin texto)* el veterinario | `Act_09_v02` | `11-veterinario.jpg` |
+| 12 | La recuperación | `Act_09c_v02` | `12-recuperacion.jpg` |
+| 13 | *(sin texto)* recuperado | `Act_10_v01` | `13-recuperado.jpg` |
+| 14 | En casa | `Act_11` | `14-casa.jpg` |
 
-Sin usar: `Act_10_v01` (Ninja en el salón con sus juguetes), que es una
-alternativa al cierre.
+Después vienen dos pantallas que no son viñetas: **«Esta es la historia
+de Ninja»** (las fotos de verdad) y, solo al adoptarlo, la de elegir el
+color.
+
+**La 11 y la 13 van sin texto a propósito**: son de acción y se explican
+solas. En el diccionario tienen título y texto vacíos, y la pantalla no
+pinta la banda. Ponerles texto es rellenar el diccionario y nada más.
+
+**El texto va ARRIBA**, no abajo: casi toda la acción de estas viñetas
+pasa en la mitad inferior —el gato, el bol, la basura, la carrera— y un
+bocadillo abajo competía con el dibujo por la misma zona.
+
+**Un cambio de tono sobre el texto de Albert**, que hay que decidir: en
+la 10 él escribió que Anna lo encontró «convulsionando». Se cambió por
+«tirado en el suelo», porque la regla de este cómic es que del
+envenenamiento **no se enseña nada explícito** —ni en la imagen ni en la
+palabra—. Si prefiere la original, es una línea.
 
 ## Los dos recursos que sostienen el tono
 
