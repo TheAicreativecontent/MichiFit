@@ -1,7 +1,34 @@
 # TODO.md — Backlog
 
 ## Ahora
-- [ ] **El QR de PromptPay** (Alberto). El bloque está hecho y apagado.
+- [ ] **El QR de PromptPay** (lo genera la chica de Albert). El bloque
+      está hecho y apagado.
+
+      **Investigado el 2026-09-16, y la respuesta corta es que NO existe
+      un QR de PromptPay privado.** Cualquiera que lo vea puede
+      decodificarlo y sacar el identificador: no hay cifrado, el QR *es*
+      ese número en un formato que lee cualquier app. Así que la
+      pregunta no es si se puede ocultar, sino **qué identificador
+      estamos dispuestos a hacer público**:
+      1. **Un e-Wallet ID abierto para esto** (TrueMoney o similar): 15
+         dígitos que no son ni su teléfono ni su documento, y si el
+         monedero se abre solo para donaciones, ese número no está
+         ligado a nada más. **Es la salida recomendada.**
+      2. Su teléfono: funciona, pero es publicar su móvil en un
+         repositorio público e indexable.
+      3. El DNI tailandés: no.
+
+      Dos avisos: el NOMBRE del titular suele enseñarlo la app del banco
+      al escanear —lo pone el banco, no el QR, y no se controla desde
+      aquí; si preocupa, hay que preguntárselo al banco ANTES de generar
+      nada—. Y ya existe Lightning en esa pantalla, que es seudónimo por
+      diseño: tener los dos y dejar elegir es probablemente mejor
+      respuesta que elegir uno.
+
+      **Antes de subirlo: pasárselo a Claude para decodificarlo.** Se
+      puede leer qué número lleva dentro antes de que sea público, que
+      es cuando todavía se puede cambiar de idea.
+
       Sácalo de tu app del banco, déjalo en
       `public/karma/promptpay_qr.png`, pon `ACTIVO = true` en
       `src/datos/promptpay.js` y sube `const CACHE` en `public/sw.js`.
@@ -30,6 +57,15 @@
       que dice `DECISIONS.md`: si los iconos se redibujan a una rejilla
       mayor, porque a 1,25 los de 12 px pasan a 15 y dejan de caer en
       una reducción exacta desde los 96 del archivo.
+
+      **Albert concretó el 2026-09-16 cómo lo ve**: el anillo abajo, y
+      subir el fondo y el michi para hacerle sitio — **las barras de
+      arriba (nivel, HAPPY, WATER, CLEAN) NO se mueven**.
+      Y eso, además de composición, ataca el hallazgo 2 de
+      `SIMPLICIDAD.md`: si el cuidado se queda quieto arriba y lo que
+      haces baja al anillo, el aparato empieza a decir CON EL SITIO lo
+      que hoy no dice con nada. Separar los dos sistemas sin quitar
+      nada, que es justo lo que pedía ese hallazgo.
 
 - [ ] **Rematar el acabado de `pasos`** (opcional, es de pulir). El
       dibujo de Alberto es una imagen suave: 707 colores, 2.746 píxeles

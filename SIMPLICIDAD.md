@@ -89,7 +89,14 @@ No están en ninguna pantalla. Te enteras cuando te pasa.
 - **El sentido de la comida** (que mantenerse es una banda con dos lados,
   y perder es un techo). Es de lo mejor pensado del motor y es
   completamente invisible.
-- **De noche HAPPY, WATER y CLEAN se congelan.**
+- **De noche HAPPY, WATER y CLEAN se congelan.** Y el rótulo HAPPY
+  pasa a poner `ZZZ`, con la barra azulada
+  (`TamagotchiPNG.jsx`: `denoche ? 'ZZZ' : 'HAPPY'`).
+  **El 2026-09-16 Albert lo vio y lo dio por un FALLO.** Él escribió esa
+  regla, y aun así en pantalla le pareció que algo se había roto. No
+  hay nada que arreglar en el código: es la mejor prueba que tiene este
+  documento de que este cubo —«solo se aprenden por sorpresa»— es real
+  y no una exageración.
 - **El techo del déficit del 20%** y el suelo de kcal.
 - **El nivel no baja por fallar un día**, solo por una semana entera.
 - **El suelo del nivel 2**: nunca se vuelve a bebé.

@@ -105,6 +105,12 @@ pantallas y el motor entero.
   suelto en `public/ninja/`, fuera del repositorio: a
   `../_ARCHIVO/ninja-material-crudo/`. Estaba a un `git add -A` de
   publicarse.
+- Última acción (2026-09-16, cierre): se investigo **la privacidad del
+  QR de PromptPay** (no existe uno privado: se elige que identificador
+  se hace publico, y se recomienda un e-Wallet ID), se dejo escrito que
+  el **`ZZZ` de la barra HAPPY no es un fallo** sino una regla propia
+  que ni su autor reconocio, y **Albert concreto como quiere el anillo
+  siempre visible**. Nada de eso se ha implementado: queda escrito.
 - Próximo paso: **más fotos de Ninja**, y con menos casa en el
   encuadre — el repositorio es público. Las dos que hay valen; es
   ampliar la galería, no arreglarla.

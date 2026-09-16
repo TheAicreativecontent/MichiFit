@@ -1145,3 +1145,109 @@ de mentir el mismo dia que la app cambia.
   decidir si los iconos se redibujan a una rejilla mayor: a 1,25 los de
   12 px pasan a 15 y dejan de ser una reduccion exacta desde los 96 del
   archivo.
+
+## 2026-09-16
+- Contexto: Albert vuelve al portatil de casa. Primero, una correccion
+  que va antes que el codigo: **se llama Albert, no Alberto**. Los
+  documentos viejos y el historial de git dicen Alberto en decenas de
+  sitios; eso es historia y no se reescribe sin que lo pida, pero lo
+  nuevo va como Albert.
+- Esta copia estaba 4 commits atras (los del 14). `git fetch` primero,
+  que es la leccion del 14, y esta vez funciono: aparecieron los cuatro
+  y quedo claro en un segundo que no habia nada perdido.
+
+### Al dia, y comprobado
+
+No basta con decir «ya he hecho pull». Lo que lo demuestra: el bundle
+compilado en local es `index-COgU9QUw.js` y el que sirve produccion es
+`index-COgU9QUw.js`. Mismo hash, o sea mismo codigo exacto. Version,
+etiqueta de git y version de cache tambien cuadran en v0.7.2 / v7.
+
+De paso, una precision que Albert pidio asi —«conectate a Vercel y
+descargate lo que necesites»— y conviene tener clara: **Vercel no guarda
+nada nuestro**. Solo publica lo que hay en GitHub. Ponerse al dia es
+siempre bajar de GitHub; si algun dia produccion tuviera algo que no
+esta en git, eso seria una emergencia, no una fuente.
+
+### El video, y una equivocacion mia
+
+Habia dos archivos en `public/ninja/` que llegaron por OneDrive —que
+sincroniza la carpeta— pero que nunca estuvieron en git.
+
+La foto entro. El video lo mire, saque seis fotogramas y lo describi
+como «Ninja panza arriba jugando en el suelo». **No lo era.** Es el dia
+que su chica lo encontro envenenado, y esos movimientos de patas son
+espasmos. Lo corrigio Albert.
+
+Es exactamente el video que no habia que confundir, y el error tiene
+una causa que merece la pena anotar: unos fotogramas sueltos, sin
+sonido y sin contexto, de un gato tumbado moviendo las patas, se
+parecen a un gato jugando. La conclusion no es mirar mas fotogramas: es
+que **el material sensible se pregunta, no se deduce**. Cuando un
+archivo puede ser una cosa o su contraria, lo barato es preguntar.
+
+Sacado de `public/` —la carpeta que se publica— a
+`../_ARCHIVO/ninja-material-crudo/`, con su LEEME. No se borra: es
+material suyo. Pero mientras estuviera ahi, un `git add -A` lo habria
+subido a un repositorio PUBLICO, y un commit no se retira.
+
+### La foto, y lo que cuesta un recorte
+
+Recortada a Ninja solo, como pidio. De 1080x1920 se queda en 360x580,
+porque el gato ocupa poca parte del encuadre: la galeria la enseña a 300
+px de alto, asi que en un movil 3x se ESTIRA x1,55, mientras que las
+otras dos se encogen (x0,47) y van sobradas. A ese tamaño apenas se
+nota, y se dice aqui para que no sorprenda: si algun dia quiere esa
+nitidez, la respuesta no es otro recorte, es una foto hecha mas cerca.
+
+El pie, en las cinco lenguas desde el primer momento. Ya no hay otra
+forma de ponerlo, que era el objetivo del arreglo del dia 13.
+
+### El zZZ que parecia un fallo
+
+Albert conto que un dia la barra HAPPY puso `zZZ` en vez de HAPPY. No es
+un fallo: de noche la barra se congela, el rotulo cambia y la barra se
+pone azulada, y la razon es buena —nadie tiene que levantarse a las tres
+a cuidar al gato—.
+
+Lo interesante es otra cosa. **El escribio esa regla, y aun asi al verla
+en pantalla penso que algo se habia roto.** `SIMPLICIDAD.md` clasificaba
+ese concepto entre los doce que «solo se aprenden por sorpresa», y ahora
+tiene su prueba: si al autor le sorprende, a un usuario tambien. Queda
+anotado ahi mismo, que es donde sirve.
+
+### PromptPay: no existe un QR privado
+
+Lo genera su chica, y pregunto si puede hacerse sin que salgan sus
+datos. La respuesta, investigada: no. Cualquiera que vea el QR lo
+decodifica —no hay cifrado, el QR ES ese numero— asi que lo unico que se
+elige es QUE identificador se hace publico. Recomendado: un e-Wallet ID
+abierto solo para esto, que no es su telefono ni su documento. Nunca el
+DNI tailandes.
+
+Dos avisos que van con ello: el NOMBRE del titular suele enseñarlo la
+app del banco al escanear —lo pone el banco, no el QR— y eso hay que
+preguntarselo al banco antes de generar nada; y Lightning, que ya esta
+en esa pantalla, es seudonimo por diseño, asi que tener los dos y dejar
+elegir es mejor respuesta que elegir uno.
+
+Ofrecido y anotado en `TODO.md`: **que lo pase antes de subirlo y se
+decodifica**, para saber que lleva dentro cuando todavia se puede
+cambiar de idea.
+
+### El anillo, concretado
+
+Albert dijo como lo ve: el anillo abajo, subir fondo y michi para
+hacerle sitio, y **las barras de arriba quietas**. No se ha tocado nada
+—es composicion y se decide viendola—, pero se anota porque su idea
+ataca sin querer el hallazgo 2 de `SIMPLICIDAD.md`: si el cuidado se
+queda arriba y lo que haces baja al anillo, el aparato empieza a decir
+CON EL SITIO lo que hoy no dice con nada.
+
+### Y el mapa de simplicidad, en bullets
+
+Lo pidio resumido y se le dio en la conversacion. No se copia aqui
+porque ya esta entero en `SIMPLICIDAD.md`; lo que si merece quedar es el
+titular, que es lo que contesta a la pregunta original: **el problema no
+son los 42 conceptos, sino que unos se dicen cuatro veces y otros no se
+dicen nunca.**

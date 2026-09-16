@@ -1,6 +1,11 @@
 # ASK.md — Preguntas pendientes (para Alberto)
 
 ## Decisiones pendientes
+- [ ] **Con que identificador se genera el QR de PromptPay.** Lo tiene
+      que crear la chica de Albert, y hay que decidirlo ANTES: el QR no
+      se puede hacer privado —cualquiera lo decodifica— asi que lo unico
+      que se elige es que numero se hace publico. Recomendado: un
+      e-Wallet ID abierto para esto. El detalle entero, en `TODO.md`.
 - [ ] **La camara para calcular calorias de una foto.** Se puede hacer,
       pero necesita una API de vision y se paga por uso. Es la misma
       decision que ya cerraste con la cuota de imagenes de Gemini, en
