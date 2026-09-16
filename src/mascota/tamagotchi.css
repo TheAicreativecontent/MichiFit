@@ -57,7 +57,9 @@
      34 px con el aparato a 300: caben los iconos de 12, su recuadro y
      el nombre de 7, y deja sitio de sobra al escenario. Si se cambia,
      se mueve todo lo demas solo. */
-  --anillo-alto: 34px;
+  /* 38 y no 34: los iconos pasaron de 12 a 16 px (2026-09-16) y la banda
+     crece lo mismo que ellos para no apretar el nombre. */
+  --anillo-alto: 38px;
   position: absolute;
   display: flex; flex-direction: column;
   overflow: hidden;
@@ -357,7 +359,12 @@
   opacity: .62; filter: saturate(.6);
 }
 .mf-tamapng-anillo .it img {
-  display: block; width: 12px; height: 12px;
+  /* 16 px desde el 2026-09-16, a peticion de Albert: a 12 se veian
+     pequeños. 16 es el siguiente tamaño que divide EXACTO los 96 px del
+     archivo (96/16 = 6), asi que el pixel sigue cayendo en rejilla y no
+     se emborrona. Y es justo la rejilla en la que estan dibujados a mano
+     `limpiar` y `comida`: esos dos se ven ahora a su tamaño de verdad. */
+  display: block; width: 16px; height: 16px;
   image-rendering: pixelated;
 }
 /* El seleccionado: recuadro y a todo color; el resto, apagado, para ver
@@ -407,6 +414,11 @@
   padding: 7px 8px; font-size: 9px; font-weight: 700; line-height: 1.4;
   color: #3A2D24; border-radius: 2px;
   animation: mf-dialogo .2s steps(2, end) both;
+}
+/* Dentro de la cabecera va en el flujo: debajo del rotulo y a dos
+   pixeles, que es lo que pidio Albert. */
+.mf-tamapng-cabecera .mf-tamapng-dialogo {
+  position: static; margin-top: 0;   /* el hueco lo pone el `gap` de 2 px */
 }
 @keyframes mf-dialogo { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; } }
 

@@ -257,7 +257,7 @@ export default {
     volverAVer: 'Ninja\'s story',
     verLore: 'Read his story',
     realTitulo: 'This is Ninja\'s story',
-    realTexto: 'He is not a character: he is real. He is very lively and loves chasing things. Thank you for reading his story — it is not over, and from here it goes on with you.',
+    realTexto: 'He is not a character: he is real. He is very lively and loves chasing things. Thank you for reading his story. But it is not over yet: from now on, his story goes on here with you.',
     colorTitulo: 'Now he is yours',
     colorTexto: 'Ninja is grey, but the one you look after is your choice. And the device, whatever colour you like. You can change both any time in Settings.',
     sinFotos: 'His photos will go here.',
@@ -341,7 +341,7 @@ export default {
     boton: '📅 Add to my calendar',
     nombre: 'MichiFit',
     entrenoTitulo: '🏋️ Training with your michi',
-    entrenoDesc: '{min} minutes. Today the michi asks you for {pasos} steps — fewer than usual, because training and walking a lot on the same day does not hold up.',
+    entrenoDesc: '{min} minutes. Today the michi asks you for {pasos} steps, fewer than usual, because training and walking a lot on the same day does not hold up.',
     apuntarTitulo: '🐾 Note down your day in MichiFit',
     apuntarDesc: 'Steps, food and weight. It takes a minute, and the michi notices.',
     nota: 'This downloads an .ics file. Open it and your phone will ask whether to add the events. If you change your goal, download it again.',
@@ -440,7 +440,7 @@ export default {
 
   inicio: {
     ayuda1: 'Your michi reflects your <b>consistency</b>, never your body. The three buttons are the controls: left opens the menu and moves to the next icon, middle accepts, right closes. Tap the glass and it tells you how you’re doing.',
-    ayuda2: 'The bars inside the screen —HAPPY, WATER and CLEAN— are your michi’s <b>care</b> and they <b>don’t score</b>: no experience, and they don’t count towards your goal. They’re there so it’s worth opening the app on a Tuesday with nothing to log.',
+    ayuda2: 'The bars inside the screen (HAPPY, WATER and CLEAN) are your michi’s <b>care</b> and they <b>don’t score</b>: no experience, and they don’t count towards your goal. They’re there so it’s worth opening the app on a Tuesday with nothing to log.',
     ayuda3: 'What does count is <b>below</b>: streak, steps, sleep, food and level. That comes from what you log, and it’s what really moves your michi.',
     hoy: 'Today',
     sueno: 'Sleep',

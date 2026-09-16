@@ -290,6 +290,16 @@ export default function TamagotchiPNG({
                 un `top` fijo, añadir las de agua y orden lo dejó tapando
                 a CLEAN, y eso solo se vio ampliando la pantalla. */}
             {rotulo && <div className="mf-tamapng-rotulo">{rotulo}</div>}
+
+            {/* El mensaje de tocar el cristal va AQUI, en el flujo y justo
+                detras del rotulo, y no colgado desde abajo. Colgado desde
+                abajo, al tener varias lineas crecia hacia ARRIBA y se
+                montaba encima de CLEAN y de «EN CASA». Lo vio Albert. En
+                el flujo cae siempre dos pixeles por debajo del rotulo,
+                haya las barras que haya. */}
+            {mensaje && !dormido && (
+              <div className="mf-tamapng-dialogo">{mensaje}</div>
+            )}
           </div>
         )}
 
@@ -383,7 +393,10 @@ export default function TamagotchiPNG({
 
           {dormido && <span className="mf-tamapng-zzz2" aria-hidden="true">z z z</span>}
 
-          {mensaje && !dormido && (
+          {/* Sin cabecera (falta el huevo o no hay nivel), el mensaje no
+              tiene rotulo detras del que ponerse y se queda donde
+              estaba. */}
+          {mensaje && !dormido && (sinHuevo || !nivel) && (
             <div className="mf-tamapng-dialogo">{mensaje}</div>
           )}
         </div>

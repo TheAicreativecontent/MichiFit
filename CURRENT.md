@@ -138,6 +138,10 @@ pantallas y el motor entero.
   —la 11 y la 13 ya tienen texto—, **el collage** de fotos sustituye al
   carrusel, que fallaba al deslizar, y **Ninja dando las gracias**
   sustituye al michi de oficina en Karma.
+- Última acción (2026-09-16, última tanda): fuera los guiones largos de
+  los textos de la app, la cocina desplazada para que el michi pise el
+  suelo, el mensaje de «es analógico» justo debajo de «EN CASA» y los
+  iconos del anillo a 16 px. Caché a v10.
 - Próximo paso: **más fotos de Ninja**, y con menos casa en el
   encuadre — el repositorio es público. Las dos que hay valen; es
   ampliar la galería, no arreglarla.

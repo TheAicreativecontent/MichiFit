@@ -1539,3 +1539,21 @@ Albert releyo las catorce y afino el copy. Lo que merece quedar:
 
 Las imagenes nuevas llevan nombre nuevo, asi que la cache no hace falta
 subirla.
+
+### Ultima tanda del dia
+
+- **Sin guiones largos** en los textos de la app. Albert pidio quitar el
+  de la ultima pantalla y dijo que no le gustan; habia tres mas y se
+  quitaron tambien, en las cinco lenguas. Guardado en memoria como
+  preferencia. Al hacerlo se piso la ayuda de otra pantalla y se
+  deshizo: ver `LESSONS.md`. De paso aparecio una errata en chino
+  («擑不住» por «撑不住»).
+- **La cocina, 230 px a la izquierda.** El michi se apoya en el centro
+  de abajo, y ahi estaba la isla: parecia comer encima de la mesa. Se
+  probaron 230, 300 y 370 simulando al michi a su tamaño real; con 230
+  pisa el suelo y la cocina se sigue leyendo. Cache a v10.
+- **El mensaje de «es analogico»**, en el flujo de la cabecera y a 2 px
+  de «EN CASA». Colgado desde abajo crecia hacia arriba y se comia CLEAN.
+- **Los iconos del anillo a 16 px**, que divide exacto los 96 del
+  archivo y es la rejilla en la que Albert dibujo `limpiar` y `comida`.
+  La banda pasa de 34 a 38 px. Los siete caben sin solaparse.

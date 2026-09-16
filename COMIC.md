@@ -96,11 +96,10 @@ el cambio de Ninja se cuenta con las mismas palabras dichas al revés.
 pasa en la mitad inferior —el gato, el bol, la basura, la carrera— y un
 bocadillo abajo competía con el dibujo por la misma zona.
 
-**Un cambio de tono sobre el texto de Albert**, que hay que decidir: en
-la 10 él escribió que Anna lo encontró «convulsionando». Se cambió por
-«tirado en el suelo», porque la regla de este cómic es que del
-envenenamiento **no se enseña nada explícito** —ni en la imagen ni en la
-palabra—. Si prefiere la original, es una línea.
+**Decidido: en la 10, «tirado en el suelo».** Albert había escrito
+«convulsionando» y se propuso cambiarlo, porque la regla de este cómic es
+que del envenenamiento no se enseña nada explícito, tampoco con palabras.
+Lo leyó y se quedó con «tirado en el suelo».
 
 ## Los dos recursos que sostienen el tono
 

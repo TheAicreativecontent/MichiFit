@@ -263,7 +263,7 @@ export default {
     volverAVer: 'La historia de Ninja',
     verLore: 'Ver su historia',
     realTitulo: 'Esta es la historia de Ninja',
-    realTexto: 'No es un personaje: existe de verdad. Es muy activo y le encanta perseguir cosas. Gracias por leer su historia — no ha terminado, y a partir de aquí sigue contigo.',
+    realTexto: 'No es un personaje: existe de verdad. Es muy activo y le encanta perseguir cosas. Gracias por leer su historia. Pero esto aún no ha terminado, a partir de ahora su historia sigue aquí contigo.',
     colorTitulo: 'Ahora es tuyo',
     colorTexto: 'Ninja es gris, pero el que vas a cuidar lo eliges tú. Y el aparato, del color que quieras. Se puede cambiar cuando quieras en Ajustes.',
     sinFotos: 'Aquí irán sus fotos.',
@@ -350,7 +350,7 @@ export default {
     boton: '📅 Añadir a mi calendario',
     nombre: 'MichiFit',
     entrenoTitulo: '🏋️ Entreno con tu michi',
-    entrenoDesc: '{min} minutos. Hoy el michi te pide {pasos} pasos— menos de lo normal, porque entrenar y andar mucho el mismo día no se sostiene.',
+    entrenoDesc: '{min} minutos. Hoy el michi te pide {pasos} pasos, menos de lo normal, porque entrenar y andar mucho el mismo día no se sostiene.',
     apuntarTitulo: '🐾 Apúnta tu día en MichiFit',
     apuntarDesc: 'Pasos, comida y peso. Es un minuto, y el michi lo nota.',
     nota: 'Se descarga un archivo .ics. Ábrelo y tu móvil te preguntará si quieres añadir los eventos. Si cambias el objetivo, vuelve a descargarlo.',
@@ -451,7 +451,7 @@ export default {
 
   inicio: {
     ayuda1: 'El michi refleja tu <b>constancia</b>, nunca tu cuerpo. Los tres botones son el mando: el izquierdo abre el menú y pasa de icono, el del medio acepta y el derecho cierra. Toca el cristal y te cuenta cómo vas.',
-    ayuda2: 'Las barras de dentro de la pantalla —HAPPY, WATER y CLEAN— son el <b>cuidado</b> del michi y <b>no puntúan</b>: no dan experiencia ni cuentan para tu objetivo. Están para que apetezca abrir la app un martes sin nada que apuntar.',
+    ayuda2: 'Las barras de dentro de la pantalla (HAPPY, WATER y CLEAN) son el <b>cuidado</b> del michi y <b>no puntúan</b>: no dan experiencia ni cuentan para tu objetivo. Están para que apetezca abrir la app un martes sin nada que apuntar.',
     ayuda3: 'Lo que sí cuenta está <b>debajo</b>: la racha, los pasos, el sueño, la comida y el nivel. Eso sale de lo que tú apuntas, y es lo que de verdad mueve al michi.',
     hoy: 'Hoy',
     sueno: 'Sueño',

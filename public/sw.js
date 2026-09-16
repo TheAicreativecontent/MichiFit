@@ -37,6 +37,9 @@
    excepcion, y queda escrita para que no parezca que se subio por
    costumbre. Ver `VERSION.md`. */
 
+/* v10 (2026-09-16, noche): `cocina.png` otra vez, desplazada 230 px a la
+   izquierda para que el michi pise el suelo y no la isla. */
+
 /* v9 (2026-09-16, mas tarde): `cocina.png` se rehizo. BG_Kitchen no era
    una cocina sino el piso entero, y la pantallita enseñaba el centro
    —el arco y la nevera—; ahora se recorta el tercio de la izquierda,
@@ -61,7 +64,7 @@
    esto quien ya tuviera la app seguiria viendo los de antes.
 
    v4 fue por lo mismo: `limpiar` paso de cubo a escoba. */
-const CACHE = 'michifit-v9';
+const CACHE = 'michifit-v10';
 
 /* Lo mínimo para arrancar sin red. El resto se va guardando solo según
    se usa: la app es pequeña y se cachea entera en la primera visita. */

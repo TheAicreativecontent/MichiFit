@@ -401,3 +401,32 @@ dentro de produccion.
 primero es `git fetch`, antes de sacar conclusiones. Y al empezar sesion
 en un proyecto que se toca desde varios sitios, `git pull` de entrada —
 por eso esta ahora en `VERSION.md` y en el punto 0 de `CLAUDE.md`.
+
+## Un reemplazo por NOMBRE DE CLAVE pisa la primera que encuentre
+
+El 2026-09-16, al quitar los guiones largos, se cambio `ayuda2` en los
+cinco diccionarios buscando la clave por su nombre. Pero `ayuda2` existe
+en SEIS pantallas —cada una tiene su ayuda— y el reemplazo piso la
+primera, que era la de otra pantalla, en los cinco idiomas.
+
+Se vio porque el propio script contaba los guiones que quedaban y seguia
+saliendo uno. Se deshizo con `git checkout` y se repitio buscando la
+clave Y un trozo de su texto.
+
+La regla: en `src/i18n/` las claves NO son unicas, porque van anidadas
+por pantalla. Para cambiar un texto concreto, se localiza por su
+contenido, y despues se mira `git diff --stat`: tiene que haber
+cambiado exactamente lo que se pretendia y nada mas.
+
+## Con el panel del navegador oculto, las animaciones no avanzan
+
+Tambien el 2026-09-16: el mensaje de «es analogico» media 8 px de hueco
+con «EN CASA» en vez de 2. Parecia un fallo de la animacion de entrada
+—se habia quedado a 4 px de su sitio— y se llego a «arreglar». No lo
+era: `document.visibilityState` era `hidden`, y en una pagina oculta el
+navegador no avanza las animaciones, asi que se quedan en el primer
+fotograma. Con la animacion quitada solo para medir, el hueco eran 2 px.
+
+Es la misma familia que la viñeta de 6x6 px del mismo dia: el panel
+oculto miente en las medidas. Antes de creerse un numero raro, mirar
+`innerWidth`, `innerHeight` y `document.visibilityState`.

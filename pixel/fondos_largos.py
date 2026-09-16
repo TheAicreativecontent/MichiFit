@@ -48,10 +48,17 @@ FONDOS = [
     # —el arco y la nevera— y se veia raro y diminuto. Lo dijo Albert:
     # «se ve escalado y mal».
     #
-    # 0..742 deja la cocina entera y da 742x672, casi cuadrado, que es
-    # la proporcion de la ventana (1,10): asi el escenario se ve a su
-    # tamano en vez de recortado a la fuerza.
-    ('BG_Kitchen.jpg', 'cocina.png', False, (0, 742)),
+    # 742 de ancho da 742x672, casi cuadrado, que es la proporcion de la
+    # ventana (1,10): asi el escenario se ve a su tamano.
+    #
+    # Empieza en 230 y no en 0, y la razon es DONDE PISA EL MICHI. El
+    # gato se apoya en el centro de abajo de la pantalla; con el recorte
+    # en 0 ese sitio era la ISLA de la cocina, asi que el michi parecia
+    # estar comiendo encima de la mesa. Lo vio Albert. Con 230 cae en el
+    # suelo de madera, entre la isla y su camita, y la campana, el horno
+    # y la nevera siguen detras. Se probaron 300 y 370: ahi ya manda el
+    # salon y deja de leerse como cocina.
+    ('BG_Kitchen.jpg', 'cocina.png', False, (230, 972)),
 
     # El gimnasio nuevo, para PROBARLO. El de siempre sigue en su sitio
     # y sigue siendo el que usa la app: este se elige desde el panel de
