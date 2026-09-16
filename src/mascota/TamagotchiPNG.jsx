@@ -33,7 +33,9 @@ const PANTALLA = { left: 25.30, top: 30.89, width: 49.55, height: 41.67 };
    había dos barras; con cuatro, una pose alta se habría metido debajo
    de ellas. El michi se apoya abajo, así que el borde de abajo es el
    que manda y se deja donde estaba. */
-const ZONA = { top: 30, height: 68 };
+/* La zona donde vive el michi. `height` se quitó el 2026-09-16: ahora
+   baja hasta la banda de iconos, que es la que manda (ver el render). */
+const ZONA = { top: 30 };
 
 const RUTA = '/michi';
 
@@ -152,7 +154,15 @@ export default function TamagotchiPNG({
   const [sinHuevo, setSinHuevo] = useState(false);
   const [intento, setIntento] = useState(0);
   /* Lo que dice cada botón depende de si hay anillo abierto. */
-  const rotulos = rotulosDeBotones(Boolean(menu));
+  /* `menu.abierto`, y NO `Boolean(menu)`. Hasta el 2026-09-16 valian lo
+     mismo porque el menu llegaba null estando cerrado; desde que la
+     banda de iconos vive SIEMPRE abajo, `menu` existe siempre y esa
+     comprobacion daba «abierto» a todas horas: los tres botones decian
+     «Siguiente / Aceptar / Cerrar» en reposo, cuando dos de ellos no
+     hacen nada. Un rotulo que miente es peor que no tenerlo
+     (`anillos.js`), y ademas el `disabled` sale de aqui: los botones
+     apagados se podian pulsar. */
+  const rotulos = rotulosDeBotones(Boolean(menu?.abierto));
 
   /* Cadena de respaldo, de lo más específico a lo más general:
        1. el michi en esta pose   (michi_durmiendo.png)
@@ -278,20 +288,40 @@ export default function TamagotchiPNG({
             pintan A SU TAMANO exacto: el archivo mide 96 y se ve a 12,
             que es una reduccion de 8 a 1 justa y no emborrona nada. */}
         {menu?.items?.length > 0 && (
-          <div className="mf-tamapng-anillo">
+          <div className={`mf-tamapng-anillo ${menu.abierto ? 'abierto' : 'reposo'}`}>
+            {/* EL NOMBRE VA PRIMERO, y por tanto arriba: los iconos se
+                quedan pegados al borde de abajo, que es donde estan los
+                mandos de un tamagotchi. Peticion de Albert del
+                2026-09-16, y se hace cambiando el ORDEN DEL DOM y no con
+                `order` de CSS: asi lo que lee un lector de pantalla es
+                lo mismo que se ve, en el mismo orden.
+
+                Se pinta SIEMPRE, aunque en reposo vaya vacío (un espacio
+                duro). Si se quitara del árbol, la banda encogería al
+                cerrar el menú y la escena daría un salto cada vez. Es el
+                mismo fallo que el de los rótulos de los botones del
+                2026-09-12, y por eso aquí se reserva el sitio en vez de
+                quitarlo. */}
+            <div className="nombre">
+              {menu.abierto ? menu.items[menu.indice]?.etiqueta : ' '}
+            </div>
             <div className="iconos">
               {menu.items.map((it, i) => (
-                <span key={it.id} className={`it ${i === menu.indice ? 'sel' : ''}`}>
+                <span key={it.id}
+                      className={`it ${menu.abierto && i === menu.indice ? 'sel' : ''}`}>
                   <img src={iconoDe(it.id)} alt="" />
                 </span>
               ))}
             </div>
-            <div className="nombre">{menu.items[menu.indice]?.etiqueta}</div>
           </div>
         )}
 
+        {/* La zona acaba donde empieza la banda de iconos, y por eso va
+            con `bottom` y no con `height`: la banda es la unica que sabe
+            lo que mide (`--anillo-alto`), asi que el michi se apoya
+            SOBRE ella sin que nadie tenga que repetir el numero. */}
         <div className="mf-tamapng-zona"
-             style={{ top: `${ZONA.top}%`, height: `${ZONA.height}%` }}>
+             style={{ top: `${ZONA.top}%`, bottom: 'var(--anillo-alto)' }}>
           {src && (
             <img className="mf-tamapng-michi" src={src} alt=""
                  onError={() => setIntento((i) => i + 1)} />

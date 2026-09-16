@@ -49,6 +49,15 @@
   image-rendering: pixelated;
 }
 .mf-tamapng-pantalla {
+  /* Lo que mide la banda de iconos de abajo. Vive AQUI, en el padre,
+     porque la usan tres: la propia banda, la escena (que acaba donde
+     empieza) y la zona del michi (que se apoya encima). Un solo numero
+     y nadie lo repite.
+
+     34 px con el aparato a 300: caben los iconos de 12, su recuadro y
+     el nombre de 7, y deja sitio de sobra al escenario. Si se cambia,
+     se mueve todo lo demas solo. */
+  --anillo-alto: 34px;
   position: absolute;
   display: flex; flex-direction: column;
   overflow: hidden;
@@ -69,7 +78,12 @@
    alta, así que se pierde un poco por los lados. Anclado abajo para que
    se vea el suelo, que es donde se apoya el michi. */
 .mf-tamapng-escena {
-  position: absolute; inset: 0; width: 100%; height: 100%;
+  /* Acaba donde empieza la banda de iconos: la escena ya NO ocupa la
+     pantalla entera. Antes el anillo se pintaba encima y tapaba al
+     michi; ahora tiene su propio sitio y el escenario se ve entero
+     dentro del suyo. */
+  position: absolute; top: 0; left: 0; right: 0; bottom: var(--anillo-alto);
+  width: 100%; height: auto;
   object-fit: cover; object-position: 50% 100%;
   image-rendering: pixelated; z-index: 0;
 }
@@ -186,7 +200,10 @@
 /* --- franja de nivel dentro de la pantalla --- */
 .mf-tamapng-cabecera {
   position: absolute; top: 0; left: 0; right: 0; z-index: 2;
-  display: flex; flex-direction: column; gap: 3px; padding: 4% 5% 0;
+  /* gap 2 y no 3: con las cuatro barras del mismo alto (2026-09-16) la
+     cabecera crecio, y cada pixel que se le quita es escenario que se
+     ve. */
+  display: flex; flex-direction: column; gap: 2px; padding: 3% 5% 0;
 }
 .mf-tamapng-nivel {
   display: grid; grid-template-columns: 46px 1fr; align-items: center;
@@ -207,15 +224,19 @@
 .mf-tamapng-nivel.feliz .barra i { background: #F0568C; }
 .mf-tamapng-nivel.feliz.denoche .barra i { background: #7C86C8; }
 
-/* Agua y orden: las dos que se rellenan con un botón. Van más bajas y
-   más finas que las de nivel y felicidad, porque son el anzuelo y no la
-   mecánica, y no deben pesar más que ellas de un vistazo. */
+/* Agua y orden: las dos que se rellenan con un botón.
+
+   Hasta el 2026-09-16 iban más finas (5 px contra 7) y con la letra más
+   pequeña, con la idea de que son el anzuelo y no la mecánica y no
+   debían pesar igual. Albert lo vio en pantalla y pidió las cuatro
+   IGUALES: cuatro barras en fila con dos tamaños distintos no se lee
+   como una jerarquía, se lee como un descuadre.
+
+   Lo que las distingue sigue siendo el COLOR —naranja y rosa puntúan,
+   azul y verde no— y eso no basta: es el hallazgo 2 de
+   `SIMPLICIDAD.md`, y sigue pendiente. */
 .mf-tamapng-nivel.agua .barra i  { background: #3E8BD8; }
 .mf-tamapng-nivel.orden .barra i { background: #7BAE5C; }
-.mf-tamapng-nivel.agua .barra,
-.mf-tamapng-nivel.orden .barra { height: 5px; }
-.mf-tamapng-nivel.agua .et,
-.mf-tamapng-nivel.orden .et { font-size: 5px; color: #5A4A3C; }
 
 /* El anillo de iconos: lo que sale al pulsar el botón izquierdo o el
    central. Va en mitad de la pantalla, sobre el michi, con un fondo
@@ -226,14 +247,29 @@
    fila: los iconos a la izquierda y el nombre a la derecha, para que
    ocupe la mitad de alto y quepa en el hueco libre. */
 .mf-tamapng-anillo {
-  position: absolute; left: 4%; right: 4%; top: 31%; z-index: 5;
-  padding: 3px 3px 2px;
-  background: rgba(255, 250, 240, .93);
-  border: 2px solid #3A2D24; border-radius: 4px;
+  /* ABAJO Y SIEMPRE, desde el 2026-09-16. Idea de Albert: en un
+     tamagotchi de verdad los iconos están serigrafiados en la carcasa y
+     se ven siempre; lo único que cambia es cuál está señalado. Antes
+     esto aparecía y desaparecía sobre el michi.
+
+     Ocupa el ancho entero y se apoya en el borde inferior: es una
+     BANDA, no una pastilla flotante. `--anillo-alto` es su medida y la
+     usan también la escena y la zona del michi para dejarle sitio, así
+     que el número vive aquí y en ningún otro lado. */
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 5;
+  height: var(--anillo-alto);
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 2px 3px;
+  background: rgba(255, 250, 240, .96);
+  border-top: 2px solid #3A2D24;
   text-align: center; pointer-events: none;
 }
 .mf-tamapng-anillo .iconos {
-  display: flex; align-items: center; justify-content: center; gap: 1px;
+  /* `space-around` y no `center`: la banda ocupa el ancho entero, asi
+     que los siete se reparten por ella en vez de apelotonarse en medio.
+     Es lo que hace que se lea como una fila de mandos y no como un
+     grupito flotando. */
+  display: flex; align-items: center; justify-content: space-around; gap: 0;
 }
 /* 12 px, que es la rejilla en la que estan dibujados: el archivo mide
    96 y se ve a 12, una reduccion de 8 a 1 exacta. Cualquier otro tamano
@@ -260,15 +296,19 @@
   opacity: 1; filter: none;
   outline: 2px solid #3A2D24; background: #FFE9B8;
 }
+/* En REPOSO no hay ninguno señalado, así que los siete van igual y un
+   poco menos apagados que los no elegidos de un menú abierto: aquí no
+   compiten con un seleccionado, solo tienen que verse. */
+.mf-tamapng-anillo.reposo .it { opacity: .78; filter: saturate(.75); }
 /* Aquí NO se usa Press Start 2P, y es a propósito: esa fuente solo trae
    alfabeto latino y «comida» en japonés saldría en cuadrados. Todo lo
    demás de la pantallita va transliterado para poder usarla, pero este
    rótulo es el que enseña qué hace cada icono — justo lo que la gente no
    entendía— así que manda que se lea, no que parezca una LCD. */
 .mf-tamapng-anillo .nombre {
-  /* 4 y no 2: con la pastilla del icono arriba, dos pixeles dejaban el
-     nombre pegado al recuadro. Hay margen de sobra por abajo. */
-  margin-top: 4px;
+  /* El margen va DEBAJO desde el 2026-09-16: el nombre pasó a ir arriba
+     y los iconos abajo, así que lo que hay que separar es al revés. */
+  margin-bottom: 3px;
   font-family: var(--fuente); font-weight: 800; font-size: 7px; line-height: 1;
   letter-spacing: .2px; color: #3A2D24; text-transform: uppercase;
   /* Una sola línea pase lo que pase: en tailandés «ทำความสะอาด» es
@@ -289,7 +329,9 @@
 
 /* --- diálogo del botón azul, dentro de la pantalla --- */
 .mf-tamapng-dialogo {
-  position: absolute; left: 6%; right: 6%; bottom: 6%; z-index: 4;
+  /* Sobre la banda de iconos, no encima de ella. */
+  position: absolute; left: 6%; right: 6%; z-index: 4;
+  bottom: calc(var(--anillo-alto) + 5px);
   background: rgba(255, 250, 240, .94); border: 2px solid #3A2D24;
   padding: 7px 8px; font-size: 9px; font-weight: 700; line-height: 1.4;
   color: #3A2D24; border-radius: 2px;

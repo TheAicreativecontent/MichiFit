@@ -22,7 +22,7 @@ import { estadoVisual } from '../engine/michi.js';
 import { hoyISO } from '../engine/pacto.js';
 import { sonidos, despertarAudio } from '../mascota/sonido.js';
 import { ESCENAS, porId, escenaAutomatica } from '../mascota/escenas.js';
-import { anilloDe, siguienteIndice, ESPERA_MS } from '../mascota/anillos.js';
+import { ANILLO, anilloDe, siguienteIndice, ESPERA_MS } from '../mascota/anillos.js';
 
 /* ---- PRUEBAS ----------------------------------------------------------
    Panel para ver todos los dibujos del michi sin tener que apuntar datos
@@ -334,10 +334,15 @@ export default function Inicio({ estado, entradas, pacto, onCarino, onCuidar, on
           felicidad={estado.felicidad}
           denoche={estado.felicidadDetalle?.denoche}
           cuidado={estado.cuidado}
-          menu={anillo ? {
+          /* El anillo va SIEMPRE, abierto o no: desde el 2026-09-16 es
+             una banda fija abajo, como los iconos serigrafiados de un
+             tamagotchi de verdad. `abierto` es lo que decide si hay uno
+             seleccionado o estan los siete en reposo. */
+          menu={{
+            abierto,
             indice,
-            items: anillo.map((it) => ({ ...it, etiqueta: t(it.clave) })),
-          } : null}
+            items: ANILLO.map((it) => ({ ...it, etiqueta: t(it.clave) })),
+          }}
           mensaje={gesto === 'estado' ? resumen(estado, pendientes, t) : null}
           onBoton={pulsar}
           onPantalla={tocarPantalla}

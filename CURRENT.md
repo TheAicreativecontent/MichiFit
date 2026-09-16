@@ -111,6 +111,11 @@ pantallas y el motor entero.
   el **`ZZZ` de la barra HAPPY no es un fallo** sino una regla propia
   que ni su autor reconocio, y **Albert concreto como quiere el anillo
   siempre visible**. Nada de eso se ha implementado: queda escrito.
+- Última acción (2026-09-16, tarde): **el anillo vive abajo y siempre**.
+  Es una banda fija en el borde inferior de la pantalla, con el nombre
+  arriba y los siete iconos abajo; la escena y el michi suben para
+  dejarle sitio y ya no los tapa nada. Las cuatro barras pasan a medir
+  lo mismo. Ver `SESSION_MAP.md`.
 - Próximo paso: **más fotos de Ninja**, y con menos casa en el
   encuadre — el repositorio es público. Las dos que hay valen; es
   ampliar la galería, no arreglarla.

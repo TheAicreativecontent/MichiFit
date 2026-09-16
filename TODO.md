@@ -51,22 +51,6 @@
       Con Vercel no hace falta: sirve desde la raíz del dominio.
 
 ## Después
-- [ ] **El anillo, SIEMPRE visible dentro de la pantalla**, abajo. Idea
-      de Albert (2026-09-14) y la razón por la que se hizo el zoom: con
-      el aparato ampliado hay sitio. Antes de hacerlo hay que decidir lo
-      que dice `DECISIONS.md`: si los iconos se redibujan a una rejilla
-      mayor, porque a 1,25 los de 12 px pasan a 15 y dejan de caer en
-      una reducción exacta desde los 96 del archivo.
-
-      **Albert concretó el 2026-09-16 cómo lo ve**: el anillo abajo, y
-      subir el fondo y el michi para hacerle sitio — **las barras de
-      arriba (nivel, HAPPY, WATER, CLEAN) NO se mueven**.
-      Y eso, además de composición, ataca el hallazgo 2 de
-      `SIMPLICIDAD.md`: si el cuidado se queda quieto arriba y lo que
-      haces baja al anillo, el aparato empieza a decir CON EL SITIO lo
-      que hoy no dice con nada. Separar los dos sistemas sin quitar
-      nada, que es justo lo que pedía ese hallazgo.
-
 - [ ] **Rematar el acabado de `pasos`** (opcional, es de pulir). El
       dibujo de Albert es una imagen suave: 707 colores, 2.746 píxeles
       con el borde a medias y negro puro, cuando los otros siete usan la
@@ -128,6 +112,14 @@
 
 
 ## Hecho
+- [x] 2026-09-16 — **El anillo, abajo y siempre visible.** Idea de
+      Albert, y de las que se ven en cuanto se prueban: la escena deja
+      de quedar tapada. `--anillo-alto` es su medida y de ahí beben la
+      escena y la zona del michi, así que subirla o bajarla es un solo
+      número. Nombre arriba, iconos abajo.
+- [x] 2026-09-16 — **Las cuatro barras, del mismo tamaño.** WATER y
+      CLEAN pasan de 5 px a 7. Lo que las distingue ahora es solo el
+      color: ver el hallazgo 2 de `SIMPLICIDAD.md`, que sigue abierto.
 - [x] 2026-09-16 — **Tercera foto de Ninja**, recortada a él solo, con su
       pie en las cinco lenguas. Y el vídeo del envenenamiento sacado de
       `public/` —la carpeta que se publica— a `../_ARCHIVO/`: el

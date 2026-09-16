@@ -1273,3 +1273,63 @@ Los mensajes de commit viejos siguen diciendo Alberto, y cambiarlos
 obligaria a reescribir la historia de un repositorio publico, que es
 mucho peor que la molestia que arregla. La historia es la historia; los
 documentos son los que se leen.
+
+### El anillo baja, y resulta que sobraba la mitad de la idea
+
+Albert lo pidio con un montaje hecho a mano: los iconos abajo, siempre
+visibles, y el fondo y el michi mas arriba. Era el item que llevaba dos
+dias en `TODO.md` como idea suya del 14.
+
+Es una BANDA, no la pastilla flotante de antes: ancho completo, apoyada
+en el borde inferior, con el nombre arriba y los siete iconos abajo del
+todo —ese orden lo pidio el, y se hace cambiando el ORDEN DEL DOM y no
+con `order` de CSS, para que un lector de pantalla lea lo mismo que se
+ve—. En reposo se ven los siete por igual, sin nadie señalado, como los
+iconos serigrafiados de un tamagotchi de verdad.
+
+`--anillo-alto` es su medida y vive en la pantalla, no en la banda: de
+ahi beben tambien la escena (que ACABA donde empieza la banda, en vez de
+ocupar la pantalla entera) y la zona del michi (que pasa a llevar
+`bottom` en vez de `height`, para que se apoye encima sin repetir el
+numero). Cambiar la altura de la banda mueve las tres cosas solo.
+
+Lo que gana la app no es sitio, es que **la vista previa ya se ve**:
+antes el anillo se pintaba encima del michi justo cuando la escena
+queria enseñartelo haciendo la cosa. Comprobado con «Pasos»: el gato
+anda por la calle y no lo tapa nada.
+
+### El fallo que destapo, que es el de siempre
+
+`rotulosDeBotones(Boolean(menu))` usaba «¿hay menu?» como sinonimo de
+«¿esta abierto?». Valia porque hasta hoy el menu llegaba `null` estando
+cerrado. Con la banda fija el menu existe SIEMPRE, asi que los tres
+botones decian «Siguiente / Aceptar / Cerrar» en reposo —cuando dos de
+ellos no hacen nada— y encima el `disabled` sale de ahi, o sea que se
+podian pulsar.
+
+Es el mismo patron que ya mordio con `estado` el 2026-09-12: **una
+variable que vale como proxy de otra hasta que deja de valer**. No se
+rompio nada al escribirla; se rompio al cambiar lo que la sostenia.
+
+### Las cuatro barras
+
+Albert vio que EN FORMA y HAPPY eran mas altas que WATER y CLEAN (7 px
+contra 5, y la letra 6 contra 5) y pidio las cuatro iguales. Hecho.
+
+La razon de que fueran distintas estaba escrita —son el anzuelo y no la
+mecanica, y no debian pesar igual de un vistazo— pero en pantalla no se
+leia como jerarquia, se leia como descuadre. Queda anotado en el CSS que
+lo unico que las distingue ahora es el COLOR, y que eso no basta: es el
+hallazgo 2 de `SIMPLICIDAD.md` y sigue abierto.
+
+Tiene su ironia: igualar las barras empuja en contra de ese hallazgo, y
+bajar el anillo empuja a favor —el cuidado se queda quieto arriba y lo
+que haces baja a la banda—. La misma sesion movio la aguja en los dos
+sentidos.
+
+### Comprobado antes de subir
+
+Que la banda y la escena miden LO MISMO abierta y cerrada (41 y 178 px):
+la linea del nombre se pinta siempre, con un espacio duro en reposo,
+para que la escena no de un salto al abrir el menu. Es el fallo de los
+rotulos del 12, evitado a proposito esta vez.
