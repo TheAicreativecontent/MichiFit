@@ -92,7 +92,22 @@ function rutaHuevo(aparato) {
 /* El escenario cambia con lo que has hecho hoy: si entrenaste sale el
    gimnasio, si andaste la calle, y si no, casa. Da un motivo más para
    mirar al michi cada día. */
-const ESCENARIOS = { gimnasio: '/fondos/gimnasio.png', calle: '/fondos/calle.png', casa: '/fondos/casa.png' };
+/* `parque` y `cocina` entran el 2026-09-16 con los fondos largos de
+   Albert. El parque mide 1817x544 —mas de tres veces el ancho de la
+   ventana— y CIERRA EN BUCLE: se recorto por dos columnas que ya
+   casaban solas, en vez de fundir los bordes, porque el fundido dejaba
+   un pilar fantasma. Ver `pixel/fondos_largos.py`. */
+const ESCENARIOS = {
+  gimnasio: '/fondos/gimnasio.png',
+  calle: '/fondos/calle.png',
+  casa: '/fondos/casa.png',
+  cocina: '/fondos/cocina.png',
+  parque: '/fondos/parque.png',
+};
+/* Los que se desplazan solos. Solo el parque, de momento: es el unico
+   dibujado para que el final empalme con el principio, y desplazar uno
+   que no cierra se ve como un salto cada vuelta. */
+const PANEA = new Set(['parque']);
 
 /* Los tres botones del aparato, medidos sobre el PNG escaneando la fila
    que los cruza. El area de toque es mayor que el dibujo: un dedo no
@@ -272,8 +287,21 @@ export default function TamagotchiPNG({
           </div>
         )}
 
-        <img className="mf-tamapng-escena"
-             src={ESCENARIOS[escenario] ?? ESCENARIOS.casa} alt="" />
+        {/* El escenario. Los que panean NO van como `img`: van de fondo
+            CSS repetido, que es lo unico que puede desplazarse sin fin
+            sin duplicar el elemento. El resto se quedan como imagen,
+            que es mas simple y es lo que ya habia. */}
+        {PANEA.has(escenario) ? (
+          <div className="mf-tamapng-escena panea"
+               style={{ backgroundImage: `url(${ESCENARIOS[escenario]})` }}>
+            {/* La imagen la hereda de su padre (`background-image:
+                inherit`): asi la ruta se escribe una sola vez. */}
+            <i />
+          </div>
+        ) : (
+          <img className="mf-tamapng-escena"
+               src={ESCENARIOS[escenario] ?? ESCENARIOS.casa} alt="" />
+        )}
 
         {/* El anillo de iconos, como en un tamagotchi. El seleccionado
             lleva recuadro y su nombre al lado: sin el nombre, un icono

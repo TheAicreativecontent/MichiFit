@@ -617,6 +617,32 @@ input[type=time]:focus { outline: none; border-color: var(--rosa); }
   background: #FFFDF6; color: #8A6A12; cursor: pointer;
 }
 .mf-pruebas .fila { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 5px; }
+
+/* El mosaico: todos los dibujos del michi a la vez. Una fila por color,
+   una columna por pose, y con scroll horizontal porque son once y en un
+   movil no caben — el scroll se queda DENTRO de esta caja, que la pagina
+   no debe moverse a lo ancho por nada. */
+.mf-pruebas .mosaico { margin-top: 6px; }
+.mf-pruebas .mosaico .linea {
+  display: flex; align-items: flex-end; gap: 4px;
+  overflow-x: auto; padding-bottom: 4px;
+}
+.mf-pruebas .mosaico .que {
+  flex: 0 0 auto; align-self: center; width: 46px;
+  font-size: calc(9px * var(--escala)); font-weight: 800; color: #8A6A12;
+}
+.mf-pruebas .mosaico figure {
+  flex: 0 0 auto; margin: 0; text-align: center;
+  background: #FFFDF6; border: 1px solid #E8D9A8; border-radius: 6px; padding: 2px;
+}
+.mf-pruebas .mosaico img {
+  display: block; width: 56px; height: 56px; object-fit: contain;
+  /* Es pixel art: sin suavizar, que es justo lo que se viene a mirar. */
+  image-rendering: pixelated;
+}
+.mf-pruebas .mosaico figcaption {
+  font-size: calc(7.5px * var(--escala)); color: #8A6A12; line-height: 1.2;
+}
 .mf-pruebas button {
   flex: 1 1 auto; padding: 6px 8px; font-size: calc(11px * var(--escala)); font-weight: 700;
   border: 1px solid #C9A227; border-radius: 7px;

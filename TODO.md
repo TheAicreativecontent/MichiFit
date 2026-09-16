@@ -1,6 +1,12 @@
 # TODO.md — Backlog
 
 ## Ahora
+- [ ] **El triste y el cansado desentonan** (Albert). Son los dos únicos
+      michis que quedan del dibujo anterior, y al lado de los nuevos se
+      nota: más oscuros, con menos detalle y otro trazo. El gris triste
+      es casi negro. O se redibujan en las tres hojas, o hay que
+      buscarles otra salida.
+
 - [ ] **El QR de PromptPay** (lo genera la chica de Albert). El bloque
       está hecho y apagado.
 
@@ -112,6 +118,14 @@
 
 
 ## Hecho
+- [x] 2026-09-16 — **Los michis nuevos.** 9 poses × 3 colores desde las
+      model sheets, con `pixel/recortar_model_sheets.py`. El fondo se
+      quita por relleno desde los bordes y no por umbral, que es lo
+      único que respeta la barriga del gato blanco.
+- [x] 2026-09-16 — **Fondos largos.** El parque (1817×544) se desplaza
+      solo y en bucle; comer pasa a la cocina. `pixel/fondos_largos.py`.
+- [x] 2026-09-16 — **El panel de pruebas enseña los 33 dibujos a la
+      vez**, y le faltaban `asqueado` y `sediento` desde siempre.
 - [x] 2026-09-16 — **El anillo, abajo y siempre visible.** Idea de
       Albert, y de las que se ven en cuanto se prueban: la escena deja
       de quedar tapada. `--anillo-alto` es su medida y de ahí beben la

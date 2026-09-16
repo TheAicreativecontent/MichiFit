@@ -88,6 +88,54 @@
   image-rendering: pixelated; z-index: 0;
 }
 
+/* --- el escenario que se desplaza solo ---
+   `aspect-ratio`, y no un ancho en pixeles, es lo que hace que el bucle
+   sea EXACTO. La caja mide dos veces el dibujo de ancho (3634/544 es
+   1817x2 partido por su alto), el fondo se pinta al 50% —o sea una
+   copia y otra— y se desplaza un -50%: justo un dibujo entero, sea cual
+   sea el tamano de la pantalla.
+
+   El primer intento animaba `background-position-x` hasta -1817px, que
+   son los pixeles del ARCHIVO. Pero el fondo se escala al alto de la
+   pantallita, asi que su ancho pintado es otro —y con el zoom, otro
+   distinto—: el paso no caia en un numero entero de vueltas y daba un
+   salto una vez por ciclo. Con `aspect-ratio` no hay numero que
+   cuadrar.
+
+   Y el dibujo tiene que CERRAR EN BUCLE, claro: `parque.png` se recorto
+   por dos columnas que ya casaban solas en vez de fundir los bordes,
+   porque fundirlos dejaba un pilar fantasma.
+
+   Es DECORATIVO a proposito —decision de Albert—: corre siempre igual y
+   no mide nada. Un fondo que corriera segun tus pasos seria otro dato
+   que entender, y de eso va sobrada la pantalla (`SIMPLICIDAD.md`).
+
+   90 segundos por vuelta: se nota que el michi avanza y no marea. Nada
+   de `steps()` aqui: el movimiento tiene que ser continuo, y el pixel
+   ya lo conserva `image-rendering`. */
+.mf-tamapng-escena.panea {
+  overflow: hidden;
+  background: none;
+}
+.mf-tamapng-escena.panea i {
+  position: absolute; left: 0; top: 0; bottom: 0;
+  height: 100%; aspect-ratio: 3634 / 544;
+  background-image: inherit;
+  background-repeat: repeat-x;
+  background-size: 50% 100%;
+  background-position: 0 100%;
+  image-rendering: pixelated;
+  animation: mf-tama-panea 90s linear infinite;
+}
+@keyframes mf-tama-panea {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+/* Quien prefiera no ver cosas moverse, no las ve. */
+@media (prefers-reduced-motion: reduce) {
+  .mf-tamapng-escena.panea i { animation: none; }
+}
+
 .mf-tamapng-zona { position: absolute; left: 0; right: 0; z-index: 1; }
 .mf-tamapng-michi {
   /* Centrado con márgenes, NO con transform: la animación de respiración

@@ -13,9 +13,13 @@
 
 export const ESCENAS = [
   { id: 'casa',     escenario: 'casa',     pose: null,          rotulo: 'EN CASA' },
-  { id: 'comer',    escenario: 'casa',     pose: 'comiendo',    rotulo: 'COMIENDO' },
+  { id: 'comer',    escenario: 'cocina',   pose: 'comiendo',    rotulo: 'COMIENDO' },
   { id: 'entrenar', escenario: 'gimnasio', pose: 'entrenando',  rotulo: 'ENTRENANDO' },
-  { id: 'pasear',   escenario: 'calle',    pose: 'andando',     rotulo: 'PASEANDO' },
+  /* Pasear se va al PARQUE (2026-09-16): es el unico fondo que cierra
+     en bucle, asi que es el unico que puede desplazarse sin fin — y
+     andar es justo la escena que pide movimiento. La calle se queda
+     dibujada y sin usar; es la de la historia de Ninja. */
+  { id: 'pasear',   escenario: 'parque',   pose: 'andando',     rotulo: 'PASEANDO' },
   { id: 'dormir',   escenario: 'casa',     pose: 'durmiendo',    rotulo: 'DURMIENDO',
     dormido: true },
 ];

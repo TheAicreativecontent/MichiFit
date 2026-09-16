@@ -47,7 +47,19 @@ const POSES = [
   { id: 'andando', et: 'anda' }, { id: 'contento', et: 'contento' },
   { id: 'triste', et: 'triste' }, { id: 'cansado', et: 'cansado' },
   { id: 'celebrando', et: 'celebra' },
+  /* Faltaban las dos desde siempre, y son justo las que mas cuesta
+     provocar con datos de verdad: `asqueado` pide la casa hecha un
+     desastre y `sediento` que lleves medio dia sin darle agua. O sea
+     que eran las dos que MAS falta hacia poder mirar aqui. */
+  { id: 'asqueado', et: 'asqueado' }, { id: 'sediento', et: 'sediento' },
 ];
+
+/* La ruta de un dibujo concreto. El componente tiene su propia cadena de
+   respaldo para cuando falta un archivo; aqui se quiere lo contrario —el
+   archivo EXACTO— porque lo que se viene a ver es si existe y como
+   quedo. Si falta, tiene que verse el hueco. */
+const rutaSprite = (pose, color) =>
+  `/michi/michi${pose ? '_' + pose : ''}${color === 'naranja' ? '' : '-' + color}.png`;
 
 /* ---- EL ZOOM DEL APARATO ----------------------------------------------
    El aparato mide 300 px de ancho, que en un móvil de 375 deja la
@@ -142,6 +154,11 @@ export default function Inicio({ estado, entradas, pacto, onCarino, onCuidar, on
      En `null` manda lo que has apuntado hoy, que es lo normal. */
   const [escenaId, setEscenaId] = useState(null);
   const [prueba, setPrueba] = useState(null);   // { pose, color } o null
+  /* El mosaico: todos los dibujos a la vez, en vez de uno detras de
+     otro. Pedido por Albert el 2026-09-16 para revisar los michis
+     nuevos de las model sheets. Mirar 33 dibujos de uno en uno no es
+     revisar, es acordarse. */
+  const [mosaico, setMosaico] = useState(false);
 
   /* ---- los tres botones ------------------------------------------
      La gramática entera está explicada en `mascota/anillos.js`. Aquí
@@ -392,6 +409,36 @@ export default function Inicio({ estado, entradas, pacto, onCarino, onCuidar, on
               </button>
             ))}
           </div>
+          <div className="fila">
+            <button className={mosaico ? 'on' : ''}
+                    onClick={() => setMosaico((v) => !v)}>
+              {mosaico ? 'ocultar todos' : 'ver todos'}
+            </button>
+          </div>
+
+          {/* TODOS LOS DIBUJOS, de golpe. Una columna por pose y una
+              fila por color, que es como se ve de un vistazo si alguno
+              desentona con los demas o si falta alguno.
+
+              Van con `img` a pelo y no montando aparatos: aqui se
+              revisa el DIBUJO, no como queda dentro de la pantallita.
+              Y a su tamano de archivo escalado con `pixelated`, para
+              que se vea el pixel como es. */}
+          {mosaico && (
+            <div className="mosaico">
+              {COLORES_MICHI.map((color) => (
+                <div className="linea" key={color}>
+                  <span className="que">{color}</span>
+                  {POSES.map((p) => (
+                    <figure key={`${color}-${p.et}`}>
+                      <img src={rutaSprite(p.id, color)} alt="" loading="lazy" />
+                      <figcaption>{p.et}</figcaption>
+                    </figure>
+                  ))}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       )}
 

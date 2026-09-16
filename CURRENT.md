@@ -116,6 +116,11 @@ pantallas y el motor entero.
   arriba y los siete iconos abajo; la escena y el michi suben para
   dejarle sitio y ya no los tapa nada. Las cuatro barras pasan a medir
   lo mismo. Ver `SESSION_MAP.md`.
+- Última acción (2026-09-16, noche): **los michis nuevos y los fondos
+  largos**. 27 sprites sacados de las model sheets de Albert, el parque
+  panorámico desplazándose en bucle mientras el michi anda, comer en la
+  cocina, y el panel de pruebas con un mosaico que enseña los 33
+  dibujos a la vez. Caché a v8.
 - Próximo paso: **más fotos de Ninja**, y con menos casa en el
   encuadre — el repositorio es público. Las dos que hay valen; es
   ampliar la galería, no arreglarla.

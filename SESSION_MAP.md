@@ -1350,3 +1350,81 @@ oscuro porque cae en mitad de la escena; estos son oscuros con contorno
 claro porque caen arriba, donde casi siempre hay pared o cielo. Dos
 colores y un solo idioma, en vez de dos maneras distintas de resolver
 lo mismo.
+
+### Los michis nuevos, los fondos largos y el parque que anda
+
+Albert dejo en `IMG/` tres model sheets —naranja, gris y blanco, diez
+michis cada una sobre fondo blanco— y cuatro fondos apaisados. IMG/ no
+esta en git a proposito: es material fuente y pesa. Lo que se versiona
+es lo que sale.
+
+Primero se le monto una HOJA DE CONTACTO NUMERADA, que era lo que habia
+pedido: los treinta michis recortados, una columna por pose y una fila
+por color, para poder decir «1 es neutro, 2 es andando» mirando una sola
+imagen. Y de paso enseño dos cosas que no se veian en las hojas
+sueltas: que estan alineadas al pixel (los recortes salen identicos en
+las tres) salvo la POSE 5, que en naranja es un gato agobiado y en gris
+y blanco es uno leyendo el periodico. Albert la descarto.
+
+El recorte automatico tuvo dos problemas de verdad:
+
+· DOS MICHIS PEGADOS. El vapor del que entrena roza las gotas del
+  sediento, asi que salian como un solo blob y detectaba 9 en vez de 10.
+  Se parten por la costura —la columna con menos tinta de la franja
+  central—, que es lo que ya hacia `recortar_poses.py`.
+
+· EL GATO BLANCO. `sin_blanco()` pone transparente todo pixel mas claro
+  que un umbral, y con el blanco eso no puede funcionar: su barriga esta
+  en (228, 226, 237) y el fondo en (255, 255, 255). Un umbral que se coma
+  el fondo le abre un agujero en la tripa. Se quita por RELLENO DESDE LOS
+  BORDES: solo desaparece el blanco que toca el borde de la hoja, y la
+  barriga se salva porque el contorno oscuro no deja pasar el relleno.
+
+Quedan `michi_triste` y `michi_cansado` del dibujo anterior, porque en
+las hojas no vienen. Y se NOTA: al lado de los nuevos son mas oscuros y
+tienen menos detalle —el gris triste es casi negro—. Anotado en `TODO.md`
+como lo siguiente, que es una decision suya.
+
+### El parque que no cerraba
+
+Los fondos viejos son cuadrados de 716 y no dan paneo. El parque nuevo
+mide 1952x544 y esta dibujado para desplazarse, pero no cerraba: 25 de
+255 de diferencia entre sus bordes.
+
+El primer intento fue FUNDIR el borde derecho contra el izquierdo, que es
+lo que suele hacerse. Salio mal y de forma muy visible: en la franja del
+fundido se transparentaban un pilar de ladrillo fantasma y dos farolas
+superpuestas. El fundido vale para texturas sin formas reconocibles; aqui
+hay objetos, y un objeto medio transparente canta mas que una costura.
+
+Lo que funciono fue no tocar un solo pixel y buscar DONDE cortar: el
+dibujo repite farolas y pilares, asi que hay dos columnas que ya casan
+solas. Probando pares baja de 25 a 5,7 sobre 255, y la union es
+invisible — el corte cae por la mitad de un pilar y el pilar se
+reconstruye entero al repetirse.
+
+### Y el paneo, que tambien fallaba a la primera
+
+La animacion iba sobre `background-position-x` hasta -1817px, que son los
+pixeles del ARCHIVO. Pero el fondo se escala al alto de la pantallita, y
+con el zoom otra vez: su ancho pintado no es 1817 nunca. El paso no caia
+en un numero entero de vueltas y daba un salto una vez por ciclo.
+
+Se resolvio con `aspect-ratio: 3634/544` —la caja mide exactamente dos
+dibujos— y `translateX(-50%)`, que es exactamente uno. Sin numeros que
+cuadrar y sea cual sea el tamaño de la pantalla.
+
+Es DECORATIVO por decision de Albert: corre siempre igual y no mide nada.
+Se penso en moverlo segun los pasos del dia, pero eso seria un dato mas
+que entender en la pantalla que ya tiene 29 de los 42.
+
+### El mosaico del panel de pruebas
+
+Tambien lo pidio: ver todas las variantes de golpe. El panel ya existia
+—siete toques en el logo— pero enseñaba las poses de una en una, y
+revisar 33 dibujos asi no es revisar, es acordarse.
+
+Ahora tiene un boton «ver todos» con una fila por color y una columna por
+pose. Y de paso se descubrio que a la lista le faltaban `asqueado` y
+`sediento` desde siempre: justo las dos que mas cuesta provocar con datos
+de verdad, o sea las dos que mas falta hacia poder mirar aqui.

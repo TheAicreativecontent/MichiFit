@@ -37,6 +37,11 @@
    excepcion, y queda escrita para que no parezca que se subio por
    costumbre. Ver `VERSION.md`. */
 
+/* v8 (2026-09-16): los 27 michis de las model sheets de Albert. Mismos
+   nombres de archivo y contenido distinto, que es el caso exacto que
+   esta regla vigila: sin subir esto, quien tenga la app abierta seguiria
+   viendo los dibujos viejos para siempre. */
+
 /* v6 (2026-09-13): Albert dibujo `pasos` de nuevo —una patita con los
    deditos separados del cojin, que a 12 px se entiende y la de antes
    no—. Mismo nombre de archivo y sin hash, asi que sin subir esto quien
@@ -51,7 +56,7 @@
    esto quien ya tuviera la app seguiria viendo los de antes.
 
    v4 fue por lo mismo: `limpiar` paso de cubo a escoba. */
-const CACHE = 'michifit-v7';
+const CACHE = 'michifit-v8';
 
 /* Lo mínimo para arrancar sin red. El resto se va guardando solo según
    se usa: la app es pequeña y se cachea entera en la primera visita. */
