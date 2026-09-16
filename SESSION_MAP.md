@@ -1507,3 +1507,35 @@ Y un susto de medida que merece nota: a media comprobacion la viñeta
 dio 6x6 px. Era el panel del navegador OCULTO —la ventana media 0x0—, no
 un fallo. Se repitio a 375x812 y las catorce miden 347x642. Antes de
 creerse una medida rara, mirar el tamaño de la ventana.
+
+### Segunda vuelta al comic, el collage y el gracias
+
+Albert releyo las catorce y afino el copy. Lo que merece quedar:
+
+· LA 11 Y LA 13 SI NECESITABAN TEXTO. Habian salido mudas por ser de
+  accion, y al leerlas seguidas se vio que no: la 11 es una viñeta
+  partida y sin texto no se sabia cuanto tiempo pasaba en el hospital;
+  la 13 es el cierre feliz y pedia decirse. Nadie lo habria visto sin
+  leer el comic entero de un tiron.
+
+· LA 13 CIERRA UN ARCO QUE ABRE LA 2. Albert pidio ayuda con ese copy
+  «para potenciar el cierre positivo». La 2 dice «Ninja nunca se
+  acercaba a ningun humano», asi que la 13 lo repite al reves: «aquel
+  gato que nunca se acercaba a ningun humano ahora se deja mimar». Se
+  eligio «mimar» y no «querer» porque la 14 ya dice «una familia que lo
+  quiere», y dos seguidas con la misma palabra se pisan.
+
+· EL CARRUSEL FALLABA AL DESLIZAR DE DERECHA A IZQUIERDA, y no por el
+  carrusel: la pantalla de la historia escucha el mismo gesto para pasar
+  de pagina, y al arrastrar una foto lo cogian los dos. Albert propuso
+  un collage —una sola imagen con las fotos colocadas sin taparle la
+  cara al gato— y lo hizo el. Mide 9:16, como las viñetas, asi que se
+  monta igual que ellas. No hay gesto que disputarse.
+
+· KARMA: Ninja con las patitas juntas y un bocadillo que dice «Khob Khun
+  Krup», gracias en tailandes, en lugar del michi con traje de oficina.
+  Es el gato de verdad, y es la pantalla donde toca dar las gracias.
+  `michi_love.png` se borra: ya no lo usa nadie.
+
+Las imagenes nuevas llevan nombre nuevo, asi que la cache no hace falta
+subirla.

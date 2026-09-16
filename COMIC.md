@@ -71,18 +71,26 @@ saludo a distancia **no hace falta** — «funciona tal cual».
 | 8 | El atracón | `Act_05_v01` | `08-atracon.jpg` |
 | 9 | La noche | `Act_07_v03` | `09-noche.jpg` |
 | 10 | La carrera al veterinario | `Act_08a_v03` | `10-carrera.jpg` |
-| 11 | *(sin texto)* el veterinario | `Act_09_v02` | `11-veterinario.jpg` |
+| 11 | El veterinario | `Act_09_v02` | `11-veterinario.jpg` |
 | 12 | La recuperación | `Act_09c_v02` | `12-recuperacion.jpg` |
-| 13 | *(sin texto)* recuperado | `Act_10_v01` | `13-recuperado.jpg` |
+| 13 | Ninja feliz | `Act_10_v01` | `13-recuperado.jpg` |
 | 14 | En casa | `Act_11` | `14-casa.jpg` |
 
 Después vienen dos pantallas que no son viñetas: **«Esta es la historia
-de Ninja»** (las fotos de verdad) y, solo al adoptarlo, la de elegir el
+de Ninja»**, con el collage de fotos de verdad que hizo Albert y, solo al adoptarlo, la de elegir el
 color.
 
-**La 11 y la 13 van sin texto a propósito**: son de acción y se explican
-solas. En el diccionario tienen título y texto vacíos, y la pantalla no
-pinta la banda. Ponerles texto es rellenar el diccionario y nada más.
+**La 11 y la 13 tuvieron texto al final.** Primero salieron mudas por
+ser de acción, y Albert vio al leerlas que sí lo necesitaban: la 11 es
+una viñeta partida y sin texto no se sabía cuánto tiempo pasaba; la 13
+es el cierre feliz y pedía que se dijera. Si alguna vez se quiere una
+viñeta muda, basta con dejar título y texto vacíos en el diccionario:
+la pantalla no pinta la banda.
+
+**La 13 cierra un arco que abre la 2.** En la 2, «Ninja nunca se
+acercaba a ningún humano»; en la 13, «aquel gato que nunca se acercaba
+a ningún humano ahora se deja mimar». La frase repetida es a propósito:
+el cambio de Ninja se cuenta con las mismas palabras dichas al revés.
 
 **El texto va ARRIBA**, no abajo: casi toda la acción de estas viñetas
 pasa en la mitad inferior —el gato, el bol, la basura, la carrera— y un

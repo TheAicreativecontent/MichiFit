@@ -134,6 +134,10 @@ pantallas y el motor entero.
   los textos de Albert pulidos —la enfermera se llama Anna—, el texto
   **arriba** porque la acción está abajo, y dos viñetas mudas que se
   explican solas. Queda por decidir una palabra: ver `COMIC.md`.
+- Última acción (2026-09-16, más tarde): **ajustes de copy del cómic**
+  —la 11 y la 13 ya tienen texto—, **el collage** de fotos sustituye al
+  carrusel, que fallaba al deslizar, y **Ninja dando las gracias**
+  sustituye al michi de oficina en Karma.
 - Próximo paso: **más fotos de Ninja**, y con menos casa en el
   encuadre — el repositorio es público. Las dos que hay valen; es
   ampliar la galería, no arreglarla.

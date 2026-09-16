@@ -116,7 +116,7 @@ export default function Karma() {
       )}
 
       <div className="mf-karma-michi">
-        <img src="/karma/michi_love.png" alt="" />
+        <img src="/karma/ninja_khob_khun_krup.jpg" alt="Khob khun krup" />
       </div>
     </div>
   );

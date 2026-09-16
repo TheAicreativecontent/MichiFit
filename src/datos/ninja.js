@@ -61,6 +61,20 @@
    `.mov` que saca el teléfono.
    ============================================================ */
 
+/* EL COLLAGE es lo que enseña la app desde el 2026-09-16: una sola
+   imagen, hecha por Albert, con las fotos colocadas sin taparle la cara
+   al gato. Mide 9:16, igual que las viñetas del cómic, así que en la
+   pantalla cae como una más.
+
+   Sustituye al CARRUSEL, que fallaba al deslizar de derecha a
+   izquierda — y no por el carrusel en sí: la pantalla de la historia
+   escucha el mismo gesto para pasar de página, y al arrastrar una foto
+   lo cogían los dos. Con una imagen quieta no hay gesto que disputarse.
+
+   La lista `NINJA` de abajo se queda como reserva de las fotos sueltas
+   (siguen en `public/ninja/`), pero ninguna pantalla la pinta ya. */
+export const COLLAGE = 'collage.jpg';
+
 export const NINJA = [
   { archivo: 'Ninja_at_home_01.jpeg', clave: 'lore.fotos.enCasa' },
   { archivo: 'Ninja_at_home_02.jpeg', clave: 'lore.fotos.durmiendo' },

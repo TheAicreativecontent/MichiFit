@@ -23,7 +23,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useT } from '../i18n/index.jsx';
-import { NINJA, esVideo, rutaNinja } from '../datos/ninja.js';
+import { COLLAGE, rutaNinja } from '../datos/ninja.js';
 import { COLORES, COLORES_MICHI, APARATO_POR_DEFECTO } from '../mascota/TamagotchiPNG.jsx';
 
 /* LAS DOCE VIÑETAS DEL COMIC, en orden.
@@ -161,34 +161,15 @@ export default function Lore({ onCerrar, onAdoptar, aparato, onAparato }) {
                alt="" />
         </div>
       ) : (
-        <div className="mf-lore-real">
-          {NINJA.length > 0 ? (
-            <div className="galeria">
-              {NINJA.map((m) => (
-                <figure key={m.archivo}>
-                  {esVideo(m.archivo)
-                    ? <video src={rutaNinja(m.archivo)} controls playsInline preload="metadata" />
-                    : <img src={rutaNinja(m.archivo)} alt={m.clave ? t(m.clave) : ''} loading="lazy" />}
-                  {m.clave && <figcaption>{t(m.clave)}</figcaption>}
-                </figure>
-              ))}
-            </div>
-          ) : (
-            /* Sin fotos todavía. Se enseña el michi contento en vez de
-               un hueco vacío: la pantalla tiene que funcionar igual el
-               día que Albert aún no haya subido nada. */
-            <div className="sinFotos">
-              <img src="/michi/michi_contento-gris.png" alt="" />
-              <small>{t('lore.sinFotos')}</small>
-            </div>
-          )}
-        </div>
+        <figure className="mf-lore-real">
+          <img src={rutaNinja(COLLAGE)} alt={t('lore.realTitulo')} />
+        </figure>
       )}
 
       {/* La caja de texto de abajo es SOLO para las dos pantallas
           finales. En los actos el texto va dentro de la viñeta. */}
       {!enUnActo && (
-      <div className="mf-lore-texto" ref={caja}>
+      <div className={`mf-lore-texto ${enElReal ? 'corto' : ''}`} ref={caja}>
         {enElColor ? (
           <>
             <h3>{t('lore.colorTitulo')}</h3>
