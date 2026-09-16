@@ -67,11 +67,6 @@
       proyecto lo arregla sin cambiarle la forma; se probó y funciona.
       No se hizo porque es SU dibujo y esa decisión es suya.
 
-- [ ] **Las 21 viñetas del cómic.** Los prompts están escritos. Cuando
-      existan, se cambian las rutas de `ESCENAS` en `pantallas/Lore.jsx`
-      y ya: ahora mismo la historia se ilustra con el propio michi gris
-      sobre los escenarios que hay.
-
 - [ ] **Seguir ajustando el ritmo de las barras.** Se bajaron una vez
       el 2026-09-12 (16→10 h el agua, 24→14 h el orden, y las cacas de 3
       a 5) porque Albert dijo que al entrar apenas se habían movido.
@@ -118,6 +113,10 @@
 
 
 ## Hecho
+- [x] 2026-09-16 — **Las doce viñetas del cómic, dentro.** A pantalla
+      completa, 9:16, con bocadillo semitransparente abajo y los doce
+      textos en las cinco lenguas. La tabla de las 22 y por qué entran
+      estas doce, en `COMIC.md`.
 - [x] 2026-09-16 — **La cocina, recortada.** `BG_Kitchen` no era una
       cocina: era el piso entero, y la pantalla enseñaba el centro. Se
       queda el tercio de la izquierda, casi cuadrado como la ventana.

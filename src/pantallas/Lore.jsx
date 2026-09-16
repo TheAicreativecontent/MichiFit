@@ -26,21 +26,29 @@ import { useT } from '../i18n/index.jsx';
 import { NINJA, esVideo, rutaNinja } from '../datos/ninja.js';
 import { COLORES, COLORES_MICHI, APARATO_POR_DEFECTO } from '../mascota/TamagotchiPNG.jsx';
 
-/* Qué se ve en cada acto. El michi va en gris porque Ninja es gris; el
-   naranja y el blanco son otros gatos (ver LORE.md).
+/* LAS DOCE VIÑETAS DEL COMIC, en orden.
 
-   `oscuro` marca los dos actos duros —el escobazo y el veneno—: la
-   escena se apaga y se tiñe de azul en vez de enseñar nada explícito.
-   Es la misma decisión de tono que el cómic: del agresor solo la
-   sombra, y del envenenamiento no se ve nada. */
-const ESCENAS = [
-  { michi: '/michi/michi-gris.png',            fondo: '/fondos/calle.png' },
-  { michi: '/michi/michi_triste-gris.png',     fondo: '/fondos/calle.png', oscuro: true },
-  { michi: '/michi/michi_comiendo-gris.png',   fondo: '/fondos/calle.png' },
-  { michi: '/michi/michi_durmiendo-gris.png',  fondo: '/fondos/calle.png', oscuro: true },
-  { michi: '/michi/michi_cansado-gris.png',    fondo: '/fondos/casa.png' },
-  { michi: '/michi/michi_contento-gris.png',   fondo: '/fondos/casa.png' },
+   Hasta el 2026-09-16 esto era un apaño: el michi gris de la app sobre
+   uno de los tres escenarios, porque el comic no existia. Ya existe —lo
+   genero Albert— asi que la historia se cuenta con sus dibujos.
+
+   Doce y no veintidos: `COMIC.md` tiene la tabla entera con los que
+   quedan fuera y por que. El criterio fue uno por LATIDO, sin dos
+   seguidas contando lo mismo.
+
+   El orden de este array es el orden de la historia, y los textos van
+   aparte, en `lore.actos` de cada idioma. Los dos tienen que medir lo
+   mismo: si alguna vez no coinciden, manda el texto —`total` sale de
+   ahi— y aqui faltaria un dibujo. */
+const VINETAS = [
+  '/comic/01-callejon.jpg', '/comic/02-enfermera.jpg',
+  '/comic/03-sombra.jpg',   '/comic/04-huida.jpg',
+  '/comic/05-hambre.jpg',   '/comic/06-amanece.jpg',
+  '/comic/07-bol.jpg',      '/comic/08-come.jpg',
+  '/comic/09-veneno.jpg',   '/comic/10-lluvia.jpg',
+  '/comic/11-despierta.jpg', '/comic/12-familia.jpg',
 ];
+
 
 export default function Lore({ onCerrar, onAdoptar, aparato, onAparato }) {
   const t = useT();
@@ -98,7 +106,6 @@ export default function Lore({ onCerrar, onAdoptar, aparato, onAparato }) {
   const enElReal = i === elReal;
   const enElColor = eligeColor && i === elColor;
   const enUnActo = !enElReal && !enElColor;
-  const escena = ESCENAS[Math.min(i, ESCENAS.length - 1)];
   const acto = enUnActo && Array.isArray(actos) ? actos[i] : null;
 
   /* Lo elegido se guarda al tocarlo, no al salir: así el michi de esta
@@ -121,11 +128,17 @@ export default function Lore({ onCerrar, onAdoptar, aparato, onAparato }) {
       </header>
 
       {enUnActo ? (
-        <div className={`mf-lore-vineta ${escena.oscuro ? 'oscura' : ''}`}>
-          <img className="fondo" src={escena.fondo} alt="" />
-          <img className="michi" src={escena.michi} alt="" />
-          {escena.oscuro && <div className="lluvia" aria-hidden="true" />}
-        </div>
+        /* A pantalla completa y con el texto ENCIMA, en una banda que se
+           funde con el dibujo. Antes el texto iba en una caja debajo y
+           la viñeta se quedaba en una franja de 360 px: estas
+           ilustraciones son verticales 9:16 y asi se perdian. */
+        <figure className="mf-lore-vineta comic">
+          <img src={VINETAS[Math.min(i, VINETAS.length - 1)]} alt="" />
+          <figcaption className="mf-lore-bocadillo">
+            <h3><span className="num">{i + 1}</span> {acto?.t}</h3>
+            <p>{acto?.d}</p>
+          </figcaption>
+        </figure>
       ) : enElColor ? (
         /* El gato elegido, en su casa y a tamaño grande. Se ve lo que
            estás eligiendo mientras lo eliges: es el mismo dibujo que
@@ -161,6 +174,9 @@ export default function Lore({ onCerrar, onAdoptar, aparato, onAparato }) {
         </div>
       )}
 
+      {/* La caja de texto de abajo es SOLO para las dos pantallas
+          finales. En los actos el texto va dentro de la viñeta. */}
+      {!enUnActo && (
       <div className="mf-lore-texto" ref={caja}>
         {enElColor ? (
           <>
@@ -198,13 +214,9 @@ export default function Lore({ onCerrar, onAdoptar, aparato, onAparato }) {
             <h3>{t('lore.realTitulo')}</h3>
             <p>{t('lore.realTexto')}</p>
           </>
-        ) : (
-          <>
-            <h3><span className="num">{i + 1}</span> {acto?.t}</h3>
-            <p>{acto?.d}</p>
-          </>
-        )}
+        ) : null}
       </div>
+      )}
 
       <div className="mf-lore-pie">
         <button className="mf-boton" disabled={i === 0}

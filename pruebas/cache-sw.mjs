@@ -24,7 +24,7 @@ import { readFileSync } from 'node:fs';
    `dist/assets` si lo llevan y se apañan solas. */
 const VIGILADAS = ['public/michi', 'public/fondos', 'public/iconos',
                    'public/iconos-app', 'public/iconos-anillo',
-                   'public/karma', 'public/ninja'];
+                   'public/karma', 'public/ninja', 'public/comic'];
 
 const git = (...args) => execFileSync('git', args, { encoding: 'utf8' }).trim();
 

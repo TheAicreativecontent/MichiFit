@@ -875,6 +875,76 @@ input[type=time]:focus { outline: none; border-color: var(--rosa); }
    apaga la escena y se tiñe de azul. Misma decisión que el cómic. */
 .mf-lore-vineta.oscura .fondo { filter: brightness(.42) saturate(.5) hue-rotate(200deg); }
 .mf-lore-vineta.oscura .michi { filter: brightness(.66) saturate(.7); }
+/* --- la viñeta del comic, a pantalla completa ---
+   Se come todo el alto que sobra entre la cabecera y el pie. Las
+   ilustraciones son 9:16, asi que `contain` y no `cover`: recortar una
+   viñeta de comic es tirar justo lo que el dibujo venia a contar.
+
+   El fondo oscuro detras no es decoracion: con `contain` sobran barras
+   arriba y abajo en pantallas anchas, y en crema se verian como un
+   error de maquetacion. En oscuro parecen el marco de un comic. */
+.mf-lore-vineta.comic {
+  /* `aspect-ratio` 9:16, que es el de todas las viñetas: asi el MARCO se
+     ajusta al dibujo y no quedan barras oscuras arriba y abajo. Con
+     `contain` a secas sobraban 62 px en un movil de 375, y unas barras
+     dentro de un marco parecen un fallo de maquetacion.
+
+     `margin: auto` lo centra en el hueco que sobre, y `min-height: 0` es
+     el de siempre para que un hijo de flex pueda encoger. */
+  position: relative;
+  /* `flex: 1 1 auto` para que el ALTO se coma el hueco que sobra, y
+     `align-self: center` para que el ancho NO se estire: asi lo deduce
+     `aspect-ratio` del alto, que es lo que queremos. Con el `stretch`
+     que trae de serie un flex en columna, el ancho mandaba y la caja se
+     quedaba en 190 px. */
+  flex: 1 1 auto; min-height: 0;
+  align-self: center;
+  aspect-ratio: 572 / 1024;
+  width: auto; max-width: 100%;
+  overflow: hidden;
+  border: 3px solid var(--tinta); border-radius: 14px;
+  background: #241C22;
+}
+.mf-lore-vineta.comic > img {
+  display: block; width: 100%; height: 100%;
+  object-fit: cover;
+  image-rendering: pixelated;
+}
+
+/* El bocadillo: una banda que se funde con el dibujo por arriba en vez
+   de cortarlo con una linea recta. Asi tapa lo menos posible y el texto
+   siempre se lee, sea cual sea la viñeta que hay debajo. */
+.mf-lore-bocadillo {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  padding: 34px 14px 12px;
+  background: linear-gradient(to top,
+              rgba(26, 20, 24, .94) 0%,
+              rgba(26, 20, 24, .86) 55%,
+              rgba(26, 20, 24, 0) 100%);
+  color: #FFF6EC;
+  pointer-events: none;
+}
+.mf-lore-bocadillo h3 {
+  display: flex; align-items: center; gap: 8px; margin: 0 0 5px;
+  font-family: var(--fuente-titulo);
+  font-size: calc(19px * var(--escala)); color: #FFF6EC;
+}
+.mf-lore-bocadillo .num {
+  flex: 0 0 auto;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: calc(22px * var(--escala)); height: calc(22px * var(--escala));
+  border-radius: 999px; background: var(--rosa); color: #fff;
+  font-family: var(--fuente); font-size: calc(12px * var(--escala));
+  font-weight: 800; line-height: 1;
+}
+.mf-lore-bocadillo p {
+  margin: 0;
+  font-size: calc(14px * var(--escala)); line-height: 1.45;
+  /* Un pelo de sombra: sobre las viñetas claras —el amanecer— el
+     degradado solo no basta. */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, .55);
+}
+
 .mf-lore-vineta .lluvia {
   position: absolute; inset: 0; pointer-events: none;
   background: repeating-linear-gradient(

@@ -126,6 +126,10 @@ pantallas y el motor entero.
   se ve** —asqueado con una caca, sediento con el cuenco por debajo de
   la mitad—, el gimnasio nuevo probable desde el panel, y tocar el
   cristal ya no da un resumen: dice que esto es analógico.
+- Última acción (2026-09-16, noche): **la historia se cuenta con el
+  cómic**. Doce viñetas de verdad a pantalla completa, con el texto en
+  una banda que se funde con el dibujo, en las cinco lenguas. Se acabó
+  el apaño del michi gris sobre un escenario.
 - Próximo paso: **más fotos de Ninja**, y con menos casa en el
   encuadre — el repositorio es público. Las dos que hay valen; es
   ampliar la galería, no arreglarla.

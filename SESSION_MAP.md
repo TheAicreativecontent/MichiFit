@@ -1428,3 +1428,55 @@ Ahora tiene un boton «ver todos» con una fila por color y una columna por
 pose. Y de paso se descubrio que a la lista le faltaban `asqueado` y
 `sediento` desde siempre: justo las dos que mas cuesta provocar con datos
 de verdad, o sea las dos que mas falta hacia poder mirar aqui.
+
+### La historia deja de ser un apaño
+
+Hasta hoy los seis actos se ilustraban con el michi gris de la app sobre
+uno de los tres escenarios, porque el comic no existia. Ya existe: Albert
+genero veinte viñetas y paso el guion entero de las veintidos.
+
+Lo primero fue guardar el GUION, que solo estaba en un chat: `COMIC.md`
+con la ficha de estilo, la de personajes —con los grises exactos de Ninja
+sacados del archivo— y que pasa en cada plano y por que. `LORE.md` decia
+«los prompts estan escritos» y no estaban en ningun sitio.
+
+Montar esa tabla enseño dos cosas que no se ven mirando la carpeta: que
+faltan TRES planos por generar —el saludo a distancia, dormirse con
+hambre y llamar al veterinario— y cuales sobran.
+
+DOCE Y NO VEINTIDOS. El criterio fue uno por LATIDO, sin dos seguidas
+contando lo mismo: de las tres del hospital solo entra la de abrir los
+ojos, que es la que el propio Albert señalo como la mejor de las
+veintidos. Y entro el amanecer, que yo habia dejado fuera y el recupero
+— tiene razon, es el respiro antes de lo peor y el contraste es
+deliberado.
+
+Y una buena noticia que deshizo un miedo: **las veinte tienen la MISMA
+proporcion**, 9:16 exacto. Albert creia que no. Lo que cambia es la
+resolucion (572x1024 y 768x1376), que no es un problema de encaje.
+
+### El peso, y por que no se reescalan
+
+1,29 MB las doce, desde 2,37. NO se reescalan —son ilustraciones de
+pixel art y encogerlas las emborrona— solo se vuelven a comprimir. Las
+grandes bajaron muchisimo (de 524 a 105 kB) porque venian guardadas a
+calidad altisima.
+
+### La pantalla
+
+La viñeta pasa a comerse el alto entero y el texto se mete DENTRO, en una
+banda que se funde con el dibujo por arriba en vez de cortarlo con una
+linea recta: asi tapa lo menos posible y se lee sobre cualquier fondo.
+Ocupa el 19% de la viñeta en un movil.
+
+Costo dos intentos cuadrar el marco. Con `object-fit: contain` sobraban
+62 px de barras oscuras arriba y abajo, y unas barras dentro de un marco
+parecen un fallo de maquetacion. Se puso `aspect-ratio: 572/1024`... y la
+caja se quedo en 190 px de ancho: en un flex en COLUMNA el ancho manda
+por el `stretch` de serie, asi que `aspect-ratio` no tenia de donde
+deducirlo. Con `align-self: center` el ancho deja de estirarse y sale del
+alto, que es lo que se queria.
+
+Y `calle.png` se queda sin usar: era el fondo de pasear —que se fue al
+parque— y el de la historia —que ahora es el comic—. Anotado donde toca
+en vez de borrarlo.

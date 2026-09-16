@@ -17,8 +17,13 @@ export const ESCENAS = [
   { id: 'entrenar', escenario: 'gimnasio', pose: 'entrenando',  rotulo: 'ENTRENANDO' },
   /* Pasear se va al PARQUE (2026-09-16): es el unico fondo que cierra
      en bucle, asi que es el unico que puede desplazarse sin fin — y
-     andar es justo la escena que pide movimiento. La calle se queda
-     dibujada y sin usar; es la de la historia de Ninja. */
+     andar es justo la escena que pide movimiento.
+
+     `calle.png` deja de usarla NADIE desde el 2026-09-16: era el fondo
+     de pasear y tambien el de la historia de Ninja, y la historia pasa
+     a contarse con el comic. Se queda en `public/fondos/` porque esta
+     en `ESCENARIOS` y el panel de pruebas la enseña, pero si dentro de
+     unos meses nadie la ha echado de menos, fuera. */
   { id: 'pasear',   escenario: 'parque',   pose: 'andando',     rotulo: 'PASEANDO' },
   { id: 'dormir',   escenario: 'casa',     pose: 'durmiendo',    rotulo: 'DURMIENDO',
     dormido: true },
