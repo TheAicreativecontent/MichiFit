@@ -445,6 +445,7 @@ export default {
 
     resumenRacha: ({ n }) => `${n}日つづいています`,
     resumenCero: '今日はゼロからはじめます',
+    analogico: 'ごめんね、これはデジタルじゃなくてアナログなんだ。ボタンを押して話しかけてね 🐾',
     resumenEscudos: ({ n }) => `たてを${n}まい持っています`,
     resumenDescansar: '、そろそろ休みたい気分です',
     resumenTodoHecho: '、今日はもう全部できました',

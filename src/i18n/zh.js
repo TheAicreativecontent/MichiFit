@@ -444,6 +444,7 @@ export default {
 
     resumenRacha: ({ n }) => `我们已经连续 ${n} 天了`,
     resumenCero: '今天从头开始',
+    analogico: '抱歉，这不是数字的，是模拟的。按按钮来和我说话吧 🐾',
     resumenEscudos: ({ n }) => `我有 ${n} 个护盾`,
     resumenDescansar: '，而且我该休息一下了',
     resumenTodoHecho: '，今天全都做完了',

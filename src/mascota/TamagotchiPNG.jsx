@@ -103,7 +103,13 @@ const ESCENARIOS = {
   casa: '/fondos/casa.png',
   cocina: '/fondos/cocina.png',
   parque: '/fondos/parque.png',
+  /* El gimnasio nuevo de Albert. NO lo usa ninguna escena: esta aqui
+     para poder mirarlo desde el panel de pruebas y decidir si sustituye
+     al de siempre. Es bastante mas gris que el resto de la app, y eso
+     se decide viendolo dentro de la pantallita, no en el archivo. */
+  gimnasioNuevo: '/fondos/gimnasio-nuevo.png',
 };
+export const ESCENARIOS_DISPONIBLES = Object.keys(ESCENARIOS);
 /* Los que se desplazan solos. Solo el parque, de momento: es el unico
    dibujado para que el final empalme con el principio, y desplazar uno
    que no cierra se ve como un salto cada vuelta. */

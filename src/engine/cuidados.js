@@ -50,6 +50,11 @@ import { horasDespierto } from './felicidad.js';
 export const AGUA_HORAS = 10;
 export const ORDEN_HORAS = 14;
 
+/* Por debajo de esto el michi pone cara de sed. No es cero: ver el
+   comentario de `sed` mas abajo. Si alguna vez cansa, se sube o se baja
+   aqui y en ningun otro sitio. */
+export const SED_DESDE = 50;
+
 /* Cuántas cacas kawaii llegan a salir con la casa del todo sucia. Van
    apareciendo de una en una según baja la barra.
 
@@ -94,8 +99,26 @@ export function calcularCuidados({ cuidados = {}, pacto = null, ahora = Date.now
     agua,
     orden,
     cacas,
-    sed: agua === 0,          // el michi tiene sed: hay dibujo para esto
-    sucio: orden === 0,       // la casa está para recogerla
+    /* LA CARA VA CON LO QUE SE VE EN PANTALLA. Hasta el 2026-09-16
+       estas dos solo saltaban a CERO, y por eso practicamente nadie
+       llegaba a ver al michi sediento ni al asqueado: habia que dejarle
+       el cuenco vacio del todo. Lo pidio Albert, y el criterio que
+       eligio es el bueno — que la cara diga lo mismo que ya esta
+       enseñando la pantalla:
+
+       · ASQUEADO en cuanto hay UNA CACA en el suelo. Si tu la ves, el
+         michi tambien.
+       · SEDIENTO cuando el cuenco baja de la mitad, que es cuando la
+         barra WATER se ve claramente mordida.
+
+       Los dos van por DEBAJO de `contento` en `michi.js`, asi que quien
+       cumple sigue viendo a su michi contento y esto no se convierte en
+       un reproche. Lo que si se vuelve raro es la cara NEUTRA: ahora
+       pide el cuenco lleno y la casa recogida. Es el precio, y es
+       barato — un michi que pide algo es mejor pantalla que uno con
+       cara de nada. */
+    sed: agua <= SED_DESDE,
+    sucio: cacas >= 1,
   };
 }
 

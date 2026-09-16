@@ -37,6 +37,11 @@
    excepcion, y queda escrita para que no parezca que se subio por
    costumbre. Ver `VERSION.md`. */
 
+/* v9 (2026-09-16, mas tarde): `cocina.png` se rehizo. BG_Kitchen no era
+   una cocina sino el piso entero, y la pantallita enseñaba el centro
+   —el arco y la nevera—; ahora se recorta el tercio de la izquierda,
+   que es la cocina de verdad. Mismo nombre, dibujo distinto. */
+
 /* v8 (2026-09-16): los 27 michis de las model sheets de Albert. Mismos
    nombres de archivo y contenido distinto, que es el caso exacto que
    esta regla vigila: sin subir esto, quien tenga la app abierta seguiria
@@ -56,7 +61,7 @@
    esto quien ya tuviera la app seguiria viendo los de antes.
 
    v4 fue por lo mismo: `limpiar` paso de cubo a escoba. */
-const CACHE = 'michifit-v8';
+const CACHE = 'michifit-v9';
 
 /* Lo mínimo para arrancar sin red. El resto se va guardando solo según
    se usa: la app es pequeña y se cachea entera en la primera visita. */

@@ -16,7 +16,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useT } from '../i18n/index.jsx';
 import Ayuda from './Ayuda.jsx';
-import Tamagotchi, { COLORES_MICHI } from '../mascota/TamagotchiPNG.jsx';
+import Tamagotchi, { COLORES_MICHI, ESCENARIOS_DISPONIBLES } from '../mascota/TamagotchiPNG.jsx';
 import Marcador from './Marcador.jsx';
 import { estadoVisual } from '../engine/michi.js';
 import { hoyISO } from '../engine/pacto.js';
@@ -159,6 +159,9 @@ export default function Inicio({ estado, entradas, pacto, onCarino, onCuidar, on
      nuevos de las model sheets. Mirar 33 dibujos de uno en uno no es
      revisar, es acordarse. */
   const [mosaico, setMosaico] = useState(false);
+  /* Un fondo forzado desde el panel, que gana al de la escena. Sirve
+     para mirar un escenario nuevo sin tener que darle una escena. */
+  const [fondoPrueba, setFondoPrueba] = useState(null);
 
   /* ---- los tres botones ------------------------------------------
      La gramática entera está explicada en `mascota/anillos.js`. Aquí
@@ -181,7 +184,6 @@ export default function Inicio({ estado, entradas, pacto, onCarino, onCuidar, on
   const visual = estadoVisual(estado);
   const hoy = estado.hoy;
   const entradaHoy = entradas[hoyISO()] ?? {};
-  const pendientes = hoy?.objetivos.filter((o) => !o.cumplido && o.id !== 'descanso') ?? [];
 
   /* Lo que se ve ahora, de más fuerte a más débil:
        1. el panel de pruebas, si está abierto;
@@ -344,7 +346,7 @@ export default function Inicio({ estado, entradas, pacto, onCarino, onCuidar, on
           pose={prueba ? prueba.pose
                 : dormido ? 'durmiendo'
                 : (escena.pose ?? visual.humor)}
-          escenario={escena.escenario}
+          escenario={fondoPrueba ?? escena.escenario}
           rotulo={t('escenas.' + escena.id)}
           mimando={gesto === 'mimar'}
           nivel={estado.nivel}
@@ -360,7 +362,7 @@ export default function Inicio({ estado, entradas, pacto, onCarino, onCuidar, on
             indice,
             items: ANILLO.map((it) => ({ ...it, etiqueta: t(it.clave) })),
           }}
-          mensaje={gesto === 'estado' ? resumen(estado, pendientes, t) : null}
+          mensaje={gesto === 'estado' ? t('inicio.analogico') : null}
           onBoton={pulsar}
           onPantalla={tocarPantalla}
           /* Con el panel de pruebas abierto se puede mirar otro color sin
@@ -376,7 +378,7 @@ export default function Inicio({ estado, entradas, pacto, onCarino, onCuidar, on
           <b>
             PRUEBAS
             <button className="cerrar" aria-label={t('comun.cerrar')}
-                    onClick={() => { setPrueba(null); setEscenaId(null); onCerrarPruebas?.(); }}>
+                    onClick={() => { setPrueba(null); setEscenaId(null); setFondoPrueba(null); onCerrarPruebas?.(); }}>
               ✕
             </button>
           </b>
@@ -406,6 +408,16 @@ export default function Inicio({ estado, entradas, pacto, onCarino, onCuidar, on
               <button key={e.id} className={escenaId === e.id ? 'on' : ''}
                       onClick={() => setEscenaId(e.id)}>
                 {e.id}
+              </button>
+            ))}
+          </div>
+          {/* Cualquier escenario, aunque no lo use ninguna escena. Es la
+              unica forma de mirar uno nuevo antes de decidir si entra. */}
+          <div className="fila">
+            {ESCENARIOS_DISPONIBLES.map((f) => (
+              <button key={f} className={fondoPrueba === f ? 'on' : ''}
+                      onClick={() => setFondoPrueba((v) => (v === f ? null : f))}>
+                {f}
               </button>
             ))}
           </div>
@@ -507,18 +519,17 @@ function consejoSueno(horas, t) {
   return { ok: false, ...par('Pasado') };
 }
 
-/* Lo que cuenta el michi al pulsar el botón azul, dentro de la pantalla. */
-function resumen(estado, pendientes, t) {
-  const trozos = [];
-  trozos.push(estado.racha > 0
-    ? t('inicio.resumenRacha', { n: estado.racha })
-    : t('inicio.resumenCero'));
-  if (estado.comodines > 0) {
-    trozos.push(t('inicio.resumenEscudos', { n: estado.comodines }));
-  }
-  if (estado.descansosRotos >= 2) trozos.push(t('inicio.resumenDescansar'));
-  else if (!pendientes.length) trozos.push(t('inicio.resumenTodoHecho'));
-  else trozos.push(t('inicio.resumenFalta', {
-    que: pendientes.map((p) => t('objetivos.' + p.id).toLowerCase()).join(t('inicio.y')) }));
-  return trozos.join(', ') + ' 🐾';
-}
+/* Lo que sale al tocar el cristal.
+
+   Hasta el 2026-09-16 era un RESUMEN: la racha, los escudos y lo que
+   faltaba por apuntar, todo en una frase. Se retira, y lo pidio Albert.
+
+   La razon es buena y es de producto: eso ya esta escrito debajo, en el
+   marcador, con mas sitio y mejor. Repetirlo aqui era la cuarta cara del
+   mismo dato —justo lo que `SIMPLICIDAD.md` señala como el problema de
+   verdad de esta pantalla— y encima enseñaba a tocar el cristal para
+   enterarse de cosas, que es lo contrario de lo que queremos: esto es un
+   aparato con tres botones, no una pantalla tactil.
+
+   Asi que ahora el michi dice eso mismo, y con gracia. */
+

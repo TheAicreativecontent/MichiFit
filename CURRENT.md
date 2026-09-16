@@ -121,6 +121,11 @@ pantallas y el motor entero.
   panorámico desplazándose en bucle mientras el michi anda, comer en la
   cocina, y el panel de pruebas con un mosaico que enseña los 33
   dibujos a la vez. Caché a v8.
+- Última acción (2026-09-16, tarde-noche): **la cocina recortada** (era
+  el piso entero y se veía el centro), **el michi pone cara de lo que
+  se ve** —asqueado con una caca, sediento con el cuenco por debajo de
+  la mitad—, el gimnasio nuevo probable desde el panel, y tocar el
+  cristal ya no da un resumen: dice que esto es analógico.
 - Próximo paso: **más fotos de Ninja**, y con menos casa en el
   encuadre — el repositorio es público. Las dos que hay valen; es
   ampliar la galería, no arreglarla.

@@ -133,9 +133,19 @@ console.log('\n### sin datos no molesta a nadie');
 
      Las dos mitades importan y por eso se comprueban las dos.
 
-     Que no pida es la promesa de `MECANICA.md`: un michi recien adoptado
-     no recibe a nadie con sed. `sed` y `sucio` solo saltan a CERO, asi
-     que esa es la comprobacion de verdad.
+     Que no pida NADA AL ADOPTARLO es lo que hay que sostener: nadie
+     estrena la app con un gato quejandose. Lo que NO es una promesa es
+     que aguante seis horas callado — este comentario se lo atribuia a
+     `MECANICA.md` y ahi no lo pone. Lo que `MECANICA.md` §8 promete es
+     otra cosa, y sigue en pie: que cuidar no toca la mecanica y que
+     CUMPLIR MANDA SOBRE TENER SED.
+
+     Cambio el 2026-09-16, a peticion de Albert: la cara del michi pasa a
+     decir lo mismo que ya se ve en pantalla —asqueado con una caca en el
+     suelo, sediento con el cuenco por debajo de la mitad— en vez de
+     saltar solo a cero. Con `AGUA_HORAS` a 10, eso significa que a las
+     seis horas ya pide agua, y esta bien que lo haga: pedir no es
+     reprochar.
 
      Que se haya movido es la queja de Albert del 2026-09-12: «cuando
      entro en la app apenas se ha movido». Una barra quieta no pide nada
@@ -145,11 +155,19 @@ console.log('\n### sin datos no molesta a nadie');
      mal: a las seis horas quedan 40, que no es tener sed, es haber
      bebido. Un proxy que se cae cuando cambias lo que mide no estaba
      midiendo lo que decia. */
+  comprobar(!alAdoptar.sed && !alAdoptar.sucio && alAdoptar.cacas === 0,
+    `al adoptarlo no pide nada (${alAdoptar.agua} / ${alAdoptar.orden})`);
+
   const porLaTarde = calcularCuidados({ cuidados: {}, pacto, ahora: adopcion + 6 * HORA });
-  comprobar(!porLaTarde.sed && !porLaTarde.sucio,
-    `seis horas despues aun no pide nada (${porLaTarde.agua} / ${porLaTarde.orden})`);
   comprobar(porLaTarde.agua < 100 && porLaTarde.orden < 100,
-    `pero las dos barras se han movido (${porLaTarde.agua} / ${porLaTarde.orden})`);
+    `seis horas despues las dos barras se han movido (${porLaTarde.agua} / ${porLaTarde.orden})`);
+  /* Y la mitad que de verdad protege al usuario: por muy sediento que
+     este, si viene cumpliendo el michi sale CONTENTO. Es la regla de
+     precedencia de `MECANICA.md` §8, y es la que impide que cuidar se
+     convierta en un reproche. */
+  const vacio = calcularCuidados({ cuidados: {}, pacto, ahora: adopcion + 40 * HORA });
+  comprobar(vacio.sed && vacio.sucio,
+    `al dia y medio si pide las dos cosas (${vacio.agua} / ${vacio.orden})`);
 
   const sinNada = calcularCuidados({});
   comprobar(sinNada.agua === 100 && sinNada.orden === 100,

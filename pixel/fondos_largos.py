@@ -39,9 +39,25 @@ DESTINO = os.path.join(RAIZ, 'public', 'fondos')
 # `bucle` dice si ese fondo tiene que empalmar consigo mismo. Solo el
 # parque, que es el unico que se desplaza: los demas se quedan quietos y
 # solo aprovechan el ancho para enseñar mas sitio.
+# `recorte` es (x0, x1) en pixeles del original, o None para entero.
 FONDOS = [
-    ('BG_Park.jpg', 'parque.png', True),
-    ('BG_Kitchen.jpg', 'cocina.png', False),
+    ('BG_Park.jpg', 'parque.png', True, None),
+
+    # BG_Kitchen NO es una cocina: es el piso entero, y la cocina es solo
+    # el tercio izquierdo. Sin recortar, la pantallita enseñaba el CENTRO
+    # —el arco y la nevera— y se veia raro y diminuto. Lo dijo Albert:
+    # «se ve escalado y mal».
+    #
+    # 0..742 deja la cocina entera y da 742x672, casi cuadrado, que es
+    # la proporcion de la ventana (1,10): asi el escenario se ve a su
+    # tamano en vez de recortado a la fuerza.
+    ('BG_Kitchen.jpg', 'cocina.png', False, (0, 742)),
+
+    # El gimnasio nuevo, para PROBARLO. El de siempre sigue en su sitio
+    # y sigue siendo el que usa la app: este se elige desde el panel de
+    # pruebas (siete toques en el logo). Se centra en la puerta del
+    # fondo, que es donde el dibujo tiene su punto de fuga.
+    ('BG_Gym.jpg', 'gimnasio-nuevo.png', False, (420, 1160)),
 ]
 
 COLORES = 128       # paleta, como el resto de fondos: pesan la mitad
@@ -86,12 +102,14 @@ def main():
     if not os.path.isdir(ORIGEN):
         raise SystemExit('no encuentro %s: los fondos no estan en esta maquina' % ORIGEN)
     os.makedirs(DESTINO, exist_ok=True)
-    for entrada, salida, bucle in FONDOS:
+    for entrada, salida, bucle, recorte in FONDOS:
         ruta = os.path.join(ORIGEN, entrada)
         if not os.path.exists(ruta):
             print('  (falta %s, me lo salto)' % entrada)
             continue
         im = Image.open(ruta).convert('RGB')
+        if recorte:
+            im = im.crop((recorte[0], 0, recorte[1], im.height))
         antes = cierre(im)
         if bucle:
             d, xl, xr = corte_que_cierra(im)

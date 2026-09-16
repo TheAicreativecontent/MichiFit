@@ -447,6 +447,7 @@ export default {
 
     resumenRacha: ({ n }) => `We are ${n} ${n === 1 ? 'day' : 'days'} into our streak`,
     resumenCero: 'Today we start from scratch',
+    analogico: 'Sorry, this is not digital: it is analogue. Press the buttons to talk to me 🐾',
     resumenEscudos: ({ n }) => `I have ${n} ${n === 1 ? 'shield' : 'shields'}`,
     resumenDescansar: 'and I could do with a rest',
     resumenTodoHecho: 'and today everything is done',

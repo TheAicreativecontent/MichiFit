@@ -458,6 +458,7 @@ export default {
 
     resumenRacha: ({ n }) => `Llevamos ${n} ${n === 1 ? 'día' : 'días'} de racha`,
     resumenCero: 'Hoy empezamos de cero',
+    analogico: 'Lo siento, esto no es digital: es analógico. Toca los botones para hablar conmigo 🐾',
     resumenEscudos: ({ n }) => `tengo ${n} ${n === 1 ? 'escudo' : 'escudos'}`,
     resumenDescansar: 'y me vendría bien descansar',
     resumenTodoHecho: 'y hoy ya está todo hecho',

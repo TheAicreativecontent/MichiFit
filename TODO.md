@@ -118,6 +118,15 @@
 
 
 ## Hecho
+- [x] 2026-09-16 — **La cocina, recortada.** `BG_Kitchen` no era una
+      cocina: era el piso entero, y la pantalla enseñaba el centro. Se
+      queda el tercio de la izquierda, casi cuadrado como la ventana.
+- [x] 2026-09-16 — **La cara del michi dice lo que se ve**: asqueado en
+      cuanto hay una caca, sediento con el cuenco por debajo de la
+      mitad. Antes solo saltaban a cero y no los veía nadie.
+- [x] 2026-09-16 — **Tocar el cristal ya no da un resumen.** Dice que el
+      aparato es analógico y que se hable con los botones. Lo que decía
+      antes ya está debajo, en el marcador.
 - [x] 2026-09-16 — **Los michis nuevos.** 9 poses × 3 colores desde las
       model sheets, con `pixel/recortar_model_sheets.py`. El fondo se
       quita por relleno desde los bordes y no por umbral, que es lo
