@@ -142,9 +142,14 @@ pantallas y el motor entero.
   los textos de la app, la cocina desplazada para que el michi pise el
   suelo, el mensaje de «es analógico» justo debajo de «EN CASA» y los
   iconos del anillo a 16 px. Caché a v10.
-- Próximo paso: **más fotos de Ninja**, y con menos casa en el
-  encuadre — el repositorio es público. Las dos que hay valen; es
-  ampliar la galería, no arreglarla.
+- Próximo paso (cierre del 2026-09-16): nada urgente. Lo que queda
+  abierto, para cuando Albert quiera:
+  · **el triste y el cansado** desentonan con los michis nuevos: faltan
+    esas dos poses en las model sheets;
+  · **decidir el gimnasio nuevo** (se prueba desde el panel de pruebas);
+  · **el salón de `BG_Kitchen`** daría una «casa» mejor que la actual;
+  · **`calle.png`** ya no la usa nadie;
+  · **el QR de PromptPay** (con e-Wallet ID, ver `TODO.md`).
 - La conversación de **hacerla HIPER sencilla** ya se tuvo, el
   2026-09-14: el mapa está en `SIMPLICIDAD.md`. **No se borró ni se
   redujo nada**, que es lo que Albert pidió. 42 conceptos, 29 de ellos

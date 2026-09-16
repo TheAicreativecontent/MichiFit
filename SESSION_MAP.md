@@ -1557,3 +1557,11 @@ subirla.
 - **Los iconos del anillo a 16 px**, que divide exacto los 96 del
   archivo y es la rejilla en la que Albert dibujo `limpiar` y `comida`.
   La banda pasa de 34 a 38 px. Los siete caben sin solaparse.
+
+### Cierre del 16
+
+Un dia largo y casi entero de parte visual: el anillo en una banda fija
+abajo, 27 michis nuevos de las model sheets, el parque en bucle, la
+cocina, el comic de 14 viñetas con los textos de Albert, el collage de
+fotos y Ninja dando las gracias en Karma. Todo desplegado y comprobado
+en el navegador. Lo pendiente queda en `CURRENT.md`.
