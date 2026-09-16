@@ -21,7 +21,7 @@ Antes de hacer nada, lee en este orden:
 
 Consulta cuando haga falta:
 `ARCHITECTURE.md` · `DECISIONS.md` · `GLOSSARY.md` · `SETUP.md` · `TODO.md` ·
-`ROADMAP.md` · `SESSION_MAP.md` · `SIMPLICIDAD.md`
+`ROADMAP.md` · `SESSION_MAP.md` · `SIMPLICIDAD.md` · `LORE.md` · `COMIC.md`
 
 Al terminar una sesión: actualiza `CURRENT.md`, añade entrada en
 `SESSION_MAP.md`, y si hubo un error importante, anótalo en `LESSONS.md`.

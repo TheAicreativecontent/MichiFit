@@ -416,8 +416,14 @@
    como los marcadores de las maquinitas. */
 .mf-tamapng-rotulo {
   /* En el flujo de la cabecera, no a una altura fija: cae solo debajo
-     de la última barra. Ver el comentario en TamagotchiPNG.jsx. */
-  margin-top: 2px; text-align: center; pointer-events: none;
+     de la última barra. Ver el comentario en TamagotchiPNG.jsx.
+
+     7 px de separacion y no 2: con las cuatro barras del mismo alto
+     (2026-09-16) el rotulo quedo a cuatro pixeles de CLEAN, y como la
+     etiqueta va a la izquierda y el rotulo centrado, se rozaban en
+     diagonal. Lo vio Albert. Es aire, no maquetacion: el sitio de este
+     rotulo lo sigue decidiendo la ultima barra que haya. */
+  margin-top: 7px; text-align: center; pointer-events: none;
   font-family: 'Press Start 2P', monospace; font-size: 6.5px;
   letter-spacing: 1px; color: #FFF6EC;
   text-shadow: 1px 1px 0 #3A2D24, -1px 1px 0 #3A2D24,
