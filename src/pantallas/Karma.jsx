@@ -89,7 +89,7 @@ export default function Karma() {
       </div>
 
       {/* PromptPay: el estandar de QR de Tailandia, que es de donde son
-          los amigos que lo pidieron. Sale solo si Alberto ha puesto su
+          los amigos que lo pidieron. Sale solo si Albert ha puesto su
           QR — ver `datos/promptpay.js`, que explica como y que hay que
           pensarse antes (el repositorio es publico y el QR lleva dentro
           su numero).

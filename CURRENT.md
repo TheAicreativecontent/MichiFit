@@ -46,7 +46,7 @@ pantallas y el motor entero.
   gramática** — izquierda pasa, centro acepta, derecha cierra — y un
   solo anillo de ocho iconos. Ver abajo.
 - Última acción (2026-09-12, cierre): **los rangos del simulador** ya no
-  son de atleta, y PromptPay queda montado a falta del QR de Alberto.
+  son de atleta, y PromptPay queda montado a falta del QR de Albert.
   Ver abajo.
 - Última acción (2026-09-12, tras probarla en el móvil): arreglado el
   **salto de la página** al abrir el anillo, el **teclado que tapaba el
@@ -67,13 +67,13 @@ pantallas y el motor entero.
   SW. Ahora las peticiones con `Range` van derechas a la red. Se veía
   bien igual, pero por suerte. Comprobado con un mp4 de prueba.
 - Última acción (2026-09-13, cierre): **Ninja ya está en la app**.
-  Alberto dejó las fotos en `public/ninja/` y la galería del final las
+  Albert dejó las fotos en `public/ninja/` y la galería del final las
   enseña. Dejó también dos vídeos —el envenenamiento y el veterinario—
   y decidió que **no entran**: su sitio es TikTok, y aquí lo que hace
   falta es evergreen y positivo. Ver `DECISIONS.md`.
 - Última acción (2026-09-13, cierre de verdad): **los pies de foto ya
   se traducen** —estaban en castellano duro dentro de `ninja.js` y se
-  veían igual en japonés; lo cazó Alberto—, y **`pasos` es una patita
+  veían igual en japonés; lo cazó Albert—, y **`pasos` es una patita
   nueva**, dibujada por él, a salvo en `pixel/iconos-a-mano/`. Caché a
   v6.
 - Última acción (2026-09-14): **la app tiene versión**. Es la
@@ -97,7 +97,7 @@ pantallas y el motor entero.
   el cristal ya está cogido —tocarlo hace que el michi cuente cómo vas—,
   y se hace con `transform: scale()` porque dentro de la pantalla está
   todo en píxeles fijos. En un móvil sale 1,25. Es el paso previo a lo
-  que Alberto quiere de verdad: **que el anillo se vea siempre en la
+  que Albert quiere de verdad: **que el anillo se vea siempre en la
   parte de abajo, dentro de la pantalla**. Y el «?» es el primer punto
   de `SIMPLICIDAD.md`, el mapa de conceptos de esta misma sesión.
 - Última acción (2026-09-16): **tercera foto de Ninja**, recortada para
@@ -116,7 +116,7 @@ pantallas y el motor entero.
   ampliar la galería, no arreglarla.
 - La conversación de **hacerla HIPER sencilla** ya se tuvo, el
   2026-09-14: el mapa está en `SIMPLICIDAD.md`. **No se borró ni se
-  redujo nada**, que es lo que Alberto pidió. 42 conceptos, 29 de ellos
+  redujo nada**, que es lo que Albert pidió. 42 conceptos, 29 de ellos
   en Inicio, y tres hallazgos — el mismo dato se presenta hasta cuatro
   veces con cuatro caras; las barras de cuidado y las de la mecánica se
   dibujan igual y obedecen a reglas opuestas; e Inicio era la única
@@ -139,7 +139,7 @@ pantallas y el motor entero.
 - Simulador da los mismos números que la app original: 2602 de gasto total,
   −595 de déficit, 377 quemado moviéndote, −0,54 kg/semana.
 - Ajustes da el mismo IMC: 26,2 actual, 21,5 meta.
-- Pantalla de pacto muestra el pacto real de Alberto.
+- Pantalla de pacto muestra el pacto real de Albert.
 - Build de producción OK, sin errores de consola.
 
 ## Despliegue
@@ -324,7 +324,7 @@ dos anillos no tienen cómo distinguirse. El orden no es arbitrario y
 está razonado en `anillos.js` — primero los cuidados, que son de un
 toque y son el anzuelo, y después los datos, que abren el editor.
 `dormir` es ahora un icono del anillo (era el botón derecho) y su dibujo
-son tres z de tamaño creciente, idea de Alberto: la luna ya la usa
+son tres z de tamaño creciente, idea de Albert: la luna ya la usa
 «sueño», que es otra cosa —apuntar las horas— y dos lunas juntas no se
 distinguirían.
 
@@ -346,7 +346,7 @@ Mientras mueves el cursor por el anillo de medir, la pantalla **enseña
 ya lo que vas a apuntar**: sobre «pasos», el michi andando por la calle.
 
 Toda la gramática vive en `src/mascota/anillos.js`. Los iconos son emoji
-de momento; se cambian ahí por los PNG de Alberto cuando estén.
+de momento; se cambian ahí por los PNG de Albert cuando estén.
 
 **Tres salidas, y hacen falta**: el icono ✕, el botón izquierdo desde
 cualquier sitio, y la vuelta sola a los 8 s. Un tamagotchi venía con
@@ -359,7 +359,7 @@ rejilla de texto. El lado tiene que ser divisor entero de 96 (12, 16,
 24, 32, 48, 96): se amplia con NEAREST y no se inventa un solo pixel.
 Reducir de 16 a 12 NO es entero y emborrona, por eso se guarda a 96.
 
-El primero es la escoba de `limpiar`, de Alberto. La rejilla de aqui
+El primero es la escoba de `limpiar`, de Albert. La rejilla de aqui
 dice un CUBO —a 12 px el palo en diagonal desaparecia— y se deja escrita
 a proposito: documenta el intento y vuelve sola si se borra el dibujo.
 
@@ -542,13 +542,13 @@ dato y siguen.
 | ritmo | bajar más rápido de lo sano | `RITMO_MAXIMO_SEMANAL` |
 | **grasa** | por debajo de 0,6 g por kilo de peso meta | `GRASA_MINIMA_POR_KG` |
 
-El de la grasa se añadió al preguntar Alberto por qué le salían 47 g
+El de la grasa se añadió al preguntar Albert por qué le salían 47 g
 donde la app antigua le daba 67. La respuesta: pesa 13 kg menos (el
 reposo baja 133 kcal, correcto) **y** el reparto cambió del 30% al 25%
 de grasa. Y detrás había algo peor: la grasa es la única macro que baja
 sin freno, porque la proteína va fija y los carbos son lo que sobra.
 
-**La app avisa pero NO cambia el reparto.** Es decisión de Alberto y
+**La app avisa pero NO cambia el reparto.** Es decisión de Albert y
 está en `DECISIONS.md`. `pruebas/avisos.mjs` fija los dos números de
 `macros()` a propósito: si alguien mete un suelo duro ahí, la prueba se
 cae y hay que decidirlo, no que pase de refilón.
@@ -604,7 +604,7 @@ tienen que estar.
 sale de la persona. El suelo es `KCAL_MINIMAS` según el sexo y el techo
 es el gasto total por `1 + SUPERAVIT_MAXIMO` — los mismos límites que
 usa `planEnergetico`, para que el deslizador no pueda llevarte a un
-sitio que el motor considera imposible. Con el pacto de Alberto sale
+sitio que el motor considera imposible. Con el pacto de Albert sale
 1.500–2.413.
 
 Los tres deslizadores **estiran su banda** si el valor de arranque cae
@@ -618,7 +618,7 @@ Se eligió pensando en que esto simula un hábito sostenido.
 
 ## PromptPay, montado y apagado (2026-09-12)
 
-Lo pidieron los amigos tailandeses de Alberto. PromptPay es el estándar
+Lo pidieron los amigos tailandeses de Albert. PromptPay es el estándar
 nacional de QR de allí: lo escanea cualquier app bancaria tailandesa.
 
 Encaja con la app porque un QR de PromptPay es una **imagen estática**,
@@ -626,7 +626,7 @@ igual que el de Lightning: ni API, ni backend, ni tocar la CSP, ni un
 dato saliendo del dispositivo.
 
 Está **apagado** (`ACTIVO = false` en `src/datos/promptpay.js`) porque
-el QR tiene que ponerlo Alberto: sale de su app del banco. Ahí están las
+el QR tiene que ponerlo Albert: sale de su app del banco. Ahí están las
 instrucciones, los cuatro pasos y las dos advertencias.
 
 **La importante: el repositorio es PÚBLICO y un QR de PromptPay lleva

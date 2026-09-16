@@ -8,7 +8,7 @@
    El de la grasa se anadio el 2026-09-11 al ver que era la unica macro
    que bajaba sin freno: la proteina va fija en 2 g por kilo de meta y
    los carbos son lo que sobra, asi que todo el recorte cae sobre ella.
-   La app avisa pero NO cambia el reparto (decision de Alberto, ver
+   La app avisa pero NO cambia el reparto (decision de Albert, ver
    `DECISIONS.md`), asi que el aviso es lo unico que hay.
 
    Uso:  node pruebas/avisos.mjs        (desde la raiz)
@@ -25,7 +25,7 @@ const comprobar = (ok, que) => {
 const tipos = (perfil, comidaKcal, kgPorSemana = null) =>
   C.avisosDeSeguridad({ perfil, comidaKcal, kgPorSemana }).map((a) => a.tipo);
 
-/* Alberto, con sus numeros de verdad del 2026-09-11. */
+/* Albert, con sus numeros de verdad del 2026-09-11. */
 const ALBERTO = { sexo: 'hombre', edad: 45, altura: 183, pesoActual: 84.4, pesoMeta: 80 };
 
 console.log('\n### el suelo de grasa');
@@ -81,7 +81,7 @@ console.log('\n### los tres suelos que ya estaban');
 
 console.log('\n### la grasa NO se toca, solo se avisa');
 {
-  /* Decision de Alberto: la app dice el dato y no cambia el reparto. Si
+  /* Decision de Albert: la app dice el dato y no cambia el reparto. Si
      algun dia alguien mete un suelo duro en `macros()`, esto se cae y
      habra que decidirlo a proposito, no de refilon. */
   const m = C.macros({ kcal: 1698, pesoMeta: 80, proteinaPorKg: 2 });

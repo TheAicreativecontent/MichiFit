@@ -58,7 +58,7 @@ export default function App() {
      La hoja de registrar va anclada abajo, que es donde llega el pulgar,
      y el teclado sale justo ahi: se escribian los pasos y el boton de
      guardar quedaba DEBAJO del teclado, sin manera de llegar a el. Lo
-     vio Alberto usandola en el movil.
+     vio Albert usandola en el movil.
 
      `visualViewport` es lo que ve el usuario de verdad; `innerHeight`
      sigue siendo la pagina entera. La diferencia es lo tapado. El

@@ -68,7 +68,7 @@ export const COLORES = ['naranja', 'rojo', 'amarillo', 'verde', 'azul', 'blanco'
    sigue naranja: ese es el color de marca, y el logo va a juego.
 
    Hasta el 2026-09-12 arrancaba naranja, y eso hacia que «Adoptar a
-   Ninja» te diera un gato que no era Ninja. Decision de Alberto: gris
+   Ninja» te diera un gato que no era Ninja. Decision de Albert: gris
    de fabrica, y el color se elige al final de la historia — los dos,
    el del huevo y el del gato. El naranja y el blanco no son otro
    Ninja, son otros gatos. */

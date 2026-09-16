@@ -1,13 +1,13 @@
 /* ============================================================
    MichiFit · las fotos y los vídeos del Ninja de verdad
 
-   Ninja existe: es el gato de Alberto y vive en Bangkok. El último
+   Ninja existe: es el gato de Albert y vive en Bangkok. El último
    trozo de la historia lo enseña, porque saber que el gato es real
    cambia lo que la app pide de ti.
 
    QUÉ ENTRA AQUÍ: Ninja viviendo feliz. Nada más.
    -----------------------------------------------
-   Decisión de Alberto, 2026-09-13, y no es una cuestión de gusto: los
+   Decisión de Albert, 2026-09-13, y no es una cuestión de gusto: los
    vídeos del envenenamiento y del veterinario existen, y se quedan
    FUERA. Su sitio es TikTok, donde su chica ya contó esa parte y
    recibió mucho apoyo, porque ahí ese vídeo pide algo —atención,
@@ -31,7 +31,7 @@
       las cinco lenguas, dentro de `lore.fotos`. Si no quieres pie,
       quita la clave y la foto sale sola.
       Hasta el 2026-09-13 los pies estaban escritos aquí, en castellano
-      duro, y se veían igual en japonés: lo cazó Alberto. Es la tercera
+      duro, y se veían igual en japonés: lo cazó Albert. Es la tercera
       vez que pasa lo mismo en este proyecto, asi que el camino corto
       -escribir el texto donde estas- ya no esta disponible.
    3. **Si es una FOTO**, sube `const CACHE` en `public/sw.js`: no

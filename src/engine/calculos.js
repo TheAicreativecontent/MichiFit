@@ -260,7 +260,7 @@ export function avisosDeSeguridad({ perfil, comidaKcal, kgPorSemana }) {
      numero no dice por si solo si es poco.
 
      Solo se avisa: la app no cambia el reparto ni impone un suelo.
-     Decision de Alberto, 2026-09-11 — ver `DECISIONS.md`. */
+     Decision de Albert, 2026-09-11 — ver `DECISIONS.md`. */
   const m = macros({ kcal: comidaKcal, pesoMeta: perfil?.pesoMeta,
                      proteinaPorKg: perfil?.proteinaPorKg ?? 2 });
   const grasaMinima = Math.round((perfil?.pesoMeta ?? 0) * GRASA_MINIMA_POR_KG);

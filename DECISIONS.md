@@ -2,7 +2,7 @@
 
 ## 2026-09-14 — El aparato se puede ampliar, y el zoom va en un BOTÓN
 
-Petición de Alberto, y con una razón de fondo que conviene no perder:
+Petición de Albert, y con una razón de fondo que conviene no perder:
 **en el futuro quiere que el anillo se vea SIEMPRE en la parte de abajo,
 dentro de la pantalla del michi.** El zoom no es un capricho de ver más
 grande: es el sitio donde va a caber eso.
@@ -64,7 +64,7 @@ cosas distintas —una es un cuidado, que no toca la mecánica, y la otra
 es un dato, que sí—. Esa es razón del CÓDIGO. Para quien usa la app es
 un solo momento: se va a dormir.
 
-Decisión de Alberto, y el comportamiento lo describió él:
+Decisión de Albert, y el comportamiento lo describió él:
 
 > al clicarlo aparece el menú para registrar el sueño, el usuario lo
 > escribe y el gato se queda durmiendo hasta que clique en otro botón o
@@ -82,7 +82,7 @@ escribirlo, ya estaba.
 
 ### Se queda la LUNA
 
-Alberto no se decidía entre las dos. Gana la luna por dos razones, y la
+Albert no se decidía entre las dos. Gana la luna por dos razones, y la
 primera se ve sola al abrir la app:
 
 1. **El michi dormido ya lleva las tres z dibujadas encima.** Como icono
@@ -107,7 +107,7 @@ El rótulo del anillo pasa a decir las dos cosas: «Dormir y apuntar».
 ## 2026-09-14 — La versión se ve dentro de la app
 
 En Ajustes, la última línea. Idea que salió de la confusión del v5/v6
-de esta misma mañana: Alberto abre la app desde tres sitios y no tenía
+de esta misma mañana: Albert abre la app desde tres sitios y no tenía
 forma de saber, mirando el móvil, si lo que veía era lo último que subió
 o una copia guardada de hace días.
 
@@ -122,7 +122,7 @@ Sin traducir: `v0.7.1` se lee igual en las cinco lenguas.
 
 ## 2026-09-11 — «Mi pacto» pasa a llamarse «Mi objetivo»
 
-Decisión de Alberto: *«mi pacto es un poco ambiguo, ¿no crees?»*. Y sí.
+Decisión de Albert: *«mi pacto es un poco ambiguo, ¿no crees?»*. Y sí.
 Todas las apps de fitness —MyFitnessPal, Fitbit, Garmin, Strava, Yazio—
 dicen *objetivo* / *goals*. «Mi compromiso» no lo usa nadie.
 
@@ -149,13 +149,13 @@ tenerlo.
 **Falta «ganar peso», y no por olvido.** Hoy `planEnergetico` recorta
 cualquier superávit a cero, y además habría que darle la vuelta a una
 regla del michi: pasarse de calorías rompe el día, que en un volumen es
-justo lo contrario. Alberto eligió entre tres opciones —todo de golpe,
+justo lo contrario. Albert eligió entre tres opciones —todo de golpe,
 solo lo que funciona, o etiquetas sin efecto— y escogió hacer primero lo
 que funciona. Queda en `TODO.md` con su propio paso.
 
 ## 2026-09-11 — La grasa se avisa, no se impone
 
-Alberto vio que MichiFit le daba 47 g de grasa donde la app antigua le
+Albert vio que MichiFit le daba 47 g de grasa donde la app antigua le
 daba 67, y preguntó si estaba bien. Estaba bien, y salieron dos cosas:
 
 - pesa 13,3 kg menos, así que su metabolismo en reposo bajó 133 kcal
@@ -172,7 +172,7 @@ y ahí había un hueco.
 
 **Se decide avisar y no imponer.** Tres opciones estaban sobre la mesa
 —suelo duro de grasa, subir el reparto al 30%, o solo el aviso— y
-Alberto eligió la tercera.
+Albert eligió la tercera.
 
 Qué significa en el código:
 
@@ -187,7 +187,7 @@ Qué significa en el código:
   que la proteína: el peso actual baja según avanzas, y con él bajaría
   el suelo justo cuando menos debería moverse.
 
-Calibrado a propósito para que no sea ruido: con el pacto de Alberto
+Calibrado a propósito para que no sea ruido: con el pacto de Albert
 salta (47 g contra un mínimo de 48), y en cuanto pacta 8.000 pasos y
 tres entrenos deja de saltar (50 g). Un aviso que salta siempre no se
 lee, y uno que no salta nunca no sirve.
@@ -197,14 +197,14 @@ lee, y uno que no salta nunca no sirve.
 Los tres botones del aparato dejan de ser un juguete y pasan a ser la
 interfaz principal —dos anillos, cuidar y medir— y aparecen dos barras
 nuevas, agua y orden, que bajan solas y se rellenan pulsando. Decisión
-de Alberto.
+de Albert.
 
 **Qué cambia respecto a lo que estaba escrito.** `MECANICA.md` §8b
 decía: «los mimos suben poco y cada vez menos; si bastara con eso, la
 app dejaría de hablar de tu vida». La apuesta era que el michi solo
 reflejara tu vida. La nueva es distinta: **el bucle de cuidados es el
 anzuelo que te mete en la app, y una vez dentro registras**. En palabras
-de Alberto: «esto da un motivo al usuario para entrar de tanto en tanto
+de Albert: «esto da un motivo al usuario para entrar de tanto en tanto
 a limpiar la casa, darle de beber y darle amor al michi. Y ya que está,
 registra los pasos y las comidas».
 
@@ -279,7 +279,7 @@ En consecuencia, HAPPY baja más rápido (2,2 → 3,4 por hora, tope 32 →
   a proposito, para que se vea el escenario detras.
 
 ## 2026-09-08 — Sin modo oscuro
-- Contexto: la app se veia LILA en el movil de Alberto. Era el modo oscuro
+- Contexto: la app se veia LILA en el movil de Albert. Era el modo oscuro
   que yo habia copiado de MichiMind.
 - Comprobado: **Michi Finanzas no tiene modo oscuro** (cero apariciones de
   `prefers-color-scheme` en su codigo).
@@ -318,10 +318,10 @@ En consecuencia, HAPPY baja más rápido (2,2 → 3,4 por hora, tope 32 →
   MichiFin usa azul y MichiMind rosa.
 
 ## 2026-09-13 — En la app, solo Ninja feliz; lo duro va a TikTok
-- Contexto: Alberto dejo cuatro archivos en `public/ninja/`. Dos fotos del
+- Contexto: Albert dejo cuatro archivos en `public/ninja/`. Dos fotos del
   gato en casa, y dos VIDEOS: el envenenamiento y el veterinario, que son
   los actos 4 y 5 de la historia grabados de verdad.
-- Decision de Alberto: **los videos fuera de la app**. Se borran de
+- Decision de Albert: **los videos fuera de la app**. Se borran de
   `public/ninja/` y nunca llegan a git. En la galeria solo van fotos de
   Ninja viviendo feliz.
 - Razon, con sus palabras: eso ya se conto en TikTok -lo hizo su chica y
@@ -336,7 +336,7 @@ En consecuencia, HAPPY baja más rápido (2,2 → 3,4 por hora, tope 32 →
   `preload="metadata"` y SIN `poster`, asi que el PRIMER FOTOGRAMA es la
   miniatura. No queda detras de un boton de play: el del envenenamiento
   empieza ya con el gato en el suelo, y se veria sin haberlo pedido.
-- Pendiente, de Alberto: mas fotos, y con menos casa en el encuadre. El
+- Pendiente, de Albert: mas fotos, y con menos casa en el encuadre. El
   repositorio es publico.
 
 ## 2026-09-07 — El michi es pixel art dentro de un tamagotchi
@@ -344,7 +344,7 @@ En consecuencia, HAPPY baja más rápido (2,2 → 3,4 por hora, tope 32 →
 - Decision: **pixel art naranja** (el atigrado del logo) dentro de un
   **aparato tipo tamagotchi** dibujado en SVG: carcasa naranja, pantalla LCD
   verde con rejilla de pixeles, tres botones y anilla.
-- Razon: es lo que Alberto queria de referencia, y ademas el marco del aparato
+- Razon: es lo que Albert queria de referencia, y ademas el marco del aparato
   da contexto al michi: se entiende que es una mascota virtual, no un adorno.
 - **El michi eran datos, no una imagen**: `pixel/michis.js` eran rejillas de
   32x32 que se pintaban como rectangulos.
@@ -375,7 +375,7 @@ En consecuencia, HAPPY baja más rápido (2,2 → 3,4 por hora, tope 32 →
 ## 2026-09-07 — El producto se llama MichiFit; "Michigochi" se descarta
 - Contexto: el tamagochi se desarrollo bajo el nombre Michigochi.
 - Decision: **el nombre del producto es MichiFit en todo**.
-- Razon: "tiene mas punch y es mas claro de entender" (palabras de Alberto).
+- Razon: "tiene mas punch y es mas claro de entender" (palabras de Albert).
 - Consecuencia pendiente: la carpeta sigue siendo `2026_APP_MICHIGOCHI` y el
   codigo aun usa `Michigochi.jsx` y el prefijo `mg-`. Renombrar es deuda
   tecnica asumida, no una contradiccion. Ver `TODO.md`.

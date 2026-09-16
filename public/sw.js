@@ -28,7 +28,7 @@
    los gatos rotos para siempre.
    `node pruebas/cache-sw.mjs` avisa si vuelve a pasar. */
 /* v7 (2026-09-14): esta NO va por una imagen. Es la base estandar
-   `v0.7.0`, la version con la que Alberto trabaja desde tres sitios —este
+   `v0.7.0`, la version con la que Albert trabaja desde tres sitios —este
    portatil, el otro y el movil—. Subirla obliga a los dispositivos que ya
    tienen la app instalada a tirar la cache vieja y arrancar limpios en la
    misma base, en vez de ir cada uno con un resto distinto de v5 o v6.
@@ -37,7 +37,7 @@
    excepcion, y queda escrita para que no parezca que se subio por
    costumbre. Ver `VERSION.md`. */
 
-/* v6 (2026-09-13): Alberto dibujo `pasos` de nuevo —una patita con los
+/* v6 (2026-09-13): Albert dibujo `pasos` de nuevo —una patita con los
    deditos separados del cojin, que a 12 px se entiende y la de antes
    no—. Mismo nombre de archivo y sin hash, asi que sin subir esto quien
    ya tenga la app abierta seguiria viendo la patita vieja para siempre.
@@ -45,7 +45,7 @@
    archivos nuevos, o sea URLs nuevas, y la cache no puede tapar lo que
    no tiene guardado. */
 
-/* v5 (2026-09-12, mas tarde): Alberto redibujo `limpiar` otra vez —una
+/* v5 (2026-09-12, mas tarde): Albert redibujo `limpiar` otra vez —una
    escoba mejor— y tambien `comida`, que ahora lleva palillos y verdura.
    Los iconos del anillo no llevan hash en el nombre, asi que sin subir
    esto quien ya tuviera la app seguiria viendo los de antes.

@@ -15,7 +15,7 @@
    ============================================================ */
 
 /* Los cuatro números que gobiernan el ritmo de la barra. Subidos el
-   2026-09-11 (2,2 → 3,4 por hora y tope 32 → 44) a petición de Alberto:
+   2026-09-11 (2,2 → 3,4 por hora y tope 32 → 44) a petición de Albert:
    con los botones del aparato convertidos en interfaz, la barra tiene
    que bajar lo bastante rápido como para dar un motivo de volver.
 

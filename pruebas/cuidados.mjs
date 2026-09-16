@@ -137,7 +137,7 @@ console.log('\n### sin datos no molesta a nadie');
      no recibe a nadie con sed. `sed` y `sucio` solo saltan a CERO, asi
      que esa es la comprobacion de verdad.
 
-     Que se haya movido es la queja de Alberto del 2026-09-12: «cuando
+     Que se haya movido es la queja de Albert del 2026-09-12: «cuando
      entro en la app apenas se ha movido». Una barra quieta no pide nada
      y no engancha a nadie, asi que aqui abajo se exige que haya bajado.
      Antes esta linea decia `agua > 55`, que era un numero puesto a ojo y

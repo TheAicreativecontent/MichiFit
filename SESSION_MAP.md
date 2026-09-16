@@ -50,7 +50,7 @@
 - **Flecos de la mecánica resueltos** (MECANICA.md §11): semana en lunes,
   corazón partido al gastar comodín, calorías que pesan la mitad, add-ons
   que se pierden al bajar de nivel.
-- **GitHub → Vercel conectado** por Alberto: se subieron 25 commits y el
+- **GitHub → Vercel conectado** por Albert: se subieron 25 commits y el
   push disparó el despliegue automático. Confirmado que funciona.
 - Descartados: la API de Garmin (exige desarrollador certificado) y pagar
   Gemini. IndexedDB se descarta por innecesario, no por falta de tiempo.
@@ -66,7 +66,7 @@
   el **contenido** en vez de la carpeta. Apuntado en `LESSONS.md`.
 - **Importador del CSV** de la app antigua, en Ajustes. Enseña qué va a
   entrar antes de tocar nada y fusiona sin pisar. Probado con el CSV real
-  de Alberto: 72 días, 28 → 85 entradas, cero campos pisados.
+  de Albert: 72 días, 28 → 85 entradas, cero campos pisados.
 - La columna `sueno` de ese CSV **no son horas** (44 a 85: es la puntuación
   de Garmin). Se guarda en `importado.suenoPuntos` en vez de inventar horas.
 - Los meses importados quedan fuera de la ventana del motor (arranca en
@@ -75,7 +75,7 @@
 
 ## 2026-09-09 — Calorias, letra e idiomas
 
-Tres encargos de Alberto, despues de que su madre y su chica probaran la app.
+Tres encargos de Albert, despues de que su madre y su chica probaran la app.
 
 1. **«A las tres nos sale 1500 kcal».** No era la formula: eran cinco
    fallos encadenados, y el principal es que el objetivo de comida se
@@ -92,7 +92,7 @@ pestanas, cero claves crudas, cero castellano suelto, cero desbordes.
 
 ### 2026-09-09 (tarde) — Revisión antes de abrir al público
 
-Alberto pidió buscar errores, código inútil y fallos de seguridad, sin
+Albert pidió buscar errores, código inútil y fallos de seguridad, sin
 borrar nada: lo que sobre, a cuarentena.
 
 **Seis errores**, y el primero llevaba tiempo: el motor leía `suenoHoras`
@@ -118,7 +118,7 @@ un teclado tailandés o japonés sería una trampa.
 
 ### 2026-09-09 (tarde) — El michi cambia de sentido
 
-Alberto trajo el dato mas valioso del proyecto hasta ahora: varias
+Albert trajo el dato mas valioso del proyecto hasta ahora: varias
 personas habian probado la app y dijeron lo mismo sin ponerse de acuerdo.
 **No entendian para que servia el gato, y no querian identificarse con un
 cuerpo grande ni con uno pequeno.**
@@ -132,7 +132,7 @@ pantalla: lo que se ve es TU gato gordo.
 Fuera las cinco siluetas. **El michi refleja ahora tu constancia.** Los
 16 dibujos que sobran estan en `_CUARENTENA/cuerpos-antiguos/`.
 
-Alberto dibujo siete poses nuevas. Al colocarlas aparecieron dos cosas:
+Albert dibujo siete poses nuevas. Al colocarlas aparecieron dos cosas:
 
 - Tres traian un **halo semitransparente** que sobre la pantalla del
   aparato se habria visto como un recuadro. Y venian en tamanos muy
@@ -178,7 +178,7 @@ Ninguno de los dos se veía a tamaño real. Aparecieron al ampliar las
 caras 3-4x, y la lección está en `LESSONS.md`: **el pixel art hay que
 mirarlo ampliado, aunque en la app se vea a 60 px.**
 
-Y un error mío: Alberto había retocado siete michis a mano y **el script
+Y un error mío: Albert había retocado siete michis a mano y **el script
 se los pisó**. Mi código de protección no llegó a coincidir nunca. Ahora
 `retocadoAMano()` compara fechas de modificación y respeta lo tocado a
 mano, con `--forzar` para saltárselo a propósito.
@@ -248,7 +248,7 @@ sueltos de la raíz.
 
 ### 2026-09-11 (tarde) — El aparato deja de ser un adorno
 
-Alberto lo planteó bien: los tres botones del michigotchi no servían
+Albert lo planteó bien: los tres botones del michigotchi no servían
 para nada relevante. El izquierdo daba corazones, el central cambiaba el
 decorado, el derecho dormía al michi. **Ninguno tocaba un dato.** Un
 salvapantallas con botones.
@@ -291,7 +291,7 @@ También se cambió, a propósito y anotado en `DECISIONS.md`, la apuesta de
 mete en la app, y ya dentro registras. HAPPY baja más rápido (2,2 → 3,4
 por hora) y los mimos pesan algo más (22 → 28).
 
-Queda pendiente de Alberto: los ocho iconos en pixel art y los dibujos
+Queda pendiente de Albert: los ocho iconos en pixel art y los dibujos
 de `michi_sediento` y `michi_asqueado`. Mientras falten, el aparato cae
 al michi de pie y no se rompe nada.
 
@@ -316,7 +316,7 @@ Las ilustraciones son el michi **gris** sobre los escenarios que ya
 existen, no las viñetas: esas están escritas como prompts pero sin
 generar. Cambiarlas el día que existan es una línea por acto.
 
-Antes de eso, los dos dibujos que trajo Alberto: `michi_sediento` y
+Antes de eso, los dos dibujos que trajo Albert: `michi_sediento` y
 `michi_asqueado`. Al sediento se le quitó el sol de la esquina, que
 además de sobrar estiraba la caja del dibujo y habría dejado al gato más
 pequeño que en las otras poses. Y el teñido tuvo que aprender algo que
@@ -328,7 +328,7 @@ Ahora se respeta lo que cae fuera del arco naranja del pelaje.
 
 ### 2026-09-11 (noche) — «Mi pacto» pasa a ser «Mi objetivo»
 
-Alberto lo planteó como duda y tenía razón: *«mi pacto es un poco
+Albert lo planteó como duda y tenía razón: *«mi pacto es un poco
 ambiguo, ¿no crees?»*. Todas las apps de fitness dicen objetivo.
 
 Se renombró **solo el texto visible**, en las cinco lenguas. Las claves
@@ -347,7 +347,7 @@ cuarto declara que no toca nada y lo dice en pantalla.
 
 Falta «ganar peso» y está anotado: el motor recorta los superávit a
 cero, y habría que invertir la regla de que pasarse de calorías rompe el
-día. Alberto eligió hacer primero lo que funciona.
+día. Albert eligió hacer primero lo que funciona.
 
 **El renombrado salió mal a la primera y conviene recordarlo.** Usé una
 expresión regular para cambiar solo el texto entre comillas. El
@@ -425,7 +425,7 @@ todo el replanteamiento del michi salió de justo eso.
 
 ### 2026-09-11 (cierre) — Mantenerse es una banda
 
-Alberto cerró la pregunta que quedaba de la sesión anterior. «Mantenerme»
+Albert cerró la pregunta que quedaba de la sesión anterior. «Mantenerme»
 usaba el mismo criterio que adelgazar —cumplir es no pasarse— así que
 comer 700 kcal por debajo del mantenimiento contaba como día cumplido.
 Que es cualquier cosa menos mantenerse.
@@ -433,7 +433,7 @@ Que es cualquier cosa menos mantenerse.
 Ahora es una banda: cerca por arriba y por abajo, con el mismo margen del
 10% de siempre. Con una meta de 2.242 la ventana va de 2.018 a 2.466.
 
-Se aplicó también a **«estar más en forma»**, que Alberto no nombró pero
+Se aplicó también a **«estar más en forma»**, que Albert no nombró pero
 apunta al mismo número —ambos ponen déficit 0—: dos botones con la misma
 meta y distinto comportamiento son de las cosas que muerden meses
 después. Es una palabra en la tabla `OBJETIVOS` si algún día se quieren
@@ -453,7 +453,7 @@ Comprobado en pantalla con el mismo dato: 1.780 kcal salen ✅ con meta
 
 ### 2026-09-12 — Los ocho iconos, dibujados píxel a píxel
 
-Alberto autorizó Magnific y preguntó si el arte podía hacerlo yo.
+Albert autorizó Magnific y preguntó si el arte podía hacerlo yo.
 Respuesta corta: el MCP de Magnific pide plan premium y el suyo no lo
 tiene, así que desde aquí no.
 
@@ -490,7 +490,7 @@ escribió— y la hoja de contacto se estaba publicando con la app.
 ## 2026-09-12 · El color se elige al adoptarlo, y el gato arranca gris
 
 Se cierran las dos preguntas que quedaban en `ASK.md`, las dos decididas
-por Alberto.
+por Albert.
 
 **El color.** Ninja es gris en el lore, pero la app arrancaba naranja:
 «Adoptar a Ninja» te daba un gato que no era Ninja. De las tres salidas
@@ -541,7 +541,7 @@ verde, lint sin errores y build limpio.
 
 ## 2026-09-12 (noche) · Los botones, versión buena
 
-Cambio de gramática pedido por Alberto después de que sus amigos
+Cambio de gramática pedido por Albert después de que sus amigos
 probaran la app: izquierda pasa al siguiente, centro acepta, derecha
 cierra. Y un solo anillo de ocho iconos en vez de dos.
 
@@ -555,7 +555,7 @@ En reposo el centro y la derecha **no hacen nada**, y salen con
 `disabled`. Es deliberado.
 
 `dormir` pasa de ser el botón derecho a ser un icono del anillo. Su
-dibujo son tres z de tamaño creciente (idea de Alberto): la luna ya es
+dibujo son tres z de tamaño creciente (idea de Albert): la luna ya es
 «sueño», que es apuntar las horas dormidas, y dos lunas seguidas en el
 mismo anillo no se distinguen — la misma lección que dejó el cubo verde
 al lado de la gota azul. Costó tres intentos: encadenadas en diagonal
@@ -580,7 +580,7 @@ agruparlos en su día.
 
 ### El audit de «kawaii»
 
-Alberto pidió mirar dónde más mordía. Resultado: **ningún fallo vivo
+Albert pidió mirar dónde más mordía. Resultado: **ningún fallo vivo
 más**, pero sí la mina que lo causaba.
 
 `estado` significa DOS COSAS distintas, y las dos conviven en
@@ -600,9 +600,9 @@ retiraron el 2026-09-09, y que exporta un `MICHIS` que no tiene nada que
 ver con el `MICHIS` de `TamagotchiPNG.jsx` — aquél son cuerpos, éste son
 los tres colores. Mismo nombre, dos cosas.
 
-### La escoba de Alberto, y una guarda que se rompio sola
+### La escoba de Albert, y una guarda que se rompio sola
 
-Alberto dibujo `limpiar` por su cuenta mientras se trabajaba: una
+Albert dibujo `limpiar` por su cuenta mientras se trabajaba: una
 ESCOBA, a 16x16. Aqui estaba escrita como un cubo justamente porque a
 12 px el palo en diagonal desaparecia — a 16 si cabe, y se lee incluso
 reducida.
@@ -652,7 +652,7 @@ deslizador que arranca fuera de su rango se coloca solo en el extremo y
 le cambia el numero al usuario sin que lo pida.
 
 **PromptPay** queda montado y apagado, a falta del QR, que solo puede
-sacar Alberto de su app del banco. Lo que hay es el sitio, las
+sacar Albert de su app del banco. Lo que hay es el sitio, las
 instrucciones y el aviso que importa: el repositorio es publico y ese QR
 lleva dentro su numero de telefono — y un commit no se retira.
 
@@ -664,7 +664,7 @@ enciende.
 
 ## 2026-09-12 (tarde) · Lo que salio de probarla en el movil
 
-Alberto la uso en el movil y salieron cuatro cosas, tres de ellas
+Albert la uso en el movil y salieron cuatro cosas, tres de ellas
 fallos de verdad. Vale la pena decirlo: en dos dias, TODO lo que ha
 mejorado de verdad esta app ha salido de alguien usandola, no de
 leerla.
@@ -715,11 +715,11 @@ IndexedDB —que esta DESCARTADA con razones en `TODO.md`—, dejaba sin
 marcar la PWA y las pantallas, hechas hace semanas, y seguia esperando
 una «fusion con la MichiFit original» que ya ocurrio via el importador
 de CSV. Ahora dice donde estamos, y recoge el punto de decision que
-Alberto abrio hoy: si la app se va a Hostinger con usuarios y login.
+Albert abrio hoy: si la app se va a Hostinger con usuarios y login.
 
 `PROTOCOL.md` decia que la mascota es «SVG parametrico, cambia de
 silueta segun los datos, no es una imagen y no puede serlo». Las tres
-cosas dejaron de ser verdad el 2026-09-09. Es y sera PIXEL ART (Alberto).
+cosas dejaron de ser verdad el 2026-09-09. Es y sera PIXEL ART (Albert).
 
 Y el codigo muerto de las cinco siluetas queda anotado en los dos sitios
 sin borrarlo, porque son los dibujos originales y eso se decide
@@ -727,7 +727,7 @@ mirandolos. Lo que si se arreglo es la colision de nombres: habia dos
 `MICHIS` distintos —cuerpos en `pixel/michis.js`, colores en
 `TamagotchiPNG.jsx`— y el segundo pasa a ser `COLORES_MICHI`.
 
-### Y mas dibujos de Alberto
+### Y mas dibujos de Albert
 
 Redibujo `limpiar` otra vez (una escoba mejor) y `comida`, que ahora
 lleva palillos y verdura. Estaban solo en `public/`, donde el generador
@@ -736,7 +736,7 @@ se los habria llevado por delante: los dos pasan a
 
 ### Cierre del dia
 
-Queda anotada una idea de Alberto para cuando haya calma: que «dormir» y
+Queda anotada una idea de Albert para cuando haya calma: que «dormir» y
 «sueño» acaben siendo el MISMO icono, o que se diferencien con una
 siesta. Expresamente NO se hace ahora.
 
@@ -746,7 +746,7 @@ dos cosas distintas —un cuidado y un dato—, y esa es una razon del
 CODIGO, no de quien usa la app. Es justo el tipo de cosa que toca mirar
 en la conversacion de simplificar.
 
-Y ese es el otro hilo abierto: Alberto quiere sentarse a ver como hacer
+Y ese es el otro hilo abierto: Albert quiere sentarse a ver como hacer
 la app HIPER sencilla de entender. Dijo dos veces que por ahora no se
 borre ni se reduzca nada, que tal como esta, esta bien. Lo que hay que
 llevar a esa conversacion no es una lista de recortes, sino el mapa de
@@ -754,7 +754,7 @@ lo que la app pide entender: cuantos conceptos hay, cuales se explican
 solos en la pantalla y cuales hay que deducir.
 
 ## 2026-09-13
-- Contexto: Alberto vuelve al portatil de casa despues de trabajar en el
+- Contexto: Albert vuelve al portatil de casa despues de trabajar en el
   otro. Se pone al dia (4 commits del 12), y pide limpiar el codigo
   muerto que quedaba anotado en `TODO.md`: las cinco siluetas y
   `salir.png`.
@@ -835,7 +835,7 @@ archivo dice quien lo hace) y el comando que queda es el de los iconos.
 una imagen»: se marca como dejo de ser verdad sin borrar la decision,
 que es historia y explica el aparato.
 
-### Y una pregunta de Alberto: ¿ahi se puede poner un video?
+### Y una pregunta de Albert: ¿ahi se puede poner un video?
 
 Si, y ya estaba montado: misma lista `src/datos/ninja.js`, se distingue
 por la extension y `Lore.jsx` pinta un `<video controls playsInline
@@ -871,12 +871,12 @@ cambia es la logica del worker, y esa se actualiza sola.
 
 Y `datos/ninja.js` decia que los videos eran `.mp4`, cuando `esVideo`
 acepta tambien `.webm` y `.mov`. Importa justo ahora: lo que graba el
-iPhone de Alberto es `.mov`, y el comentario le habria hecho creer que
+iPhone de Albert es `.mov`, y el comentario le habria hecho creer que
 tenia que convertirlo.
 
 ### Ninja, por fin
 
-Alberto dejo cuatro archivos en `public/ninja/`: dos fotos del gato en
+Albert dejo cuatro archivos en `public/ninja/`: dos fotos del gato en
 casa y DOS VIDEOS que no habia mencionado. Se miraron los cuatro antes
 de montar nada, y menos mal.
 
@@ -901,7 +901,7 @@ Eran los actos 4 y 5 de la historia GRABADOS DE VERDAD. Ninja tirado en
 el suelo mojado sin poder levantarse, y despues en el veterinario con el
 cono y la via.
 
-Decision de Alberto: fuera. Su sitio es TikTok —su chica ya conto esa
+Decision de Albert: fuera. Su sitio es TikTok —su chica ya conto esa
 parte alli y recibio mucho apoyo— y en la app solo Ninja viviendo feliz,
 que es mas evergreen y positivo. Coincidio con la recomendacion, que
 iba por las mismas dos razones:
@@ -931,7 +931,7 @@ retira.
 
 ### Los pies de foto hablaban castellano en japones
 
-Lo cazo Alberto nada mas verlo: los pies de las dos fotos de Ninja
+Lo cazo Albert nada mas verlo: los pies de las dos fotos de Ninja
 estaban escritos a mano dentro de `datos/ninja.js` —«En casa»,
 «Durmiendo, que es lo suyo»— y salian igual con la app en japones.
 
@@ -950,7 +950,7 @@ y «いつもの昼寝».
 
 ### La patita nueva
 
-Alberto redibujo `pasos`: una patita con los deditos separados del
+Albert redibujo `pasos`: una patita con los deditos separados del
 cojin. Se probo en el anillo entero, a tamaño real y APAGADA (que es
 como se ven siete de los ocho, con `opacity .62` y `saturate(.6)`), y
 pasa las dos pruebas. Es mejor que la anterior, que era un bulto: el
@@ -984,7 +984,7 @@ porque eran archivos nuevos. Los dos casos, seguidos y con su motivo,
 son la mejor explicacion de esa regla que hay escrita en el proyecto.
 
 ## 2026-09-14
-- Contexto: Alberto pide el estado de la app leyendolo de Vercel, y al
+- Contexto: Albert pide el estado de la app leyendolo de Vercel, y al
   cruzarlo con el disco sale una diferencia: produccion servia
   `michifit-v6` y aqui ponia `v5`.
 - Que se hizo:
@@ -1004,7 +1004,7 @@ sirvieron de bitacora.
 
 **La v0.7.0, base estandar.** El proyecto llevaba desde el 7 de
 septiembre en `"version": "0.0.0"`. En el portatil daba igual —el ultimo
-commit lo dice todo— pero Alberto trabaja tambien desde el movil y desde
+commit lo dice todo— pero Albert trabaja tambien desde el movil y desde
 otro portatil, y ahi no hay forma de saber que tienes delante. Ahora hay
 un numero, y esta en cuatro sitios que dicen lo mismo: la etiqueta de Git
 `v0.7.0`, `package.json`, la cache `michifit-v7` y `VERSION.md`.
@@ -1031,7 +1031,7 @@ el mismo hash (`index-SMTa-lIt.js`) que ya estaba en produccion.
   eso se decide, no se cuela en una tanda de mantenimiento.
 
 ## 2026-09-14 (tarde) — Un solo boton para dormir, y la version a la vista
-- Contexto: Alberto aprueba lo de enseniar la version en la app («lo
+- Contexto: Albert aprueba lo de enseniar la version en la app («lo
   aplicare al resto de aplicaciones») y cierra la duda de dormir/sueno
   describiendo el comportamiento que quiere.
 - Que se hizo:
@@ -1057,7 +1057,7 @@ que se cuela en un commit de otra cosa.
 **Dormir y apuntar el sueno pasan a ser UN boton.** Eran dos iconos
 —tres z y luna— separados porque por dentro son un cuidado y un dato.
 Razon del codigo, no del usuario. El comportamiento lo describio
-Alberto y es el que se implemento: aceptar duerme al michi Y abre el
+Albert y es el que se implemento: aceptar duerme al michi Y abre el
 editor; **cancelar deja al michi dormido igual**; despierta con
 cualquier boton, que ya funcionaba asi.
 
@@ -1090,13 +1090,13 @@ cancelar → sigue dormido, pulsar → despierta.
   anotado arriba, si alguna vez se quiere abrir.
 
 ## 2026-09-14 (noche) — El zoom, y el «?» que faltaba
-- Contexto: Alberto manda una captura de la pantalla del michi y pide
+- Contexto: Albert manda una captura de la pantalla del michi y pide
   poder ampliarla. Y dice para que: **quiere que el anillo se vea
   SIEMPRE en la parte de abajo, dentro de la pantalla**. Pide tambien el
   «?» de Inicio, que salio del mapa de la conversacion anterior.
 - Que se hizo:
 
-**El zoom, en un boton y no en el cristal.** Alberto dijo «un boton o
+**El zoom, en un boton y no en el cristal.** Albert dijo «un boton o
 clicar la pantalla». El cristal ya esta cogido desde el 2026-09-11:
 tocarlo hace que el michi cuente como vas. Poner ahi el zoom habria
 quitado algo que ya existe y funciona, asi que va en un boton, arriba a
@@ -1148,8 +1148,8 @@ de mentir el mismo dia que la app cambia.
 
 ## 2026-09-16
 - Contexto: Albert vuelve al portatil de casa. Primero, una correccion
-  que va antes que el codigo: **se llama Albert, no Alberto**. Los
-  documentos viejos y el historial de git dicen Alberto en decenas de
+  que va antes que el codigo: **se llama Albert, no Albert**. Los
+  documentos viejos y el historial de git dicen Albert en decenas de
   sitios; eso es historia y no se reescribe sin que lo pida, pero lo
   nuevo va como Albert.
 - Esta copia estaba 4 commits atras (los del 14). `git fetch` primero,
@@ -1251,3 +1251,25 @@ porque ya esta entero en `SIMPLICIDAD.md`; lo que si merece quedar es el
 titular, que es lo que contesta a la pregunta original: **el problema no
 son los 42 conceptos, sino que unos se dicen cuatro veces y otros no se
 dicen nunca.**
+
+### Y por fin, su nombre
+
+Albert pidio dos cosas al cerrar, y las dos son la misma: que se le
+llame **Albert**, no «Alberto».
+
+Guardado donde vale para todo, no solo para esta app: en
+`~/.claude/CLAUDE.md`, que es la memoria general y la leen todos los
+proyectos. Antes solo estaba en la memoria de MichiFit.
+
+Y renombrado en el repositorio: **145 apariciones en 38 archivos** —los
+documentos, los comentarios del codigo, las pruebas y hasta el LEEME de
+`public/michi/`—. Se comprobo antes de tocar nada que NINGUNA era texto
+que vea el usuario: las 145 eran comentarios y documentacion. La unica
+que aparecia en `src/i18n/` estaba en la cabecera del archivo, no en una
+traduccion. Pruebas en verde y build limpio despues.
+
+Lo que NO se toca, y conviene que quede dicho: **el historial de git**.
+Los mensajes de commit viejos siguen diciendo Alberto, y cambiarlos
+obligaria a reescribir la historia de un repositorio publico, que es
+mucho peor que la molestia que arregla. La historia es la historia; los
+documentos son los que se leen.

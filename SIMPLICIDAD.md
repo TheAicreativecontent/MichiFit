@@ -1,6 +1,6 @@
 # SIMPLICIDAD.md — Qué le pide la app al usuario que entienda
 
-> **Esto NO es una propuesta de recortes.** Alberto lo dijo explícitamente
+> **Esto NO es una propuesta de recortes.** Albert lo dijo explícitamente
 > el 2026-09-12: por ahora no se borra ni se reduce nada, tal como está,
 > está bien. Lo que pidió preparar es un MAPA: cuántos conceptos hay,
 > cuáles se explican solos en la propia pantalla, y cuáles hay que

@@ -20,7 +20,7 @@ const comprobar = (ok, que) => {
   if (!ok) fallos++;
 };
 
-/* El perfil y el pacto reales de Alberto, 2026-09-11. */
+/* El perfil y el pacto reales de Albert, 2026-09-11. */
 const PERFIL = { sexo: 'hombre', edad: 45, altura: 183, pesoActual: 84.4, pesoMeta: 80 };
 const PACTO = (() => {
   const p = P.pactoPorDefecto({ metaPasos: 8000 });

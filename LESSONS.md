@@ -8,7 +8,7 @@
   sin limite. `energia` y `estres` no normalizaban: con valores 0-100 aportaban
   hasta 1000 puntos sobre un maximo de 100.
 - Solucion: reescritas y documentadas en `MICHIGOCHI-RESUMEN.md`.
-- Como evitarlo: **no reimplementar la spec original tal cual**. Si Alberto la
+- Como evitarlo: **no reimplementar la spec original tal cual**. Si Albert la
   vuelve a pegar, la referencia buena es `MICHIGOCHI-RESUMEN.md`.
 
 ## Pixel art: el detalle interior es ruido a 32x32
@@ -91,7 +91,7 @@ es identico y el cwd de la sesion sigue siendo valido todo el rato.
 ## Una columna que se llama "sueno" no tiene por que ser horas
 El CSV de la MichiFit antigua trae `sueno` con valores de 44 a 85. Es la
 **puntuacion** de sueño de Garmin, no horas dormidas. Mapearla a
-`sueno.horas` habria dicho que Alberto durmio 66 horas, y el motor lo habria
+`sueno.horas` habria dicho que Albert durmio 66 horas, y el motor lo habria
 dado por bueno.
 
 **Regla:** antes de mapear una columna de un archivo ajeno, mira su rango
@@ -213,7 +213,7 @@ original, no contra el recuerdo del original.
 
 ## Codigo de proteccion que nunca llego a proteger nada
 
-Escribi una guarda para no pisar los michis que Alberto habia retocado a
+Escribi una guarda para no pisar los michis que Albert habia retocado a
 mano. Luego lance el script y **le pise siete dibujos**. La guarda
 buscaba una cadena que en el archivo no estaba tal cual, asi que no
 coincidia nunca y el `if` era decorativo: parecia que protegia y no

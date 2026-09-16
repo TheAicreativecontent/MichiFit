@@ -45,7 +45,7 @@ const PERFILES = {
   'nunca ha apuntado':    {},
 };
 
-/* Los dos ultimos aun no estan dibujados: los hara Alberto. Mientras
+/* Los dos ultimos aun no estan dibujados: los hara Albert. Mientras
    falten, el aparato cae al michi de pie y no se rompe nada — pero la
    prueba ya vigila que sean ALCANZABLES, para que el dia que existan no
    haya que descubrir que nadie los ve. */

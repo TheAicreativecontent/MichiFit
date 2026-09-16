@@ -28,7 +28,7 @@ export const IMC_MINIMO_SANO = 18.5;
    salen 47 g, que para 84 kilos son 0,56 g/kg.
 
    0,6 es el borde bajo de lo que se suele citar como minimo razonable.
-   No es un limite duro y la app NO lo impone —decision de Alberto del
+   No es un limite duro y la app NO lo impone —decision de Albert del
    2026-09-11, se avisa y ya— pero por debajo conviene decirlo, igual que
    se dice con las calorias y con el IMC.
 
@@ -48,7 +48,7 @@ export const GRASA_MINIMA_POR_KG = 0.6;
    cualquier superavit a cero (`Math.max(0, deficitObjetivo)`), y ademas
    habria que darle la vuelta a una regla del michi: pasarse de calorias
    rompe el dia, que en un volumen es justo lo contrario. Decision de
-   Alberto del 2026-09-11: primero los que funcionan de verdad, y ganar
+   Albert del 2026-09-11: primero los que funcionan de verdad, y ganar
    peso en su propio paso. Esta en `TODO.md`. */
 /* `deficit` es lo que se pone en `perfil.deficitObjetivo` al elegirlo.
    NEGATIVO significa superavit: comer MAS que el gasto. `null` es «no lo
@@ -124,7 +124,7 @@ export const DEFICIT_MAXIMO = 0.20;
    `planEnergetico`, para que el deslizador no pueda contradecir al
    motor. Lo calcula `Simulador.jsx`.
 
-   `PASOS_MIN` es CERO por decision de Alberto (2026-09-12). Estuvo en
+   `PASOS_MIN` es CERO por decision de Albert (2026-09-12). Estuvo en
    2.000 unas horas con el argumento de que esto simula un habito
    sostenido y no un dia suelto, pero no andar nada es una respuesta
    legitima —un dia en cama, una lesion, una semana de trabajo sentado—

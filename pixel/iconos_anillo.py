@@ -231,7 +231,7 @@ def dibujoAMano(nombre):
     de lo que cabe en 12x12, y eso gana.
 
     El primero fue la escoba. Aqui abajo esta escrita como un CUBO,
-    porque a 12 px el palo en diagonal desaparecia; Alberto la dibujo a
+    porque a 12 px el palo en diagonal desaparecia; Albert la dibujo a
     16 y a 16 si cabe. La rejilla del cubo se deja donde esta a
     proposito: documenta por que se intento, y vuelve sola si algun dia
     se borra el dibujo.

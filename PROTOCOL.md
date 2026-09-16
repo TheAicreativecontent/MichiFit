@@ -10,7 +10,7 @@
   para poder probar cualquier día.
 - Los números ajustables van en `src/engine/constantes.js`. Nunca sueltos.
 - La mascota es **PIXEL ART, en PNG**, dentro de una carcasa dibujada en SVG.
-  Es y será pixel art (Alberto, 2026-09-12). Los dibujos viven en
+  Es y será pixel art (Albert, 2026-09-12). Los dibujos viven en
   `public/michi/`; los tres colores (naranja, gris, blanco) salen de teñir
   los naranjas con `pixel/tenir_michi.py`, no de redibujarlos.
 

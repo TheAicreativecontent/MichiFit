@@ -25,7 +25,7 @@ cara:
     tono es oscuro (los ojos) o esta mas arriba (20-30 grados).
   - Los mofletes se quedan practicamente a plena intensidad (`rubor`).
     Al principio los apague a 0,6 pensando que sobre pelaje frio
-    cantaban, pero Alberto los retoco a mano y los dejo casi como el
+    cantaban, pero Albert los retoco a mano y los dejo casi como el
     original: medidos, 0,80 de saturacion contra los 0,81 del naranja.
     Tenia razon — apagados, el gato pierde la cara.
 
@@ -44,7 +44,7 @@ DESTINO = "public/michi"
 # Tramo de luminosidad al que se lleva el pelaje, en tanto por uno. Como
 # en el huevo, no se llega a blanco ni a negro puros: un gato blanco
 # puro seria una mancha sin modelado, y uno negro puro una silueta.
-# Los nombres son los de Alberto, no los mios. Lo que yo llamaba
+# Los nombres son los de Albert, no los mios. Lo que yo llamaba
 # «negro» el lo ve gris, y lo que yo llamaba «gris» le queda bien de
 # blanco subiendolo un poco: el blanco que hice primero (0.66-0.99)
 # deslumbraba y perdia el atigrado.
@@ -151,7 +151,7 @@ def retocadoAMano(origen, destino):
 
     Si el destino es mas nuevo que su naranja de origen, es que se ha
     editado a mano y NO hay que pisarlo. Paso de verdad: los mofletes
-    salian como anillos huecos, Alberto los arreglo a mano en siete
+    salian como anillos huecos, Albert los arreglo a mano en siete
     dibujos, y sin esto la siguiente pasada del script se los habria
     llevado por delante sin avisar."""
     if not os.path.exists(destino):

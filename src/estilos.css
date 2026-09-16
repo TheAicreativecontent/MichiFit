@@ -410,7 +410,7 @@ input[type=range]::-moz-range-thumb {
 /* La hoja va anclada ABAJO, que es donde llega el pulgar. El precio es
    que el teclado del movil aparece justo ahi y la tapaba: se escribian
    los pasos y el boton de guardar quedaba debajo del teclado, sin
-   manera de llegar a el. Lo vio Alberto usandola en el movil.
+   manera de llegar a el. Lo vio Albert usandola en el movil.
 
    `--teclado` lo mide App.jsx. Va como relleno del fondo oscuro y no
    como `bottom`, para que la hoja SUBA entera y la sombra siga

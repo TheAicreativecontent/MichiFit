@@ -99,7 +99,7 @@ Lo dice al lanzarlo. Para rehacerlos igualmente:
 
     python pixel/tenir_michi.py --forzar
 
-Esto se anadio despues de pisarle a Alberto siete dibujos retocados a
+Esto se anadio despues de pisarle a Albert siete dibujos retocados a
 mano. La primera version del aviso no bastaba: un script que puede
 borrar trabajo tiene que negarse el solo, no fiarse de que nadie lo
 lance sin querer.

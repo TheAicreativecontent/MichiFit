@@ -37,7 +37,7 @@
       no se retira. PromptPay admite también un e-Wallet ID, que no es tu
       teléfono.
 
-- [ ] **Más fotos de Ninja** (Alberto). Las dos que hay funcionan; esto
+- [ ] **Más fotos de Ninja** (Albert). Las dos que hay funcionan; esto
       es ampliar, no arreglar. Con menos casa en el encuadre: el
       repositorio es público y se ven enteras. Se dejan en
       `public/ninja/` y se añaden a la lista de `src/datos/ninja.js`.
@@ -52,7 +52,7 @@
 
 ## Después
 - [ ] **El anillo, SIEMPRE visible dentro de la pantalla**, abajo. Idea
-      de Alberto (2026-09-14) y la razón por la que se hizo el zoom: con
+      de Albert (2026-09-14) y la razón por la que se hizo el zoom: con
       el aparato ampliado hay sitio. Antes de hacerlo hay que decidir lo
       que dice `DECISIONS.md`: si los iconos se redibujan a una rejilla
       mayor, porque a 1,25 los de 12 px pasan a 15 y dejan de caer en
@@ -68,7 +68,7 @@
       nada, que es justo lo que pedía ese hallazgo.
 
 - [ ] **Rematar el acabado de `pasos`** (opcional, es de pulir). El
-      dibujo de Alberto es una imagen suave: 707 colores, 2.746 píxeles
+      dibujo de Albert es una imagen suave: 707 colores, 2.746 píxeles
       con el borde a medias y negro puro, cuando los otros siete usan la
       tinta `#3A2D24` y no tienen NI UNO a medias. Con
       `image-rendering: pixelated` el navegador coge píxeles a medio
@@ -84,7 +84,7 @@
 
 - [ ] **Seguir ajustando el ritmo de las barras.** Se bajaron una vez
       el 2026-09-12 (16→10 h el agua, 24→14 h el orden, y las cacas de 3
-      a 5) porque Alberto dijo que al entrar apenas se habían movido.
+      a 5) porque Albert dijo que al entrar apenas se habían movido.
       Ahora el agua pide una o dos veces al día. Los números están en un
       solo sitio cada uno: `AGUA_HORAS` y `ORDEN_HORAS` en
       `engine/cuidados.js`, y los cuatro de la felicidad en
@@ -96,7 +96,7 @@
 
 ## Descartado
 - ~~Importador del export de Garmin Connect~~ — la API de Garmin exige ser
-  desarrollador certificado, no basta con una clave (Alberto, 2026-09-08).
+  desarrollador certificado, no basta con una clave (Albert, 2026-09-08).
 - ~~`localStorage` → IndexedDB~~ — **no hace falta**. IndexedDB sirve para
   datos grandes o consultas complejas; aquí son unos pocos KB de un solo
   usuario, que caben de sobra en el límite de 5 MB. Cambiarlo añadiría código
@@ -105,12 +105,12 @@
 
 ## Guardadas, decididas por ahora que no (siguen en `ASK.md`)
 - [ ] **La cámara para calcular calorías de una foto.** Necesita una API
-      de visión y se paga por uso. «Quizás no lo hacemos» (Alberto,
+      de visión y se paga por uso. «Quizás no lo hacemos» (Albert,
       2026-09-12), pero que siga apareciendo.
 - [ ] **Notificaciones push de verdad.** Necesitan un servidor con claves
       VAPID, y eso rompe que los datos no salgan del dispositivo. Mismo
       estado que la anterior — y ojo, que depende del punto de decisión
-      abierto en `ROADMAP.md`: Alberto se está planteando Hostinger con
+      abierto en `ROADMAP.md`: Albert se está planteando Hostinger con
       sistema de usuarios y login, y con servidor esto deja de estar
       bloqueado.
 
@@ -146,7 +146,7 @@
       igual en las cinco lenguas. Ahora la lista lleva una CLAVE y el
       texto vive en `src/i18n/`, en `lore.fotos`. Tercera vez que pasa
       lo mismo en este proyecto.
-- [x] 2026-09-13 — **`pasos`, redibujado por Alberto**: una patita con
+- [x] 2026-09-13 — **`pasos`, redibujado por Albert**: una patita con
       los deditos separados del cojín. Se entiende a 12 px y aguanta
       apagada, que es como se ven siete de los ocho. Guardada en
       `pixel/iconos-a-mano/` para que el generador no se la lleve por
@@ -202,7 +202,7 @@
       final de la historia. El michi arranca GRIS, que es el color de
       Ninja. De paso se destapó que la bienvenida pintaba siempre el
       naranja: `estado="kawaii"` no existe como archivo.
-- [x] 2026-09-12 — **La escoba de Alberto** en `limpiar`, y
+- [x] 2026-09-12 — **La escoba de Albert** en `limpiar`, y
       `pixel/iconos-a-mano/` para que el generador no vuelva a pisar un
       dibujo hecho fuera.
 - [x] 2026-09-12 — **Los rangos del simulador** dejan de ser de atleta.
@@ -234,7 +234,7 @@
       en Ajustes. Era el problema de fondo: nadie sabía para qué estaba
       el gato porque la app no lo decía en ninguna parte.
 - [x] 2026-09-11 — `michi_sediento` y `michi_asqueado`, dibujados por
-      Alberto, normalizados y teñidos a gris y blanco. Al teñir hubo que
+      Albert, normalizados y teñidos a gris y blanco. Al teñir hubo que
       aprender a respetar el atrezo: el azul del agua y el verde del asco
       no son pelaje.
 - [x] 2026-09-11 — Los tres botones del aparato pasan a ser la interfaz:

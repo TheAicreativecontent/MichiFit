@@ -1,7 +1,7 @@
 # Carcasas lisas — fuera de la app desde el 2026-09-09
 
 Los siete huevos con acabado suave. **Funcionan y están probados**: se
-sacaron de la app por decisión de Alberto, no porque fallaran. Por ahora
+sacaron de la app por decisión de Albert, no porque fallaran. Por ahora
 solo se usa el pixel art.
 
 ## Cómo devolverlos

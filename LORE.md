@@ -23,7 +23,7 @@ avatar: es tu compañero y tu recordatorio.
 
 ## El color: gris, como al principio
 
-Decisión de Alberto, 2026-09-10 por la noche: **Ninja es gris
+Decisión de Albert, 2026-09-10 por la noche: **Ninja es gris
 atigrado**, como decía tu lore original.
 
 Durante ese mismo día se había escrito en naranja, y por una razón
@@ -43,13 +43,13 @@ no son otro Ninja: son otros gatos**. Los hace
 es un 99% monocromático y se tiñe igual que la carcasa del huevo. Las
 nueve poses por tres colores, con los mofletes rosas intactos.
 
-Los nombres son los de Alberto y no los míos: lo que yo generé como
+Los nombres son los de Albert y no los míos: lo que yo generé como
 «negro» él lo ve gris, y el blanco que hice primero deslumbraba y
 perdía el atigrado, así que se bajó de 0,66-0,99 a 0,56-0,94.
 
 **Queda un cabo suelto**: la app arranca con el michi naranja. Si Ninja
 es gris, «adopta a Ninja» te está dando hoy otro gato. Está en `ASK.md`,
-es una decisión de producto y es de Alberto.
+es una decisión de producto y es de Albert.
 
 ## El cómic
 
@@ -64,7 +64,7 @@ ya en gris**. Arco:
 | 3 · la trampa | Amanece. Encuentra un bol demasiado limpio, demasiado bonito. Come feliz |
 | 4 · la noche | Lo han envenenado. Ella lo encuentra bajo la lluvia y corre al veterinario |
 | 5 · el rescate | Le salvan la vida. Abre los ojos y ella sigue ahí, dormida en la silla |
-| 6 · casa | Ninja sano, entre Alberto y ella |
+| 6 · casa | Ninja sano, entre Albert y ella |
 
 Dos decisiones de tono, para que un cómic kawaii aguante una historia
 dura: del agresor **solo se ve la sombra**, y del envenenamiento no se

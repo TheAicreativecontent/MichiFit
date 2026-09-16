@@ -10,14 +10,14 @@ tamagotchi que se llamaba Michigochi. Son historia, no codigo vivo.
 
 Antes de hacer nada, lee en este orden:
 0. `VERSION.md` — qué versión es la estándar, y el `git pull` de antes de
-   nada. Alberto trabaja desde tres sitios: este portátil, otro, y el
+   nada. Albert trabaja desde tres sitios: este portátil, otro, y el
    móvil. **Empezar sin mirar si el repositorio está al día ya costó una
    confusión entera el 2026-09-14.**
 1. `PROTOCOL.md` — reglas fijas de cómo trabajamos
 2. `MECANICA.md` — **cómo motiva el michi. El corazón del producto.**
 3. `CURRENT.md` — qué está pasando ahora mismo
 4. `LESSONS.md` — errores ya cometidos, no los repitas
-5. `ASK.md` — preguntas pendientes que solo Alberto puede responder
+5. `ASK.md` — preguntas pendientes que solo Albert puede responder
 
 Consulta cuando haga falta:
 `ARCHITECTURE.md` · `DECISIONS.md` · `GLOSSARY.md` · `SETUP.md` · `TODO.md` ·

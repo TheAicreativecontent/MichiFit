@@ -54,7 +54,7 @@ Descartado, y por que:
    entendia para que era el gato, que los botones confundian— y las dos
    veces el arreglo fue mejor que lo que estaba planeado. Sin recortar
    por recortar: primero mirar que pide la app que el usuario entienda.
-2. **Los dibujos que faltan** (Alberto): las fotos del Ninja real y las
+2. **Los dibujos que faltan** (Albert): las fotos del Ninja real y las
    21 viñetas del comic. El sitio esta hecho en los dos casos.
 3. **Calibrar con uso real.** El ritmo de las barras de cuidados solo se
    sabe usando la app unos dias. Ya se ajusto una vez asi.
@@ -64,7 +64,7 @@ Descartado, y por que:
 **Donde vive la app y si tiene usuarios.** Hoy es estatica y local-first:
 los datos no salen del dispositivo, y eso es lo que hace que no haga
 falta backend, ni cuentas, ni politica de privacidad, ni servidor que
-mantener. Alberto se esta planteando Hostinger con sistema de usuarios y
+mantener. Albert se esta planteando Hostinger con sistema de usuarios y
 login (2026-09-12).
 
 Es LA decision del proyecto, no una mas, porque casi todo lo demas

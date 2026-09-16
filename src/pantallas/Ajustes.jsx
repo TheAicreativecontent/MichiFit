@@ -170,7 +170,7 @@ export default function Ajustes({ perfil, entradas, pacto, onCambiar, onReinicia
 
       {/* La VERSIÓN, y es lo último de la pantalla a propósito: no es
           algo que nadie venga a buscar, pero cuando hace falta hace
-          mucha falta. Alberto abre la app desde tres sitios —este
+          mucha falta. Albert abre la app desde tres sitios —este
           portátil, otro y el móvil— y hasta hoy no había forma de
           saber, mirando el móvil, si lo que tenías delante era lo
           último que subiste o una copia guardada de hace tres días.

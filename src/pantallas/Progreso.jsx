@@ -167,7 +167,7 @@ function Grafica({ pesajes, pesoActual, pesoMeta, ritmo, bajando, semanas }) {
      otro. La gráfica acababa siendo sobre todo una raya recta de algo
      que no ha pasado.
 
-     Decision de Alberto (2026-09-12): antes numeros legibles que
+     Decision de Albert (2026-09-12): antes numeros legibles que
      caberlo todo. Se enseña como mucho VEZ Y MEDIA el historial, con un
      suelo de 28 dias para que no se quede en nada cuando solo llevas dos
      pesajes. Con 28 dias apuntados, el historial pasa de ocupar el 14%

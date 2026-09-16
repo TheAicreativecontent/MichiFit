@@ -3,7 +3,7 @@
    fitness app. Keep that here — "the michi doesn't judge you", not "stay
    on track".
 
-   The screen used to be called "My pact" and is now "My goal" (Alberto,
+   The screen used to be called "My pact" and is now "My goal" (Albert,
    2026-09-11): "pact" was evocative but nobody knew what it meant, and
    every fitness app out there says Goals. The promise wording survives
    where the michi speaks and in the lore, which is where it does work. */

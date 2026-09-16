@@ -3,7 +3,7 @@
 
    PromptPay es el estandar nacional tailandes de pagos por QR: lo
    escanea CUALQUIER app bancaria de alli, y es como paga todo el mundo
-   en Tailandia. Lo pidieron los amigos de Alberto, que estan alli.
+   en Tailandia. Lo pidieron los amigos de Albert, que estan alli.
 
    Encaja con lo que ya hace la app y por eso se puede tener: un QR de
    PromptPay es una IMAGEN ESTATICA, igual que el de Lightning. Ni API,
@@ -11,7 +11,7 @@
    dispositivo. Solo un PNG.
 
    ----------------------------------------------------------------
-   COMO ACTIVARLO (esto lo tiene que hacer Alberto, no se puede desde
+   COMO ACTIVARLO (esto lo tiene que hacer Albert, no se puede desde
    aqui)
 
      1. Abre tu app del banco tailandes y busca «My QR» / «รับเงิน»

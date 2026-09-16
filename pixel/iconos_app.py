@@ -1,5 +1,5 @@
 """
-Iconos de la app (PWA) a partir del logo de Alberto.
+Iconos de la app (PWA) a partir del logo de Albert.
 
 Dos familias, porque Android las trata distinto:
   icono-<n>.png       el logo tal cual, sobre transparente

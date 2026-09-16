@@ -36,7 +36,7 @@ import { anilloDe, siguienteIndice, ESPERA_MS } from '../mascota/anillos.js';
    una constante `CUERPOS` que ya no existía en ninguna parte: ni
    definida ni importada. O sea que abrir el panel lanzaba un
    `ReferenceError` y tumbaba la pantalla entera — se quedaba en blanco.
-   Lo encontró Alberto dando los siete toques en el móvil.
+   Lo encontró Albert dando los siete toques en el móvil.
 
    Que el lint no lo viera es normal: `oxlint` sin comprobación de tipos
    no persigue variables libres. Que no lo viera nadie más es porque
@@ -68,7 +68,7 @@ const POSES = [
    pero algunas filas de píxeles salen un pelo más anchas que otras. Es
    el mismo trato que ya se le da a la carcasa, que mide 751 y se pinta
    a 300. El día que el anillo viva SIEMPRE dentro de la pantalla —que
-   es a donde va esto, idea de Alberto del 2026-09-14— habrá que decidir
+   es a donde va esto, idea de Albert del 2026-09-14— habrá que decidir
    si los iconos se redibujan a una rejilla mayor. */
 const TAM = 300;
 const PROPORCION = 1024 / 751;

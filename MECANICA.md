@@ -65,7 +65,7 @@ Al empezar, el usuario pacta su semana. **La estructura es semanal; el
 seguimiento, diario.** Cada día de la semana tiene su objetivo, y los días de
 descanso forman parte del plan — descansar no es fallar.
 
-Ejemplo real (el de Alberto):
+Ejemplo real (el de Albert):
 
 | Día | Entreno | Pasos |
 |-----|---------|-------|
@@ -297,7 +297,7 @@ subir de nivel a mantenerlo y coleccionar.
 - No premia comer menos de lo sano ni bajar de un IMC seguro.
 - No deja que el michi muera. Nunca.
 
-## 11 · Flecos resueltos (Alberto, 2026-09-08)
+## 11 · Flecos resueltos (Albert, 2026-09-08)
 
 Las cuatro preguntas que quedaban abiertas, ya decididas.
 

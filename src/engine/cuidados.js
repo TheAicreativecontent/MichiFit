@@ -6,7 +6,7 @@
    Por qué existen, que es lo que hay que entender antes de tocarlas:
    son el **anzuelo**, no la mecánica. Dan un motivo para abrir la app
    de tanto en tanto —el michi tiene sed, hay que recoger— y, ya que
-   estás dentro, apuntas los pasos y la comida. Decisión de Alberto del
+   estás dentro, apuntas los pasos y la comida. Decisión de Albert del
    2026-09-11, ver `DECISIONS.md`.
 
    Tres reglas que NO se negocian, y vienen de `MECANICA.md` §10:
@@ -33,7 +33,7 @@ import { horasDespierto } from './felicidad.js';
 /* Horas DE VIGILIA en vaciarse del todo. Son los dos números que
    gobiernan el ritmo de todo esto.
 
-   Bajados el 2026-09-12 (16→10 y 24→14) después de que Alberto lo usara
+   Bajados el 2026-09-12 (16→10 y 24→14) después de que Albert lo usara
    unos días: «cuando entro en la app apenas se ha movido». Tenía razón,
    y la cuenta lo explica — son horas DESPIERTO, no horas de reloj. Con
    16 y unas 16 horas de vigilia al día, el agua tardaba justo un día
@@ -53,7 +53,7 @@ export const ORDEN_HORAS = 14;
 /* Cuántas cacas kawaii llegan a salir con la casa del todo sucia. Van
    apareciendo de una en una según baja la barra.
 
-   De 3 a 5 el 2026-09-12, también a petición de Alberto. Con 3, cada
+   De 3 a 5 el 2026-09-12, también a petición de Albert. Con 3, cada
    caca aparecía al bajar 33 puntos enteros de barra, así que el suelo
    se veía igual la mayor parte del tiempo; con 5, cada 20 puntos, y se
    nota que la cosa va a peor mientras no recojas. */

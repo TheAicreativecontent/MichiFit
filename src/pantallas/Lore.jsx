@@ -152,7 +152,7 @@ export default function Lore({ onCerrar, onAdoptar, aparato, onAparato }) {
           ) : (
             /* Sin fotos todavía. Se enseña el michi contento en vez de
                un hueco vacío: la pantalla tiene que funcionar igual el
-               día que Alberto aún no haya subido nada. */
+               día que Albert aún no haya subido nada. */
             <div className="sinFotos">
               <img src="/michi/michi_contento-gris.png" alt="" />
               <small>{t('lore.sinFotos')}</small>
