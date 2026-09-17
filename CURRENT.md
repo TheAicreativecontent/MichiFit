@@ -228,8 +228,74 @@ pantallas y el motor entero.
     pantalla entera al dormir— porque si no, la señal de que el michi
     sigue "vivo" se apagaría con el resto de la escena.
   Caché a v13.
+- Última acción (2026-09-18/19): **los 40 michis pasan a ser dibujo de
+  Albert, no del script**. Exportó él mismo, a mano, el mismo lienzo
+  (298x355) y casi la misma posición para los cuatro colores × diez
+  poses, ya en transparente. Mejor calidad que `pixel/recortar_model_sheets.py`
+  —sin pasar por JPEG ni por la cuantización a 96 colores— y sin
+  ninguno de los flequillos/goteras que ese script iba parcheando uno a
+  uno. **`public/michi/*.png` NO se vuelve a generar con el script
+  mientras esto siga así** — pidió explícitamente no pisarlos. Comiendo
+  y dormido quedan pendientes de recolocar (el lienzo cambió de tamaño y
+  esas dos no se realinearon todavía). Caché a v14.
+- Última acción (2026-09-19, descartado): prueba de animación de
+  andar con un sheet generado por IA (`IMG/animaciones/`, 4 colores,
+  guía de "contact/down/up/pass" de 12 frames). Separados y montados en
+  GIF solo el naranja, para decidir con poco coste. Los frames no eran
+  consistentes entre sí —typical de generar cada pose por separado con
+  IA, sin el control de un dibujo a mano— y se notaba al animarlo.
+  **Descartado por Albert.** Carpeta borrada, nada quedó en el repo.
+- Última acción (2026-09-19): **la conversación de simplificar, en
+  serio esta vez**. Albert la retomó con un ángulo que `SIMPLICIDAD.md`
+  (14-09) no tenía: no solo qué se entiende, sino qué anima y qué
+  desalienta (el calendario rojo/verde/amarillo, por ejemplo). Prioridad
+  que dio, en orden: 1) hábitos (entreno, pasos, comida+macros, peso —
+  sueño el último) 2) la gráfica de cuánto falta para la meta 3) la
+  historia de Ninja, hoy escondida en Ajustes 4) el menú de abajo.
+  Decisiones ya tomadas, para cuando se retome:
+  · **Karma se queda en el menú de abajo** — no baja a Ajustes, aunque
+    se propuso.
+  · **Logros se funde dentro de Progreso** (una sección, no una
+    pantalla), y el hueco libre lo coge un icono a **Ninja** — Albert
+    subió `public/iconos/Ninja.png` para eso. **Sin hacer todavía.**
+  · Antes de tocar el menú, cazar el fallo de la gráfica (siguiente
+    punto).
+- Última acción (2026-09-19): **el dato que faltaba en Progreso, cazado**.
+  Albert decía que la previsión «no acababa de funcionar», y el fallo
+  era real: hasta hoy, cuántas semanas o qué fecha faltan para la meta
+  **no se veía en ningún sitio como número**. Vivía escondido en la
+  posición del trofeo de la gráfica —que además desaparece si la meta
+  cae fuera del tramo visible—, y un comentario del código decía que
+  «la fecha ya está escrita en la tarjeta de arriba» desde el
+  2026-09-12: mentira desde el día en que se escribió, no una
+  regresión (comprobado con `git show` sobre ese commit). Añadido un
+  bloque `.mf-meta` arriba del todo, el mismo que ya usaba el
+  Simulador, con tres estados: la fecha con semanas y meses si el
+  ritmo apunta a la meta, «¡ya estás en tu meta!» si ya se llegó, y un
+  aviso neutro (no un «no alcanzable») si el ritmo todavía no apunta
+  para ese lado.
+
+  De paso salió un bug propio al escribir el arreglo: «ya en la meta»
+  con solo `restante <= 0` daba ese mensaje DESDE EL PRIMER DÍA a
+  cualquiera que quisiera GANAR peso, porque `restante` nace negativo
+  en ese caso antes de ganar un gramo. Hace falta saber hacia dónde
+  iba el plan (`pesoInicial` contra `pesoMeta`) y no solo mirar el
+  signo de lo que queda. Probado a mano en el navegador con los tres
+  casos: bajando a medias, ya en la meta, y queriendo ganar peso sin
+  que el pacto todavía reme en ese sentido.
+
+  Sin resolver, y NO es lo mismo: con la simulación de «querer ganar
+  peso» a mano en el navegador (sin pasar por `sincronizarPacto`), la
+  celda «Hasta la meta» enseñaba 0,0 kg en vez de los kg que faltan por
+  ganar —`Math.max(0, restante)` da por hecho que `restante` siempre es
+  positivo mientras falta, y para ganar peso nace negativo—. No lo toqué:
+  no es el fallo que Albert señaló y quiero que decida él si merece
+  arreglo aparte.
 - Próximo paso: nada urgente. Lo que queda abierto, para cuando Albert
   quiera:
+  · **fundir Logros en Progreso y meter el icono de Ninja** en el hueco
+    (ver arriba, decidido pero sin hacer);
+  · **la celda «Hasta la meta» con objetivo de ganar peso** (ver arriba);
   · **decidir el gimnasio nuevo** (se prueba desde el panel de pruebas) —
     a ojo pega más con el estilo plano de la casa/cocina nuevas que el
     gimnasio actual, que se ve renderizado en otro motor, pero queda por

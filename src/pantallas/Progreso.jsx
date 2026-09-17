@@ -44,6 +44,7 @@ function ritmoReal(pesajes) {
 
 export default function Progreso({ perfil, pacto, entradas, onRegistrar }) {
   const t = useT();
+  const fmt = useFormato();
   const [mesOffset, setMesOffset] = useState(0);
   const [editando, setEditando] = useState(null);
 
@@ -57,6 +58,15 @@ export default function Progreso({ perfil, pacto, entradas, onRegistrar }) {
   const pesoActual = pesajes.length ? pesajes[pesajes.length - 1].peso : perfil.pesoActual;
   const perdido = (perfil.pesoInicial ?? pesoActual) - pesoActual;
   const restante = pesoActual - (perfil.pesoMeta ?? pesoActual);
+  /* Si tocaba bajar (o el objetivo es mantenerse en algo igual o menor
+     que el punto de partida) o tocaba subir. Con `restante <= 0` a
+     secas «ya en la meta» salía SIEMPRE para quien quiere ganar peso,
+     desde el primer día: `restante` nace negativo en ese caso, antes de
+     ganar un solo gramo. Hace falta saber hacia dónde iba el plan, y
+     `pesoInicial` es lo mismo que ya usa `perdido` un poco más arriba. */
+  const rumboBajar = (perfil.pesoInicial ?? pesoActual) >= (perfil.pesoMeta ?? pesoActual);
+  const enMeta = perfil.pesoMeta != null
+    && (rumboBajar ? pesoActual <= perfil.pesoMeta : pesoActual >= perfil.pesoMeta);
 
   const real = ritmoReal(pesajes);
   /* Mientras no haya pesadas suficientes se enseña el ritmo teorico. Sale
@@ -98,6 +108,33 @@ export default function Progreso({ perfil, pacto, entradas, onRegistrar }) {
         </>}>
         {t('progreso.titulo')}
       </Titulo>
+
+      {/* CUÁNTO FALTA, arriba de todo y grande: es el dato que hace que
+          valga la pena apuntar —"cuántos días me quedan"—, y hasta el
+          2026-09-19 no se veía en ningún sitio como número. Vivía
+          escondido dentro de la gráfica (la posición del trofeo, que
+          además desaparece si la meta cae fuera del tramo visible) y un
+          comentario del código decía que "la fecha ya está escrita en
+          la tarjeta de arriba", pero esa tarjeta nunca la tuvo. Mismo
+          bloque `.mf-meta` que ya usa el Simulador, para que se lea
+          como el mismo dato en las dos pantallas. */}
+      {enMeta ? (
+        <div className="mf-meta">
+          <b>🎉</b>
+          <small>{t('progreso.yaEnMeta')}</small>
+        </div>
+      ) : bajando ? (
+        <div className="mf-meta">
+          <small>{t('progreso.llegas', { kg: perfil.pesoMeta })}</small>
+          <b>{(semanas / 4.345).toFixed(1)}</b>
+          <small>{t('progreso.meses', { n: Math.round(semanas) })}</small>
+          <div className="mf-fecha">📅 ~{fmt.fecha(fechaMeta)}</div>
+        </div>
+      ) : (
+        <div className="mf-meta">
+          <small>{t('progreso.siguiendoRitmo')}</small>
+        </div>
+      )}
 
       <div className="mf-rejilla">
         <Celda n={pesoActual != null ? pesoActual.toFixed(1) : '—'} u="kg" etiqueta={t('progreso.pesoActual')} />
