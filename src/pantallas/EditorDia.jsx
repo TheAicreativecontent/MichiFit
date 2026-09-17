@@ -58,10 +58,15 @@ export default function EditorDia({ fecha, entrada, pacto, onGuardar, onCerrar, 
             {t('dia.cerrado')}
           </div>
         )}
-        {ver('peso') && <Campo et={t('dia.peso')} u={t('comun.kg')} paso="0.1" v={v.peso} on={(x) => setV({ ...v, peso: x })} />}
-        {ver('pasos') && <Campo et={t('dia.pasos')} paso="100" v={v.pasos} on={(x) => setV({ ...v, pasos: x })} />}
+        {/* Orden de importancia que dio Albert el 2026-09-19: entreno,
+            pasos, comida (con sus macros debajo), peso, y sueño el
+            último —"también importa, pero menos"—. Antes empezaba por
+            el peso, que es justo el que menos pesa de los cuatro
+            hábitos del día a día. */}
         {ver('entreno') && <Campo et={t('dia.entreno')} u={t('comun.min')} paso="5" v={v.entrenoMin} on={(x) => setV({ ...v, entrenoMin: x })} />}
+        {ver('pasos') && <Campo et={t('dia.pasos')} paso="100" v={v.pasos} on={(x) => setV({ ...v, pasos: x })} />}
         {ver('comida') && <Campo et={t('dia.comida')} u={t('comun.kcal')} paso="50" v={v.comidaKcal} on={(x) => setV({ ...v, comidaKcal: x })} />}
+        {ver('peso') && <Campo et={t('dia.peso')} u={t('comun.kg')} paso="0.1" v={v.peso} on={(x) => setV({ ...v, peso: x })} />}
         {ver('sueno') && <Campo et={t('dia.sueno')} u={t('comun.horas')} paso="0.5" v={v.suenoHoras} on={(x) => setV({ ...v, suenoHoras: x })} />}
 
         {/* Las macros van con la comida, y los ejercicios con el

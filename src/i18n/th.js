@@ -476,6 +476,8 @@ export default {
 
   marcador: {
     racha: 'TOR NUEANG',
+    entreno: 'OK KAM LANG',
+    descanso: 'PAK PORN',
     pasos: 'KAO',
     sueno: 'KAAN NON',
     comida: 'AHAAN',

@@ -85,8 +85,12 @@ export const ANILLO = [
   { id: 'mimar',   clave: 'anillo.mimar',   cuidado: true },
   { id: 'agua',    clave: 'anillo.agua',    cuidado: true },
   { id: 'limpiar', clave: 'anillo.limpiar', cuidado: true },
-  { id: 'pasos',   clave: 'anillo.pasos',   escena: 'pasear',   campo: 'pasos' },
+  /* Entre los datos, entreno va delante de pasos desde el 2026-09-19:
+     es el orden de importancia que dio Albert (entreno, pasos, comida,
+     peso, sueño), y hasta entonces el orden aquí era el que salió al
+     escribirlo, sin más razón. */
   { id: 'entreno', clave: 'anillo.entreno', escena: 'entrenar', campo: 'entreno' },
+  { id: 'pasos',   clave: 'anillo.pasos',   escena: 'pasear',   campo: 'pasos' },
   { id: 'comida',  clave: 'anillo.comida',  escena: 'comer',    campo: 'comida' },
   /* El único que duerme al michi Y abre el editor. `duerme: true` es lo
      que lo separa de los otros tres datos, y lo mira `Inicio.jsx`. */

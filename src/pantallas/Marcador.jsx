@@ -1,10 +1,17 @@
 /* ============================================================
    Marcador estilo videojuego
-   Enseña los TRES datos que mueven al michi —pasos, descanso y comida—
-   más la racha y la experiencia. Todo con barras de bloques y tipografía
-   de píxel.
+   Enseña los datos que mueven al michi —entreno, pasos, comida y
+   sueño— más la racha y la experiencia. Todo con barras de bloques y
+   tipografía de píxel.
 
-   Las barras de descanso y comida tienen un tramo rojo: lo que te pasas
+   El orden de las filas es el de importancia que dio Albert el
+   2026-09-19: entreno primero, luego pasos, luego comida, y sueño el
+   último —"también importa, pero menos"—. Hasta entonces el marcador
+   ni siquiera tenía fila de ENTRENO: pasos, sueño, comida y nivel, y
+   el hábito que Albert puso en primer lugar no se veía en la pantalla
+   que se mira cada día. Ver `CURRENT.md` 2026-09-19.
+
+   Las barras de sueño y comida tienen un tramo rojo: lo que te pasas
    del objetivo. Dormir 10 horas no es "mejor" que dormir 8, y comer de
    más tampoco, así que pasarse no puede pintarse como logro.
    ============================================================ */
@@ -99,6 +106,16 @@ export default function Marcador({ estado, entradaHoy = {}, pacto }) {
   const enteros = corazones - salvados;
   const objetivos = estado.hoy?.objetivos ?? [];
 
+  /* --- entreno: el primero en importancia. Los días de descanso no
+     tienen un objetivo de minutos —descansar YA es cumplirlo—, así que
+     la barra sale llena y el número dice «descanso» en vez de un
+     porcentaje que no significaría nada. */
+  const objEntreno = objetivos.find((o) => o.id === 'entreno');
+  const esDescanso = objetivos.some((o) => o.id === 'descanso');
+  const minEntreno = entradaHoy.entrenoMin ?? 0;
+  const metaEntreno = objEntreno?.objetivo ?? 0;
+  const pctEntreno = esDescanso ? 1 : metaEntreno ? Math.min(1, minEntreno / metaEntreno) : 0;
+
   /* --- pasos --- */
   const objPasos = objetivos.find((o) => o.id === 'pasos');
   const pasos = entradaHoy.pasos ?? 0;
@@ -145,21 +162,28 @@ export default function Marcador({ estado, entradaHoy = {}, pacto }) {
         <b className="mf-mk-num">{estado.racha}</b>
       </div>
 
-      <Fila etiqueta={t('marcador.pasos')} num={`${Math.round(pctPasos * 100)}%`}>
-        <Barra valor={pctPasos} color="#F5C518" />
+      <Fila etiqueta={t('marcador.entreno')}
+            num={esDescanso ? t('marcador.descanso') : `${Math.round(pctEntreno * 100)}%`}>
+        <Barra valor={pctEntreno} color="#8B6FD6" />
       </Fila>
 
-      {/* "SUEÑO", no "DESCANSO": el descanso del pacto es no entrenar, y
-          son dos cosas distintas. Comprobado que la Ñ existe en Press
-          Start 2P antes de usarla. */}
-      <Fila etiqueta={t('marcador.sueno')} num={horas ? `${horas}h` : '—'}>
-        <Barra valor={pctSueno} exceso={excesoSueno} color="#7CC3F2" colorExceso="#E8543A" />
+      <Fila etiqueta={t('marcador.pasos')} num={`${Math.round(pctPasos * 100)}%`}>
+        <Barra valor={pctPasos} color="#F5C518" />
       </Fila>
 
       {/* La comida va en rojizo porque es el color con el que se asocia,
           y el verde se reserva para el nivel: es el color de "vas bien". */}
       <Fila etiqueta={t('marcador.comida')} num={kcal ? kcal : '—'}>
         <Barra valor={pctComida} exceso={excesoComida} color="#E86A5A" />
+      </Fila>
+
+      {/* "SUEÑO", no "DESCANSO": el descanso del pacto es no entrenar, y
+          son dos cosas distintas (el "DESCANSO" de arriba es del
+          entreno). Comprobado que la Ñ existe en Press Start 2P antes
+          de usarla. Va el último de los hábitos, a propósito: es el
+          que Albert marcó como el menos importante de los cuatro. */}
+      <Fila etiqueta={t('marcador.sueno')} num={horas ? `${horas}h` : '—'}>
+        <Barra valor={pctSueno} exceso={excesoSueno} color="#7CC3F2" colorExceso="#E8543A" />
       </Fila>
 
       <Fila etiqueta={t('marcador.nivel')} num={xpFaltan ? `-${xpFaltan}` : t('marcador.max')}>

@@ -312,12 +312,39 @@ pantallas y el motor entero.
   positivo mientras falta, y para ganar peso nace negativo—. No lo toqué:
   no es el fallo que Albert señaló y quiero que decida él si merece
   arreglo aparte.
+- Última acción (2026-09-19): **el punto 1 de simplificar: los
+  hábitos, en el orden de Albert**. Dio una prioridad expresa —entreno,
+  pasos, comida (con macros), peso, y sueño el último («también
+  importa, pero menos»)— y ninguna de las tres pantallas donde se
+  apunta o se mira el día la respetaba:
+
+  · El **Marcador** (RACHA/PASOS/SUEÑO/COMIDA/NIVEL en Inicio, el que
+    se mira cada día) **ni siquiera tenía fila de ENTRENO**. El hábito
+    que Albert puso primero no se veía. Añadida, primera del todo; en
+    los días de descanso no enseña un 0% sin sentido, dice DESCANSO —
+    el pacto no pide minutos ese día, así que un porcentaje mentiría.
+  · El editor del día completo (el "+") empezaba por PESO, que es
+    justo el que menos pesa de los cuatro. Reordenado a
+    entreno · pasos · comida · peso · sueño.
+  · El anillo del aparato tenía PASOS antes que ENTRENO, sin más razón
+    que el orden en que se escribió. Intercambiados.
+
+  Nuevas cadenas `marcador.entreno`/`marcador.descanso` en los cinco
+  idiomas, transliteradas igual que el resto del marcador (usa Press
+  Start 2P, que no tiene ni kanji ni tailandés — comprobado ANTES esta
+  vez, no después). Caché a v15 (de paso, el icono de Ninja con fondo
+  azul que subió Albert se había quedado sin subir de caché en el
+  commit anterior).
+
+  Probado en el navegador: día de descanso (ENTRENO dice DESCANSO),
+  día de entreno con datos a medias (ENTRENO 44%), el editor completo
+  en el nuevo orden, y el anillo pasando por Entreno antes que Pasos.
 - Próximo paso: nada urgente. Lo que queda abierto, para cuando Albert
   quiera:
   · **la celda «Hasta la meta» con objetivo de ganar peso** (ver arriba);
-  · **seguir simplificando**: lo de abajo (Karma, Logros→Progreso, Ninja)
-    ya está — queda el punto 1 (hábitos) y el tono del calendario
-    rojo/verde/amarillo, que Albert dijo que desalienta más que anima;
+  · **el tono del calendario rojo/verde/amarillo**, que Albert dijo que
+    desalienta más que anima — el punto 4 de simplificar sigue abierto
+    en esa pieza concreta (el resto, Karma/Logros/Ninja, ya está hecho);
   · **decidir el gimnasio nuevo** (se prueba desde el panel de pruebas) —
     a ojo pega más con el estilo plano de la casa/cocina nuevas que el
     gimnasio actual, que se ve renderizado en otro motor, pero queda por

@@ -489,6 +489,8 @@ export default {
 
   marcador: {
     racha: 'RACHA',
+    entreno: 'ENTRENO',
+    descanso: 'DESCANSO',
     pasos: 'PASOS',
     sueno: 'SUEÑO',
     comida: 'COMIDA',

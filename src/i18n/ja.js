@@ -476,6 +476,8 @@ export default {
 
   marcador: {
     racha: 'RENZOKU',
+    entreno: 'UNDOU',
+    descanso: 'YASUMI',
     pasos: 'HOSUU',
     sueno: 'SUIMIN',
     comida: 'SHOKUJI',

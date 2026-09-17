@@ -478,6 +478,8 @@ export default {
 
   marcador: {
     racha: 'STREAK',
+    entreno: 'TRAIN',
+    descanso: 'REST',
     pasos: 'STEPS',
     sueno: 'SLEEP',
     comida: 'FOOD',
