@@ -147,9 +147,17 @@
   /* Mas grande y mas alto desde el 2026-09-16, a ojo de Albert: con la
      banda de iconos abajo la zona se acorto y el gato se quedo
      pequeño. Del 60% al 72%, y separado 10% del suelo en vez del 3%,
-     que lo despega de la banda y le deja ver los pies. */
-  position: absolute; bottom: 10%; left: 0; right: 0; margin: 0 auto;
-  height: 72%; width: auto;
+     que lo despega de la banda y le deja ver los pies.
+
+     Del 72% al 82% el 2026-09-18, tambien a ojo de Albert: seguia
+     viendose pequeño. El hueco de arriba de la zona (`ZONA.top` en
+     TamagotchiPNG.jsx) ya reserva sitio para la cabecera y el rotulo,
+     así que crecer aquí dentro no los toca —quedan de sobra unos 8
+     puntos de margen entre la cabeza del michi y el techo de la zona—.
+     Bajado tambien el margen del suelo, de 10% a 8%, para que la
+     proporción con la banda de iconos no cambie de golpe. */
+  position: absolute; bottom: 8%; left: 0; right: 0; margin: 0 auto;
+  height: 82%; width: auto;
   /* Sin suavizado: es pixel art, tiene que verse duro */
   image-rendering: pixelated;
   animation: mf-tama-respira 2.4s steps(2, end) infinite;
@@ -245,11 +253,26 @@
   position: absolute; inset: 0; background: rgba(12, 16, 10, .82);
   pointer-events: none; z-index: 2;
 }
+/* Antes del 2026-09-18 esto era un solo texto ("z z z") a top:8%/right:8%
+   -la esquina de TODA la zona-, lejos del michi, que vive abajo (ver
+   `.mf-tamapng-michi`) y encima curvado sobre su lado derecho. Ahora son
+   tres letras sueltas, cada una con su propio sitio: suben en diagonal
+   desde justo encima de la cabeza, que esta a la derecha en
+   `michi_durmiendo`. Los porcentajes son sobre la ZONA, no sobre la
+   pantalla entera. */
 .mf-tamapng-zzz2 {
-  position: absolute; top: 8%; right: 8%; z-index: 3;
-  font-family: 'Press Start 2P', monospace; font-size: 8px; color: #FFF6EC;
-  letter-spacing: 2px; animation: mf-tama-zzz 2.6s steps(3, end) infinite;
+  /* `inset:0` y no un tamaño propio: los porcentajes de los `span` de
+     dentro se miden contra ESTA caja, así que tiene que cubrir la zona
+     entera o esos porcentajes no significan lo que dicen. */
+  position: absolute; inset: 0; z-index: 3; pointer-events: none;
+  font-family: 'Press Start 2P', monospace; color: #FFF6EC;
 }
+.mf-tamapng-zzz2 span {
+  position: absolute; animation: mf-tama-zzz 2.6s steps(3, end) infinite;
+}
+.mf-tamapng-zzz2 .z1 { right: 24%; bottom: 44%; font-size: 6px; animation-delay: .4s; }
+.mf-tamapng-zzz2 .z2 { right: 18%; bottom: 51%; font-size: 8px; animation-delay: .2s; }
+.mf-tamapng-zzz2 .z3 { right: 10%; bottom: 60%; font-size: 10px; }
 
 /* --- franja de nivel dentro de la pantalla --- */
 .mf-tamapng-cabecera {

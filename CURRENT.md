@@ -198,7 +198,36 @@ pantallas y el motor entero.
   con la cama centrada para dar la sensación de que el michi duerme
   ENCIMA y no de pie en el salón con los ojos cerrados. La escena
   `dormir` (`escenas.js`) usaba `casa`; ahora tiene su propio fondo, con
-  entrada propia en `ESCENARIOS`.
+  entrada propia en `ESCENARIOS`. Y la propia imagen se recentró: la
+  cama de origen quedaba a 21 px del centro real del lienzo (358x358),
+  así que `object-fit: cover` —que centra el LIENZO, no lo que hay
+  dibujado dentro— la dejaba corrida a la derecha. Escalada un 15% y
+  recortada centrada en la cama, no en el lienzo.
+- Última acción (2026-09-18, tanda de retoques): cuatro ajustes que pidió
+  Albert al probarlo:
+  · **las gotas sueltas de `entrenando`, fuera**. `michi_entrenando` es
+    la columna 4 de la rejilla y `michi_cansado` la 5, pegadas en la
+    misma fila: las gotas de agua de `cansado` empezaban un poco antes
+    de su propia celda y la rejilla fija (2026-09-17) le cortaba el
+    trozo a `entrenando`. Salían 3-4 motas sueltas, en los cuatro
+    colores, siempre por debajo del vapor de verdad —que es el único
+    adorno suelto de esta pose—. `limpiar_gotas_entrenando()` en
+    `recortar_model_sheets.py` quita cualquier isla que no sea el gato y
+    que empiece por debajo de esa altura, medida a mano en las cuatro
+    hojas antes de fijar el umbral.
+  · **el michi, más grande**. Del 72% al 82% de la zona, con 8% de
+    margen al suelo en vez de 10%. La zona ya reservaba sitio para la
+    cabecera (nivel, barras, rótulo) por encima, así que crecer aquí
+    dentro no los toca.
+  · **las zzz de dormir, en diagonal y pegadas a la cabeza**. Eran un
+    solo texto ("z z z") a top:8%/right:8% de TODA la zona —la esquina,
+    lejos del gato, que vive abajo—. Ahora son tres `span` sueltos, cada
+    uno con su sitio y su tamaño, subiendo en diagonal desde justo
+    encima de la cabeza (que en `michi_durmiendo` está a la derecha).
+    Siguen por delante de `mf-tamapng-apagada` —la capa que oscurece la
+    pantalla entera al dormir— porque si no, la señal de que el michi
+    sigue "vivo" se apagaría con el resto de la escena.
+  Caché a v13.
 - Próximo paso: nada urgente. Lo que queda abierto, para cuando Albert
   quiera:
   · **decidir el gimnasio nuevo** (se prueba desde el panel de pruebas) —

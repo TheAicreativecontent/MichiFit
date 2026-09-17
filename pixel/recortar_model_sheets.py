@@ -200,6 +200,49 @@ def agujeros_sueltos(im, maximo=ISLA_MAXIMA):
     return im
 
 
+def limpiar_gotas_entrenando(im, desde_y=120):
+    """`michi_entrenando` es la columna 4 y `michi_cansado` la 5, pegadas
+    en la misma fila: las gotas de agua de `cansado` empiezan un poco
+    antes de su propia celda y la rejilla fija (ver cabecera) le corta
+    el trozo de la izquierda a esta. Salen como 3-4 motas sueltas de
+    unos pocos a 265 px, siempre por DEBAJO del vapor de verdad —que es
+    el unico adorno suelto que lleva esta pose, y no baja de y=105 en
+    ninguna de las cuatro hojas—. `desde_y` esta medido sobre la CELDA
+    CRUDA (275x384, antes de `encuadrar`), que es cuando se llama a esta
+    funcion: se comprobo a mano en las cuatro antes de fijar el umbral.
+    Quita cualquier isla que no sea la mas grande (el gato) y que
+    empiece por debajo de esa altura."""
+    im = im.copy()
+    ancho, alto = im.size
+    px = im.load()
+    visto = [[False] * ancho for _ in range(alto)]
+    islas = []
+    for y in range(alto):
+        for x in range(ancho):
+            if px[x, y][3] == 0 or visto[y][x]:
+                continue
+            cola = deque([(x, y)])
+            visto[y][x] = True
+            pts = [(x, y)]
+            while cola:
+                cx, cy = cola.popleft()
+                for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                    nx, ny = cx + dx, cy + dy
+                    if (0 <= nx < ancho and 0 <= ny < alto and not visto[ny][nx]
+                            and px[nx, ny][3] > 0):
+                        visto[ny][nx] = True
+                        cola.append((nx, ny))
+                        pts.append((nx, ny))
+            islas.append(pts)
+    islas.sort(key=len, reverse=True)
+    for pts in islas[1:]:
+        if min(p[1] for p in pts) >= desde_y:
+            for px_, py_ in pts:
+                r, g, b, _ = px[px_, py_]
+                px[px_, py_] = (r, g, b, 0)
+    return im
+
+
 def piezas(hoja):
     """Las diez celdas de la rejilla, en orden de lectura."""
     ancho, alto = hoja.size
@@ -232,6 +275,8 @@ def main():
                              % (color, len(trozos), len(POSES)))
         print('\n%s:' % color)
         for pose, trozo in zip(POSES, trozos):
+            if pose == 'michi_entrenando':
+                trozo = limpiar_gotas_entrenando(trozo)
             destino = os.path.join(DESTINO, pose + sufijo + '.png')
             if prueba:
                 print('  %-26s %dx%d' % (os.path.basename(destino), trozo.width, trozo.height))

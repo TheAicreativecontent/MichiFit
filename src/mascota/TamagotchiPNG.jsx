@@ -398,7 +398,21 @@ export default function TamagotchiPNG({
             </div>
           )}
 
-          {dormido && <span className="mf-tamapng-zzz2" aria-hidden="true">z z z</span>}
+          {/* Tres zetas sueltas y no un solo texto con espacios: asi
+              cada una lleva su propio sitio y su propio tamaño, y salen
+              en diagonal ascendente -como un comic-, pegadas a la
+              cabeza del gato y no perdidas en la esquina de toda la
+              zona. Van POR ENCIMA de `mf-tamapng-apagada` (mismo
+              z-index de siempre) porque esa capa oscurece la pantalla
+              entera, sprite incluido: sin esto, dormido, la señal de
+              que sigue "vivo" desaparecería con el resto. */}
+          {dormido && (
+            <div className="mf-tamapng-zzz2" aria-hidden="true">
+              <span className="z1">z</span>
+              <span className="z2">z</span>
+              <span className="z3">Z</span>
+            </div>
+          )}
 
           {/* Sin cabecera (falta el huevo o no hay nivel), el mensaje no
               tiene rotulo detras del que ponerse y se queda donde
