@@ -128,6 +128,46 @@ def fondo_fuera(im):
     return im
 
 
+HALO_DESDE = 200    # brillo a partir del cual un borde se considera resto de fondo
+HALO_VUELTAS = 6     # el flequillo es irregular; una sola pasada no lo pela entero
+
+
+def deshalar(im, desde=HALO_DESDE, vueltas=HALO_VUELTAS):
+    """Pela el flequillo casi blanco que queda pegado al contorno tras
+    `fondo_fuera`. Ver la cabecera —EL BORDE NO ES LIMPIO EN LA HOJA
+    NEGRA— para el porque.
+
+    No es el mismo problema que `fondo_fuera`: aquel deja fondo intacto
+    porque no toca el borde de la hoja; esto es fondo que SI lo tocaba,
+    pero sobrevivio porque su color —mezcla de contorno oscuro y fondo
+    blanco por el antialias del JPEG— caia por debajo de `FONDO` (240) y
+    `fondo_fuera` nunca lo alcanzo. La pista es que solo aparece PEGADO
+    a un pixel ya transparente: el pelaje de verdad, aislado por el
+    contorno oscuro, no toca nunca el borde.
+    """
+    im = im.copy()
+    ancho, alto = im.size
+    px = im.load()
+    for _ in range(vueltas):
+        objetivo = []
+        for y in range(alto):
+            for x in range(ancho):
+                r, g, b, a = px[x, y]
+                if a == 0 or (r + g + b) / 3 <= desde:
+                    continue
+                for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                    nx, ny = x + dx, y + dy
+                    if 0 <= nx < ancho and 0 <= ny < alto and px[nx, ny][3] == 0:
+                        objetivo.append((x, y))
+                        break
+        if not objetivo:
+            break
+        for x, y in objetivo:
+            r, g, b, _ = px[x, y]
+            px[x, y] = (r, g, b, 0)
+    return im
+
+
 def agujeros_sueltos(im, maximo=ISLA_MAXIMA):
     """Segunda pasada: cierra bolsillos de blanco que `fondo_fuera` no
     pudo alcanzar porque no tocan ningun borde. Ver la cabecera —NO
@@ -185,6 +225,7 @@ def main():
         hoja = fondo_fuera(Image.open(ruta))
         if color != 'blanco':
             hoja = agujeros_sueltos(hoja)
+        hoja = deshalar(hoja)
         trozos = piezas(hoja)
         if len(trozos) != len(POSES):
             raise SystemExit('%s: encontre %d celdas y esperaba %d'

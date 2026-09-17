@@ -165,6 +165,40 @@ pantallas y el motor entero.
   tocar. Lo pidió Albert junto con las poses nuevas. Verificado en el
   navegador: el michi salta al aceptar «mimar» y vuelve solo a su humor
   a los 2,6 s.
+- Última acción (2026-09-18): **el flequillo del michi negro, fuera**.
+  Albert lo vio con un borde blanco alrededor del cuerpo en todas las
+  poses y se ofreció a recortarlo él a mano; no hizo falta. No era un
+  bolsillo encerrado —eso ya lo resolvía `agujeros_sueltos`— sino un
+  resto de fondo que SÍ tocaba el borde de la hoja pero sobrevivía al
+  relleno: el antialias del JPEG mezcla el contorno oscuro con el fondo
+  blanco, y esa mezcla cae por debajo del umbral (240) que usa
+  `fondo_fuera` para reconocer «esto es fondo». `deshalar()` es una
+  segunda pasada en `recortar_model_sheets.py`: pela cualquier pixel
+  opaco que SIGA tocando ya un pixel transparente y sea casi blanco
+  (>200 de brillo), en varias vueltas porque el flequillo es irregular.
+  Se aplica a los cuatro colores —medido antes de tocar nada: el pelaje
+  blanco de verdad, aislado por su propio contorno, no llega a rozar la
+  transparencia, así que no había riesgo de perforarlo—. Caché a v12.
+- Última acción (2026-09-18): **la caca le gana a `contento`**. Albert
+  probó con una caca en el suelo y el michi seguía con cara contenta —el
+  orden antiguo ponía `forma >= 70` por delante de `cuidado.sucio`,
+  a propósito, por la misma razón que la sed—. Ahora `asqueado` se mira
+  ANTES que `contento`; la sed se queda donde estaba, sin tocar, porque
+  Albert no pidió cambiar esa y es la misma decisión de siempre (quien
+  no encuentre el botón del agua no puede quedarse sin ver nunca a su
+  michi contento). `pruebas/cobertura-michi.mjs` prueba las dos reglas
+  por separado, cada una con su cuenco distinto.
+- Última acción (2026-09-18): **«¡GENIAL!» en vez de «¡NIVEL!»**. El
+  brinco corto de mimar/agua/limpiar/registrar reutiliza la misma pose
+  y el mismo rótulo que la celebración de subir de nivel
+  (`escenas.celebrar`), y ese rótulo decía «¡NIVEL!» / «LEVEL UP!»: con
+  el brinco corto eso miente —no ha subido de nivel—. Un solo texto
+  vale para los dos casos con tal de que no prometa algo que no pasó.
+- Última acción (2026-09-18): **el fondo de dormir**. `BG_dormir.png`,
+  con la cama centrada para dar la sensación de que el michi duerme
+  ENCIMA y no de pie en el salón con los ojos cerrados. La escena
+  `dormir` (`escenas.js`) usaba `casa`; ahora tiene su propio fondo, con
+  entrada propia en `ESCENARIOS`.
 - Próximo paso: nada urgente. Lo que queda abierto, para cuando Albert
   quiera:
   · **decidir el gimnasio nuevo** (se prueba desde el panel de pruebas) —

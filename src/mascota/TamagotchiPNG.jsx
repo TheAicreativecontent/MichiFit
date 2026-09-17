@@ -106,6 +106,10 @@ const ESCENARIOS = {
   casa: '/fondos/casa.png',
   cocina: '/fondos/cocina.png',
   parque: '/fondos/parque.png',
+  /* Entra el 2026-09-18: la cama centrada da la sensacion de que el
+     michi esta durmiendo DE VERDAD encima, y no de pie en el salon con
+     los ojos cerrados. Antes `dormir` usaba `casa`. */
+  dormir: '/fondos/BG_dormir.png',
   /* El gimnasio nuevo de Albert. NO lo usa ninguna escena: esta aqui
      para poder mirarlo desde el panel de pruebas y decidir si sustituye
      al de siempre. Es bastante mas gris que el resto de la app, y eso

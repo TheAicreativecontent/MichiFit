@@ -25,7 +25,7 @@ export const ESCENAS = [
      en `ESCENARIOS` y el panel de pruebas la enseña, pero si dentro de
      unos meses nadie la ha echado de menos, fuera. */
   { id: 'pasear',   escenario: 'parque',   pose: 'andando',     rotulo: 'PASEANDO' },
-  { id: 'dormir',   escenario: 'casa',     pose: 'durmiendo',    rotulo: 'DURMIENDO',
+  { id: 'dormir',   escenario: 'dormir',   pose: 'durmiendo',    rotulo: 'DURMIENDO',
     dormido: true },
 ];
 

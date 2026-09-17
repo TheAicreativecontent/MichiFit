@@ -22,6 +22,25 @@
   el fit, brazos separados por un hueco de un pixel para el hipertrofiado.
 - Como evitarlo: al disenar sprites, mirar primero la silueta en negro.
 
+## Recorte de fondo: quitar el blanco no es solo un umbral de brillo
+- Que paso: el michi negro salía con un borde blanquecino irregular
+  alrededor de todo el cuerpo, en las nueve poses. No era una imagen
+  suelta con el fallo: era el propio `fondo_fuera()`.
+- Causa real: el JPEG de origen tiene antialias entre el contorno oscuro
+  del dibujo y el fondo blanco. Esos píxeles de transición son una
+  MEZCLA de los dos, y para un gato negro esa mezcla cae justo por
+  debajo del umbral (240) que decide «esto es fondo» — ni tan blancos
+  como para que el relleno los alcance, ni tan oscuros como para leerse
+  como parte del contorno. Con un michi naranja o gris el mismo
+  antialias cae dentro de su propia paleta y no se nota; con uno negro,
+  el contraste lo delata.
+- Solución: `deshalar()` en `pixel/recortar_model_sheets.py` — una
+  segunda pasada que pela cualquier píxel opaco que SIGA tocando ya un
+  píxel transparente y sea casi blanco, en varias vueltas.
+- Como evitarlo: al recortar un dibujo oscuro sobre fondo claro, mirarlo
+  ampliado sobre un fondo de color (nunca blanco): el flequillo es
+  invisible sobre blanco y evidente sobre cualquier otro color.
+
 ## Scripts de terceros en Windows: `open()` sin encoding
 - Que paso: la skill `banana` petaba con `UnicodeDecodeError` al leer
   `settings.json`.

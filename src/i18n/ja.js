@@ -421,7 +421,7 @@ export default {
     entrenar: 'UNDOU CHUU',
     pasear: 'SANPO CHUU',
     dormir: 'NETE IRU',
-    celebrar: 'LEVEL UP!',
+    celebrar: 'GREAT!',
   },
 
   objetivos: {

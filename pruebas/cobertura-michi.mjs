@@ -88,18 +88,37 @@ for (const [que, marcas] of [['sed', { agua: 0, orden: Date.now() }],
   console.log('  %s %s %s', que.padEnd(20), String(v.humor).padEnd(9), dibujo);
 }
 
-/* Y al reves: cumplir a tope tiene que GANARLE a la sed, o quien no
-   descubra el boton del agua no vuelve a ver a su michi contento. */
+/* Y al reves: cumplir a tope tiene que GANARLE a la sed (sola), o quien
+   no descubra el boton del agua no vuelve a ver a su michi contento. */
 {
   const est = M.calcularEstado({ pacto, entradas: PERFILES['cumple a tope'],
-                                 perfil, carino: [], cuidados: { agua: 0, orden: 0 } });
+                                 perfil, carino: [], cuidados: { agua: 0, orden: Date.now() } });
   const v = M.estadoVisual(est);
-  console.log('\n  cumpliendo a tope y con sed -> %s', v.humor);
+  console.log('\n  cumpliendo a tope y con sed (casa limpia) -> %s', v.humor);
   if (v.humor !== 'contento') {
     console.log('  NO  la sed le gana a cumplir: el michi nunca saldra contento');
     process.exitCode = 1;
   } else {
     console.log('  si  cumplir manda sobre la sed');
+  }
+}
+
+/* La caca es al reves DESDE el 2026-09-18: le GANA a cumplir. Albert la
+   probo con una caca puesta y el michi seguia sonriendo, y eso se lee
+   como que la app no se ha enterado de lo que ya se ve en pantalla. No
+   es lo mismo que la sed —el cuenco se vacia solo, la caca tambien,
+   pero aqui Albert decidio que el aviso manda igualmente—, asi que esta
+   prueba comprueba justo lo contrario que la de arriba: adrede. */
+{
+  const est = M.calcularEstado({ pacto, entradas: PERFILES['cumple a tope'],
+                                 perfil, carino: [], cuidados: { agua: Date.now(), orden: 0 } });
+  const v = M.estadoVisual(est);
+  console.log('  cumpliendo a tope y con la casa sucia -> %s', v.humor);
+  if (v.humor !== 'asqueado') {
+    console.log('  NO  la caca deberia ganarle a cumplir (decision de Albert, 2026-09-18)');
+    process.exitCode = 1;
+  } else {
+    console.log('  si  la caca le gana a cumplir');
   }
 }
 

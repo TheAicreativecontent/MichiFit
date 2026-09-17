@@ -275,25 +275,25 @@ export function estadoVisual(estado) {
   let humor;
   if (abandono >= DIAS_ABANDONO) humor = 'triste';      // lo ha dejado
   else if (abandono >= 2 || energia <= 30) humor = 'cansado';
-  else if (forma >= 70) humor = 'contento';             // viene cumpliendo
-  /* La sed y la casa sucia van AQUÍ, y el sitio costó una prueba roja.
+  /* La caca en el suelo va POR DELANTE de `contento`, a partir del
+     2026-09-18: Albert la probó con una caca puesta y el michi seguía
+     sonriendo, y con la caca dibujada a la vista eso se lee como que la
+     app no se ha enterado, no como que "cumplir manda". Es una cara que
+     dice lo que ya se ve en pantalla, no un reproche — sigue sin tocar
+     ni XP ni HAPPY ni el cumplimiento, ver `cuidados.js`.
 
-     Al principio las puse por delante de `contento`, con el argumento
-     de que se arreglan en un toque y conviene verlas. Pero el cuenco se
-     vacía solo cada dieciséis horas de vigilia: quien no descubriera el
-     botón del agua no volvería a ver a su michi contento NUNCA, por bien
-     que llevara el pacto. `pruebas/cobertura-michi.mjs` lo cazó al
-     momento — `michi_contento` y `michi` se volvieron inalcanzables— y
-     eso es exactamente lo que dice `MECANICA.md` §10 que no se hace:
-     el michi no juzga, y menos por algo que no tiene que ver contigo.
-
-     Aquí abajo funciona como debe. Cumplir manda. Y cuando el michi no
-     tiene nada mejor que contar, en vez de poner cara triste PIDE algo,
-     que es una cara mucho más amable: la tristeza es un reproche, la
-     sed es una petición. El aviso de verdad no es la cara de todos
-     modos, son la barra WATER y las cacas en el suelo. */
-  else if (cuidado?.sed) humor = 'sediento';
+     La sed se queda DETRÁS de `contento`, sin tocar: el cuenco se vacía
+     solo cada diez horas de vigilia igual que la casa se ensucia sola
+     cada catorce, así que el argumento de fondo —quien no descubra el
+     botón no vuelve a ver a su michi contento— vale para las dos. La
+     diferencia es que Albert, avisado de eso, decidió que para la caca
+     el aviso manda de todos modos: la ve en el suelo, y una cara
+     contenta al lado de una caca dibujada se lee como que la app no se
+     ha enterado. `pruebas/cobertura-michi.mjs` comprueba las dos reglas
+     por separado, cada una a propósito. */
   else if (cuidado?.sucio) humor = 'asqueado';
+  else if (forma >= 70) humor = 'contento';             // viene cumpliendo
+  else if (cuidado?.sed) humor = 'sediento';
   else if (forma < 30 || animo <= -20) humor = 'triste';
   else humor = null;                                     // ni fu ni fa
 

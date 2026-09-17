@@ -435,7 +435,7 @@ export default {
     entrenar: 'ENTRENANDO',
     pasear: 'PASEANDO',
     dormir: 'DURMIENDO',
-    celebrar: '¡NIVEL!',
+    celebrar: '¡GENIAL!',
   },
 
   objetivos: {

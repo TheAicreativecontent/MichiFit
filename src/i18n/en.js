@@ -426,7 +426,7 @@ export default {
     entrenar: 'TRAINING',
     pasear: 'WALKING',
     dormir: 'SLEEPING',
-    celebrar: 'LEVEL UP!',
+    celebrar: 'GREAT!',
   },
 
   objetivos: {
