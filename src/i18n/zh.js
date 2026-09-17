@@ -322,7 +322,7 @@ export default {
     color: '颜色',
     nota: '左边的按钮用来照顾米奇，中间的打开你想记录的项目，右边的用来确认。不管你选哪只猫，功能都一样。',
     michi: '你的猫',
-    michis: { naranja: '橘猫', gris: '灰猫', blanco: '白猫' },
+    michis: { naranja: '橘猫', gris: '灰猫', blanco: '白猫', negro: '黑猫' },
     colores: {
       naranja: '橙', rojo: '红', amarillo: '黄', verde: '绿',
       azul: '蓝', blanco: '白', negro: '黑',

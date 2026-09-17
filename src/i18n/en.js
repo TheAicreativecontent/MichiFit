@@ -328,7 +328,7 @@ export default {
     color: 'Colour',
     nota: 'The left button looks after your michi, the middle one opens what you want to log, and the right one accepts. They work the same whichever cat you pick.',
     michi: 'Your cat',
-    michis: { naranja: 'Ginger', gris: 'Grey', blanco: 'White' },
+    michis: { naranja: 'Ginger', gris: 'Grey', blanco: 'White', negro: 'Black' },
     colores: {
       naranja: 'Orange', rojo: 'Red', amarillo: 'Yellow', verde: 'Green',
       azul: 'Blue', blanco: 'White', negro: 'Black',

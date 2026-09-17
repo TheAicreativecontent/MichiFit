@@ -166,23 +166,44 @@ export default function App() {
     }
   }, [listo, estado?.nivel?.nivel]);
 
-  const registrarCarino = () =>
+  /* El saltito. Mimar, dar agua, limpiar o apuntar cualquier dato que no
+     tenga ya su propia escena (comer, entrenar) responden con un brinco
+     corto: es la confirmación de que el gesto ha llegado, sin inventar
+     una escena nueva de las de `escenas.js` —usa la misma `celebrando`
+     que ya existía para subir de nivel, solo que más breve—. Pedido por
+     Albert el 2026-09-17: hasta ahora esos cuatro gestos no daban ninguna
+     señal en el michi, solo cambiaban una barra o un dato. */
+  const ACCION_BREVE_MS = 2600;
+  const saltar = () => {
+    setAccion('celebrando');
+    setTimeout(() => setAccion((a) => (a === 'celebrando' ? null : a)), ACCION_BREVE_MS);
+  };
+
+  const registrarCarino = () => {
     setDatos((d) => ({ ...d, carino: podarCarino([...(d.carino ?? []), Date.now()]) }));
+    saltar();
+  };
 
   /* Llenar el cuenco o recoger la casa. No toca ningún dato del pacto:
      solo apunta cuándo se hizo. Ver `engine/cuidados.js`. */
-  const cuidar = (que) =>
+  const cuidar = (que) => {
     setDatos((d) => ({ ...d, cuidados: atender(d.cuidados, que) }));
+    saltar();
+  };
 
   const registrar = (fecha, campos) => {
     if (fecha === hoyISO()) {
       /* El entreno manda sobre la comida: si apuntas las dos cosas de una
-         vez, ver al michi con las mancuernas cuenta mejor el día. */
+         vez, ver al michi con las mancuernas cuenta mejor el día. Lo que
+         no es ni una cosa ni la otra —pasos, peso, sueño— salta en vez de
+         quedarse sin respuesta. */
       const hace = campos.entrenoMin ? 'entrenando'
                  : campos.comidaKcal != null ? 'comiendo' : null;
       if (hace) {
         setAccion(hace);
         setTimeout(() => setAccion((a) => (a === hace ? null : a)), 4000);
+      } else {
+        saltar();
       }
     }
     setDatos((d) => {

@@ -52,8 +52,11 @@ const RUTA = '/michi';
 export const ESTILOS = ['pixel'];
 
 /* Los colores del michi. El naranja son los dibujos originales, sin
-   sufijo; los otros los genera `pixel/tenir_michi.py` a partir de ellos
-   conservando el relieve, los mofletes y los ojos.
+   sufijo; gris y blanco los genera `pixel/tenir_michi.py` a partir de
+   ellos conservando el relieve, los mofletes y los ojos. El negro entra
+   el 2026-09-17 y no es un tinte: Albert lo dibujó en su propia model
+   sheet, como los otros tres, y sale de
+   `pixel/recortar_model_sheets.py` igual que ellos.
 
    Se llamaba `MICHIS` hasta el 2026-09-12, y ese era el problema:
    `pixel/michis.js` exportaba OTRO `MICHIS` que no tenia nada que ver
@@ -64,7 +67,7 @@ export const ESTILOS = ['pixel'];
    otra. Aquel archivo se fue a `_CUARENTENA/cuerpos-antiguos/` el
    2026-09-13, asi que la colision ya no puede volver; el nombre largo
    se queda porque describe mejor lo que hay: colores, no michis. */
-export const COLORES_MICHI = ['naranja', 'gris', 'blanco'];
+export const COLORES_MICHI = ['naranja', 'gris', 'blanco', 'negro'];
 export const COLORES = ['naranja', 'rojo', 'amarillo', 'verde', 'azul', 'blanco', 'negro'];
 /* El michi arranca GRIS porque Ninja es gris (ver `LORE.md`). El huevo
    sigue naranja: ese es el color de marca, y el logo va a juego.

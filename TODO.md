@@ -1,11 +1,16 @@
 # TODO.md — Backlog
 
 ## Ahora
-- [ ] **El triste y el cansado desentonan** (Albert). Son los dos únicos
-      michis que quedan del dibujo anterior, y al lado de los nuevos se
-      nota: más oscuros, con menos detalle y otro trazo. El gris triste
-      es casi negro. O se redibujan en las tres hojas, o hay que
-      buscarles otra salida.
+- [x] **El triste y el cansado desentonan** (Albert). Hecho el
+      2026-09-17: Albert los redibujó en el mismo estilo, en las cuatro
+      model sheets (también la nueva, negra), y `recortar_model_sheets.py`
+      los saca de ahí. Ver `CURRENT.md`.
+
+- [ ] **`michi_sediento` en negro**. El michi negro es nuevo del
+      2026-09-17 y viene entero de las model sheets, pero `sediento` es
+      el dibujo antiguo, sin hoja nueva que lo traiga: no existe para
+      este color. Cae al michi negro de pie por la cadena de respaldo
+      —no se rompe nada—, pero le falta esa cara.
 
 - [ ] **El QR de PromptPay** (lo genera la chica de Albert). El bloque
       está hecho y apagado.
@@ -113,6 +118,14 @@
 
 
 ## Hecho
+- [x] 2026-09-17 — **Triste y cansado en el estilo nuevo, y el michi
+      negro.** Las cuatro poses que faltaban (dos poses × ninguna vez
+      negro) salen de las model sheets con una rejilla fija de 5x2 en
+      vez de blobs, porque los dibujos más juntos fundían piezas. Ver
+      `CURRENT.md`.
+- [x] 2026-09-17 — **El michi salta al cuidarlo.** Mimar, agua, limpiar
+      y cualquier dato sin escena propia disparan un brinco corto con
+      `michi_celebrando`.
 - [x] 2026-09-16 — **Las doce viñetas del cómic, dentro.** A pantalla
       completa, 9:16, con bocadillo semitransparente abajo y los doce
       textos en las cinco lenguas. La tabla de las 22 y por qué entran

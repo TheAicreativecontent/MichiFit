@@ -323,7 +323,7 @@ export default {
     color: 'สี',
     nota: 'ปุ่มซ้ายใช้ดูแลมิจิ ปุ่มกลางเปิดสิ่งที่คุณอยากบันทึก และปุ่มขวาใช้ยืนยัน ไม่ว่าจะเลือกแมวตัวไหน ปุ่มก็ทำงานเหมือนกัน',
     michi: 'แมวของคุณ',
-    michis: { naranja: 'ส้ม', gris: 'เทา', blanco: 'ขาว' },
+    michis: { naranja: 'ส้ม', gris: 'เทา', blanco: 'ขาว', negro: 'ดำ' },
     colores: {
       naranja: 'ส้ม', rojo: 'แดง', amarillo: 'เหลือง', verde: 'เขียว',
       azul: 'น้ำเงิน', blanco: 'ขาว', negro: 'ดำ',

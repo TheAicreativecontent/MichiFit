@@ -142,13 +142,38 @@ pantallas y el motor entero.
   los textos de la app, la cocina desplazada para que el michi pise el
   suelo, el mensaje de «es analógico» justo debajo de «EN CASA» y los
   iconos del anillo a 16 px. Caché a v10.
-- Próximo paso (cierre del 2026-09-16): nada urgente. Lo que queda
-  abierto, para cuando Albert quiera:
-  · **el triste y el cansado** desentonan con los michis nuevos: faltan
-    esas dos poses en las model sheets;
-  · **decidir el gimnasio nuevo** (se prueba desde el panel de pruebas);
+- Última acción (2026-09-17): **triste y cansado, en el estilo nuevo, y
+  el michi negro**. Albert redibujó esas dos poses igual en las cuatro
+  model sheets —antes la casilla 5 no coincidía entre hojas y se
+  descartaba— y añadió una hoja `negro` entera. `recortar_model_sheets.py`
+  cambió de detectar blobs a una rejilla fija de 5x2: con los dibujos más
+  juntos, el hueco entre poses que usaba para partir la hoja a veces
+  desaparecía y fundía dos michis en uno. El fondo se sigue quitando
+  sobre la hoja ENTERA y no celda a celda —si no, el bolsillo de blanco
+  que la cola de "andando" encierra en la hoja negra se queda opaco,
+  sellado del propio dibujo, con más detalle en la cabecera del script—.
+  `COLORES_MICHI` pasa a cuatro colores y el selector de Ajustes/Lore lo
+  hereda solo. Caché a v11. `michi_sediento` no salió de esta tanda —es
+  el dibujo antiguo, sin hoja nueva que lo traiga— así que el michi negro
+  no lo tiene todavía: si el cuenco baja de la mitad, cae al michi negro
+  de pie por la cadena de respaldo de siempre, no se rompe nada.
+- Última acción (2026-09-17): **el michi salta al cuidarlo**. Mimar, dar
+  agua, limpiar o apuntar cualquier dato que no tuviera ya su propia
+  escena (pasos, peso, sueño) no daban ninguna señal en el michi; ahora
+  hacen un brinco corto con `michi_celebrando`, la misma pose que ya
+  usaba subir de nivel. Comer y entrenar siguen con su escena propia sin
+  tocar. Lo pidió Albert junto con las poses nuevas. Verificado en el
+  navegador: el michi salta al aceptar «mimar» y vuelve solo a su humor
+  a los 2,6 s.
+- Próximo paso: nada urgente. Lo que queda abierto, para cuando Albert
+  quiera:
+  · **decidir el gimnasio nuevo** (se prueba desde el panel de pruebas) —
+    a ojo pega más con el estilo plano de la casa/cocina nuevas que el
+    gimnasio actual, que se ve renderizado en otro motor, pero queda por
+    decidir viéndolo dentro de la pantallita, no en el archivo;
   · **el salón de `BG_Kitchen`** daría una «casa» mejor que la actual;
   · **`calle.png`** ya no la usa nadie;
+  · **`michi_sediento` en negro** — falta esa pose para el cuarto color;
   · **el QR de PromptPay** (con e-Wallet ID, ver `TODO.md`).
 - La conversación de **hacerla HIPER sencilla** ya se tuvo, el
   2026-09-14: el mapa está en `SIMPLICIDAD.md`. **No se borró ni se

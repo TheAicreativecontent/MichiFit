@@ -334,7 +334,7 @@ export default {
     color: 'Color',
     nota: 'El botón de la izquierda cuida al michi, el del medio abre lo que quieras apuntar y el de la derecha acepta. Elijas el gato que elijas, hacen lo mismo.',
     michi: 'Tu gato',
-    michis: { naranja: 'Naranja', gris: 'Gris', blanco: 'Blanco' },
+    michis: { naranja: 'Naranja', gris: 'Gris', blanco: 'Blanco', negro: 'Negro' },
     colores: {
       naranja: 'Naranja', rojo: 'Rojo', amarillo: 'Amarillo', verde: 'Verde',
       azul: 'Azul', blanco: 'Blanco', negro: 'Negro',

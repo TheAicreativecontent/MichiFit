@@ -323,7 +323,7 @@ export default {
     color: '色',
     nota: '左のボタンでミチのおせわ、まん中で記録したいものを開き、右で決定します。どの猫を選んでも同じです。',
     michi: 'あなたの猫',
-    michis: { naranja: 'ちゃとら', gris: 'グレー', blanco: 'ホワイト' },
+    michis: { naranja: 'ちゃとら', gris: 'グレー', blanco: 'ホワイト', negro: 'ブラック' },
     colores: {
       naranja: 'オレンジ', rojo: 'レッド', amarillo: 'イエロー', verde: 'グリーン',
       azul: 'ブルー', blanco: 'ホワイト', negro: 'ブラック',
