@@ -40,7 +40,7 @@ export default {
     inicio: 'Inicio',
     pacto: 'Mi objetivo',
     progreso: 'Progreso',
-    logros: 'Logros',
+    ninja: 'Ninja',
     simular: 'Simular',
     karma: 'Karma',
     anadir: 'Añadir',
@@ -166,6 +166,7 @@ export default {
     titulo: '📈 Tu progreso',
     ayuda1: 'La gráfica junta tu <b>peso real</b> con la previsión que sale de tu ritmo actual. La línea de previsión se recalcula sola: si bajas más rápido, se acorta.',
     ayuda2: 'En el calendario puedes tocar cualquier día para apuntar o corregir datos. Los días de hace más de tres se cierran para el objetivo, pero el <b>peso</b> siempre se puede corregir.',
+    ayuda3: 'Abajo del todo están tus logros: se consiguen una vez y <b>no se pierden nunca</b>, aunque falles después.',
     pesoActual: 'Peso actual',
     perdidos: 'Perdidos',
     recuperados: 'Recuperados',
@@ -498,8 +499,6 @@ export default {
 
   logros: {
     titulo: '🏅 Tus logros',
-    ayuda1: 'Hitos que se consiguen una vez y <b>no se pierden nunca</b>, aunque falles después. Cada uno suma experiencia al michi.',
-    ayuda2: 'Se comprueban contra todo tu historial, así que si apuntas un día antiguo que cumplía un hito, se desbloquea igual.',
     resumen: '{hechos} de {total} · cada uno suma {xp} XP',
     pie: 'Los logros no se pierden nunca. Una vez conseguidos, son tuyos aunque falles una semana.',
   },

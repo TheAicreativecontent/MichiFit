@@ -38,7 +38,7 @@ export default {
     inicio: '首页',
     pacto: '我的目标',
     progreso: '进展',
-    logros: '成就',
+    ninja: 'Ninja',
     simular: '假如',
     karma: '心意',
     anadir: '添加',
@@ -160,6 +160,7 @@ export default {
     titulo: '📈 你的进展',
     ayuda1: '这张图把你的<b>真实体重</b>和按当前速度算出的预测放在一起。预测线会自己重算：掉得更快，它就变短。',
     ayuda2: '在日历里点任何一天都能记录或修改数据。三天以前的日子对目标来说已经结束，但<b>体重</b>随时都能改。',
+    ayuda3: '最下面是你的成就：拿到一次就<b>永远不会失去</b>，哪怕后面失手。',
     pesoActual: '当前体重',
     perdidos: '已减',
     recuperados: '回升',
@@ -484,8 +485,6 @@ export default {
 
   logros: {
     titulo: '🏅 你的成就',
-    ayuda1: '拿到一次就<b>永远不会失去</b>的里程碑，后面失手也不影响。每一个都会给米奇加经验。',
-    ayuda2: '它们是对照你的全部记录来判定的，所以就算你补记了很久以前符合条件的一天，也照样解锁。',
     resumen: '{total} 个里完成 {hechos} 个 · 每个加 {xp} XP',
     pie: '成就不会消失。一旦拿到就是你的，哪怕有一周没做好。',
   },

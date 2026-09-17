@@ -10,7 +10,6 @@ import Inicio from './pantallas/Inicio.jsx';
 import Pacto from './pantallas/Pacto.jsx';
 import Progreso from './pantallas/Progreso.jsx';
 import Simulador from './pantallas/Simulador.jsx';
-import Logros from './pantallas/Logros.jsx';
 import Karma from './pantallas/Karma.jsx';
 import EditorDia from './pantallas/EditorDia.jsx';
 import Ajustes from './pantallas/Ajustes.jsx';
@@ -27,13 +26,22 @@ import SelectorIdioma from './i18n/Selector.jsx';
 import './estilos.css';
 
 /* Iconos traídos de Michi Finanzas, para que las dos apps se sientan
-   la misma casa. Simular no tiene icono propio todavía: lleva emoji. */
+   la misma casa. Simular no tiene icono propio todavía: lleva emoji.
+
+   `logros` deja de ser una pestaña el 2026-09-19: Albert simplificó el
+   menú de abajo y esa pantalla se fundió dentro de Progreso (una
+   sección más, no una pantalla — ver `pantallas/Logros.jsx`). El hueco
+   lo ocupa `ninja`, que no abre un `pestana` como los demás: abre la
+   historia (`Lore.jsx`) a pantalla completa, igual que el botón que ya
+   existía en Ajustes. Por eso lleva `abre: 'lore'` y no una pantalla
+   propia — el nav de abajo lo trata aparte, ver donde se pintan los
+   botones. */
 const PESTANAS = [
   { id: 'inicio', img: '/iconos/inicio.png' },
   { id: 'pacto', img: '/iconos/pacto.png' },
   { id: 'progreso', img: '/iconos/progreso.png' },
   // — aquí va el "+" —
-  { id: 'logros', img: '/iconos/logros.png' },
+  { id: 'ninja', img: '/iconos/Ninja.png', abre: 'lore' },
   { id: 'simular', img: '/iconos/simular.png' },
   { id: 'karma', img: '/iconos/karma.png' },
 ];
@@ -325,10 +333,9 @@ export default function App() {
                  onCambiarPerfil={(p) => setDatos((d) => ({
                    ...d, perfil: p, pacto: sincronizarPacto(d.pacto, p) }))} />
         )}
-        {pestana === 'logros' && <Logros estado={estado} />}
         {pestana === 'progreso' && (
           <Progreso perfil={datos.perfil} pacto={datos.pacto} entradas={datos.entradas}
-                    onRegistrar={registrar} />
+                    onRegistrar={registrar} estado={estado} />
         )}
         {pestana === 'simular' && <Simulador perfil={datos.perfil} pacto={datos.pacto} />}
         {pestana === 'karma' && <Karma />}
@@ -354,8 +361,14 @@ export default function App() {
           <img src="/iconos/mas.png" alt="" />
         </button>
         {PESTANAS.slice(3).map((p) => (
-          <button key={p.id} className={pestana === p.id ? 'activa' : ''}
-                  onClick={() => setPestana(p.id)}>
+          /* `ninja` no tiene pantalla propia dentro de `pestana`: abre
+             la historia entera, igual que el botón de Ajustes. Nunca
+             sale «activa» a propósito —no hay un `pestana === 'ninja'`
+             que lo sostenga, y en cuanto se toca ya se ha ido a otra
+             pantalla—. */
+          <button key={p.id}
+                  className={p.abre !== 'lore' && pestana === p.id ? 'activa' : ''}
+                  onClick={() => (p.abre === 'lore' ? setVerLore(true) : setPestana(p.id))}>
             <Icono p={p} /><small>{t('nav.' + p.id)}</small>
           </button>
         ))}

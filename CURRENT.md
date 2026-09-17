@@ -257,9 +257,30 @@ pantallas y el motor entero.
     se propuso.
   · **Logros se funde dentro de Progreso** (una sección, no una
     pantalla), y el hueco libre lo coge un icono a **Ninja** — Albert
-    subió `public/iconos/Ninja.png` para eso. **Sin hacer todavía.**
-  · Antes de tocar el menú, cazar el fallo de la gráfica (siguiente
-    punto).
+    subió `public/iconos/Ninja.png` para eso. **Hecho el mismo día**,
+    ver la siguiente entrada.
+- Última acción (2026-09-19): **el menú de abajo, simplificado**.
+  `Logros` deja de ser pantalla: `pantallas/Logros.jsx` pasa de página
+  completa (con su `.mf-pagina` y su `<Titulo>`) a sección — un
+  `<div className="mf-tarjeta">` que Progreso pinta al final, después
+  del calendario. Su ayuda de antes (dos párrafos sobre que los hitos
+  no se pierden nunca) se resume en una frase nueva,
+  `progreso.ayuda3`, dentro del «?» de Progreso, para no perder la
+  explicación.
+
+  El hueco que dejó Logros en el menú lo ocupa **Ninja**: un botón
+  nuevo que NO abre una pantalla de `pestana` como los demás —abre
+  `Lore.jsx` a pantalla completa con `setVerLore(true)`, el mismo
+  mecanismo que ya usaba el botón «La historia de Ninja» dentro de
+  Ajustes—. Por eso en `PESTANAS` lleva `abre: 'lore'` en vez de
+  encajar en el patrón `pestana === p.id`, y por eso nunca se pinta
+  «activa»: tocarlo ya te ha llevado a otra pantalla.
+
+  Karma se queda donde estaba, tal como pidió Albert.
+
+  Probado en el navegador: Ninja abre la historia desde el menú,
+  Progreso enseña Logros al final de la página, y el resto de
+  pestañas siguen igual.
 - Última acción (2026-09-19): **el dato que faltaba en Progreso, cazado**.
   Albert decía que la previsión «no acababa de funcionar», y el fallo
   era real: hasta hoy, cuántas semanas o qué fecha faltan para la meta
@@ -293,9 +314,10 @@ pantallas y el motor entero.
   arreglo aparte.
 - Próximo paso: nada urgente. Lo que queda abierto, para cuando Albert
   quiera:
-  · **fundir Logros en Progreso y meter el icono de Ninja** en el hueco
-    (ver arriba, decidido pero sin hacer);
   · **la celda «Hasta la meta» con objetivo de ganar peso** (ver arriba);
+  · **seguir simplificando**: lo de abajo (Karma, Logros→Progreso, Ninja)
+    ya está — queda el punto 1 (hábitos) y el tono del calendario
+    rojo/verde/amarillo, que Albert dijo que desalienta más que anima;
   · **decidir el gimnasio nuevo** (se prueba desde el panel de pruebas) —
     a ojo pega más con el estilo plano de la casa/cocina nuevas que el
     gimnasio actual, que se ve renderizado en otro motor, pero queda por

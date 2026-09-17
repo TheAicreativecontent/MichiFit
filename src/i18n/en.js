@@ -44,7 +44,7 @@ export default {
     inicio: 'Home',
     pacto: 'My goal',
     progreso: 'Progress',
-    logros: 'Awards',
+    ninja: 'Ninja',
     simular: 'What if',
     karma: 'Karma',
     anadir: 'Add',
@@ -166,6 +166,7 @@ export default {
     titulo: '📈 Your progress',
     ayuda1: 'The chart puts your <b>real weight</b> together with the forecast that comes out of your current pace. The forecast line recalculates itself: if you lose faster, it gets shorter.',
     ayuda2: 'In the calendar you can tap any day to note down or correct data. Days older than three close for the goal, but the <b>weight</b> can always be corrected.',
+    ayuda3: 'Right at the bottom are your awards: earned once and <b>never lost</b>, even if you slip later.',
     pesoActual: 'Current weight',
     perdidos: 'Lost',
     recuperados: 'Regained',
@@ -487,8 +488,6 @@ export default {
 
   logros: {
     titulo: '🏅 Your awards',
-    ayuda1: 'Milestones you earn once and <b>never lose</b>, even if you slip later. Each one adds experience to the michi.',
-    ayuda2: 'They are checked against your whole history, so if you note down an old day that met a milestone, it unlocks anyway.',
     resumen: '{hechos} of {total} · each one adds {xp} XP',
     pie: 'Awards are never lost. Once earned, they are yours even if you have a bad week.',
   },

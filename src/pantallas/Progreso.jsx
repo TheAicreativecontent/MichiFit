@@ -20,6 +20,7 @@ import EditorDia from './EditorDia.jsx';
 import { simular, actividadDelPacto, planEnergetico } from '../engine/calculos.js';
 import { Titulo } from './Ayuda.jsx';
 import { DIAS } from '../engine/constantes.js';
+import Logros from './Logros.jsx';
 
 
 /* Ritmo real por mínimos cuadrados sobre los pesajes. Más honesto que
@@ -42,7 +43,7 @@ function ritmoReal(pesajes) {
   return (num / den) * 7;                    // kg por semana; negativo = bajando
 }
 
-export default function Progreso({ perfil, pacto, entradas, onRegistrar }) {
+export default function Progreso({ perfil, pacto, entradas, onRegistrar, estado }) {
   const t = useT();
   const fmt = useFormato();
   const [mesOffset, setMesOffset] = useState(0);
@@ -105,6 +106,7 @@ export default function Progreso({ perfil, pacto, entradas, onRegistrar }) {
       <Titulo ayuda={<>
           <T k="progreso.ayuda1" />
           <T k="progreso.ayuda2" />
+          <T k="progreso.ayuda3" />
         </>}>
         {t('progreso.titulo')}
       </Titulo>
@@ -173,6 +175,12 @@ export default function Progreso({ perfil, pacto, entradas, onRegistrar }) {
         entradas={entradas} pacto={pacto} metaISO={metaISO}
         onTocar={setEditando}
       />
+
+      {/* Logros vivía en su propia pestaña; se fundió aquí el
+          2026-09-19 al simplificar el menú de abajo. Es la sección de
+          abajo del todo a propósito: lo primero es el hábito y la
+          fecha, esto es el extra. */}
+      {estado && <Logros estado={estado} />}
 
       {editando && (
         <EditorDia

@@ -528,7 +528,13 @@ input[type=range]::-moz-range-thumb {
 .mf-mas img { width: 100%; height: 100%; object-fit: contain; }
 .mf-mas:active { transform: scale(.93); }
 
-/* --- logros --- */
+/* --- logros ---
+   Sección dentro de Progreso desde el 2026-09-19 (antes, pantalla
+   propia con su `.mf-tarjeta` de nivel). `.mf-logros-nivel` sustituye
+   a esa tarjeta interior: ahora la tarjeta es la sección entera, y
+   esto solo pone la separación de 14px que antes daba el fondo/padding
+   de la tarjeta que se quitó. */
+.mf-logros-nivel { margin-bottom: 14px; }
 .mf-nivel-fila { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
 .mf-nivel-fila span { font-family: var(--fuente-titulo); font-weight: 800; font-size: calc(16px * var(--escala)); }
 .mf-escalera { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; margin-top: 12px; }
