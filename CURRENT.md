@@ -339,12 +339,39 @@ pantallas y el motor entero.
   Probado en el navegador: día de descanso (ENTRENO dice DESCANSO),
   día de entreno con datos a medias (ENTRENO 44%), el editor completo
   en el nuevo orden, y el anillo pasando por Entreno antes que Pasos.
+- Última acción (2026-09-19): **el calendario deja de castigar, y el
+  icono de Ninja crece un poco**. Dos cosas:
+
+  · **El rojo por «sin datos» desaparece**, en el calendario de
+    Progreso y en los «últimos 7 días» de Mi objetivo. Antes CUALQUIER
+    día sin apuntar nada —hubieras fallado o simplemente no hubiera
+    pacto todavía— se pintaba con `--mal` a toda celda, un rosa/rojo
+    solido que contradice `MECANICA.md` §10 ("no castiga por no abrir
+    la app", "el michi nunca reprocha") y que Albert señaló con sus
+    propias palabras: desalienta más de lo que anima. Ahora un día sin
+    cumplir se ve como uno vacío —fondo neutro, sin remarcar—, y solo
+    los que SÍ dicen algo (cumplido en verde, a medias en amarillo)
+    llaman la atención. `pacto.fallado` («fallado») pasa a decir «sin
+    datos», la misma palabra que ya usaba Progreso para el mismo
+    estado.
+
+    De paso, dos arreglos que salieron al mirarlo de cerca: los días
+    ANTERIORES a que el pacto existiera (`pacto.creado`) ya no se
+    evalúan —antes un mes entero podía salir en rojo por días de antes
+    de adoptar al michi, la misma regla que ya protegía el cálculo de
+    abandono en `engine/michi.js` y que al calendario nunca le había
+    llegado—; y el swatch amarillo de la leyenda («a medias») no tenía
+    ni una regla de CSS, así que llevaba quién sabe cuánto invisible.
+
+  · **El icono de Ninja en el menú, un poco más grande** (25px → 29px,
+    solo él) — se leía pequeño ahí abajo.
+
+  Probado en el navegador con un mes con los cuatro estados a la vez
+  (cumplido, a medias, sin datos, y días de antes del pacto) y viendo
+  el tamaño real de los seis iconos por CSS.
 - Próximo paso: nada urgente. Lo que queda abierto, para cuando Albert
   quiera:
   · **la celda «Hasta la meta» con objetivo de ganar peso** (ver arriba);
-  · **el tono del calendario rojo/verde/amarillo**, que Albert dijo que
-    desalienta más que anima — el punto 4 de simplificar sigue abierto
-    en esa pieza concreta (el resto, Karma/Logros/Ninja, ya está hecho);
   · **decidir el gimnasio nuevo** (se prueba desde el panel de pruebas) —
     a ojo pega más con el estilo plano de la casa/cocina nuevas que el
     gimnasio actual, que se ve renderizado en otro motor, pero queda por

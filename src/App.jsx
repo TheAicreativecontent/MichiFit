@@ -47,7 +47,7 @@ const PESTANAS = [
 ];
 
 function Icono({ p }) {
-  return <img src={p.img} alt="" className="mf-nav-ico" />;
+  return <img src={p.img} alt="" className={`mf-nav-ico ${p.id === 'ninja' ? 'mf-nav-ico-ninja' : ''}`} />;
 }
 /* Ajustes vive en la cabecera, no en la barra de abajo: así el menú
    queda despejado, como en Michi Finanzas. */

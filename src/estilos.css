@@ -248,12 +248,15 @@ input[type=number]:focus { outline: none; border-color: var(--rosa); }
   font-size: calc(11px * var(--escala)); font-weight: 800; color: #fff;
 }
 .mf-cuadro.ok { background: var(--bien); }
-.mf-cuadro.fallo { background: var(--mal); }
+/* Mismo criterio que `.mf-caldia.fallo` en Progreso: un día sin
+   cumplir se ve neutro, no en rojo. Ver esa cabecera. */
+.mf-cuadro.fallo { background: var(--chip); color: var(--tinta-flojo); }
 .mf-cuadro.abierto { background: var(--linea); color: var(--tinta-flojo); }
 .mf-leyenda { margin-top: 9px; font-size: calc(10.5px * var(--escala)); color: var(--tinta-flojo); font-weight: 700; }
 .mf-leyenda i { display: inline-block; width: 9px; height: 9px; border-radius: 3px; vertical-align: middle; }
 .mf-leyenda i.ok { background: var(--bien); }
-.mf-leyenda i.fallo { background: var(--mal); }
+.mf-leyenda i.parcial { background: var(--sol); }
+.mf-leyenda i.fallo { background: var(--chip); border: 1px solid var(--linea); }
 .mf-leyenda i.abierto { background: var(--linea); }
 
 /* --- objetivos de hoy --- */
@@ -345,6 +348,10 @@ input[type=range]::-moz-range-thumb {
 /* Siempre a color: en gris parecían deshabilitados. Lo activo se marca
    con el color del texto y un puntito, no apagando el icono. */
 .mf-nav-ico { width: 25px; height: 25px; object-fit: contain; transition: transform .15s ease; }
+/* Un poco más grande que el resto, a petición de Albert (2026-09-19):
+   la cara de Ninja se leía pequeña ahí abajo. Solo el tamaño cambia;
+   sigue centrado por el mismo `.mf-nav button` de siempre. */
+.mf-nav-ico-ninja { width: 29px; height: 29px; }
 .mf-nav button.activa .mf-nav-ico { transform: translateY(-2px) scale(1.1); }
 .mf-nav button.activa small { position: relative; }
 .mf-nav button.activa small::after {
@@ -395,7 +402,14 @@ input[type=range]::-moz-range-thumb {
 }
 .mf-caldia.ok      { background: var(--bien); color: #17402C; }
 .mf-caldia.parcial { background: var(--sol); color: #5A4400; }
-.mf-caldia.fallo   { background: var(--mal); color: #5A1020; }
+/* Antes un relleno solido de --mal (rosa/rojo) en CUALQUIER dia sin
+   datos, aprobado o no: un mes entero podia salir casi todo en rojo.
+   Contradecia lo que dice MECANICA.md 10 -"no castiga por no abrir la
+   app", "el michi nunca reprocha"- y Albert lo dijo con sus propias
+   palabras el 2026-09-19: desalienta mas de lo que anima. Ahora un dia
+   sin cumplir se ve como uno vacio: ni bien ni mal, solo sin marcar.
+   Los que SI dicen algo -ok y parcial- se quedan con su color. */
+.mf-caldia.fallo   { background: var(--chip); color: var(--tinta-flojo); }
 .mf-caldia.abierto { background: var(--menta-suave); }
 .mf-caldia.hoy     { border-color: var(--rosa); }
 .mf-caldia.futuro  { opacity: .35; cursor: default; }

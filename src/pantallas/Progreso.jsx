@@ -320,11 +320,20 @@ function Calendario({ mesOffset, setMesOffset, entradas, pacto, metaISO, onTocar
   const dias = new Date(anio, mes + 1, 0).getDate();
   const hoy = hoyISO();
 
+  /* Antes de que el pacto existiera no se podía incumplir —no había
+     nada que cumplir—, así que esos días no se evalúan: se ven como
+     cualquier casilla vacía, ni bien ni mal. Es la misma regla que ya
+     aplica `calcularEstado` en `engine/michi.js` para el abandono, solo
+     que hasta el 2026-09-19 el calendario no la tenía: quien mirase el
+     mes en que adoptó al michi veía filas enteras en rojo por días de
+     antes de que la app existiera para él. */
   const celdas = [];
   for (let i = 0; i < primerDia; i++) celdas.push(null);
   for (let d = 1; d <= dias; d++) {
     const iso = `${anio}-${String(mes + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
-    const ev = pacto ? evaluarDia({ pacto, entrada: entradas[iso], fecha: iso, hoy }) : null;
+    const antesDelPacto = pacto?.creado && iso < pacto.creado;
+    const ev = pacto && !antesDelPacto
+      ? evaluarDia({ pacto, entrada: entradas[iso], fecha: iso, hoy }) : null;
     const futuro = iso > hoy;
     celdas.push({
       d, iso, futuro,

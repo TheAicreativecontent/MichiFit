@@ -153,7 +153,7 @@ export default {
     notaMacros: 'Las macros son <b>orientativas y no cuentan</b> para el cumplimiento. Clavarlas al gramo no es el objetivo.',
     ultimos7: 'Últimos 7 días',
     cumplido: 'cumplido',
-    fallado: 'fallado',
+    fallado: 'sin datos',
     aTiempo: 'aún a tiempo',
     entreno: '🏋️ Entreno',
     descanso: '😌 Descanso',

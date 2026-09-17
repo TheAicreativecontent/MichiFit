@@ -153,7 +153,7 @@ export default {
     notaMacros: 'Macros are <b>for reference and do not count</b> towards keeping the goal. Hitting them to the gram is not the point.',
     ultimos7: 'Last 7 days',
     cumplido: 'kept',
-    fallado: 'missed',
+    fallado: 'no data',
     aTiempo: 'still in time',
     entreno: '🏋️ Training',
     descanso: '😌 Rest',

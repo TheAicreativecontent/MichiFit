@@ -148,7 +148,7 @@ export default {
     notaMacros: 'PFCは<b>目安であり、達成の判定には数えません</b>。1グラム単位で合わせることが目的ではありません。',
     ultimos7: '直近7日',
     cumplido: '守れた',
-    fallado: '守れなかった',
+    fallado: '記録なし',
     aTiempo: 'まだ間に合う',
     entreno: '🏋️ 運動',
     descanso: '😌 休み',

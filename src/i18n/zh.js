@@ -147,7 +147,7 @@ export default {
     notaMacros: '三大营养素<b>仅供参考，不计入</b>是否守约。精确到克并不是目的。',
     ultimos7: '最近 7 天',
     cumplido: '守住了',
-    fallado: '没守住',
+    fallado: '没有数据',
     aTiempo: '还来得及',
     entreno: '🏋️ 训练',
     descanso: '😌 休息',
