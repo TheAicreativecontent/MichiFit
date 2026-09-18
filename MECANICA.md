@@ -105,6 +105,16 @@ Un día **cumple** si alcanza lo pactado para ese día de la semana.
 - El peso y las notas se pueden editar **siempre**, sin ventana. La ventana solo
   afecta a lo que cuenta para el pacto.
 - **Sin datos ≠ fallo, dentro de la ventana.** Fuera de ella, cuenta como fallo.
+- **Entreno y sueño cumplen en cuanto apuntas algo, no por llegar a los
+  minutos u horas pactados (2026-09-19).** Entrenar 28 de 45 minutos
+  pactados cumple el día igual que entrenar los 45; apuntar 5 h de sueño
+  cumple igual que apuntar 8. Los minutos/horas reales no se pierden —
+  siguen alimentando la barra del Marcador y la gráfica de Progreso, y el
+  consejo de sueño ("poco", "casi", "perfecto", "te pasaste") se sigue
+  mostrando según la cantidad—, solo dejan de decidir si el día rompe la
+  racha. Es la única excepción a "alcanza lo pactado": los demás objetivos
+  (pasos, comida) siguen midiéndose por cantidad. Ver `pacto.js` y
+  `Inicio.jsx`.
 
 ## 4 · Comodines
 

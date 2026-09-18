@@ -504,6 +504,36 @@ pantallas y el motor entero.
   primer y el último pesaje.
 
   Build y los seis `pruebas/*.mjs` en verde en cada paso.
+- Última acción (2026-09-18/19, pedida desde el móvil, sesión aparte):
+  **entreno y sueño cumplen por apuntar, no por llegar al número**. Albert
+  vio en su móvil que le faltaba un pelo para el mínimo de entreno del día
+  (38 de 45 min) y el michi lo contaba como día fallado igual que si no
+  hubiera entrenado nada — le pareció injusto y pidió pasar Entreno a
+  sí/no. De paso pidió lo mismo para Sueño: que apuntar algo YA cuente
+  como hecho, y que la cantidad de horas sea solo consejo aparte ("lo
+  ideal son 8h", "intenta dormir un poco más"), no la casilla.
+
+  `evaluarDia()` en `engine/pacto.js`: el objetivo `entreno` pasa de
+  `cumplido: min >= objetivoDia.minEntreno` a `cumplido: min > 0`. Los
+  minutos siguen en `valor` y siguen moviendo la barra del Marcador y la
+  gráfica de Progreso — solo dejan de decidir si el día rompe la racha.
+  `consejoSueno()` en `pantallas/Inicio.jsx`: las cuatro franjas (poco /
+  casi / perfecto / de más) pasan todas a `ok: true`; solo `horas == null`
+  (nada apuntado) sigue dando `ok: false`. El texto de consejo por franja
+  no cambió, solo dejó de decidir la casilla.
+
+  Hecho **sin abrir MECANICA.md entero primero**, que es justo lo que
+  pide `PROTOCOL.md` antes de tocar la mecánica — un pacto que se
+  incumplió solo, por hacerlo desde el móvil en una sesión sin el
+  repositorio delante. Auditado después, desde el portátil: la mecánica
+  de §3 y §11 sí queda coherente con lo pedido — "un entreno perdido"
+  (0 min, ver §11) sigue rompiendo el día igual que siempre, pasos y
+  comida siguen midiéndose por cantidad, y la única excepción nueva es
+  entreno/sueño con **algo** apuntado. `MECANICA.md` §3 ya lo deja
+  escrito. PR #1, revisado y fusionado a `main` con los cuatro
+  `pruebas/*.mjs` relevantes en verde (`cuidados`, `objetivo`,
+  `calendario`, `cobertura-michi`; el único fallo es el de siempre, el
+  dibujo `michi` sin usar, sin relación).
 - Próximo paso:
   · **abrir la app al público** — lo próximo que dijo Albert, sin fecha
     exacta pero "mañana" a fecha de este cierre;
