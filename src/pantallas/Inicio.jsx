@@ -513,11 +513,16 @@ function consejoSueno(horas, t) {
   const h = String(horas).replace('.', ',');
   const par = (k) => ({ corto: t(`inicio.sueno${k}`, { h, faltan: (8 - horas).toFixed(1).replace('.', ',') }),
                         largo: t(`inicio.sueno${k}Largo`, { h }) });
-  if (horas < 6) return { ok: false, ...par('Poco') };
-  if (horas < 7.5) return { ok: false, ...par('Casi') };
+  /* Apuntar YA cuenta como el día cumplido, como con el entreno: `ok`
+     solo distingue "lo has anotado" de "no lo has anotado". Cuántas
+     horas fueron sigue teniendo su propio consejo (poco / casi /
+     perfecto / de más), pero eso ya no decide la casilla. */
+  if (horas < 6) return { ok: true, ...par('Poco') };
+  if (horas < 7.5) return { ok: true, ...par('Casi') };
   if (horas <= 9) return { ok: true, ...par('Perfecto') };
-  return { ok: false, ...par('Pasado') };
+  return { ok: true, ...par('Pasado') };
 }
+
 
 /* Lo que sale al tocar el cristal.
 
