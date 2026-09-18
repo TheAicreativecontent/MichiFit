@@ -181,7 +181,7 @@ export default {
     segunApuntas: '· based on what you note down',
     sinPesajes: 'You have not noted down any weight yet. Tap a day in the calendar and write it in: with three weigh-ins spread over ten days I can already work out your real pace.',
     leyenda: '🌸 your weigh-ins · 🟦 forecast at your pace',
-    leyendaTeorica: ' (theoretical: not enough weigh-ins yet)',
+    leyendaTeorica: ' (theoretical: based on your plan, not your weigh-ins)',
     meta: 'target {kg}',
     hoy: 'today',
     calPactoCumplido: 'goal kept',

@@ -422,6 +422,39 @@ pantallas y el motor entero.
   Probado en el navegador con dos casos: un ritmo lento que tarda 26
   semanas en llegar (el trofeo aparece siempre, sin flecha de corte) y
   un ritmo que se aleja de la meta (igual que antes, sin cambios).
+- Última acción (2026-09-19, la de verdad): **por qué la gráfica de
+  Albert seguía sin verse bien**. El cambio de arriba no bastaba
+  porque no atacaba la causa: con SUS datos reales, el ritmo real
+  apuntaba en sentido contrario a la meta (unos pesajes ruidosos,
+  subiendo unos gramos), y `ritmo` era siempre `real ?? teorico` — un
+  real que apuntara mal apagaba TAMBIÉN al teórico, aunque el propio
+  objetivo (pasos, entreno, comida pactados) sí prometiera llegar.
+  Comparó con la MichiFit antigua, que dibujaba la línea hacia la meta
+  igual, y tenía razón: apagar la gráfica en cuanto el dato de una
+  semana pincha desanima más de lo que informa.
+
+  Ahora el real manda SOLO si apunta a la meta (`realApunta`); si no,
+  cae al teórico del objetivo, igual que antes hacía cuando no había
+  pesajes de sobra — la diferencia es que ahora también entra cuando
+  SÍ hay pesajes pero van para el lado contrario. La celda, su
+  etiqueta («real» / «previsto»), la insignia «según lo que apuntas»
+  y qué línea dibuja la gráfica salen todos de la misma variable, así
+  que no pueden volver a desincronizarse. La nota de «teórica» cambió
+  de texto: decía «aún no hay pesajes suficientes», que ahora sería
+  mentira en el caso nuevo (sí los hay, van para el otro lado); ahora
+  dice «según tu objetivo, no según tus pesajes», cierto en los dos
+  casos.
+
+  Al escribirlo se coló la palabra «pacto» en el texto en español —
+  prohibida desde el renombrado del 2026-09-11 y vigilada por
+  `pruebas/objetivo.mjs`, que lo cazó al momento—. Cambiada a
+  «objetivo».
+
+  Probado en el navegador con los datos de Albert reproducidos
+  (pesajes reales subiendo, objetivo que sí bajaría): ahora sale
+  «Ritmo previsto», la nota de teórica, y la línea baja hasta el
+  trofeo. Y al revés, con pesajes reales que sí bajan: sigue saliendo
+  «Ritmo real», sin la nota, como siempre.
 - Próximo paso:
   · **abrir la app al público** — lo próximo que dijo Albert, sin fecha
     exacta pero "mañana" a fecha de este cierre;

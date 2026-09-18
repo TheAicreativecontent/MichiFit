@@ -87,7 +87,25 @@ export default function Progreso({ perfil, pacto, entradas, onRegistrar, estado 
     return s?.kgPorSemana ?? null;
   }, [perfil, pacto, pesoActual]);
 
-  const ritmo = real ?? teorico;
+  /* El ritmo REAL manda SOLO si apunta a la meta. Hasta el 2026-09-19
+     no era así: `ritmo` era siempre `real ?? teorico`, así que un real
+     que apuntara al lado contrario —normal con pocos pesajes, o una
+     semana mala de verdad— apagaba TAMBIÉN al teórico. Quien llevara
+     semanas de pesajes erráticos no volvía a ver una fecha jamás,
+     aunque su propio pacto sí la prometiera: Albert lo vio con sus
+     datos («sigue sin verse bien») y lo comparó con la MichiFit
+     antigua, que sí dibujaba la línea hacia la meta.
+
+     Ahora, si el real no apunta a la meta, se cae al teórico del
+     pacto —es la promesa que hiciste, y apagar la gráfica en cuanto
+     el dato de esta semana pincha desanima más de lo que informa—.
+     `realApunta` decide TODO lo que depende de «cuál ritmo manda»: el
+     número de la celda, su etiqueta, la insignia «según lo que
+     apuntas», y qué línea dibuja la gráfica. Antes esas cuatro cosas
+     miraban `real` cada una por su lado y podían desincronizarse. */
+  const realApunta = real != null && restante !== 0
+    && Math.abs(real) > 0.01 && Math.sign(restante) !== Math.sign(real);
+  const ritmo = realApunta ? real : teorico;
   /* «Va hacia la meta», no «baja»: desde que se puede elegir ganar peso,
      acercarse a la meta puede ser subir. El nombre `bajando` daba por
      hecho lo contrario y dejaba la previsión en blanco a quien quisiera
@@ -145,13 +163,13 @@ export default function Progreso({ perfil, pacto, entradas, onRegistrar, estado 
                clase={perdido > 0 ? 'bien' : ''} />
         <Celda n={Math.max(0, restante || 0).toFixed(1)} u="kg" etiqueta={t('progreso.hastaMeta')} />
         <Celda n={ritmo != null ? ritmo.toFixed(2) : '—'} u="kg"
-               etiqueta={real ? t('progreso.ritmoReal') : t('progreso.ritmoPrevisto')}
+               etiqueta={realApunta ? t('progreso.ritmoReal') : t('progreso.ritmoPrevisto')}
                clase={ritmo < 0 ? 'bien' : ''} />
       </div>
 
       <div className="mf-tarjeta">
         <h3 className="mf-h3">
-          {t('progreso.pesoTiempo')} {real && <small className="mf-real">{t('progreso.segunApuntas')}</small>}
+          {t('progreso.pesoTiempo')} {realApunta && <small className="mf-real">{t('progreso.segunApuntas')}</small>}
         </h3>
         {pesajes.length === 0 ? (
           <p className="mf-nota" style={{ marginTop: 0 }}>
@@ -164,7 +182,7 @@ export default function Progreso({ perfil, pacto, entradas, onRegistrar, estado 
                      ritmo={ritmo} bajando={bajando} semanas={semanas} />
             <p className="mf-nota" style={{ textAlign: 'center' }}>
               {t('progreso.leyenda')}
-              {!real && t('progreso.leyendaTeorica')}
+              {!realApunta && t('progreso.leyendaTeorica')}
             </p>
           </>
         )}
