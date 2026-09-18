@@ -569,13 +569,29 @@ pantallas y el motor entero.
   después de dar agua se ha dejado (es el de siempre, pedido el
   2026-09-17); si quería el de pie sin brinco, es quitar `saltar()` de
   `cuidar('agua')` en `App.jsx`.
+- Última acción (2026-09-18, cierre de sesión): **todo al día y
+  verificado**. Portátil y GitHub en el mismo commit; la rama de la
+  sesión del móvil (`claude/workout-yesno-completion`) borrada, porque su
+  código ya estaba en `main` (comprobado antes con `git diff`); versión
+  subida a **v0.7.4** (`package.json`, `package-lock.json`, `VERSION.md`)
+  con su etiqueta; caché sin tocar (v15) porque no cambió ninguna imagen.
+  Seis `pruebas/*.mjs` y build en verde, y producción sirviendo el mismo
+  paquete que sale del build local.
+
+  **Cómo se lió el día, por si vuelve a pasar:** se trabajó desde el móvil
+  y desde el portátil a la vez, y la sesión del móvil fusionó el PR #1 a
+  `main` sin que el portátil lo supiera. El portátil se quedó tres commits
+  atrás, y encima el test en rojo de esa sesión se dio por «de siempre».
+  Nada se perdió. Lo que lo destapó fue mirar **primero** `git fetch` y
+  `VERSION.md`, tal como pide la cabecera de este documento. También se
+  comprobó que la sesión del móvil **no dejó nada** en el otro proyecto
+  (`0000_SYNASTRY.SITE`): no hay ficheros de MichiFit ni cambios de estos
+  días; solo un `launch.json` sin subir del 6 de septiembre, ajeno a esto.
 - Próximo paso:
   · **abrir la app al público** — lo próximo que dijo Albert, sin fecha
     exacta pero "mañana" a fecha de este cierre;
-  · **`VERSION.md` ya está al día** (v0.7.3, caché `michifit-v15`) y la
-    etiqueta `v0.7.3` está subida. Los cambios de después de ella (el
-    orden de los cuidados, ver la última entrada) son de la siguiente
-    versión, sin numerar todavía;
+  · **`VERSION.md` está al día** (v0.7.4, caché `michifit-v15`), con la
+    etiqueta `v0.7.4` subida;
   · **la celda «Hasta la meta» con objetivo de ganar peso** (ver arriba);
   · **decidir el gimnasio nuevo** (se prueba desde el panel de pruebas) —
     a ojo pega más con el estilo plano de la casa/cocina nuevas que el
@@ -616,7 +632,7 @@ pantallas y el motor entero.
 - Build de producción OK, sin errores de consola.
 
 ## Despliegue
-- **Versión estándar: `v0.7.3`** (etiqueta subida el 2026-09-18). Se ve en Ajustes, última línea. Qué es
+- **Versión estándar: `v0.7.4`** (2026-09-18). Ver `VERSION.md`. Se ve en Ajustes, última línea. Qué es
   y cómo retomarla desde el móvil o el otro portátil, en `VERSION.md`.
 - Repo: https://github.com/TheAicreativecontent/MichiFit
 - Vercel enlazado con la CLI (`vercel link --project michifit`). El enlace

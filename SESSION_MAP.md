@@ -1671,3 +1671,10 @@ caca → asqueado → (limpia) brinco → sed al 75% → sediento → (agua)
 brinco → de pie. `contento` pasa a pedir `forma` 90. Invierte la regla
 «cumplir manda sobre tener sed». Detalle en `DECISIONS.md` y
 `CURRENT.md`.
+
+**Cierre.** Borrada la rama `claude/workout-yesno-completion` (sobraba,
+mismo código que `main`), versión **v0.7.4** con etiqueta, y todo
+comprobado de nuevo: tests, build, GitHub y Vercel. Comprobado también
+que la sesión del móvil no dejó nada en `0000_SYNASTRY.SITE`. Lo que
+queda por hacer sigue en `CURRENT.md`: abrir la app al público, y que
+Albert confirme el 90 de `FORMA_CONTENTO`.

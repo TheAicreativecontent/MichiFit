@@ -7,12 +7,12 @@
 
 ## La estándar, hoy
 
-**v0.7.3** — 19 de septiembre de 2026.
+**v0.7.4** — 18 de septiembre de 2026.
 
 | Dónde | Qué vale |
 |---|---|
-| Etiqueta de Git | `v0.7.3` |
-| `package.json` | `"version": "0.7.3"` |
+| Etiqueta de Git | `v0.7.4` |
+| `package.json` | `"version": "0.7.4"` |
 | Caché del service worker | `michifit-v15` |
 | Dentro de la app | Ajustes, última línea |
 | En vivo | https://michifit.vercel.app |
@@ -85,6 +85,12 @@ Al cerrar una tanda de trabajo que merezca marcarse:
 
 ## Historial
 
+- **v0.7.4** (2026-09-18) — El orden de los cuidados del michi (caca →
+  asqueado, sed al 75% → sediento, con todo atendido de pie) y el michi de
+  pie vuelve a salir más que el sentado (`contento` pide `forma` 90). Se
+  arregla también el test `cobertura-michi`, que estaba en rojo en
+  `main` desde el cambio de entreno/sueño. Sin dibujos nuevos: caché
+  `michifit-v15`.
 - **v0.7.3** (2026-09-19) — Todo lo trabajado entre el 14 y el 19 de
   septiembre sin etiquetar todavía: Ninja con foto e historia, los 40
   michis en dibujo de Albert (no del script), el anillo abajo y siempre
