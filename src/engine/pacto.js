@@ -80,12 +80,17 @@ export function evaluarDia({ pacto, entrada, fecha, hoy = hoyISO() }) {
 
   if (objetivoDia.entreno) {
     const min = entrada?.entrenoMin ?? 0;
+    /* Se cuenta como entrenado o no, sin importar los minutos: entrenar
+       28 de 45 minutos pactados es un día cumplido igual que entrenar
+       los 45. Los minutos no se pierden —se guardan en `valor` y ahí
+       los usa Progreso para su gráfica—, solo dejan de decidir si el
+       día rompe la racha. */
     objetivos.push({
       id: 'entreno',
       etiqueta: 'Entreno',
       objetivo: objetivoDia.minEntreno,
       valor: entrada?.entrenoMin ?? null,
-      cumplido: min >= objetivoDia.minEntreno,
+      cumplido: min > 0,
     });
   } else {
     // El descanso también forma parte del pacto: cuenta como cumplido
