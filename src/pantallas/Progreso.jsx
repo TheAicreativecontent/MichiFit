@@ -206,24 +206,28 @@ function Grafica({ pesajes, pesoActual, pesoMeta, ritmo, bajando, semanas }) {
 
   /* CUANTO FUTURO SE ENSEÑA.
 
-     La prevision puede ser de 165 dias contra 28 de historial, y
-     entonces lo que ya has hecho ocupa un 14% del ancho: los pesajes se
-     apelotonan contra el borde izquierdo y no se distingue un dia de
-     otro. La gráfica acababa siendo sobre todo una raya recta de algo
-     que no ha pasado.
+     Hasta el 2026-09-19 esto se enseñaba como mucho VEZ Y MEDIA el
+     historial (decisión de Albert del 2026-09-12): si la previsión
+     eran 165 días contra 28 de historial, se cortaba con una punta de
+     flecha en el borde, porque lo ya andado se apelotonaba contra la
+     izquierda y no se distinguía un día de otro.
 
-     Decision de Albert (2026-09-12): antes numeros legibles que
-     caberlo todo. Se enseña como mucho VEZ Y MEDIA el historial, con un
-     suelo de 28 dias para que no se quede en nada cuando solo llevas dos
-     pesajes. Con 28 dias apuntados, el historial pasa de ocupar el 14%
-     del ancho a ocupar el 40%.
+     Albert le dio la vuelta ese mismo día 19, después de ver su
+     propia gráfica: quiere el eje SIEMPRE comprimido al tiempo exacto
+     hasta la meta —si son dos meses, la barra de abajo son esos dos
+     meses enteros, sin cortar—, para ver de un vistazo cuándo llegaría.
+     Ya no hace falta protegerse de una previsión rara: el aviso de
+     arriba (`.mf-meta`) dice la fecha con todas sus letras, así que
+     esta gráfica puede permitirse comprimir el historial sin que
+     nadie se quede sin saber qué pasó.
 
-     Si la meta cae mas alla, la linea se SALE por el borde y se dice con
-     una punta de flecha; la fecha exacta ya esta escrita con todas las
-     letras en la tarjeta de arriba, asi que aqui no hace falta
-     repetirla. */
+     Solo aplica cuando SÍ hay una meta con fecha (`bajando`): sin
+     ritmo que apunte a la meta no hay «tiempo hasta la meta» al que
+     comprimirse, así que se queda con la ventana de siempre. */
   const historial = Math.max(0, -Math.min(0, ...puntos.map((p) => p.d)));
-  const diasVisibles = Math.min(diasFuturo, Math.max(28, Math.round(historial * 1.5)));
+  const diasVisibles = bajando
+    ? diasFuturo
+    : Math.min(diasFuturo, Math.max(28, Math.round(historial * 1.5)));
   const cortada = diasVisibles < diasFuturo;
 
   /* Donde queda la linea de prevision en el borde, si se corta. Es la

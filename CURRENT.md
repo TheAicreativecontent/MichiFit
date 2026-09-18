@@ -399,6 +399,29 @@ pantallas y el motor entero.
   grandes. **Mañana toca rematar la app para abrirla al público** y
   empezar a recibir feedback real — es la primera vez que se plantea
   una fecha para eso.
+- Última acción (2026-09-19, después de mirar su propia gráfica):
+  **el eje del tiempo se comprime a la meta**. Hasta ahora, cuando la
+  previsión caía muy lejos del historial (165 días de meta contra 28
+  de datos, por ejemplo), la gráfica se cortaba a vez y media el
+  historial y la línea salía por el borde con una punta de flecha —
+  decisión de Albert del 2026-09-12, para no apelotonar los pesajes
+  contra la izquierda. Ahora la pide al revés: el eje SIEMPRE se
+  comprime al tiempo exacto hasta la meta —si son dos meses, la franja
+  de abajo son esos dos meses enteros, sin cortar—, para ver de un
+  vistazo cuándo llegaría. Ya no hacía falta protegerse de eso: el
+  aviso de arriba (`.mf-meta`, de esta misma sesión) dice la fecha con
+  todas sus letras, así que la gráfica puede permitirse comprimir el
+  historial sin dejar a nadie sin saber qué pasó.
+
+  Solo cambia cuando SÍ hay una meta con fecha (`bajando`, el mismo
+  campo que ya pinta el trofeo 🏆): sin ritmo que apunte a la meta no
+  hay «tiempo hasta la meta» al que comprimirse, así que esa situación
+  se queda con la ventana de siempre —es justo la que enseñaba la
+  captura de Albert, con el ritmo subiendo en vez de bajar—.
+
+  Probado en el navegador con dos casos: un ritmo lento que tarda 26
+  semanas en llegar (el trofeo aparece siempre, sin flecha de corte) y
+  un ritmo que se aleja de la meta (igual que antes, sin cambios).
 - Próximo paso:
   · **abrir la app al público** — lo próximo que dijo Albert, sin fecha
     exacta pero "mañana" a fecha de este cierre;
