@@ -374,7 +374,7 @@ export default function TamagotchiPNG({
         <div className="mf-tamapng-zona"
              style={{ top: `${ZONA.top}%`, bottom: 'var(--anillo-alto)' }}>
           {src && (
-            <img className="mf-tamapng-michi" src={src} alt=""
+            <img className={`mf-tamapng-michi ${pose ? `pose-${pose}` : ''}`} src={src} alt=""
                  onError={() => setIntento((i) => i + 1)} />
           )}
 

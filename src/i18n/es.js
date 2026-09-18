@@ -490,7 +490,7 @@ export default {
   marcador: {
     racha: 'RACHA',
     entreno: 'ENTRENO',
-    descanso: 'DESCANSO',
+    descanso: 'REST',
     pasos: 'PASOS',
     sueno: 'SUEÑO',
     comida: 'COMIDA',

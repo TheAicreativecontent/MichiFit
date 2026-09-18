@@ -163,6 +163,18 @@
   animation: mf-tama-respira 2.4s steps(2, end) infinite;
 }
 .mf-tamapng.dormido .mf-tamapng-michi { animation: mf-tama-dormita 4s steps(2, end) infinite; }
+
+/* Retoques finos de posición para dos poses de los michis nuevos de
+   Albert (2026-09-19): comiendo quedaba un poco alto y a la derecha,
+   durmiendo un poco a la izquierda. `translate` y no `transform`
+   -aposta-: `transform` es justo lo que animan `mf-tama-respira` y
+   `mf-tama-dormita`, así que fijarlo ahí lo pisaría la animación en
+   cada fotograma. `translate` es su propia propiedad en CSS moderno y
+   se compone con el `transform` de la animación en vez de pelearse
+   con él. En porcentaje, no en píxeles, para que el ajuste sea el
+   mismo de tamaño relativo tanto ampliado como sin ampliar. */
+.mf-tamapng-michi.pose-comiendo   { translate: -4% 3%; }
+.mf-tamapng-michi.pose-durmiendo  { translate: 5% 0; }
 .mf-tamapng-barra {
   position: absolute; top: -13%; right: 4%; width: 44%; height: 6%;
   background: rgba(255,255,255,.55); border: 1px solid var(--tinta-flojo);

@@ -6,11 +6,11 @@
       model sheets (también la nueva, negra), y `recortar_model_sheets.py`
       los saca de ahí. Ver `CURRENT.md`.
 
-- [ ] **`michi_sediento` en negro**. El michi negro es nuevo del
-      2026-09-17 y viene entero de las model sheets, pero `sediento` es
-      el dibujo antiguo, sin hoja nueva que lo traiga: no existe para
-      este color. Cae al michi negro de pie por la cadena de respaldo
-      —no se rompe nada—, pero le falta esa cara.
+- [ ] **`michi_sediento` en negro**. Sigue sin existir para ese color:
+      cae al michi negro de pie por la cadena de respaldo —no se rompe
+      nada—, pero le falta esa cara. Desde el 2026-09-18/19 los otros
+      39 michis son dibujo de Albert, no del script, así que si se
+      retoma esto es pidiéndosela a él, no generándola.
 
 - [ ] **El QR de PromptPay** (lo genera la chica de Albert). El bloque
       está hecho y apagado.
@@ -118,6 +118,21 @@
 
 
 ## Hecho
+- [x] 2026-09-19 — **Los cuatro puntos de simplificar que dio Albert.**
+      La gráfica ya dice cuántas semanas faltan para la meta (antes no
+      se veía en ningún sitio como número); Logros se funde en Progreso
+      y Ninja ocupa el hueco en el menú de abajo; los hábitos van en el
+      orden que dio Albert (entreno, pasos, comida, peso, sueño) en el
+      Marcador, el editor del día y el anillo; y el calendario deja de
+      pintar de rojo los días sin datos. Ver `CURRENT.md` y
+      `SESSION_MAP.md`.
+- [x] 2026-09-18/19 — **Los 40 michis, dibujo de Albert.** Exportados a
+      mano, mismo lienzo, mejor calidad que `recortar_model_sheets.py`.
+      Ese script deja de correr sobre `public/michi/` mientras esto siga
+      así.
+- [x] 2026-09-19 (descartado) — **Animación de andar con IA.** Prueba
+      con un sheet generado (`IMG/animaciones/`); los frames no eran
+      consistentes entre sí y Albert la descartó. Carpeta borrada.
 - [x] 2026-09-17 — **Triste y cansado en el estilo nuevo, y el michi
       negro.** Las cuatro poses que faltaban (dos poses × ninguna vez
       negro) salen de las model sheets con una rejilla fija de 5x2 en

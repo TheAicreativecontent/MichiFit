@@ -1565,3 +1565,91 @@ abajo, 27 michis nuevos de las model sheets, el parque en bucle, la
 cocina, el comic de 14 viñetas con los textos de Albert, el collage de
 fotos y Ninja dando las gracias en Karma. Todo desplegado y comprobado
 en el navegador. Lo pendiente queda en `CURRENT.md`.
+
+## 2026-09-18/19 — Triste y cansado, el michi negro, y la conversacion
+de simplificar entera
+
+Sesion larga, en dos mitades: primero cerrar las model sheets con los
+40 michis, despues la conversacion de simplificar que Albert llevaba
+pidiendo desde el 14.
+
+**Las model sheets, hasta que dejaron de hacer falta.** Albert redibujo
+`triste` y `cansado` iguales en las cuatro hojas (antes esa casilla no
+coincidia entre colores y se descartaba) y añadio una hoja `negro`
+entera. `pixel/recortar_model_sheets.py` paso de detectar blobs a una
+rejilla fija de 5x2 -los dibujos mas juntos rompian el hueco que usaba
+para partir la hoja-, con tres pasadas de limpieza que salieron una a
+una al mirar el resultado ampliado: `agujeros_sueltos()` para un
+bolsillo de blanco encerrado en la cola del michi negro andando,
+`deshalar()` para un flequillo casi blanco pegado al contorno en las
+nueve poses del negro (antialias de JPEG que cae justo por debajo del
+umbral de fondo), y `limpiar_gotas_entrenando()` para unas gotas de
+`cansado` que se colaban en la celda de al lado. Cada una es una
+leccion escrita en `LESSONS.md` o en la cabecera del propio script.
+
+De paso: el michi salta (`michi_celebrando`) al mimar, dar agua,
+limpiar o apuntar un dato sin escena propia; asqueado con una sola
+caca gana a `contento` (antes cumplir tapaba la caca, a proposito,
+pero Albert vio una cara sonriente junto a una caca dibujada y no
+colaba); y «¡GENIAL!» sustituye a «¡NIVEL!» en ese brinco, que
+mentia -no habia subido de nivel-.
+
+**Entonces Albert dijo que prefiria dibujarlos el.** Exporto a mano
+las 40 poses/colores, mismo lienzo, mejor calidad que el script -sin
+JPEG ni cuantizacion-, sin ninguno de los flequillos que el script iba
+persiguiendo. `recortar_model_sheets.py` deja de correr sobre
+`public/michi/`: los dibujos son suyos ahora. Probamos tambien separar
+y montar una animacion de andar con un sheet generado por IA
+(`IMG/animaciones/`); los frames no eran consistentes entre si -sin el
+control de un dibujo a mano, tipico de generarlos por separado con
+IA- y Albert la descarto sin darle mas vueltas. Carpeta borrada.
+
+**La conversacion de simplificar, con datos y no solo con opinion.**
+Albert dio una prioridad expresa: 1) habitos (entreno, pasos, comida
+con macros, peso, sueño el ultimo) 2) la grafica de cuanto falta para
+la meta 3) la historia de Ninja, escondida en Ajustes 4) el menu de
+abajo. Cuatro cosas, cuatro sesiones cortas:
+
+- **La grafica «no acababa de funcionar»** porque cuantas semanas
+  faltaban para la meta no se veia en NINGUN sitio como numero -solo
+  en la posicion del trofeo, que ademas desaparece si la meta cae
+  fuera del tramo visible-. Un comentario del codigo decia que "la
+  fecha ya esta escrita en la tarjeta de arriba" desde el 12 de
+  septiembre: mentira desde el dia en que se escribio, comprobado con
+  `git show`. Bloque nuevo arriba del todo con semanas, meses y fecha.
+- **El menu de abajo**: Logros deja de ser pantalla y pasa a ser una
+  seccion dentro de Progreso; el hueco lo ocupa un boton a Ninja que
+  abre `Lore.jsx` directamente. Karma se queda donde estaba -Albert lo
+  pidio expresamente, aunque se habia propuesto moverlo-.
+- **Los habitos**: el Marcador de Inicio -el que se mira cada dia- no
+  tenia fila de ENTRENO, el habito que Albert puso primero. Añadida,
+  primera del todo, con «REST» en vez de un 0% en los dias de
+  descanso. El editor del dia completo empezaba por PESO -el que menos
+  pesa de los cuatro-; reordenado a entreno, pasos, comida, peso,
+  sueño. El anillo del aparato tenia pasos antes que entreno sin mas
+  razon que el orden en que se escribio; intercambiados.
+- **El tono del calendario**: cualquier dia sin datos se pintaba de
+  rojo solido, contradiciendo la propia `MECANICA.md` ("el michi nunca
+  reprocha"). Ahora un dia sin cumplir se ve neutro; solo cumplido
+  (verde) y a medias (amarillo) llaman la atencion. De paso, los dias
+  de antes de que el pacto existiera dejaron de evaluarse -antes un
+  mes entero podia salir en rojo por dias de antes de adoptar al
+  michi-, y broto un swatch de leyenda (parcial) que llevaba invisible
+  sin regla de CSS.
+
+**Ultimos retoques, pidiendolos al probarla:** el icono de Ninja un
+poco mas grande, «REST» en vez de «DESCANSO» porque no cabia en la
+columna del marcador, y comiendo/dormido un poco recolocados con
+`translate` -no `transform`, que ya lo usan las animaciones de
+respirar y dormitar y lo habria pisado- sin tocar ningun PNG.
+
+### Cierre del 18/19
+
+Con esto los cuatro puntos de simplificar que dio Albert quedan
+tocados, los 40 michis son dibujo suyo y no del script, y la
+`recortar_model_sheets.py` pasa a ser una herramienta en pausa, no
+muerta -documentado por que en su propia cabecera-. Todo comprobado
+en el navegador, tests y build en verde en cada tanda. **Albert dijo
+que la proxima sesion se remata la app para abrirla al publico** y
+empezar a recibir feedback real: primera vez que se pone fecha a eso.
+Lo pendiente, en `CURRENT.md`.

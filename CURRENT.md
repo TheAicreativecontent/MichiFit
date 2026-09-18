@@ -369,8 +369,46 @@ pantallas y el motor entero.
   Probado en el navegador con un mes con los cuatro estados a la vez
   (cumplido, a medias, sin datos, y días de antes del pacto) y viendo
   el tamaño real de los seis iconos por CSS.
-- Próximo paso: nada urgente. Lo que queda abierto, para cuando Albert
-  quiera:
+- Última acción (2026-09-19, cierre de la sesión): **tres retoques
+  finales** que salieron de probarla:
+  · **REST en vez de DESCANSO** en la fila ENTRENO del marcador: la
+    columna del número mide 40px fijos a 9px de Press Start 2P, y
+    «DESCANSO» (8 letras) se salía del borde. `marcador.descanso` pasa
+    a «REST» en los cinco idiomas —la misma idea que `marcador.max`,
+    que ya era una palabra corta en inglés en todos ellos, no una por
+    idioma—. Comprobado en el navegador que `scrollWidth` ya no supera
+    el ancho de la columna.
+  · **Comiendo y dormido, un poco recolocados**: comiendo un poco más
+    abajo y a la izquierda, dormido un poco más a la derecha —Albert
+    lo pidió al ver los michis nuevos en la pantalla del aparato—. Se
+    hizo con la propiedad CSS `translate` (no `transform`) en una
+    clase `pose-<nombre>` nueva sobre `.mf-tamapng-michi`: `transform`
+    es justo lo que animan `mf-tama-respira` y `mf-tama-dormita` —la
+    respiración y el vaivén al dormir—, así que fijar el ajuste ahí lo
+    habría pisado la animación en cada fotograma. `translate` es su
+    propia propiedad en CSS moderno y se compone con el `transform` de
+    la animación en vez de pelearse con él. **No se tocó ningún PNG**:
+    los michis de Albert siguen intactos, el ajuste es solo de
+    maquetación.
+  · El icono de Ninja, un poco más grande (turno anterior, ver arriba).
+
+  Con esto se cierra la sesión del 2026-09-18/19: los cuatro puntos de
+  simplificar que dio Albert están tocados —hábitos, la gráfica,
+  Ninja visible, y el menú/tono del calendario—, los 40 michis son
+  dibujo suyo, y lo que queda son retoques sueltos, no decisiones
+  grandes. **Mañana toca rematar la app para abrirla al público** y
+  empezar a recibir feedback real — es la primera vez que se plantea
+  una fecha para eso.
+- Próximo paso:
+  · **abrir la app al público** — lo próximo que dijo Albert, sin fecha
+    exacta pero "mañana" a fecha de este cierre;
+  · **`VERSION.md` está desactualizado**: sigue diciendo v0.7.2 y caché
+    `michifit-v7`, pero `public/sw.js` ya va por `michifit-v15` y no se
+    ha vuelto a taguear desde el 14. Antes de abrir al público es buen
+    momento para subir número de verdad, taguear y poner la tabla al
+    día — es justo lo que ese documento pide hacer "al cerrar una tanda
+    que merezca marcarse", y varias lo merecían. No se ha tocado esta
+    sesión: es una decisión de Albert, no algo para hacer de oficio;
   · **la celda «Hasta la meta» con objetivo de ganar peso** (ver arriba);
   · **decidir el gimnasio nuevo** (se prueba desde el panel de pruebas) —
     a ojo pega más con el estilo plano de la casa/cocina nuevas que el
@@ -378,7 +416,9 @@ pantallas y el motor entero.
     decidir viéndolo dentro de la pantallita, no en el archivo;
   · **el salón de `BG_Kitchen`** daría una «casa» mejor que la actual;
   · **`calle.png`** ya no la usa nadie;
-  · **`michi_sediento` en negro** — falta esa pose para el cuarto color;
+  · **`michi_sediento` en negro** — falta esa pose para el cuarto color,
+    y ahora los otros 39 michis son dibujo de Albert: si se retoma, que
+    sea pidiéndosela a él y no al script;
   · **el QR de PromptPay** (con e-Wallet ID, ver `TODO.md`).
 - La conversación de **hacerla HIPER sencilla** ya se tuvo, el
   2026-09-14: el mapa está en `SIMPLICIDAD.md`. **No se borró ni se

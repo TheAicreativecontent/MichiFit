@@ -476,7 +476,7 @@ export default {
   marcador: {
     racha: 'LIAN XU',
     entreno: 'XUN LIAN',
-    descanso: 'XIU XI',
+    descanso: 'REST',
     pasos: 'BU SHU',
     sueno: 'SHUI MIAN',
     comida: 'YIN SHI',
