@@ -181,7 +181,7 @@ export default {
     segunApuntas: '· según lo que apuntas',
     sinPesajes: 'Aún no has apuntado ningún peso. Toca un día del calendario y escríbelo: con tres pesajes repartidos en diez días ya puedo calcular tu ritmo real.',
     leyenda: '🌸 tus pesajes · 🟦 previsión a tu ritmo',
-    leyendaTeorica: ' (teórica: según tu objetivo, no según tus pesajes)',
+    leyendaTeorica: ' (teórica: según tus hábitos y tu objetivo, no según tu peso)',
     meta: 'meta {kg}',
     hoy: 'hoy',
     calPactoCumplido: 'objetivo cumplido',

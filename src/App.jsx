@@ -217,10 +217,26 @@ export default function App() {
     setDatos((d) => {
       const limpio = Object.fromEntries(
         Object.entries(campos).filter(([, v]) => v !== undefined));
-      return {
-        ...d,
-        entradas: { ...d.entradas, [fecha]: { ...(d.entradas[fecha] ?? {}), ...limpio } },
-      };
+      const entradas = { ...d.entradas, [fecha]: { ...(d.entradas[fecha] ?? {}), ...limpio } };
+
+      /* Si el peso que se acaba de guardar es el más reciente de
+         todos —lo normal es que lo sea, salvo que estés corrigiendo un
+         día antiguo—, se sincroniza `perfil.pesoActual`. Sin esto, el
+         peso de Ajustes y el que arranca el Simulador se quedaban en
+         lo que escribiste la primera vez, aunque llevaras semanas
+         apuntando pesajes más nuevos en el calendario: la previsión
+         de ahí partía de un peso viejo y salía más larga de lo que
+         tocaba. Progreso no lo sufría porque ya calculaba su propio
+         `pesoActual` a partir del último pesaje, no de `perfil` — esto
+         hace que el resto de la app vea lo mismo que Progreso. */
+      let perfil = d.perfil;
+      if (limpio.peso != null) {
+        const ultimaFecha = Object.keys(entradas)
+          .filter((f) => entradas[f]?.peso != null).sort().pop();
+        if (ultimaFecha === fecha) perfil = { ...perfil, pesoActual: limpio.peso };
+      }
+
+      return { ...d, entradas, perfil };
     });
   };
 

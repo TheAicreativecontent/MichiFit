@@ -176,7 +176,7 @@ export default {
     segunApuntas: '· 記録にもとづく',
     sinPesajes: 'まだ体重が記録されていません。カレンダーの日をタップして書き入れてください。10日のあいだに3回はかれば、実際のペースが出せます。',
     leyenda: '🌸 あなたの記録 · 🟦 このペースでの予測',
-    leyendaTeorica: '（理論値：記録ではなく計画にもとづく）',
+    leyendaTeorica: '（理論値：体重ではなく習慣と計画にもとづく）',
     meta: '目標 {kg}',
     hoy: '今日',
     calPactoCumplido: '目標を守れた',

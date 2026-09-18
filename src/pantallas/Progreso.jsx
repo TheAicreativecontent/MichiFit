@@ -17,7 +17,7 @@ import T from '../i18n/Texto.jsx';
 import { useT, useFormato } from '../i18n/index.jsx';
 import { hoyISO, diasDesde, evaluarDia } from '../engine/pacto.js';
 import EditorDia from './EditorDia.jsx';
-import { simular, actividadDelPacto, planEnergetico } from '../engine/calculos.js';
+import { simular, actividadDelPacto, actividadReciente, planEnergetico } from '../engine/calculos.js';
 import { Titulo } from './Ayuda.jsx';
 import { DIAS } from '../engine/constantes.js';
 import Logros from './Logros.jsx';
@@ -70,22 +70,34 @@ export default function Progreso({ perfil, pacto, entradas, onRegistrar, estado 
     && (rumboBajar ? pesoActual <= perfil.pesoMeta : pesoActual >= perfil.pesoMeta);
 
   const real = ritmoReal(pesajes);
-  /* Mientras no haya pesadas suficientes se enseña el ritmo teorico. Sale
-     del pacto entero (media de pasos y minutos de toda la semana): antes
-     cogia los pasos del martes y clavaba 120 minutos, asi que la prevision
-     no tenia que ver con lo que la persona habia pactado. */
+  /* Mientras no haya pesadas suficientes (o mientras las que hay no
+     apunten a la meta, ver `realApunta` más abajo) se enseña el ritmo
+     TEÓRICO. Hasta el 2026-09-19 salía siempre del PACTO entero —media
+     de pasos y minutos que pactaste el primer día, fija hasta que
+     edites «Mi objetivo» a mano—, y eso es lo contrario de lo que
+     pidió Albert: "cada día que el usuario registre sus puntuaciones
+     se refleje en la gráfica". Si esta semana caminaste el doble o
+     comiste distinto a lo pactado, la previsión tiene que notarlo,
+     no seguir mirando el número que escribiste una vez.
+
+     `actividadReciente` mira lo que de verdad apuntaste en `entradas`
+     estos últimos días; donde no haya suficiente (recién empezado,
+     días sueltos sin datos) cada campo cae por separado al pacto, con
+     `??`. Así el primer día se comporta exactamente como antes, y en
+     cuanto hay hábito registrado, la previsión empieza a seguirlo. */
   const teorico = useMemo(() => {
     const act = actividadDelPacto(pacto);
     const plan = planEnergetico(perfil, pacto);
     if (!act || !plan) return null;
+    const reciente = actividadReciente(entradas, hoyISO());
     const s = simular({
       perfil: { ...perfil, pesoActual },
-      pasos: act.pasos,
-      minEntrenoSemana: act.minEntrenoSemana,
-      comidaKcal: pacto?.comidaKcal ?? plan.comida,
+      pasos: reciente.pasos ?? act.pasos,
+      minEntrenoSemana: reciente.minEntrenoSemana ?? act.minEntrenoSemana,
+      comidaKcal: reciente.comidaKcal ?? (pacto?.comidaKcal ?? plan.comida),
     });
     return s?.kgPorSemana ?? null;
-  }, [perfil, pacto, pesoActual]);
+  }, [perfil, pacto, pesoActual, entradas]);
 
   /* El ritmo REAL manda SOLO si apunta a la meta. Hasta el 2026-09-19
      no era así: `ritmo` era siempre `real ?? teorico`, así que un real

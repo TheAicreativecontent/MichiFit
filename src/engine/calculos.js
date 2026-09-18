@@ -18,7 +18,9 @@ import {
   GRASA_MINIMA_POR_KG,
   OBJETIVOS,
   DIAS,
+  DIAS_FORMA,
 } from './constantes.js';
+import { diasAtras } from './pacto.js';
 
 export const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
 
@@ -103,6 +105,43 @@ export function actividadDelPacto(pacto) {
     minEntrenoSemana += pacto.dias[d]?.minEntreno ?? 0;
   }
   return { pasos: Math.round(pasos / 7), minEntrenoSemana };
+}
+
+/* --- lo que de verdad has hecho, no lo que dijiste que harías -----
+   `actividadDelPacto` mira el PACTO: pasos y minutos por semana que
+   pactaste, fijos hasta que edites «Mi objetivo» a mano. Eso está bien
+   para el suelo de kcal y el reparto de macros, pero es justo lo
+   CONTRARIO de lo que pide Albert para la previsión de la gráfica de
+   Progreso: "cada día que el usuario registre sus puntuaciones se
+   refleje en la gráfica" — si esta semana has caminado el doble,
+   quiere verlo reflejado, no seguir mirando el número que escribiste
+   el primer día.
+
+   Esta función mira `entradas` de los últimos `DIAS_FORMA` días (la
+   misma ventana que ya usa `forma` para el cumplimiento sostenido: ni
+   un solo día bueno o malo la mueve, ni tan larga que tarde semanas en
+   notarse un cambio de hábito) y promedia SOLO los campos que de
+   verdad se apuntaron — un día sin pasos apuntados no cuenta como
+   "cero pasos", cuenta como "no lo sé". Por debajo de `minimo` días
+   con ese dato, no hay suficiente para fiarse: devuelve `null` en ese
+   campo y quien llame cae al pacto, igual que se comportaba la app
+   antes de que esto existiera. */
+export function actividadReciente(entradas, hoy, dias = DIAS_FORMA, minimo = 3) {
+  let sPasos = 0, nPasos = 0, sEntreno = 0, nEntreno = 0, sComida = 0, nComida = 0;
+  for (let i = 0; i < dias; i++) {
+    const e = entradas[diasAtras(hoy, i)];
+    if (!e) continue;
+    if (e.pasos != null) { sPasos += e.pasos; nPasos++; }
+    if (e.entrenoMin != null) { sEntreno += e.entrenoMin; nEntreno++; }
+    if (e.comidaKcal != null) { sComida += e.comidaKcal; nComida++; }
+  }
+  return {
+    pasos: nPasos >= minimo ? sPasos / nPasos : null,
+    /* Se guarda como MEDIA SEMANAL para que encaje sin más en
+       `gastoActividad`, que espera minutos por semana y no por día. */
+    minEntrenoSemana: nEntreno >= minimo ? (sEntreno / nEntreno) * 7 : null,
+    comidaKcal: nComida >= minimo ? sComida / nComida : null,
+  };
 }
 
 export function planEnergetico(perfil, pacto = null) {

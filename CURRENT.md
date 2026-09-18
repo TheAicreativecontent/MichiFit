@@ -455,6 +455,55 @@ pantallas y el motor entero.
   «Ritmo previsto», la nota de teórica, y la línea baja hasta el
   trofeo. Y al revés, con pesajes reales que sí bajan: sigue saliendo
   «Ritmo real», sin la nota, como siempre.
+- Última acción (2026-09-19, la auditoría): Albert pidió comprobar que
+  **toda la app está orientada a un solo objetivo** —que apuntar
+  pasos, entreno, comida y peso cada día se refleje, de forma
+  razonable, en cuánto falta para la meta—, y cerrar la sesión con eso
+  hecho. Salieron dos cosas, una ya arreglada esta misma sesión (el
+  ritmo real apagando al teórico, ver arriba) y dos más:
+
+  · **`teorico` miraba el PACTO, no lo que de verdad apuntas.**
+    `actividadDelPacto` da la media de pasos/minutos que pactaste el
+    primer día en «Mi objetivo», fija hasta que la edites a mano —así
+    que aunque caminaras el doble toda la semana, la previsión no lo
+    notaba mientras no hubiera pesajes suficientes para el ritmo real.
+    Es justo lo contrario de lo que pidió Albert: "cada día que el
+    usuario registre sus puntuaciones se refleje en la gráfica".
+
+    `actividadReciente()`, nueva en `engine/calculos.js`, mira
+    `entradas` de los últimos `DIAS_FORMA` (14) días —la misma ventana
+    que ya usa `forma` para el cumplimiento sostenido— y promedia SOLO
+    los campos que de verdad se apuntaron; por debajo de 3 días con
+    ese dato cae al pacto, campo a campo. `teorico` en Progreso la usa
+    ahora en vez de `actividadDelPacto` a secas. Probado en el
+    navegador: 14 días apuntando 12.000 pasos frente al pacto de 6.000
+    dobla el ritmo previsto (-0,24 → -0,48 kg/semana) y corta el
+    tiempo a la meta a la mitad (21 → 10 semanas).
+
+  · **`perfil.pesoActual` se quedaba con el primer peso que
+    escribiste**, aunque llevaras semanas apuntando pesajes más
+    nuevos en el calendario de Progreso —esa pantalla no lo sufría,
+    porque ya calcula su propio peso actual del último pesaje y no de
+    `perfil`, pero Ajustes y el arranque del Simulador sí—. Ya estaba
+    anotado como problema conocido en este mismo documento
+    ("el simulador parte del peso actual: si no se actualiza, la
+    previsión sale larga"). `registrar()`, en `App.jsx`, sincroniza
+    ahora `perfil.pesoActual` cada vez que el peso que se guarda es el
+    MÁS RECIENTE de todos los pesajes —corregir un día antiguo no lo
+    toca, con cuidado—. Probado en el navegador: escribir el peso de
+    hoy actualiza `perfil.pesoActual` al momento; corregir un peso de
+    hace 5 días después NO lo pisa.
+
+  Lo que se revisó y ya estaba bien, sin tocar: las fórmulas de
+  `engine/calculos.js` (Mifflin-St Jeor, kcal/paso, kcal/min de
+  entreno, 7.700 kcal/kg de grasa) siguen siendo las mismas que la
+  MichiFit original y sus números ya estaban verificados; las macros
+  son informativas a propósito y no deberían entrar en el cálculo de
+  ritmo —eso es nutrición correcta, no un hueco—; y `ritmoReal()` usa
+  una regresión de mínimos cuadrados de verdad, no una resta entre el
+  primer y el último pesaje.
+
+  Build y los seis `pruebas/*.mjs` en verde en cada paso.
 - Próximo paso:
   · **abrir la app al público** — lo próximo que dijo Albert, sin fecha
     exacta pero "mañana" a fecha de este cierre;

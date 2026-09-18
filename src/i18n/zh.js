@@ -175,7 +175,7 @@ export default {
     segunApuntas: '· 根据你记录的数据',
     sinPesajes: '你还没有记录过体重。点日历里的某一天写进去：十天里量三次，我就能算出你真实的速度。',
     leyenda: '🌸 你的称重 · 🟦 按当前速度的预测',
-    leyendaTeorica: '（理论值：按你的计划，不是按称重记录）',
+    leyendaTeorica: '（理论值：按你的习惯和计划，不是按体重）',
     meta: '目标 {kg}',
     hoy: '今天',
     calPactoCumplido: '守住了目标',
