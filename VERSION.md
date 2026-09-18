@@ -7,13 +7,13 @@
 
 ## La estándar, hoy
 
-**v0.7.2** — 14 de septiembre de 2026.
+**v0.7.3** — 19 de septiembre de 2026.
 
 | Dónde | Qué vale |
 |---|---|
-| Etiqueta de Git | `v0.7.2` |
-| `package.json` | `"version": "0.7.2"` |
-| Caché del service worker | `michifit-v7` |
+| Etiqueta de Git | `v0.7.3` |
+| `package.json` | `"version": "0.7.3"` |
+| Caché del service worker | `michifit-v15` |
 | Dentro de la app | Ajustes, última línea |
 | En vivo | https://michifit.vercel.app |
 | Repositorio | https://github.com/TheAicreativecontent/MichiFit |
@@ -85,6 +85,14 @@ Al cerrar una tanda de trabajo que merezca marcarse:
 
 ## Historial
 
+- **v0.7.3** (2026-09-19) — Todo lo trabajado entre el 14 y el 19 de
+  septiembre sin etiquetar todavía: Ninja con foto e historia, los 40
+  michis en dibujo de Albert (no del script), el anillo abajo y siempre
+  visible, el cómic de 14 viñetas, el calendario sin castigar por no
+  apuntar, la gráfica de Progreso comprimida a la meta y siguiendo lo que
+  de verdad se apunta (no solo el pacto), y entreno/sueño cumpliendo por
+  apuntar en vez de por llegar al número. Detalle día a día en
+  `CURRENT.md`. Caché `michifit-v15`.
 - **v0.7.2** (2026-09-14) — El aparato se puede ampliar, y la pantalla
   de Inicio ya tiene su «?». Caché `michifit-v7`.
 - **v0.7.1** (2026-09-14) — Dormir y apuntar el sueño pasan a ser UN
