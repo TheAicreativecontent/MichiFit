@@ -564,11 +564,16 @@ pantallas y el motor entero.
   (`michi.png`), sin errores en consola. Sin PNG nuevos, la caché sigue en
   v15.
 
-  **Por confirmar con Albert:** el 90 de `FORMA_CONTENTO` es una
-  estimación —cabe subirlo o bajarlo en `constantes.js`—, y el brinco de
-  después de dar agua se ha dejado (es el de siempre, pedido el
-  2026-09-17); si quería el de pie sin brinco, es quitar `saltar()` de
-  `cuidar('agua')` en `App.jsx`.
+  **Confirmado por Albert (2026-09-18):** el brinco tras dar agua SE
+  QUEDA (el de siempre, pedido el 2026-09-17); el de pie llega después.
+  **Sigue abierto:** el 90 de `FORMA_CONTENTO` es una estimación —cabe
+  subirlo o bajarlo en `constantes.js`—. Albert vio el michi SENTADO con
+  todas las barras a tope: es lo esperado, no un fallo. Sentado
+  (`contento`) pide dos cosas a la vez, cuenco por encima del 75% y casa
+  limpia **y** `forma` ≥ 90; quien cumple casi perfecto y tiene los
+  cuidados al día lo ve, y el de pie queda para el resto. Si Albert
+  prefiere ver de pie también en ese caso, las opciones son subir el
+  umbral a 100 o dejar `contento` solo como reacción del momento.
 - Última acción (2026-09-18, cierre de sesión): **todo al día y
   verificado**. Portátil y GitHub en el mismo commit; la rama de la
   sesión del móvil (`claude/workout-yesno-completion`) borrada, porque su
