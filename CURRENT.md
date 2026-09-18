@@ -534,16 +534,48 @@ pantallas y el motor entero.
   `pruebas/*.mjs` relevantes en verde (`cuidados`, `objetivo`,
   `calendario`, `cobertura-michi`; el único fallo es el de siempre, el
   dibujo `michi` sin usar, sin relación).
+- Última acción (2026-09-18, desde el portátil, tras la sesión del móvil):
+  **el orden de los cuidados y el michi de pie**. Albert lo dictó: caca →
+  asqueado; si la recoge, brinco; si falta un poco de agua → sediento
+  (ahora al **75%**, antes 50); si se la da, brinco y de pie. Y que el
+  michi de pie salga MÁS que el sentado.
+
+  Salió de un test en rojo. La sesión del móvil que pasó entreno y sueño
+  a «cumplen por apuntar» dejó escrito que `cobertura-michi` fallaba
+  «como siempre, sin relación». **No era verdad**: en `f4669a9` pasaba
+  con los 11 dibujos, y el cambio subió a casi todos por encima de
+  `forma` 70, así que `contento` se tragaba el michi de pie (`humor`
+  nulo). Ver `LESSONS.md`.
+
+  Tres cambios: `SED_DESDE` 50 → 75 (`cuidados.js`); `FORMA_CONTENTO` = 90
+  nueva en `constantes.js`, en vez del 70 escrito a mano; y en
+  `estadoVisual` la sed pasa POR DELANTE de `contento`, lo que **invierte
+  la regla del 2026-09-11 «cumplir manda sobre tener sed»**. Consecuencia
+  a tener presente: `contento` (el sentado) solo se ve con el cuenco
+  lleno, la casa limpia y constancia casi perfecta.
+
+  `pruebas/cobertura-michi.mjs` cambia: el perfil «medio gas, hoy nada»
+  vuelve a caer en el de pie, comprueba el orden entero (caca, sed, de
+  pie, contento) y barre `forma` 0-100 exigiendo que de pie ocupe más que
+  contento (hoy 60 contra 11). `pruebas/cuidados.mjs` mide el borde
+  exacto del 75%. Los seis en verde y build limpio. Probado en el
+  navegador: con caca y sed sale asqueado; al limpiar, celebrando 2,6 s y
+  luego sediento; al dar agua, celebrando y luego el michi de pie
+  (`michi.png`), sin errores en consola. Sin PNG nuevos, la caché sigue en
+  v15.
+
+  **Por confirmar con Albert:** el 90 de `FORMA_CONTENTO` es una
+  estimación —cabe subirlo o bajarlo en `constantes.js`—, y el brinco de
+  después de dar agua se ha dejado (es el de siempre, pedido el
+  2026-09-17); si quería el de pie sin brinco, es quitar `saltar()` de
+  `cuidar('agua')` en `App.jsx`.
 - Próximo paso:
   · **abrir la app al público** — lo próximo que dijo Albert, sin fecha
     exacta pero "mañana" a fecha de este cierre;
-  · **`VERSION.md` está desactualizado**: sigue diciendo v0.7.2 y caché
-    `michifit-v7`, pero `public/sw.js` ya va por `michifit-v15` y no se
-    ha vuelto a taguear desde el 14. Antes de abrir al público es buen
-    momento para subir número de verdad, taguear y poner la tabla al
-    día — es justo lo que ese documento pide hacer "al cerrar una tanda
-    que merezca marcarse", y varias lo merecían. No se ha tocado esta
-    sesión: es una decisión de Albert, no algo para hacer de oficio;
+  · **`VERSION.md` ya está al día** (v0.7.3, caché `michifit-v15`) y la
+    etiqueta `v0.7.3` está subida. Los cambios de después de ella (el
+    orden de los cuidados, ver la última entrada) son de la siguiente
+    versión, sin numerar todavía;
   · **la celda «Hasta la meta» con objetivo de ganar peso** (ver arriba);
   · **decidir el gimnasio nuevo** (se prueba desde el panel de pruebas) —
     a ojo pega más con el estilo plano de la casa/cocina nuevas que el
@@ -584,7 +616,7 @@ pantallas y el motor entero.
 - Build de producción OK, sin errores de consola.
 
 ## Despliegue
-- **Versión estándar: `v0.7.2`.** Se ve en Ajustes, última línea. Qué es
+- **Versión estándar: `v0.7.3`** (etiqueta subida el 2026-09-18). Se ve en Ajustes, última línea. Qué es
   y cómo retomarla desde el móvil o el otro portátil, en `VERSION.md`.
 - Repo: https://github.com/TheAicreativecontent/MichiFit
 - Vercel enlazado con la CLI (`vercel link --project michifit`). El enlace
@@ -876,11 +908,12 @@ y con el cuenco vacío salen el mismo nivel, la misma experiencia, el
 mismo HAPPY y el mismo cumplimiento. Si alguna vez esa prueba se pone en
 rojo, es que el bucle ha empezado a premiar pulsar botones.
 
-**Y cumplir manda sobre tener sed.** Está en `estadoVisual`, con el
-comentario de por qué: al ponerlo al revés —que es lo primero que hice—
-el cuenco se vacía solo cada 16 horas, así que quien no descubriera el
-botón del agua **no volvía a ver a su michi contento nunca**. Lo cazó
-`pruebas/cobertura-michi.mjs` al momento.
+**Cumplir ya NO manda sobre tener sed** (invertido el 2026-09-18, ver
+la última entrada de arriba y `DECISIONS.md`): caca → asqueado, sed →
+sediento, y con todo atendido el michi de pie. La regla antigua decía que
+quien no descubriera el botón del agua no volvía a ver a su michi
+contento; ahora `contento` es una recompensa por constancia casi perfecta
+(`forma` ≥ 90) y no la cara de casi todos.
 
 ### Si tocas los dibujos del michi
 

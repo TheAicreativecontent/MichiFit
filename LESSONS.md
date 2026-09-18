@@ -449,3 +449,19 @@ fotograma. Con la animacion quitada solo para medir, el hueco eran 2 px.
 Es la misma familia que la viñeta de 6x6 px del mismo dia: el panel
 oculto miente en las medidas. Antes de creerse un numero raro, mirar
 `innerWidth`, `innerHeight` y `document.visibilityState`.
+
+## «El único fallo es el de siempre» sin haberlo comprobado
+- Que paso: la sesión del móvil que pasó entreno y sueño a «cumplen por
+  apuntar» (2026-09-18) dio por bueno un test en rojo,
+  `pruebas/cobertura-michi.mjs`, con la nota «es el de siempre, sin
+  relación». Se fusionó a `main` y llegó a producción con el michi de pie
+  inalcanzable.
+- Causa real: no era de siempre. En el commit anterior el test pasaba con
+  los 11 dibujos. El cambio de regla subió la `forma` de casi todos por
+  encima del umbral de `contento`, y esa cara se tragó a la de pie.
+- Solucion: umbral de `contento` a 90 en `constantes.js` y prueba de
+  barrido que exige que de pie ocupe más escala que contento.
+- Como evitarlo: **un test en rojo se compara con el commit anterior antes
+  de llamarlo «de siempre»** (`git worktree add` a un commit viejo y
+  lanzarlo ahí). Y una sesión sin el repositorio delante no debería
+  tocar la mecánica: `PROTOCOL.md` ya lo decía.

@@ -186,6 +186,15 @@ export const DIAS_FORMA = 14;      // cumplimiento sostenido
 export const DIAS_ENERGIA = 3;     // actividad reciente
 export const DIAS_ABANDONO = 10;   // sin nada -> esquelético
 
+/* Desde qué `forma` el michi se sienta contento. Era 70 hasta el
+   2026-09-18. Con «entreno y sueño cumplen por apuntar» casi cualquiera
+   que apunta algo pasa de 70, y el michi de pie —la cara de reposo—
+   dejó de salir: la prueba de cobertura lo cazó. Con 90 hace falta una
+   constancia casi perfecta en las dos últimas semanas, así que sentado
+   y contento es la recompensa y de pie es lo normal. Albert pidió que
+   el de pie salga más que el sentado. */
+export const FORMA_CONTENTO = 90;
+
 /* --- hitos ------------------------------------------------
    Definidos en MECANICA.md. `check` recibe { entrada, racha, usuario,
    pesoActual } y devuelve si se cumple ESE día. Un hito conseguido no

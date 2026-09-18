@@ -1653,3 +1653,21 @@ en el navegador, tests y build en verde en cada tanda. **Albert dijo
 que la proxima sesion se remata la app para abrirla al publico** y
 empezar a recibir feedback real: primera vez que se pone fecha a eso.
 Lo pendiente, en `CURRENT.md`.
+
+## 2026-09-18 (noche) — Puesta al día entre móvil y portátil, y el orden de los cuidados
+Albert trabajó desde el móvil y el portátil y quiso comprobar que todo
+cuadraba antes de archivar la sesión «Workout completion tracking».
+
+**Revisión.** Portátil tres commits por detrás de `origin/main`
+(`git pull --ff-only`, sin conflictos). La rama
+`claude/workout-yesno-completion` tenía el mismo código que `main` (PR #1
+ya fusionado). Producción en Vercel `Ready` y con el último commit; el
+MCP de Vercel da 403 y se comprobó con la CLI. Faltaban dos cosas: la
+etiqueta `v0.7.3` (creada y subida) y un test en rojo,
+`cobertura-michi`, causado por el propio cambio del móvil.
+
+**Cambio.** El michi de pie vuelve a salir y los cuidados tienen orden:
+caca → asqueado → (limpia) brinco → sed al 75% → sediento → (agua)
+brinco → de pie. `contento` pasa a pedir `forma` 90. Invierte la regla
+«cumplir manda sobre tener sed». Detalle en `DECISIONS.md` y
+`CURRENT.md`.

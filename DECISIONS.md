@@ -223,10 +223,9 @@ En consecuencia, HAPPY baja más rápido (2,2 → 3,4 por hora, tope 32 →
    el bucle ha empezado a premiar pulsar botones en vez de cuidarte;
 2. **sin culpa**: no hay muerte, ni castigo, ni reproche, y las barras
    siguen congeladas de noche;
-3. **cumplir manda sobre tener sed**: el michi de quien lleva el pacto
-   al día sale contento aunque no haya tocado el botón del agua. Al
-   revés, quien no descubriera ese botón no volvería a verlo contento
-   nunca.
+3. ~~cumplir manda sobre tener sed~~ — **invertido el 2026-09-18**, ver
+   la entrada de ese día al final de este documento. Ahora la sed va
+   por delante de `contento`.
 
 ## 2026-09-08 — Inicio se queda con el michi y cuatro barras
 - Fuera el globo de texto y la tarjeta de nivel: el nivel y su barra de
@@ -437,3 +436,31 @@ En consecuencia, HAPPY baja más rápido (2,2 → 3,4 por hora, tope 32 →
 ## Tono del producto (permanente)
 Herramienta de orientacion, suave por diseno. Sin monedas virtuales, sin
 anuncios, sin telemetria. El michi es feedback, no un castigo.
+
+## 2026-09-18 — El orden de los cuidados, y el michi de pie
+Albert pidió, y es lo que hace ahora `estadoVisual` (`engine/michi.js`):
+
+1. **caca en el suelo → asqueado**;
+2. si la recoge, el **brinco de celebrar** (el corto de siempre, 2,6 s);
+3. si al cuenco le falta un poco de agua → **sediento**. Salta al **75%**
+   (`SED_DESDE`, antes 50): unas dos horas y media de vigilia después de
+   rellenarlo;
+4. si le da agua, el brinco y el **michi de pie**.
+
+Tres consecuencias, dichas para que nadie las descubra por sorpresa:
+
+- **Se invierte la decisión del 2026-09-11 «cumplir manda sobre tener
+  sed».** Estaba pensada para que quien no descubriera el botón del agua
+  no dejara de ver a su michi contento. Con la sed al 75% eso taparía el
+  aviso justo en quien más usa la app, y Albert prefirió que el aviso se
+  vea. `pruebas/cobertura-michi.mjs` comprueba ahora el orden entero.
+- **`contento` (el sentado, de ojos cerrados) pasa a pedir `forma` 90**
+  (`FORMA_CONTENTO` en `constantes.js`, antes 70). «Entreno y sueño cumplen
+  por apuntar» (mismo día) subió a casi todos por encima de 70 y el de
+  pie dejó de salir. Ahora de pie ocupa 60 puntos de la escala de forma y
+  contento 11: contento es la recompensa por una constancia casi perfecta
+  y de pie es lo normal. Lo pidió Albert: «el de pie ha de salir más que
+  el sentado».
+- **La cara de contento solo se ve con el cuenco lleno y la casa
+  limpia**, porque sed y caca van por delante. No es un reproche: no
+  toca XP, HAPPY ni cumplimiento (`pruebas/cuidados.mjs`).

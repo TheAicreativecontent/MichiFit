@@ -6,7 +6,7 @@
    ============================================================ */
 
 import {
-  DIAS_FORMA, DIAS_ENERGIA, DIAS_ABANDONO,
+  DIAS_FORMA, DIAS_ENERGIA, DIAS_ABANDONO, FORMA_CONTENTO,
   XP_DIA_CUMPLIDO, XP_SEMANA_COMPLETA,
   NIVELES, NIVEL_SUELO,
   DIAS_PARA_COMODIN, MAX_COMODINES,
@@ -275,25 +275,24 @@ export function estadoVisual(estado) {
   let humor;
   if (abandono >= DIAS_ABANDONO) humor = 'triste';      // lo ha dejado
   else if (abandono >= 2 || energia <= 30) humor = 'cansado';
-  /* La caca en el suelo va POR DELANTE de `contento`, a partir del
-     2026-09-18: Albert la probó con una caca puesta y el michi seguía
-     sonriendo, y con la caca dibujada a la vista eso se lee como que la
-     app no se ha enterado, no como que "cumplir manda". Es una cara que
-     dice lo que ya se ve en pantalla, no un reproche — sigue sin tocar
-     ni XP ni HAPPY ni el cumplimiento, ver `cuidados.js`.
+  /* El ORDEN de los cuidados lo dictó Albert el 2026-09-18, y es este:
+     caca -> asqueado; si la recoge, el brinco de celebrar; si al cuenco
+     le falta agua -> sediento; y si se la da, el michi de pie. Los dos
+     avisos van POR DELANTE de `contento`.
 
-     La sed se queda DETRÁS de `contento`, sin tocar: el cuenco se vacía
-     solo cada diez horas de vigilia igual que la casa se ensucia sola
-     cada catorce, así que el argumento de fondo —quien no descubra el
-     botón no vuelve a ver a su michi contento— vale para las dos. La
-     diferencia es que Albert, avisado de eso, decidió que para la caca
-     el aviso manda de todos modos: la ve en el suelo, y una cara
-     contenta al lado de una caca dibujada se lee como que la app no se
-     ha enterado. `pruebas/cobertura-michi.mjs` comprueba las dos reglas
-     por separado, cada una a propósito. */
+     La caca ya ganaba desde el mismo día: Albert la probó con una caca
+     puesta y el michi seguía sonriendo, y con la caca dibujada a la
+     vista eso se lee como que la app no se ha enterado. La sed iba
+     detrás de `contento`, con el argumento de que quien no descubriera
+     el botón del agua no volvería a ver a su michi contento. Se ha
+     invertido a propósito: la sed salta al 75% (ver `SED_DESDE`) y, si
+     cumplir la tapara, el aviso no se vería jamás en quien más usa la
+     app. Son caras que dicen lo que ya se ve en pantalla, no un
+     reproche —no tocan XP, HAPPY ni cumplimiento, ver `cuidados.js`—.
+     `pruebas/cobertura-michi.mjs` comprueba el orden entero. */
   else if (cuidado?.sucio) humor = 'asqueado';
-  else if (forma >= 70) humor = 'contento';             // viene cumpliendo
   else if (cuidado?.sed) humor = 'sediento';
+  else if (forma >= FORMA_CONTENTO) humor = 'contento'; // viene cumpliendo a tope
   else if (forma < 30 || animo <= -20) humor = 'triste';
   else humor = null;                                     // ni fu ni fa
 

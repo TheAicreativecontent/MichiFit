@@ -52,8 +52,12 @@ export const ORDEN_HORAS = 14;
 
 /* Por debajo de esto el michi pone cara de sed. No es cero: ver el
    comentario de `sed` mas abajo. Si alguna vez cansa, se sube o se baja
-   aqui y en ningun otro sitio. */
-export const SED_DESDE = 50;
+   aqui y en ningun otro sitio.
+
+   Era 50 hasta el 2026-09-18. Albert lo quiere al 75: en cuanto al
+   cuenco le falta un poco, el michi lo pide. Con AGUA_HORAS = 10 son
+   unas dos horas y media de vigilia despues de rellenarlo. */
+export const SED_DESDE = 75;
 
 /* Cuántas cacas kawaii llegan a salir con la casa del todo sucia. Van
    apareciendo de una en una según baja la barra.
@@ -108,15 +112,14 @@ export function calcularCuidados({ cuidados = {}, pacto = null, ahora = Date.now
 
        · ASQUEADO en cuanto hay UNA CACA en el suelo. Si tu la ves, el
          michi tambien.
-       · SEDIENTO cuando el cuenco baja de la mitad, que es cuando la
-         barra WATER se ve claramente mordida.
+       · SEDIENTO en cuanto al cuenco le falta un poco (SED_DESDE, el
+         75%), no solo cuando esta claramente mordido.
 
-       Los dos van por DEBAJO de `contento` en `michi.js`, asi que quien
-       cumple sigue viendo a su michi contento y esto no se convierte en
-       un reproche. Lo que si se vuelve raro es la cara NEUTRA: ahora
-       pide el cuenco lleno y la casa recogida. Es el precio, y es
-       barato — un michi que pide algo es mejor pantalla que uno con
-       cara de nada. */
+       Los dos van por ENCIMA de `contento` en `michi.js` (la sed desde
+       el 2026-09-18, la caca desde el 2026-09-18 tambien): el orden es
+       caca, sed y, con todo atendido, el michi de pie. No es un
+       reproche —se arregla con un toque y no resta nada—, es un michi
+       que pide algo, que es mejor pantalla que uno con cara de nada. */
     sed: agua <= SED_DESDE,
     sucio: cacas >= 1,
   };

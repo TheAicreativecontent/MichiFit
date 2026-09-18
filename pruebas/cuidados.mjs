@@ -46,6 +46,19 @@ console.log('\n### el agua baja con las horas de vigilia');
     `a mitad de camino (${mitad} h) va por la mitad (${c1.agua})`);
   comprobar(c2.agua === 0, `pasado dia y medio esta vacio (${c2.agua})`);
   comprobar(c2.sed === true, 'y el michi tiene sed');
+
+  /* La sed salta al 75% (2026-09-18, pedido de Albert): al cuenco le
+     falta un poco y ya lo pide. Se mide en el borde exacto, que es donde
+     se rompe si alguien cambia `<=` por `<`. Con AGUA_HORAS = 10 cada
+     hora despierto son 10 puntos; con otro valor, se calcula. */
+  const horasA75 = AGUA_HORAS * 0.25;
+  const en75 = calcularCuidados({ cuidados: { agua: lleno }, ahora: lleno + horasA75 * HORA });
+  const en76 = calcularCuidados({ cuidados: { agua: lleno },
+                                 ahora: lleno + (horasA75 - 0.05 * AGUA_HORAS) * HORA });
+  comprobar(en75.agua === 75 && en75.sed === true,
+    `al 75% ya tiene sed (${en75.agua}%, sed=${en75.sed})`);
+  comprobar(en76.agua > 75 && en76.sed === false,
+    `un poco por encima del 75% aun no (${en76.agua}%, sed=${en76.sed})`);
 }
 
 console.log('\n### de noche no baja');

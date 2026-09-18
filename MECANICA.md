@@ -161,7 +161,7 @@ Lo que se dibuja sale de dos cosas, y en este orden:
 | Manda | Qué se ve |
 |-------|-----------|
 | 1. lo que **hace** | comiendo, entrenando, durmiendo, andando |
-| 2. si no hace nada, cómo **se siente** | contento, cansado, triste, o de pie |
+| 2. si no hace nada, cómo **se siente** | asqueado, sediento, contento (`forma` ≥ 90), cansado, triste, o de pie |
 
 Lo que hace gana siempre: si está comiendo, sale comiendo aunque ande
 triste. Así bastan ocho dibujos en vez de cinco escenas por tres
@@ -282,10 +282,11 @@ cacas kawaii en el suelo, de una en una.
   arruga la nariz. Se arregla con un toque y no queda rastro.
 - **De noche no bajan**, igual que HAPPY.
 
-Y una regla de precedencia que costó una prueba en rojo: **cumplir bien
-manda sobre tener sed**. Al ponerlo al revés, quien no descubriera el
-botón del agua no volvía a ver a su michi contento nunca. Ver el
-comentario de `estadoVisual` en `engine/michi.js`.
+Y una regla de precedencia, **invertida el 2026-09-18**: la caca y la sed
+van POR DELANTE de contento. El orden es caca → asqueado; si la recoge,
+brinco; si falta agua (por debajo del 75%) → sediento; y con todo
+atendido, el michi de pie. Ver `DECISIONS.md` (2026-09-18) y el comentario
+de `estadoVisual` en `engine/michi.js`.
 
 ## 9 · Add-ons (después del máximo)
 

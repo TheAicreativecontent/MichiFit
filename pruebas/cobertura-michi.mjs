@@ -14,6 +14,7 @@
 const M = await import('../src/engine/michi.js');
 const P = await import('../src/engine/pacto.js');
 const E = await import('../src/mascota/escenas.js');
+const C = await import('../src/engine/cuidados.js');
 
 const iso = (n) => P.diasAtras(P.hoyISO(), n);
 const DIAS = ['lun', 'mar', 'mie', 'jue', 'vie', 'sab', 'dom'];
@@ -36,10 +37,12 @@ const PERFILES = {
   'lleva 3 dias parado':  lleno(3, 20, { pasos: 9000, entrenoMin: 50, comidaKcal: 1800, sueno: { horas: 8 } }),
   'lleva 12 dias parado': lleno(12, 25, { pasos: 9000, entrenoMin: 50, comidaKcal: 1800, sueno: { horas: 8 } }),
   'a medio gas':          lleno(0, 20, { pasos: 3000, comidaKcal: 2000 }),
-  /* Cumplimiento medio y un dia sin apuntar: es el unico hueco donde el
-     michi no tiene nada particular que decir, y sale de pie. La banda es
-     estrecha a proposito: casi siempre esta contento, cansado o triste,
-     que es mas util que una cara neutra. */
+  /* Cumplimiento medio (forma 76) y un dia sin apuntar: sin nada que
+     contar, el michi sale de pie. Era el hueco estrecho de la banda
+     30-70, hasta que «entreno cumple por apuntar» subio a casi todos por
+     encima de 70 y el de pie dejo de salir (2026-09-18). Ahora `contento`
+     pide forma 90 (`FORMA_CONTENTO`) y este perfil vuelve a caer en el
+     de pie. */
   'medio gas, hoy nada':  lleno(1, 20, { pasos: 4500, entrenoMin: 20, comidaKcal: 2000, sueno: { horas: 7 } }),
   'apunta poco y flojo':  lleno(0, 20, { pasos: 1200, comidaKcal: 2600 }),
   'nunca ha apuntado':    {},
@@ -88,38 +91,66 @@ for (const [que, marcas] of [['sed', { agua: 0, orden: Date.now() }],
   console.log('  %s %s %s', que.padEnd(20), String(v.humor).padEnd(9), dibujo);
 }
 
-/* Y al reves: cumplir a tope tiene que GANARLE a la sed (sola), o quien
-   no descubra el boton del agua no vuelve a ver a su michi contento. */
+/* EL ORDEN DE LOS CUIDADOS, dictado por Albert el 2026-09-18:
+     caca -> asqueado; si la recoge, el brinco de celebrar; si falta agua
+     -> sediento; y si se la da, el michi de pie.
+   Se prueba sobre el perfil que MEJOR cumple: si ni asi ganan los
+   avisos, es que cumplir los tapa siempre. Antes de esa fecha la sed
+   iba detras de `contento` y esta prueba comprobaba lo contrario. */
+const veo = (perfilNombre, marcas) => {
+  const est = M.calcularEstado({ pacto, entradas: PERFILES[perfilNombre],
+                                 perfil, carino: [], cuidados: marcas });
+  return M.estadoVisual(est).humor;
+};
+const ok = (cumple, si, no) => {
+  console.log('  %s %s', cumple ? 'si ' : 'NO ', cumple ? si : no);
+  if (!cumple) process.exitCode = 1;
+};
+
+console.log('\nel orden de los cuidados (perfil que mas cumple):');
 {
-  const est = M.calcularEstado({ pacto, entradas: PERFILES['cumple a tope'],
-                                 perfil, carino: [], cuidados: { agua: 0, orden: Date.now() } });
-  const v = M.estadoVisual(est);
-  console.log('\n  cumpliendo a tope y con sed (casa limpia) -> %s', v.humor);
-  if (v.humor !== 'contento') {
-    console.log('  NO  la sed le gana a cumplir: el michi nunca saldra contento');
-    process.exitCode = 1;
-  } else {
-    console.log('  si  cumplir manda sobre la sed');
+  const ahora = Date.now();
+  const sucio = veo('cumple a tope', { agua: 0, orden: 0 });
+  ok(sucio === 'asqueado', 'con caca Y sed gana la caca -> asqueado',
+     `con caca y sed deberia salir asqueado y sale ${sucio}`);
+
+  const sed = veo('cumple a tope', { agua: 0, orden: ahora });
+  ok(sed === 'sediento', 'recogida la caca, con sed -> sediento',
+     `con sed y la casa limpia deberia salir sediento y sale ${sed}`);
+
+  const sedSuave = veo('medio gas, hoy nada', { agua: ahora - 3 * 3600_000, orden: ahora });
+  /* 3 h de reloj no son 3 h de vigilia si es de madrugada: solo se mira
+     si de verdad ha bajado del 75%. */
+  const calm = C.calcularCuidados({ cuidados: { agua: ahora - 3 * 3600_000, orden: ahora }, pacto, ahora });
+  if (calm.agua <= C.SED_DESDE) {
+    ok(sedSuave === 'sediento', `con el cuenco al ${calm.agua}% (le falta un poco) -> sediento`,
+       `con el cuenco al ${calm.agua}% deberia salir sediento y sale ${sedSuave}`);
   }
+
+  const dePie = veo('medio gas, hoy nada', { agua: ahora, orden: ahora });
+  ok(dePie === null, 'con agua y la casa limpia, cumpliendo a medias -> de pie',
+     `con todo atendido deberia salir de pie y sale ${dePie}`);
+
+  const contento = veo('cumple a tope', { agua: ahora, orden: ahora });
+  ok(contento === 'contento', 'con todo atendido y constancia casi perfecta -> contento',
+     `con todo atendido y forma maxima deberia salir contento y sale ${contento}`);
 }
 
-/* La caca es al reves DESDE el 2026-09-18: le GANA a cumplir. Albert la
-   probo con una caca puesta y el michi seguia sonriendo, y eso se lee
-   como que la app no se ha enterado de lo que ya se ve en pantalla. No
-   es lo mismo que la sed —el cuenco se vacia solo, la caca tambien,
-   pero aqui Albert decidio que el aviso manda igualmente—, asi que esta
-   prueba comprueba justo lo contrario que la de arriba: adrede. */
+/* Y que el michi de pie salga MAS que el sentado, que es lo que pidio
+   Albert. Se barre `forma` entera con los cuidados al dia: de pie tiene
+   que ocupar mas de la escala que contento. */
+console.log('\nde pie contra sentado y contento (todo atendido, forma 0-100):');
 {
-  const est = M.calcularEstado({ pacto, entradas: PERFILES['cumple a tope'],
-                                 perfil, carino: [], cuidados: { agua: Date.now(), orden: 0 } });
-  const v = M.estadoVisual(est);
-  console.log('  cumpliendo a tope y con la casa sucia -> %s', v.humor);
-  if (v.humor !== 'asqueado') {
-    console.log('  NO  la caca deberia ganarle a cumplir (decision de Albert, 2026-09-18)');
-    process.exitCode = 1;
-  } else {
-    console.log('  si  la caca le gana a cumplir');
+  const cuenta = { pie: 0, contento: 0 };
+  for (let forma = 0; forma <= 100; forma++) {
+    const h = M.estadoVisual({ energia: 60, forma, animo: 0, abandono: 0,
+                               nivel: { nivel: 1 }, cuidado: { sed: false, sucio: false } }).humor;
+    if (h === null) cuenta.pie++;
+    else if (h === 'contento') cuenta.contento++;
   }
+  ok(cuenta.pie > cuenta.contento,
+     `de pie ocupa ${cuenta.pie} puntos de forma y contento ${cuenta.contento}`,
+     `contento (${cuenta.contento}) ocupa mas de la escala que de pie (${cuenta.pie})`);
 }
 
 /* Las que salen al apuntar algo (duran unos segundos) y las del boton
