@@ -16,7 +16,7 @@ const BUY_ME_A_COFFEE = 'https://www.buymeacoffee.com/MichiFinanzas';
 const LIGHTNING_LNURL =
   'lnurl1dp68gurn8ghj7ampd3kx2ar0veekzar0wd5xjtnrdakj7tnhv4kxctttdehhwm30d3h82unvwqhkcmmrv9kxxmmvwsmrxdfddcg';
 
-export default function Karma() {
+export default function Karma({ onSalir }) {
   const t = useT();
   const [copiado, setCopiado] = useState(false);
 
@@ -39,7 +39,16 @@ export default function Karma() {
 
   return (
     <div className="mf-pagina">
-      <h2 className="mf-h2">{t('karma.titulo')}</h2>
+      {/* «Salir» arriba y abajo (Albert, 2026-09-19): a Karma se llega
+          tambien desde el final del comic, y quien aun no sabe que hay un
+          menu abajo no tiene otra forma de irse. Arriba se ve sin hacer
+          scroll; abajo esta donde acaba quien ha leido hasta el final. */}
+      <div className="mf-karma-titulo">
+        <h2 className="mf-h2">{t('karma.titulo')}</h2>
+        {onSalir && (
+          <button className="mf-karma-salir" onClick={onSalir}>{t('karma.salir')}</button>
+        )}
+      </div>
 
       <div className="mf-tarjeta mf-karma-cabecera">
         <img src="/karma/corazon.png" alt="" width="90" height="84" />
@@ -48,6 +57,30 @@ export default function Karma() {
           {t('karma.intro')}
         </p>
       </div>
+
+      {/* PromptPay va PRIMERO desde el 2026-09-19 (Albert): es la cuenta
+          de su pareja, que quiso poner su QR para los donativos. Antes iba
+          despues de los otros dos porque estos funcionan en todo el mundo
+          y este solo dentro de Tailandia; sigue siendo verdad, y por eso
+          el texto dice «si estas en Tailandia». El QR es una imagen
+          estatica —ni API, ni backend— y se ve tambien en el movil, que
+          es justo donde se escanea. Ver `datos/promptpay.js`.
+
+          Sin boton de «abrir el banco»: alli no hay un esquema de URL
+          comun, cada banco lleva el suyo. */}
+      {PROMPTPAY && (
+        <div className="mf-tarjeta mf-karma-bloque">
+          <h3 className="mf-h3">{t('karma.promptpayTitulo')}</h3>
+          <p className="mf-nota" style={{ marginTop: 0, marginBottom: 12 }}>
+            {t('karma.promptpayIntro')}
+          </p>
+          <img className="mf-karma-qr promptpay" src={PROMPTPAY_QR}
+               alt={t('karma.promptpayQrAlt')} width="240" height="292" />
+          <p className="mf-nota" style={{ fontSize: 11 }}>
+            {t('karma.promptpayCompatible')}
+          </p>
+        </div>
+      )}
 
       <div className="mf-tarjeta mf-karma-bloque">
         <h3 className="mf-h3">{t('karma.cafeTitulo')}</h3>
@@ -88,36 +121,15 @@ export default function Karma() {
         </p>
       </div>
 
-      {/* PromptPay: el estandar de QR de Tailandia, que es de donde son
-          los amigos que lo pidieron. Sale solo si Albert ha puesto su
-          QR — ver `datos/promptpay.js`, que explica como y que hay que
-          pensarse antes (el repositorio es publico y el QR lleva dentro
-          su numero).
-
-          Va DESPUES de los otros dos y no antes aunque sea el mas comodo
-          para quien esta alli: los otros dos funcionan para todo el
-          mundo, y este solo dentro de Tailandia.
-
-          Sin boton de «abrir el banco»: alli no hay un esquema de URL
-          comun, cada banco lleva el suyo. El QR se enseña tambien en el
-          movil, que es justo donde se escanea. */}
-      {PROMPTPAY && (
-        <div className="mf-tarjeta mf-karma-bloque">
-          <h3 className="mf-h3">{t('karma.promptpayTitulo')}</h3>
-          <p className="mf-nota" style={{ marginTop: 0, marginBottom: 12 }}>
-            {t('karma.promptpayIntro')}
-          </p>
-          <img className="mf-karma-qr" src={PROMPTPAY_QR}
-               alt={t('karma.promptpayQrAlt')} width="200" height="200" />
-          <p className="mf-nota" style={{ fontSize: 11 }}>
-            {t('karma.promptpayCompatible')}
-          </p>
-        </div>
-      )}
-
       <div className="mf-karma-michi">
         <img src="/karma/ninja_khob_khun_krup.jpg" alt="Khob khun krup" />
       </div>
+
+      {onSalir && (
+        <button className="mf-boton mf-karma-salir-pie" onClick={onSalir}>
+          {t('karma.salir')}
+        </button>
+      )}
     </div>
   );
 }

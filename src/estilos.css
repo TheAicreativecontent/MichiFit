@@ -469,11 +469,23 @@ input[type=range]::-moz-range-thumb {
   border-radius: 12px; border: 3px solid #F7931A;
   display: block; margin: 0 auto 12px; background: #fff;
 }
+/* El QR de PromptPay es vertical (logo + codigo) y lleva el azul de su
+   marca; los otros son cuadrados y naranjas. */
+.mf-karma-qr.promptpay { border-color: #1A4B7C; max-width: 100%; height: auto; }
 .mf-copiar {
   margin-top: 8px; background: none; border: 1.5px solid var(--menta);
   border-radius: 999px; padding: 7px 16px; font-size: calc(12px * var(--escala)); font-weight: 700;
   color: var(--tinta-flojo); cursor: pointer; font-family: var(--fuente);
 }
+/* «Salir» de Karma: arriba, junto al titulo, y abajo del todo. */
+.mf-karma-titulo { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.mf-karma-salir {
+  flex: 0 0 auto; padding: 6px 14px;
+  font-family: var(--fuente); font-weight: 700; font-size: calc(13px * var(--escala));
+  color: var(--tinta-flojo); background: none;
+  border: 1px solid var(--linea); border-radius: 999px; cursor: pointer;
+}
+.mf-karma-salir-pie { margin-top: 18px; }
 .mf-karma-michi { display: flex; justify-content: center; margin-top: 18px; }
 /* Ninja dando las gracias —«khob khun krup», gracias en tailandés—,
    desde el 2026-09-16. Sustituye al michi con traje de oficina, y está
@@ -508,6 +520,13 @@ input[type=range]::-moz-range-thumb {
   transition: background .3s ease;
 }
 .mf-mk-sep { display: inline-block; width: 7px; }
+/* Las notas del marcador van en la fuente normal, no en la de pixel: son
+   frases, y la de pixel no tiene ni kanji ni tailandes. */
+.mf-mk-nota {
+  margin: -3px 0 0; font-family: var(--fuente); font-size: calc(11px * var(--escala));
+  line-height: 1.35; color: var(--tinta-flojo);
+}
+.mf-ventana, .mf-regla { margin: 6px 0 10px; }
 
 /* La cabecera lleva el logo y, a la derecha, racha y ajustes. */
 

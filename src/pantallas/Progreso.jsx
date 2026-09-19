@@ -173,7 +173,10 @@ export default function Progreso({ perfil, pacto, entradas, onRegistrar, estado 
         <Celda n={(perdido > 0 ? '−' : '') + Math.abs(perdido || 0).toFixed(1)} u="kg"
                etiqueta={perdido >= 0 ? t('progreso.perdidos') : t('progreso.recuperados')}
                clase={perdido > 0 ? 'bien' : ''} />
-        <Celda n={Math.max(0, restante || 0).toFixed(1)} u="kg" etiqueta={t('progreso.hastaMeta')} />
+        {/* Valor absoluto y no `Math.max(0, restante)`: para quien quiere
+            GANAR peso `restante` es negativo mientras falta, y el max lo
+            dejaba siempre en 0,0. Una vez en la meta, 0 de verdad. */}
+        <Celda n={(enMeta ? 0 : Math.abs(restante || 0)).toFixed(1)} u="kg" etiqueta={t('progreso.hastaMeta')} />
         <Celda n={ritmo != null ? ritmo.toFixed(2) : '—'} u="kg"
                etiqueta={realApunta ? t('progreso.ritmoReal') : t('progreso.ritmoPrevisto')}
                clase={ritmo < 0 ? 'bien' : ''} />

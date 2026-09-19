@@ -162,26 +162,42 @@ documento que ya no describe la app tal como está.
 
 ## Si algún día decides simplificar
 
-Ordenado por lo que arregla dividido por lo que cuesta. De esta lista
-**solo está hecho el punto 1**; los otros cuatro siguen sin tocar, y
-están aquí para que la conversación tenga de dónde tirar, no como
-propuesta.
+Ordenado por lo que arregla dividido por lo que cuesta. **Las cinco
+están hechas**: la 1 el 2026-09-14 y de la 2 a la 5 el 2026-09-19, cuando
+Albert dijo que le parecían buenas propuestas.
 
 1. ~~**Un «?» en Inicio.**~~ **HECHO el 2026-09-14**, el mismo día que
    este mapa. Tres párrafos en las cinco lenguas: qué refleja el michi y
    cómo van los botones, que las barras de dentro son cuidado y **no
    puntúan**, y que lo que sí cuenta está debajo. Ataca el hallazgo 3
    entero y la mitad del 2.
-2. **Una leyenda para el corazón roto y el escudo.** La primera vez que
-   aparece un corazón roto, decirlo: «el michi te cubrió el martes». Ya
-   está escrito así en `MECANICA.md` §4 y no ha llegado a la pantalla.
-3. **Separar visualmente los dos sistemas.** No quitar nada: que el
-   cuidado y la mecánica no compartan el mismo lenguaje de barras. Es
-   trabajo de diseño, no de recorte.
-4. **Decir la ventana de 3 días donde se apunta**, no cuando ya es tarde.
-5. **Hacer visible el sentido de la comida.** «Mantenerte: quedarte entre
-   X e Y» es una frase, y convierte lo mejor escondido del motor en algo
-   que se ve.
+2. ~~**Una leyenda para el corazón roto y el escudo.**~~ **HECHO el
+   2026-09-19.** Ojo: la mitad ya existía sin que este documento lo
+   supiera —Inicio lleva un aviso «el michi te cubrió un día» debajo del
+   marcador (`inicio.cubierto`)—. Lo que faltaba se añadió: bajo la
+   racha, mientras tengas escudos, una línea que dice qué es cada uno y
+   cómo se gana (`marcador.notaEscudo`), y un cuarto párrafo en el «?» de
+   Inicio (`inicio.ayuda4`) que cuenta los corazones, los escudos y por
+   qué un corazón sale partido y gris.
+3. ~~**Separar visualmente los dos sistemas.**~~ **HECHO el 2026-09-19.**
+   En la pantallita solo puntúa la barra de nivel, que sigue siendo una
+   barra continua; HAPPY, WATER y CLEAN, que no puntúan, pasan a **cinco
+   puntitos** redondeados (`Puntos` en `TamagotchiPNG.jsx`). Se ven
+   distintos de un vistazo, sin quitar nada. Al 75% de sed salen 4 de 5,
+   así que falta uno y se nota. El «?» ya lo cuenta con la palabra
+   «puntitos».
+4. ~~**Decir la ventana de 3 días donde se apunta.**~~ **HECHO el
+   2026-09-19.** El editor del día lo dice arriba, mientras se puede
+   aprovechar: «Puedes completarlo durante N días más» / «hasta mañana» /
+   «Hoy es el último día», y que después ya no cuenta pero el peso sí se
+   corrige. Sale de `diasParaCerrar` en `engine/pacto.js`.
+5. ~~**Hacer visible el sentido de la comida.**~~ **HECHO el
+   2026-09-19.** Bajo el objetivo de comida —en el editor del día y en
+   «Mi objetivo»— una frase con la regla real: «no pasas de X kcal»
+   (perder), «llegas al menos a X» (ganar) o «entre X e Y» (mantener y
+   estar en forma). Sale de `rangoComida` en `engine/pacto.js`, que
+   redondea hacia dentro para no prometer más ancho de lo que cuenta, y
+   `pruebas/objetivo.mjs` comprueba que coincide con `evaluarDia`.
 
 Lo que yo **no** tocaría, por si sirve de contrapeso: el número de
 conceptos en sí. La app es un tamagotchi de salud — tiene la densidad

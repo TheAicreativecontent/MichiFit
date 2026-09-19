@@ -86,6 +86,18 @@ function sufijoMichi(aparato) {
   return c === 'naranja' ? '' : `-${c}`;
 }
 
+/* Cinco puntitos, llenos en proporcion a `valor` (0 a 100). Se redondea:
+   al 75% de la sed salen 4 de 5, o sea que falta uno y se ve. */
+const PUNTOS = 5;
+function Puntos({ valor }) {
+  const llenos = Math.round(Math.max(0, Math.min(100, valor ?? 0)) / 100 * PUNTOS);
+  return (
+    <div className="puntos" aria-hidden="true">
+      {Array.from({ length: PUNTOS }, (_, i) => <i key={i} className={i < llenos ? 'on' : ''} />)}
+    </div>
+  );
+}
+
 function rutaHuevo(aparato) {
   const estilo = ESTILOS.includes(aparato?.estilo) ? aparato.estilo : APARATO_POR_DEFECTO.estilo;
   const color = COLORES.includes(aparato?.color) ? aparato.color : APARATO_POR_DEFECTO.color;
@@ -101,8 +113,10 @@ function rutaHuevo(aparato) {
    casaban solas, en vez de fundir los bordes, porque el fundido dejaba
    un pilar fantasma. Ver `pixel/fondos_largos.py`. */
 const ESCENARIOS = {
+  /* El gimnasio es el nuevo de Albert desde el 2026-09-19 (antes se
+     probaba aparte como `gimnasioNuevo`). El de antes esta en
+     `_CUARENTENA/fondos-antiguos/`. */
   gimnasio: '/fondos/gimnasio.png',
-  calle: '/fondos/calle.png',
   casa: '/fondos/casa.png',
   cocina: '/fondos/cocina.png',
   parque: '/fondos/parque.png',
@@ -110,11 +124,6 @@ const ESCENARIOS = {
      michi esta durmiendo DE VERDAD encima, y no de pie en el salon con
      los ojos cerrados. Antes `dormir` usaba `casa`. */
   dormir: '/fondos/BG_dormir.png',
-  /* El gimnasio nuevo de Albert. NO lo usa ninguna escena: esta aqui
-     para poder mirarlo desde el panel de pruebas y decidir si sustituye
-     al de siempre. Es bastante mas gris que el resto de la app, y eso
-     se decide viendolo dentro de la pantallita, no en el archivo. */
-  gimnasioNuevo: '/fondos/gimnasio-nuevo.png',
 };
 export const ESCENARIOS_DISPONIBLES = Object.keys(ESCENARIOS);
 /* Los que se desplazan solos. Solo el parque, de momento: es el unico
@@ -264,12 +273,15 @@ export default function TamagotchiPNG({
               </div>
             </div>
 
+            {/* DOS LENGUAJES a proposito (SIMPLICIDAD.md, punto 3): la
+                barra de nivel es continua y PUNTUA; HAPPY, WATER y CLEAN
+                son cinco puntitos y NO puntuan. Antes las cuatro eran la
+                misma barra y quien no leia el «?» creia que rellenar el
+                agua servia para algo. */}
             {felicidad != null && (
               <div className={`mf-tamapng-nivel feliz ${denoche ? 'denoche' : ''}`}>
                 <span className="et">{denoche ? 'ZZZ' : 'HAPPY'}</span>
-                <div className="barra">
-                  <i style={{ width: `${Math.round(felicidad)}%` }} />
-                </div>
+                <Puntos valor={felicidad} />
               </div>
             )}
 
@@ -282,11 +294,11 @@ export default function TamagotchiPNG({
               <>
                 <div className="mf-tamapng-nivel agua">
                   <span className="et">WATER</span>
-                  <div className="barra"><i style={{ width: `${cuidado.agua}%` }} /></div>
+                  <Puntos valor={cuidado.agua} />
                 </div>
                 <div className="mf-tamapng-nivel orden">
                   <span className="et">CLEAN</span>
-                  <div className="barra"><i style={{ width: `${cuidado.orden}%` }} /></div>
+                  <Puntos valor={cuidado.orden} />
                 </div>
               </>
             )}

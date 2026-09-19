@@ -7,13 +7,13 @@
 
 ## La estándar, hoy
 
-**v0.7.4** — 18 de septiembre de 2026.
+**v0.7.5** — 19 de septiembre de 2026.
 
 | Dónde | Qué vale |
 |---|---|
-| Etiqueta de Git | `v0.7.4` |
-| `package.json` | `"version": "0.7.4"` |
-| Caché del service worker | `michifit-v15` |
+| Etiqueta de Git | `v0.7.5` |
+| `package.json` | `"version": "0.7.5"` |
+| Caché del service worker | `michifit-v16` |
 | Dentro de la app | Ajustes, última línea |
 | En vivo | https://michifit.vercel.app |
 | Repositorio | https://github.com/TheAicreativecontent/MichiFit |
@@ -84,6 +84,17 @@ Al cerrar una tanda de trabajo que merezca marcarse:
 5. Commit, `git tag -a vX.Y.Z`, y `git push --follow-tags`.
 
 ## Historial
+
+- **v0.7.5** (2026-09-19) — La versión que se manda a amigos y familia, con
+  el enlace y sin cuentas. Viñeta nueva del cómic («Anna lo cura en
+  casa», 15 en total); PromptPay en Karma, el primero, y un botón «Salir»;
+  al terminar el cómic, «Cerrar» y «Saltar» llevan a Karma; el ritmo de las
+  cacas arreglado (salían a los 5 minutos de limpiar y el michi estaba
+  asqueado casi siempre); `FORMA_CONTENTO` 95; gimnasio nuevo; el michi
+  comiendo más abajo; «Hasta la meta» al ganar peso; y los puntos 2 a 5 de
+  `SIMPLICIDAD.md` (puntitos para el cuidado, la ventana de 3 días y la
+  regla de la comida a la vista, el escudo explicado). Se retira la cara
+  `cansado`. Caché `michifit-v16`.
 
 - **v0.7.4** (2026-09-18) — El orden de los cuidados del michi (caca →
   asqueado, sed al 75% → sediento, con todo atendido de pie) y el michi de

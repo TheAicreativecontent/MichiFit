@@ -182,6 +182,65 @@ console.log('\n### mantenerse es una BANDA, no un techo');
 }
 
 
+console.log('\n### la regla de la comida dicha con numeros coincide con la real');
+{
+  /* `rangoComida` es lo que la app ESCRIBE («entre X e Y»); `evaluarDia`
+     es lo que CUENTA. Si se separan, la app promete un margen que no es. */
+  const hoy = P.hoyISO();
+  const cumple = (sentido, meta, kcal) => {
+    const pacto = { ...PACTO, comidaKcal: meta, comidaSentido: sentido };
+    const ev = P.evaluarDia({ pacto, entrada: { comidaKcal: kcal }, fecha: hoy, hoy });
+    return ev.objetivos.find((o) => o.id === 'comida').cumplido;
+  };
+  for (const meta of [1500, 1794, 2085, 2542]) {
+    for (const sentido of ['menos', 'mas', 'banda']) {
+      const r = P.rangoComida({ ...PACTO, comidaKcal: meta, comidaSentido: sentido });
+      const dentro = sentido === 'menos' ? [r.max]
+                   : sentido === 'mas' ? [r.min]
+                   : [r.min, r.max];
+      const fuera = sentido === 'menos' ? [r.max + 60]
+                  : sentido === 'mas' ? [r.min - 60]
+                  : [r.min - 60, r.max + 60];
+      comprobar(dentro.every((k) => cumple(sentido, meta, k)),
+        `${sentido} ${meta}: lo que promete (${r.min}-${r.max}) cumple`);
+      comprobar(fuera.every((k) => !cumple(sentido, meta, k)),
+        `${sentido} ${meta}: unas decenas fuera ya no cumple`);
+    }
+  }
+  comprobar(P.rangoComida({ ...PACTO, comidaKcal: null }) === null, 'sin objetivo de comida no hay rango');
+  comprobar(P.rangoComida({ ...PACTO, comidaKcal: 2000 }).sentido === 'menos',
+    'un pacto viejo sin sentido cae a «menos», como en evaluarDia');
+}
+
+console.log('\n### la ventana de 3 dias se dice antes de que sea tarde');
+{
+  const hoy = '2026-09-19';
+  const dias = (f) => P.diasParaCerrar(f, hoy);
+  comprobar(dias('2026-09-19') === 3, 'hoy quedan 3 dias mas');
+  comprobar(dias('2026-09-18') === 2, 'ayer quedan 2');
+  comprobar(dias('2026-09-17') === 1, 'hace 2 dias queda 1');
+  comprobar(dias('2026-09-16') === 0, 'hace 3 dias es el ultimo (0 mas)');
+  comprobar(dias('2026-09-15') === null, 'hace 4 dias ya esta cerrado');
+  comprobar(dias('2026-09-20') === null, 'un dia futuro no se puede completar');
+}
+
+console.log('\n### los textos nuevos existen en los cinco idiomas');
+{
+  const claves = [['dia', ['ventana0', 'ventana1', 'ventanaN', 'rangoMenos', 'rangoMas', 'rangoBanda']],
+                  ['marcador', ['notaEscudo']],
+                  ['inicio', ['ayuda4']],
+                  ['karma', ['salir']]];
+  for (const l of ['es', 'en', 'th', 'zh', 'ja']) {
+    const d = (await import(`../src/i18n/${l}.js`)).default;
+    const faltan = claves.flatMap(([ns, ks]) => ks.filter((k) => !d[ns]?.[k]).map((k) => `${ns}.${k}`));
+    comprobar(faltan.length === 0, `${l}: ${faltan.length ? 'faltan ' + faltan.join(', ') : 'completos'}`);
+    const marcas = ['ventanaN'].every((k) => d.dia[k].includes('{n}'))
+      && d.dia.rangoMenos.includes('{max}') && d.dia.rangoMas.includes('{min}')
+      && d.dia.rangoBanda.includes('{min}') && d.dia.rangoBanda.includes('{max}');
+    comprobar(marcas, `${l}: los huecos {n}, {min} y {max} estan`);
+  }
+}
+
 console.log('\n### el renombrado esta entero');
 {
   const busca = { es: /pacto/i, en: /\bpact\b/i, th: /ข้อตกลง/, zh: /约定/, ja: /約束/ };

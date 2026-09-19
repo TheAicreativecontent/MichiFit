@@ -19,11 +19,9 @@ export const ESCENAS = [
      en bucle, asi que es el unico que puede desplazarse sin fin — y
      andar es justo la escena que pide movimiento.
 
-     `calle.png` deja de usarla NADIE desde el 2026-09-16: era el fondo
-     de pasear y tambien el de la historia de Ninja, y la historia pasa
-     a contarse con el comic. Se queda en `public/fondos/` porque esta
-     en `ESCENARIOS` y el panel de pruebas la enseña, pero si dentro de
-     unos meses nadie la ha echado de menos, fuera. */
+     `calle.png` dejo de usarla nadie el 2026-09-16 (era el fondo de
+     pasear y de la historia de Ninja, que ahora se cuenta con el comic)
+     y se borro el 2026-09-19; sigue en el historial de git. */
   { id: 'pasear',   escenario: 'parque',   pose: 'andando',     rotulo: 'PASEANDO' },
   { id: 'dormir',   escenario: 'dormir',   pose: 'durmiendo',    rotulo: 'DURMIENDO',
     dormido: true },
@@ -49,7 +47,7 @@ export function escenaAutomatica(entradaHoy = {}, accion = null, humor = null) {
   if (accion === 'comiendo') return porId('comer');
 
   /* El humor gana a lo que hiciste hoy. Que el michi esté contento o
-     cansado dice mucho más que «hoy anduviste», y si no fuera así no se
+     triste dice mucho más que «hoy anduviste», y si no fuera así no se
      vería nunca: en cuanto apuntas cualquier cosa, la escena del día
      tapaba el humor para el resto de la jornada.
      Lo que hiciste hoy sigue saliendo cuando el michi no tiene nada

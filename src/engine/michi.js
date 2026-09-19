@@ -248,8 +248,9 @@ export function calcularEstado({ pacto, entradas, perfil, carino = [], cuidados 
    como un juicio sobre tu cuerpo. La intención no viaja; el dibujo sí.
 
    Así que ahora el michi no refleja tu cuerpo: refleja tu CONSTANCIA.
-   Está contento si cumples lo que tú prometiste, cansado si llevas días
-   sin moverte, triste si lo has dejado. Nunca gordo ni escuálido.
+   Está contento si cumples lo que tú prometiste y triste si lo has
+   dejado (antes también había un «cansado» intermedio, retirado el
+   2026-09-19). Nunca gordo ni escuálido.
 
    Lo que se dibuja sale de dos cosas, en este orden:
      1. lo que está HACIENDO (comer, entrenar, dormir, pasear), que lo
@@ -273,8 +274,13 @@ export function estadoVisual(estado) {
      El orden importa. Llevar días sin aparecer manda sobre todo lo
      demás: da igual lo bien que fuera la semana pasada. */
   let humor;
+  /* Sin cara de `cansado` desde el 2026-09-19: Albert borro esos cuatro
+     dibujos (el que habia era la botella y la gota, o sea el sediento
+     con otro nombre) y dijo que no se usan. Quien lleva unos dias sin
+     apuntar ve ahora el michi de pie, que es lo que menos reprocha:
+     `MECANICA.md` §10, el michi nunca riñe. `energia` sigue calculandose
+     porque la usan otras partes; solo dejo de dar cara. */
   if (abandono >= DIAS_ABANDONO) humor = 'triste';      // lo ha dejado
-  else if (abandono >= 2 || energia <= 30) humor = 'cansado';
   /* El ORDEN de los cuidados lo dictó Albert el 2026-09-18, y es este:
      caca -> asqueado; si la recoge, el brinco de celebrar; si al cuenco
      le falta agua -> sediento; y si se la da, el michi de pie. Los dos

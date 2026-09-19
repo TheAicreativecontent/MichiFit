@@ -26,7 +26,7 @@ import { useT } from '../i18n/index.jsx';
 import { COLLAGE, rutaNinja } from '../datos/ninja.js';
 import { COLORES, COLORES_MICHI, APARATO_POR_DEFECTO } from '../mascota/TamagotchiPNG.jsx';
 
-/* LAS DOCE VIÑETAS DEL COMIC, en orden.
+/* LAS VIÑETAS DEL COMIC, en orden (15 desde el 2026-09-19).
 
    Hasta el 2026-09-16 esto era un apaño: el michi gris de la app sobre
    uno de los tres escenarios, porque el comic no existia. Ya existe —lo
@@ -47,11 +47,12 @@ const VINETAS = [
   '/comic/07-trampa.jpg',      '/comic/08-atracon.jpg',
   '/comic/09-noche.jpg',       '/comic/10-carrera.jpg',
   '/comic/11-veterinario.jpg', '/comic/12-recuperacion.jpg',
-  '/comic/13-recuperado.jpg',  '/comic/14-casa.jpg',
+  '/comic/12b-cuidados.jpg',   '/comic/13-recuperado.jpg',
+  '/comic/14-casa.jpg',
 ];
 
 
-export default function Lore({ onCerrar, onAdoptar, aparato, onAparato }) {
+export default function Lore({ onCerrar, onAdoptar, onKarma, aparato, onAparato }) {
   const t = useT();
   const actos = t('lore.actos');
   const total = Array.isArray(actos) ? actos.length : 0;
@@ -104,6 +105,16 @@ export default function Lore({ onCerrar, onAdoptar, aparato, onAparato }) {
     setI((v) => (dx < 0 ? Math.min(ultima, v + 1) : Math.max(0, v - 1)));
   };
 
+  /* Quien ha leido la historia hasta el final y la cierra —con «Cerrar» o
+     con «Saltar»— aterriza en Karma, que es donde Ninja da las gracias y
+     donde se puede apoyar la app (Albert, 2026-09-19). Solo cuando se
+     revisa la historia ya empezada: en el primer arranque (`onAdoptar`)
+     el final lleva a la bienvenida, y desviar ahi a alguien que aun no ha
+     puesto ni su peso seria cortarle el alta. Saltar a medias tampoco
+     cuenta: no ha llegado al final. */
+  const alFinal = i === ultima && !onAdoptar && typeof onKarma === 'function';
+  const cerrar = () => (alFinal ? onKarma() : onCerrar?.());
+
   const enElReal = i === elReal;
   const enElColor = eligeColor && i === elColor;
   const enUnActo = !enElReal && !enElColor;
@@ -123,7 +134,7 @@ export default function Lore({ onCerrar, onAdoptar, aparato, onAparato }) {
           <b>{t('lore.titulo')}</b>
           <small>{t('lore.subtitulo')}</small>
         </div>
-        <button className="mf-lore-saltar" onClick={onCerrar}>
+        <button className="mf-lore-saltar" onClick={cerrar}>
           {t('lore.saltar')}
         </button>
       </header>
@@ -224,7 +235,7 @@ export default function Lore({ onCerrar, onAdoptar, aparato, onAparato }) {
 
         {i === ultima ? (
           <button className="mf-boton principal"
-                  onClick={() => (onAdoptar ?? onCerrar)?.()}>
+                  onClick={() => (onAdoptar ? onAdoptar() : cerrar())}>
             {onAdoptar ? t('lore.adoptar') : t('comun.cerrar')}
           </button>
         ) : (

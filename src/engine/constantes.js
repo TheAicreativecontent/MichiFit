@@ -192,8 +192,13 @@ export const DIAS_ABANDONO = 10;   // sin nada -> esquelético
    dejó de salir: la prueba de cobertura lo cazó. Con 90 hace falta una
    constancia casi perfecta en las dos últimas semanas, así que sentado
    y contento es la recompensa y de pie es lo normal. Albert pidió que
-   el de pie salga más que el sentado. */
-export const FORMA_CONTENTO = 90;
+   el de pie salga más que el sentado.
+
+   90 el 2026-09-18, 95 el 2026-09-19: Albert dijo que cualquiera de los
+   dos le valía y se eligió el más alto para que el de pie —lo normal—
+   gane todavía más terreno. Con 95 el michi sentado es constancia casi
+   perfecta sostenida las dos semanas. */
+export const FORMA_CONTENTO = 95;
 
 /* --- hitos ------------------------------------------------
    Definidos en MECANICA.md. `check` recibe { entrada, racha, usuario,

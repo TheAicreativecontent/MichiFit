@@ -52,6 +52,12 @@
    tambien en el movil.
    ============================================================ */
 
-export const ACTIVO = false;
+/* ENCENDIDO el 2026-09-19. Es el QR de la pareja de Albert, que quiso
+   ponerlo para los donativos. Es Thai QR Payment de Bangkok Bank y se
+   recorto a logo + codigo: el archivo original, entero, esta FUERA del repo
+   en `../_ARCHIVO/qr-promptpay-sin-publicar/`. Ojo: el recorte quita el
+   nombre y el numero que se ven en la imagen, pero el codigo QR sigue
+   llevando dentro el identificador, y cualquier lector puede leerlo. */
+export const ACTIVO = true;
 
 export const QR = '/karma/promptpay_qr.png';

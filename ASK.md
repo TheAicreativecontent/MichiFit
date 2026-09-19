@@ -1,30 +1,35 @@
 # ASK.md — Preguntas pendientes (para Albert)
 
 ## Decisiones pendientes
-- [ ] **Con que identificador se genera el QR de PromptPay.** Lo tiene
-      que crear la chica de Albert, y hay que decidirlo ANTES: el QR no
-      se puede hacer privado —cualquiera lo decodifica— asi que lo unico
-      que se elige es que numero se hace publico. Recomendado: un
-      e-Wallet ID abierto para esto. El detalle entero, en `TODO.md`.
-- [ ] **La camara para calcular calorias de una foto.** Se puede hacer,
-      pero necesita una API de vision y se paga por uso. Es la misma
-      decision que ya cerraste con la cuota de imagenes de Gemini, en
-      otra puerta. Es cuestion de dinero, no tecnica.
-- [ ] **Notificaciones push de verdad.** Las que suenan con la app
-      cerrada necesitan un SERVIDOR con claves VAPID. Eso rompe el
-      principio de que los datos no salen del dispositivo, y en iOS solo
-      funcionan si la app esta instalada en la pantalla de inicio. La
-      alternativa sin servidor (Notification Triggers) no esta
-      disponible en ningun navegador en produccion.
-      Mientras tanto, el calendario (.ics) hace el trabajo: funciona en
-      todos los moviles, sin permisos ni coste, y las alarmas las pone
-      el sistema. Esta en el TODO como lo siguiente.
+- [ ] **Confirmar con la duena del QR ANTES del push.** El 2026-09-19
+      Albert dijo que el QR de PromptPay es de su pareja y que ella quiere
+      ponerlo para los donativos; esta montado como el PRIMER bloque de
+      Karma, pero sin commitear. Es un QR de Thai QR Payment (Bangkok Bank)
+      que **usa su numero de identidad nacional** como identificador. La
+      imagen que se enseña esta recortada (sin nombre ni numero visibles),
+      pero el codigo sigue llevandolo dentro y cualquiera puede leerlo con
+      un lector de QR. Como el repositorio es publico y **un commit no se
+      retira**, hay que estar seguros de que ella lo sabe. La alternativa
+      es un e-Wallet ID abierto solo para donativos (o un QR de TAG THAI
+      Easy Pay para turistas): mismo bloque, otro archivo. Detalle en
+      `TODO.md`.
 
 
 ## Dudas tecnicas sin resolver
 - [ ] (ninguna)
 
 ## Cerradas
+- 2026-09-19 **Camara para calcular calorias de una foto**: NO en esta app
+  (por ahora). Necesita una API de vision y se paga por uso. Decision de
+  Albert.
+- 2026-09-19 **Notificaciones push de verdad**: NO hacen falta (por ahora).
+  Sigue valiendo el calendario (.ics). Decision de Albert.
+- 2026-09-19 **Hostinger, usuarios y login**: NO. La app sigue estatica y
+  local-first, sin cuentas: cualquiera que tenga el enlace la descarga y
+  usa. Eso deja cerrado tambien lo de las push y la sincronizacion entre
+  dispositivos. Decision de Albert.
+- 2026-09-19 **Umbral de `contento`**: `FORMA_CONTENTO` a 95 (Albert dijo
+  que 90 o 95 le valian).
 - 2026-09-12 **De que color arranca la app**: GRIS de fabrica, porque
   Ninja es gris, y el usuario elige al final de la historia — el color
   del gato Y el del huevo. Es la opcion (c) de las tres que habia, y la

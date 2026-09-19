@@ -47,6 +47,7 @@ Descartado, y por que:
   certificado por Garmin, no basta con una clave.
 
 ## Lo siguiente
+(Al 2026-09-19 se lanza a amigos y familia con el enlace.)
 
 1. **Que se entienda sola.** Es la linea de trabajo abierta y la mas
    importante: la app funciona, y ahora toca que no haya que explicarla.
@@ -59,19 +60,17 @@ Descartado, y por que:
 3. **Calibrar con uso real.** El ritmo de las barras de cuidados solo se
    sabe usando la app unos dias. Ya se ajusto una vez asi.
 
-## Punto de decision abierto
+## Punto de decision (CERRADO el 2026-09-19)
 
-**Donde vive la app y si tiene usuarios.** Hoy es estatica y local-first:
-los datos no salen del dispositivo, y eso es lo que hace que no haga
-falta backend, ni cuentas, ni politica de privacidad, ni servidor que
-mantener. Albert se esta planteando Hostinger con sistema de usuarios y
-login (2026-09-12).
+**Donde vive la app y si tiene usuarios: estatica, sin usuarios.** Albert
+se habia planteado Hostinger con login (2026-09-12) y lo descarto: la app
+sigue siendo estatica y local-first, los datos no salen del dispositivo, y
+cualquiera que tenga el enlace puede descargarla y usarla. Sin cuentas no
+hay backend, ni politica de privacidad, ni servidor que mantener.
 
-Es LA decision del proyecto, no una mas, porque casi todo lo demas
-cuelga de ella: las notificaciones push necesitan servidor, sincronizar
-entre movil y ordenador necesita cuentas, y las dos cosas rompen la
-promesa de que los datos no salen de tu aparato. No hay que resolverlo
-hoy, pero conviene no dar por supuesto que seguira siendo estatica.
+Consecuencias, ya asumidas: no hay notificaciones push (siguen el
+calendario `.ics`) y no hay sincronizacion entre movil y ordenador. Se
+reabre solo si Albert cambia de idea, y entonces todo eso cuelga de ahi.
 
 ## Fuera de alcance
 

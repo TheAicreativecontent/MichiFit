@@ -11,7 +11,7 @@
 
    Uso:  node pruebas/cuidados.mjs        (desde la raiz)
 */
-const { calcularCuidados, atender, CACAS_MAX, AGUA_HORAS } = await import('../src/engine/cuidados.js');
+const { calcularCuidados, atender, CACAS_MAX, AGUA_HORAS, ORDEN_HORAS } = await import('../src/engine/cuidados.js');
 const { calcularEstado } = await import('../src/engine/michi.js');
 const { pactoPorDefecto } = await import('../src/engine/pacto.js');
 
@@ -90,6 +90,24 @@ console.log('\n### las cacas salen de una en una y se van todas de golpe');
     `con la barra a cero salen las ${CACAS_MAX} (${visto[visto.length - 1]})`);
   comprobar(visto.every((v, i) => i === 0 || v >= visto[i - 1]),
     `no desaparecen solas: ${visto.join(' ')}`);
+
+  /* Limpiar te deja un rato de calma (2026-09-19). Con `Math.ceil` la
+     primera caca salia a los cinco minutos, y como la caca manda sobre la
+     cara del michi, este quedaba asqueado casi siempre: el de pie y el
+     sentado solo se veian esos primeros minutos. La primera sale al
+     gastarse un tramo entero de la barra (1/CACAS_MAX de ORDEN_HORAS);
+     antes de eso, ninguna. Atado a las constantes para sobrevivir a que
+     se retoque el ritmo. */
+  const tramo = ORDEN_HORAS / CACAS_MAX;
+  const casi = calcularCuidados({ cuidados: { orden: limpio }, ahora: limpio + tramo * 0.9 * HORA });
+  const justo = calcularCuidados({ cuidados: { orden: limpio }, ahora: limpio + tramo * 1.05 * HORA });
+  const cincoMin = calcularCuidados({ cuidados: { orden: limpio }, ahora: limpio + HORA / 12 });
+  comprobar(cincoMin.cacas === 0 && !cincoMin.sucio,
+    `a los 5 minutos de limpiar no hay caca (${cincoMin.cacas})`);
+  comprobar(casi.cacas === 0 && !casi.sucio,
+    `justo antes del primer tramo (${(tramo * 0.9).toFixed(1)} h) sigue limpio (${casi.cacas})`);
+  comprobar(justo.cacas === 1 && justo.sucio,
+    `pasado el primer tramo (${(tramo * 1.05).toFixed(1)} h) sale la primera (${justo.cacas})`);
 
   /* Recoger lo deja como nuevo, y no queda rastro de lo anterior. */
   const ahora = limpio + 48 * HORA;

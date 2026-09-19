@@ -94,10 +94,18 @@ export function calcularCuidados({ cuidados = {}, pacto = null, ahora = Date.now
   const orden = nivel(origen(cuidados.orden, pacto), ahora, ORDEN_HORAS);
 
   /* Las cacas salen por tramos: con la barra al 100 no hay ninguna, y
-     con la barra a 0 están las tres. Se redondea hacia arriba para que
-     la primera aparezca en cuanto la barra deja de estar llena — si no,
-     no habría nada que recoger hasta la mitad del día. */
-  const cacas = Math.min(CACAS_MAX, Math.ceil(((100 - orden) / 100) * CACAS_MAX));
+     con la barra a 0 están las CACAS_MAX. Cada una sale al gastarse un
+     tramo entero de la barra (con 5, cada 20 puntos: la primera a las
+     2,8 h de vigilia de haber limpiado).
+
+     Era `Math.ceil` hasta el 2026-09-19, para que la primera saliera en
+     cuanto la barra dejara de estar llena. Con la caca mandando sobre
+     la cara del michi (asqueado en cuanto hay UNA, desde el 2026-09-16)
+     eso hacía que a los CINCO minutos de limpiar saliera otra, y el
+     michi estuviera asqueado casi siempre: el de pie y el sentado solo
+     se veían esos primeros minutos. Con `floor`, limpiar te deja un
+     rato de calma, y la caca vuelve mas o menos cuando vuelve la sed. */
+  const cacas = Math.min(CACAS_MAX, Math.floor(((100 - orden) / 100) * CACAS_MAX));
 
   return {
     agua,

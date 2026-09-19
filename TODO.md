@@ -6,14 +6,20 @@
       model sheets (también la nueva, negra), y `recortar_model_sheets.py`
       los saca de ahí. Ver `CURRENT.md`.
 
-- [ ] **`michi_sediento` en negro**. Sigue sin existir para ese color:
-      cae al michi negro de pie por la cadena de respaldo —no se rompe
-      nada—, pero le falta esa cara. Desde el 2026-09-18/19 los otros
-      39 michis son dibujo de Albert, no del script, así que si se
-      retoma esto es pidiéndosela a él, no generándola.
+- [ ] **El QR de PromptPay: montado y ENCENDIDO en local, sin subir.**
+      El 2026-09-19 Albert dijo que es el de su pareja y que ella lo quiere
+      para donativos: `ACTIVO = true`, es el primer bloque de Karma y la
+      imagen (`public/karma/promptpay_qr.png`) es un recorte del original a
+      logo + codigo. **El original, entero, esta FUERA del repo**, en
+      `../_ARCHIVO/qr-promptpay-sin-publicar/QR.jpeg`.
 
-- [ ] **El QR de PromptPay** (lo genera la chica de Albert). El bloque
-      está hecho y apagado.
+      **Antes de subirlo:** es un QR de Thai QR Payment (Bangkok Bank) que
+      **usa el numero de identidad nacional** como identificador, o sea
+      la opcion 3 de abajo. El recorte quita el nombre y el numero de la
+      imagen, pero el codigo sigue llevandolo dentro. No se decodifico. Hay
+      que confirmar que ella lo sabe: un commit no se retira. Si prefiere
+      otra cosa, la opcion 1 (e-Wallet ID) o un QR de turista de TAG THAI
+      Easy Pay entran en el mismo sitio cambiando solo el archivo.
 
       **Investigado el 2026-09-16, y la respuesta corta es que NO existe
       un QR de PromptPay privado.** Cualquiera que lo vea puede
@@ -48,31 +54,17 @@
       no se retira. PromptPay admite también un e-Wallet ID, que no es tu
       teléfono.
 
-- [ ] **Más fotos de Ninja** (Albert). Las dos que hay funcionan; esto
-      es ampliar, no arreglar. Con menos casa en el encuadre: el
-      repositorio es público y se ven enteras. Se dejan en
-      `public/ninja/` y se añaden a la lista de `src/datos/ninja.js`.
-      Acuérdate de subir `const CACHE` en `public/sw.js` solo si
-      SUSTITUYES una foto por otra con el mismo nombre; una foto nueva
-      trae una URL nueva y la caché no la tapa.
-
 - [ ] **Si algún día se publica en GitHub Pages**: poner `base:
       '/<nombre-repo>/'` en `vite.config.js`. Vite compila con rutas absolutas
       desde `/`, y en `usuario.github.io/repo/` la app saldría en blanco.
       Con Vercel no hace falta: sirve desde la raíz del dominio.
 
 ## Después
-- [ ] **Rematar el acabado de `pasos`** (opcional, es de pulir). El
-      dibujo de Albert es una imagen suave: 707 colores, 2.746 píxeles
-      con el borde a medias y negro puro, cuando los otros siete usan la
-      tinta `#3A2D24` y no tienen NI UNO a medias. Con
-      `image-rendering: pixelated` el navegador coge píxeles a medio
-      pintar al encogerla, así que se ve algo más blanda y más dura de
-      color que sus vecinas. Pasarla a rejilla de 24 con la tinta del
-      proyecto lo arregla sin cambiarle la forma; se probó y funciona.
-      No se hizo porque es SU dibujo y esa decisión es suya.
-
-- [ ] **Seguir ajustando el ritmo de las barras.** Se bajaron una vez
+- [ ] **Seguir ajustando el ritmo de las barras, con uso real.** El
+      2026-09-19 se arreglo un fallo de fondo (la primera caca salia a
+      los 5 minutos de limpiar, ver `DECISIONS.md`); los numeros en si
+      no se tocaron. Toca mirar como lo viven amigos y familia. Se
+      bajaron una vez
       el 2026-09-12 (16→10 h el agua, 24→14 h el orden, y las cacas de 3
       a 5) porque Albert dijo que al entrar apenas se habían movido.
       Ahora el agua pide una o dos veces al día. Los números están en un
@@ -80,11 +72,17 @@
       `engine/cuidados.js`, y los cuatro de la felicidad en
       `engine/felicidad.js`. Si cansa, se suben; si aburre, se bajan.
 
-- [ ] Add-ons cosméticos al llegar a nivel 5 (batidos, mancuernas, gafas).
-      Se pierden al bajar de nivel y se recuperan al volver a subir.
-      Necesita código además del dibujo.
 
 ## Descartado
+- ~~Camara para calcular calorias~~ — no en esta app, por ahora (Albert,
+  2026-09-19). Necesita una API de vision y se paga por uso.
+- ~~Notificaciones push~~ — no hacen falta, por ahora (Albert,
+  2026-09-19). Sigue valiendo el calendario `.ics`.
+- ~~Cuentas, login y servidor (Hostinger)~~ — no (Albert, 2026-09-19): la
+  app sigue estatica y cualquiera con el enlace la usa.
+- ~~Mas fotos de Ninja~~ — no se suben mas, por ahora (Albert, 2026-09-19).
+- ~~Pulir el icono `pasos`~~ — se queda tal cual esta (Albert, 2026-09-19).
+- ~~Add-ons cosmeticos del nivel 5~~ — no, por ahora (Albert, 2026-09-19).
 - ~~Importador del export de Garmin Connect~~ — la API de Garmin exige ser
   desarrollador certificado, no basta con una clave (Albert, 2026-09-08).
 - ~~`localStorage` → IndexedDB~~ — **no hace falta**. IndexedDB sirve para
@@ -92,17 +90,6 @@
   usuario, que caben de sobra en el límite de 5 MB. Cambiarlo añadiría código
   asíncrono a cambio de nada. Si algún día se guardan fotos, se reabre: solo
   toca `datos/almacen.js`.
-
-## Guardadas, decididas por ahora que no (siguen en `ASK.md`)
-- [ ] **La cámara para calcular calorías de una foto.** Necesita una API
-      de visión y se paga por uso. «Quizás no lo hacemos» (Albert,
-      2026-09-12), pero que siga apareciendo.
-- [ ] **Notificaciones push de verdad.** Necesitan un servidor con claves
-      VAPID, y eso rompe que los datos no salgan del dispositivo. Mismo
-      estado que la anterior — y ojo, que depende del punto de decisión
-      abierto en `ROADMAP.md`: Albert se está planteando Hostinger con
-      sistema de usuarios y login, y con servidor esto deja de estar
-      bloqueado.
 
 ## Ideas / quizás algún día
 - [ ] En la ventana de cada día del pacto, poder apuntar **qué entreno toca**
@@ -118,6 +105,17 @@
 
 
 ## Hecho
+- [x] 2026-09-19 — **Los puntos 2 a 5 de `SIMPLICIDAD.md`**: puntitos para
+      el cuidado y barra para lo que puntua; la ventana de 3 dias dicha en
+      el editor; la regla de la comida con numeros; y el escudo explicado.
+      Y `michi_sediento-negro.png` ya esta (Albert). La cara `cansado` se
+      retira: Albert borro esos dibujos.
+- [x] 2026-09-19 — **Tanda para el lanzamiento a amigos y familia.** Viñeta
+      nueva del comic («Anna lo cura en casa», la 13 de 15); arreglado el
+      ritmo de las cacas (salian a los 5 minutos de limpiar y el michi
+      estaba asqueado casi siempre); `FORMA_CONTENTO` a 95; gimnasio nuevo
+      en uso y `calle.png` borrada; michi comiendo mas abajo; y «Hasta la
+      meta» con objetivo de ganar peso. Ver `SESSION_MAP.md`.
 - [x] 2026-09-19 — **Los cuatro puntos de simplificar que dio Albert.**
       La gráfica ya dice cuántas semanas faltan para la meta (antes no
       se veía en ningún sitio como número); Logros se funde en Progreso

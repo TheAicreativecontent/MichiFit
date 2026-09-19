@@ -37,6 +37,11 @@
    excepcion, y queda escrita para que no parezca que se subio por
    costumbre. Ver `VERSION.md`. */
 
+/* v16 (2026-09-19): `gimnasio.png` pasa a ser el gimnasio nuevo de
+   Albert (mismo nombre, dibujo distinto) y `michi_cansado-negro.png` se
+   volvio a exportar sin el flequillo. La viñeta nueva del comic
+   (`12b-cuidados.jpg`) es un archivo nuevo y no pedia esto. */
+
 /* v10 (2026-09-16, noche): `cocina.png` otra vez, desplazada 230 px a la
    izquierda para que el michi pise el suelo y no la isla. */
 
@@ -64,7 +69,7 @@
    esto quien ya tuviera la app seguiria viendo los de antes.
 
    v4 fue por lo mismo: `limpiar` paso de cubo a escoba. */
-const CACHE = 'michifit-v15';
+const CACHE = 'michifit-v16';
 
 /* Lo mínimo para arrancar sin red. El resto se va guardando solo según
    se usa: la app es pequeña y se cachea entera en la primera visita. */

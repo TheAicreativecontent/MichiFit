@@ -59,6 +59,32 @@ export function dentroDeVentana(fechaISO, hoy = hoyISO()) {
   return dif >= 0 && dif <= VENTANA_RETRO;
 }
 
+/* Cuantos dias MAS se puede completar `fechaISO` (3 el propio dia, 0 el
+   ultimo), o `null` si ya esta cerrado. Es lo que el editor le dice al
+   usuario ANTES de que sea tarde (SIMPLICIDAD.md, punto 4). */
+export function diasParaCerrar(fechaISO, hoy = hoyISO()) {
+  if (!dentroDeVentana(fechaISO, hoy)) return null;
+  const dif = Math.round((new Date(hoy + 'T12:00:00') - new Date(fechaISO + 'T12:00:00')) / 86400000);
+  return VENTANA_RETRO - dif;
+}
+
+/* La regla de la comida dicha con numeros: entre que kcal se cumple el
+   dia. Sale de la MISMA regla que `evaluarDia` (sentido y margen), y se
+   redondea a decenas HACIA DENTRO —el minimo hacia arriba, el maximo
+   hacia abajo—: lo que se promete nunca es mas ancho que lo que de
+   verdad cuenta. `null` sin objetivo de comida (SIMPLICIDAD.md, punto 5). */
+export function rangoComida(pacto) {
+  const meta = pacto?.comidaKcal;
+  if (!meta) return null;
+  const sentido = pacto.comidaSentido ?? 'menos';
+  const dec = (x) => +(x / 10).toFixed(6);
+  return {
+    sentido,
+    min: Math.ceil(dec(meta * (1 - MARGEN_COMIDA))) * 10,
+    max: Math.floor(dec(meta * (1 + MARGEN_COMIDA))) * 10,
+  };
+}
+
 /* ---------- evaluación de un día ----------
    Devuelve los objetivos que tocaban, cuáles se cumplieron, y una
    proporción 0..1. El día "cumple" solo si están todos.

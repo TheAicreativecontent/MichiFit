@@ -53,7 +53,7 @@ with one warm lamp glow`.
 Ninja **es muy pequeño y flaco al principio** y va llenándose a partir de
 la viñeta 6. En la 10 ya es un gato sano.
 
-## Lo que hay en la app: 14 viñetas
+## Lo que hay en la app: 15 viñetas
 
 Albert leyó el cómic montado y lo reordenó el 2026-09-16: la enfermera
 se llama **Anna**, entran el veterinario y Ninja ya recuperado, y el
@@ -73,22 +73,31 @@ saludo a distancia **no hace falta** — «funciona tal cual».
 | 10 | La carrera al veterinario | `Act_08a_v03` | `10-carrera.jpg` |
 | 11 | El veterinario | `Act_09_v02` | `11-veterinario.jpg` |
 | 12 | La recuperación | `Act_09c_v02` | `12-recuperacion.jpg` |
-| 13 | Ninja feliz | `Act_10_v01` | `13-recuperado.jpg` |
-| 14 | En casa | `Act_11` | `14-casa.jpg` |
+| 13 | Anna lo cura en casa | `Act_09d` | `12b-cuidados.jpg` |
+| 14 | Ninja feliz | `Act_10_v01` | `13-recuperado.jpg` |
+| 15 | En casa | `Act_11` | `14-casa.jpg` |
 
 Después vienen dos pantallas que no son viñetas: **«Esta es la historia
 de Ninja»**, con el collage de fotos de verdad que hizo Albert y, solo al adoptarlo, la de elegir el
 color.
 
-**La 11 y la 13 tuvieron texto al final.** Primero salieron mudas por
+**La 13 (nueva, 2026-09-19) cuenta la etapa que faltaba**, y la propuso la
+pareja de Albert: el veterinario pedía 5.000 THB para acabar de curar a
+Ninja, Anna no tenía tanto dinero y se lo llevó a casa. Va entre «La
+recuperación» y «Ninja feliz» (Albert lo confirmó). El archivo se llama
+`12b-cuidados.jpg` y no `13-...` para no renombrar los que ya estaban:
+cambiar el nombre de una imagen obliga a subir la caché. El orden real lo
+da el array `VINETAS` de `Lore.jsx`, no el número del archivo.
+
+**La 11 y «Ninja feliz» (antes la 13) tuvieron texto al final.** Primero salieron mudas por
 ser de acción, y Albert vio al leerlas que sí lo necesitaban: la 11 es
-una viñeta partida y sin texto no se sabía cuánto tiempo pasaba; la 13
+una viñeta partida y sin texto no se sabía cuánto tiempo pasaba; «Ninja feliz»
 es el cierre feliz y pedía que se dijera. Si alguna vez se quiere una
 viñeta muda, basta con dejar título y texto vacíos en el diccionario:
 la pantalla no pinta la banda.
 
-**La 13 cierra un arco que abre la 2.** En la 2, «Ninja nunca se
-acercaba a ningún humano»; en la 13, «aquel gato que nunca se acercaba
+**«Ninja feliz» (la 14) cierra un arco que abre la 2.** En la 2, «Ninja nunca se
+acercaba a ningún humano»; en la 14, «aquel gato que nunca se acercaba
 a ningún humano ahora se deja mimar». La frase repetida es a propósito:
 el cambio de Ninja se cuenta con las mismas palabras dichas al revés.
 

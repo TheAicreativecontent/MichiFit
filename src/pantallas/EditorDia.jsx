@@ -6,7 +6,8 @@
 
 import { useState } from 'react';
 import T from '../i18n/Texto.jsx';
-import { claveDia, dentroDeVentana } from '../engine/pacto.js';
+import { claveDia, dentroDeVentana, diasParaCerrar } from '../engine/pacto.js';
+import ReglaComida from './ReglaComida.jsx';
 import { ListaEjercicios, ejerciciosDe } from './Ejercicios.jsx';
 import Hoja from './Hoja.jsx';
 import { useT } from '../i18n/index.jsx';
@@ -58,6 +59,18 @@ export default function EditorDia({ fecha, entrada, pacto, onGuardar, onCerrar, 
             {t('dia.cerrado')}
           </div>
         )}
+        {/* La ventana de 3 dias, dicha AQUI, mientras se puede aprovechar
+            (SIMPLICIDAD.md, punto 4). Antes solo se enteraba quien llegaba
+            tarde y veia «este dia ya esta cerrado». */}
+        {abierto && (() => {
+          const n = diasParaCerrar(fecha);
+          if (n == null) return null;
+          return (
+            <p className="mf-nota mf-ventana">
+              {n === 0 ? t('dia.ventana0') : n === 1 ? t('dia.ventana1') : t('dia.ventanaN', { n })}
+            </p>
+          );
+        })()}
         {/* Orden de importancia que dio Albert el 2026-09-19: entreno,
             pasos, comida (con sus macros debajo), peso, y sueño el
             último —"también importa, pero menos"—. Antes empezaba por
@@ -66,6 +79,7 @@ export default function EditorDia({ fecha, entrada, pacto, onGuardar, onCerrar, 
         {ver('entreno') && <Campo et={t('dia.entreno')} u={t('comun.min')} paso="5" v={v.entrenoMin} on={(x) => setV({ ...v, entrenoMin: x })} />}
         {ver('pasos') && <Campo et={t('dia.pasos')} paso="100" v={v.pasos} on={(x) => setV({ ...v, pasos: x })} />}
         {ver('comida') && <Campo et={t('dia.comida')} u={t('comun.kcal')} paso="50" v={v.comidaKcal} on={(x) => setV({ ...v, comidaKcal: x })} />}
+        {ver('comida') && <ReglaComida pacto={pacto} />}
         {ver('peso') && <Campo et={t('dia.peso')} u={t('comun.kg')} paso="0.1" v={v.peso} on={(x) => setV({ ...v, peso: x })} />}
         {ver('sueno') && <Campo et={t('dia.sueno')} u={t('comun.horas')} paso="0.5" v={v.suenoHoras} on={(x) => setV({ ...v, suenoHoras: x })} />}
 

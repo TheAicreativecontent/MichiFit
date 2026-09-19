@@ -265,6 +265,8 @@ export default function App() {
   if (cuentaLaHistoria) {
     return (
       <Lore onCerrar={cerrarLore} onAdoptar={!listo ? cerrarLore : null}
+            /* Al cerrar la historia leida hasta el final, a Karma. */
+            onKarma={() => { cerrarLore(); setPestana('karma'); }}
             aparato={datos.perfil?.aparato}
             /* El color se elige ANTES de que exista el perfil: la
                bienvenida viene después de la historia. No se pierde
@@ -354,7 +356,7 @@ export default function App() {
                     onRegistrar={registrar} estado={estado} />
         )}
         {pestana === 'simular' && <Simulador perfil={datos.perfil} pacto={datos.pacto} />}
-        {pestana === 'karma' && <Karma />}
+        {pestana === 'karma' && <Karma onSalir={() => setPestana('inicio')} />}
         {pestana === 'ajustes' && (
           <Ajustes perfil={datos.perfil} entradas={datos.entradas} pacto={datos.pacto}
                    onCambiar={(p) => setDatos((d) => ({

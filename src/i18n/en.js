@@ -74,6 +74,7 @@ export default {
 
   karma: {
     titulo: '💌 Buy me a coffee',
+    salir: 'Exit',
     gratis: 'MichiFit is free and always will be',
     intro: 'If the app helps you look after yourself, you can buy me a coffee. It is not required and it unlocks nothing: it is just a way of saying thank you 💕',
     cafeTitulo: '☕ Buy Me a Coffee',
@@ -95,6 +96,12 @@ export default {
 
   dia: {
     cerrado: 'This day is already closed for the goal (more than 3 days ago), but you can still correct the weight.',
+    ventana0: 'Today is the last day to complete it. After that it no longer counts towards your goal (weight can still be corrected).',
+    ventana1: 'You can complete it until tomorrow. After that it no longer counts towards your goal (weight can still be corrected).',
+    ventanaN: 'You can complete it for {n} more days. After that it no longer counts towards your goal (weight can still be corrected).',
+    rangoMenos: 'You hit the day if you stay under {max} kcal.',
+    rangoMas: 'You hit the day if you reach at least {min} kcal.',
+    rangoBanda: 'You hit the day if you stay between {min} and {max} kcal.',
     peso: 'Weight',
     pasos: 'Steps',
     entreno: 'Training',
@@ -296,6 +303,8 @@ export default {
         d: 'Ninja spent several days in hospital, and Anna visited him every day after work.' },
       { t: 'Getting better',
         d: 'They saved his life. When he opened his eyes, Anna was still there, asleep in the chair.' },
+      { t: 'Healing at home',
+        d: 'The vet asked for 5,000 THB to finish treating him, and Anna did not have that much money. So she took Ninja home and nursed him back to health herself, with lots of love.' },
       { t: 'Happy Ninja',
         d: 'At last he made a full recovery. And the cat who never went near any human now lets himself be cuddled, sleeps belly-up and chases everything that moves.' },
       { t: 'Home',
@@ -444,9 +453,10 @@ export default {
   nivelesCorto: { 1: 'BABY', 2: 'YOUNG', 3: 'FIT', 4: 'ATHLETE', 5: 'LEGEND' },
 
   inicio: {
-    ayuda1: 'Your michi reflects your <b>consistency</b>, never your body. The three buttons are the controls: left opens the menu and moves to the next icon, middle accepts, right closes. Tap the glass and it tells you how you’re doing.',
-    ayuda2: 'The bars inside the screen (HAPPY, WATER and CLEAN) are your michi’s <b>care</b> and they <b>don’t score</b>: no experience, and they don’t count towards your goal. They’re there so it’s worth opening the app on a Tuesday with nothing to log.',
-    ayuda3: 'What does count is <b>below</b>: streak, steps, sleep, food and level. That comes from what you log, and it’s what really moves your michi.',
+    ayuda1: 'Your michi reflects your <b>consistency</b>, never your body. The three buttons are the controls: left opens the menu and moves to the next icon, middle accepts, right closes.',
+    ayuda2: 'The <b>dots</b> inside the screen (HAPPY, WATER and CLEAN) are your michi’s <b>care</b> and they <b>don’t score</b>: no experience, and they don’t count towards your goal. They’re there so it’s worth opening the app on a Tuesday with nothing to log. The level bar at the top does count: it grows with what you log.',
+    ayuda3: 'What does count is <b>below</b>: streak, workout, steps, food, sleep and level. That comes from what you log, and it’s what really moves your michi.',
+    ayuda4: 'The <b>hearts</b> are your streak. Every 7 days in a row you earn a <b>shield</b>, and a shield covers just one day you miss: the heart then shows up cracked and grey, but your streak stays alive. It is never bought.',
     hoy: 'Today',
     sueno: 'Sleep',
     diaDescanso: 'Rest day',
@@ -486,6 +496,7 @@ export default {
     nivel: 'LEVEL',
     max: 'MAX',
     salvado: 'Day saved by a shield',
+    notaEscudo: 'Each shield covers a day you miss. You earn one every 7 days in a row.',
   },
 
   logros: {

@@ -153,15 +153,17 @@ siluetas «hablaban de hábitos, no del IMC». Pero esa distinción vive en
 el código, no en la pantalla: lo que se ve es TU gato gordo.
 
 **Ahora el michi no refleja tu cuerpo, refleja tu constancia.** Está
-contento si cumples lo que tú prometiste, cansado si llevas días sin
-aparecer, triste si lo has dejado. Nunca gordo ni escuálido.
+contento si cumples lo que tú prometiste y triste si lo has dejado.
+Nunca gordo ni escuálido. (Hasta el 2026-09-19 había un «cansado» para
+quien llevaba días sin aparecer; Albert borró esos dibujos y esa cara se
+retiró: ahora ese michi sale de pie, que es lo que menos riñe.)
 
 Lo que se dibuja sale de dos cosas, y en este orden:
 
 | Manda | Qué se ve |
 |-------|-----------|
 | 1. lo que **hace** | comiendo, entrenando, durmiendo, andando |
-| 2. si no hace nada, cómo **se siente** | asqueado, sediento, contento (`forma` ≥ 90), cansado, triste, o de pie |
+| 2. si no hace nada, cómo **se siente** | asqueado, sediento, contento (`forma` ≥ 95), triste, o de pie |
 
 Lo que hace gana siempre: si está comiendo, sale comiendo aunque ande
 triste. Así bastan ocho dibujos en vez de cinco escenas por tres
@@ -287,6 +289,12 @@ van POR DELANTE de contento. El orden es caca → asqueado; si la recoge,
 brinco; si falta agua (por debajo del 75%) → sediento; y con todo
 atendido, el michi de pie. Ver `DECISIONS.md` (2026-09-18) y el comentario
 de `estadoVisual` en `engine/michi.js`.
+
+**El ritmo (2026-09-19):** cada caca sale al gastarse un tramo entero de
+la barra `CLEAN` (1/5 de `ORDEN_HORAS`), no antes: limpiar deja unas
+2,5 horas de michi tranquilo, casi lo mismo que tarda en volver la sed.
+Con el redondeo anterior la primera salia a los 5 minutos y el michi
+estaba asqueado casi siempre. Ver `DECISIONS.md` (2026-09-19).
 
 ## 9 · Add-ons (después del máximo)
 

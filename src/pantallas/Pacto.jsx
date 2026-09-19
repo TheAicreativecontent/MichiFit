@@ -27,6 +27,7 @@ import { DIAS, OBJETIVOS, OBJETIVO_POR_DEFECTO, esObjetivo } from '../engine/con
 import { macros } from '../engine/calculos.js';
 import { EditorEjercicios } from './Ejercicios.jsx';
 import { Titulo } from './Ayuda.jsx';
+import ReglaComida from './ReglaComida.jsx';
 
 export default function Pacto({ pacto, perfil, estado, onCambiar, onCambiarPerfil }) {
   const t = useT();
@@ -111,6 +112,7 @@ export default function Pacto({ pacto, perfil, estado, onCambiar, onCambiarPerfi
                       solo cuando cambian tus datos o el pacto. */
                    comidaManual: true })} />
         </label>
+        <ReglaComida pacto={pacto} />
         {pacto.comidaManual && (
           <p className="mf-nota">
             {t('pacto.manual')}{' '}

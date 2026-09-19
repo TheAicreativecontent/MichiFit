@@ -162,6 +162,13 @@ export default function Marcador({ estado, entradaHoy = {}, pacto }) {
         <b className="mf-mk-num">{estado.racha}</b>
       </div>
 
+      {/* Que es el escudo y como se gana (SIMPLICIDAD.md, punto 2). El
+          aviso de «el michi te cubrio un dia» ya lo da Inicio justo debajo
+          (`inicio.cubierto`), y el corazon partido y gris lo cuenta la
+          ayuda «?». Lo que faltaba era decir QUE es cada escudo mientras
+          lo tienes. */}
+      {estado.comodines > 0 && <p className="mf-mk-nota">{t('marcador.notaEscudo')}</p>}
+
       <Fila etiqueta={t('marcador.entreno')}
             num={esDescanso ? t('marcador.descanso') : `${Math.round(pctEntreno * 100)}%`}>
         <Barra valor={pctEntreno} color="#8B6FD6" />

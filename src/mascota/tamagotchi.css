@@ -172,8 +172,15 @@
    cada fotograma. `translate` es su propia propiedad en CSS moderno y
    se compone con el `transform` de la animación en vez de pelearse
    con él. En porcentaje, no en píxeles, para que el ajuste sea el
-   mismo de tamaño relativo tanto ampliado como sin ampliar. */
-.mf-tamapng-michi.pose-comiendo   { translate: -4% 3%; }
+   mismo de tamaño relativo tanto ampliado como sin ampliar.
+
+   Comiendo baja del 3% al 8% el 2026-09-19 (Albert: «bastante arriba
+   comparado con el michi sentado en casa»). En el propio PNG los pies
+   de comiendo estan a y=302 y los del sentado a y=342 de 355, en los
+   cuatro colores por igual: el 11% de diferencia. Se cierra casi la
+   mitad y no del todo, porque «unos pocos pixeles» no es «igualarlo»
+   y la cocina tiene su propio suelo. */
+.mf-tamapng-michi.pose-comiendo   { translate: -4% 8%; }
 .mf-tamapng-michi.pose-durmiendo  { translate: 5% 0; }
 .mf-tamapng-barra {
   position: absolute; top: -13%; right: 4%; width: 44%; height: 6%;
@@ -327,24 +334,23 @@
 .mf-tamapng-nivel .barra i {
   display: block; height: 100%; background: #F2650F; transition: width .4s ease;
 }
-/* La felicidad va en rosa: es la única barra que sube por cariño y no
-   por esfuerzo, y conviene que se distinga de un vistazo. */
-.mf-tamapng-nivel.feliz .barra i { background: #F0568C; }
-.mf-tamapng-nivel.feliz.denoche .barra i { background: #7C86C8; }
+/* CUIDADO = PUNTITOS, NIVEL = BARRA (2026-09-19, SIMPLICIDAD.md punto 3).
 
-/* Agua y orden: las dos que se rellenan con un botón.
-
-   Hasta el 2026-09-16 iban más finas (5 px contra 7) y con la letra más
-   pequeña, con la idea de que son el anzuelo y no la mecánica y no
-   debían pesar igual. Albert lo vio en pantalla y pidió las cuatro
-   IGUALES: cuatro barras en fila con dos tamaños distintos no se lee
-   como una jerarquía, se lee como un descuadre.
-
-   Lo que las distingue sigue siendo el COLOR —naranja y rosa puntúan,
-   azul y verde no— y eso no basta: es el hallazgo 2 de
-   `SIMPLICIDAD.md`, y sigue pendiente. */
-.mf-tamapng-nivel.agua .barra i  { background: #3E8BD8; }
-.mf-tamapng-nivel.orden .barra i { background: #7BAE5C; }
+   HAPPY, WATER y CLEAN no puntuan: ni experiencia, ni nivel, ni el
+   objetivo. La barra de nivel si. Hasta hoy las cuatro eran la misma
+   barra con distinto color, y esa era «la trampa mas cara de la app»: no
+   produce confusion sino una creencia equivocada y estable (que dar agua
+   sirve para algo). Ahora lo que puntua es una barra continua y lo que
+   no, cinco puntitos redondeados. El color sigue: rosa, azul y verde. */
+.mf-tamapng-nivel .puntos { display: flex; gap: 2px; height: 7px; }
+.mf-tamapng-nivel .puntos i {
+  flex: 1; border: 1px solid rgba(58,45,36,.55); border-radius: 3px;
+  background: rgba(255,255,255,.75); transition: background .3s ease;
+}
+.mf-tamapng-nivel.feliz .puntos i.on { background: #F0568C; }
+.mf-tamapng-nivel.feliz.denoche .puntos i.on { background: #7C86C8; }
+.mf-tamapng-nivel.agua .puntos i.on  { background: #3E8BD8; }
+.mf-tamapng-nivel.orden .puntos i.on { background: #7BAE5C; }
 
 /* El anillo de iconos: lo que sale al pulsar el botón izquierdo o el
    central. Va en mitad de la pantalla, sobre el michi, con un fondo

@@ -41,18 +41,16 @@ const PERFILES = {
      contar, el michi sale de pie. Era el hueco estrecho de la banda
      30-70, hasta que «entreno cumple por apuntar» subio a casi todos por
      encima de 70 y el de pie dejo de salir (2026-09-18). Ahora `contento`
-     pide forma 90 (`FORMA_CONTENTO`) y este perfil vuelve a caer en el
+     pide forma 95 (`FORMA_CONTENTO`) y este perfil vuelve a caer en el
      de pie. */
   'medio gas, hoy nada':  lleno(1, 20, { pasos: 4500, entrenoMin: 20, comidaKcal: 2000, sueno: { horas: 7 } }),
   'apunta poco y flojo':  lleno(0, 20, { pasos: 1200, comidaKcal: 2600 }),
   'nunca ha apuntado':    {},
 };
 
-/* Los dos ultimos aun no estan dibujados: los hara Albert. Mientras
-   falten, el aparato cae al michi de pie y no se rompe nada — pero la
-   prueba ya vigila que sean ALCANZABLES, para que el dia que existan no
-   haya que descubrir que nadie los ve. */
-const TODOS = ['michi', 'michi_contento', 'michi_cansado', 'michi_triste',
+/* Sin `michi_cansado`: Albert lo borro el 2026-09-19 y la cara se retiro
+   del motor. Si algun dia vuelve, se anade aqui y en `estadoVisual`. */
+const TODOS = ['michi', 'michi_contento', 'michi_triste',
                'michi_andando', 'michi_comiendo', 'michi_entrenando',
                'michi_durmiendo', 'michi_celebrando',
                'michi_sediento', 'michi_asqueado'];

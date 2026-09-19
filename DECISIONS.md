@@ -464,3 +464,79 @@ Tres consecuencias, dichas para que nadie las descubra por sorpresa:
 - **La cara de contento solo se ve con el cuenco lleno y la casa
   limpia**, porque sed y caca van por delante. No es un reproche: no
   toca XP, HAPPY ni cumplimiento (`pruebas/cuidados.mjs`).
+
+## 2026-09-19 — Sin usuarios, lanzamiento a amigos y familia, y el ritmo de las cacas
+**La app se queda estatica y sin cuentas.** Albert descarta Hostinger con
+login: cualquiera que tenga el enlace la descarga y usa, y los datos no
+salen del dispositivo. Eso cierra de paso las notificaciones push y la
+sincronizacion entre dispositivos (necesitaban servidor). Tampoco entran,
+por ahora, la camara de calorias, mas fotos de Ninja ni los add-ons del
+nivel 5. Se lanza primero a amigos y familia, con Buy Me a Coffee y Wallet
+of Satoshi; el QR de PromptPay queda para mas adelante.
+
+**El QR de PromptPay se enciende, el primero en Karma.** Aparecio ese dia
+en `public/karma/` y se retiro un rato por precaucion (usa el numero de
+identidad nacional de una persona, y el repositorio es publico, donde un
+commit no se retira). Albert aclaro despues que es el de su pareja y que
+ella quiere ponerlo para donativos. Se monto: `ACTIVO = true`, bloque
+primero de Karma, imagen recortada a logo + codigo (`promptpay_qr.png`) y
+el original entero guardado fuera del repo
+(`../_ARCHIVO/qr-promptpay-sin-publicar/`). **Queda pendiente confirmar
+con ella, antes del push, que sabe que el codigo lleva dentro su numero
+de identidad.**
+
+**Al terminar el comic, «Cerrar» y «Saltar» llevan a Karma** (Albert). Solo
+cuando se revisa la historia ya empezada y se ha llegado a la ultima
+pantalla: en el primer arranque el final lleva a la bienvenida, y desviar
+ahi a quien aun no ha puesto su peso seria cortarle el alta. Saltar a
+medias tampoco cuenta. Y como asi se llega a Karma sin conocer el menu de
+abajo, la pantalla lleva un boton **«Salir»** (arriba y abajo, cinco
+idiomas) que vuelve a Inicio.
+
+**`FORMA_CONTENTO` a 95** (era 90). Albert dijo que cualquiera de los dos le
+valia; se eligio el mas alto para que el michi de pie, que es lo normal,
+gane aun mas terreno.
+
+**Las cacas salen por `Math.floor`, no por `Math.ceil`.** Es un arreglo, no
+un cambio de gusto. Con la caca mandando sobre la cara del michi (2026-09-16
+y 2026-09-18), el redondeo hacia arriba hacia salir la primera caca a los
+5 minutos de limpiar, y el michi estaba asqueado casi siempre; el de pie y
+el sentado solo se veian esos primeros minutos. Medido con el motor real,
+antes y despues. Ahora la primera sale al gastarse 1/5 de `ORDEN_HORAS`
+(2,8 h despierto) y la sed llega a las 2,5 h: limpiar y dar agua deja unas
+2,5 horas de michi tranquilo. Los numeros que Albert tenia (`AGUA_HORAS`
+10, `ORDEN_HORAS` 14, `SED_DESDE` 75) no se tocaron. Sigue abierto
+ajustarlos con uso real.
+
+**Gimnasio nuevo, `calle.png` fuera, michi comiendo mas abajo.** El
+gimnasio de Albert sustituye al de siempre (que va a
+`_CUARENTENA/fondos-antiguos/`); `calle.png` se borra; y comiendo baja del
+3% al 8% con `translate`, porque en el PNG sus pies estan 40 px por encima
+de los del sentado.
+
+## 2026-09-19 (tarde) — Simplificar: cuidado es puntitos, y la regla se dice
+Albert dijo que las cuatro propuestas que quedaban de `SIMPLICIDAD.md`
+(2 a 5) le parecian buenas, y se hicieron:
+
+- **HAPPY, WATER y CLEAN son cinco puntitos; el nivel sigue siendo una
+  barra.** Lo que puntua y lo que no dejan de compartir lenguaje. Ese era
+  el hallazgo 2, «la trampa mas cara de la app».
+- **El editor dice cuantos dias quedan** para completar un dia, mientras se
+  puede aprovechar, y no solo cuando ya esta cerrado.
+- **La comida dice su regla real.** Ojo, el numero que sale no es el
+  objetivo sino el borde del margen del 10%: con objetivo 1507 y «perder»
+  dice «no pasas de 1650». Es lo que de verdad cuenta (`evaluarDia`), y
+  se redondea hacia dentro para no prometer de mas.
+- **El escudo se explica**: linea bajo la racha mientras tienes escudos, y
+  un cuarto parrafo en el «?» de Inicio. El aviso «el michi te cubrio un
+  dia» ya existia.
+- De paso, el «?» de Inicio deja `dangerouslySetInnerHTML` y usa `<T>`
+  como las demas ayudas (la regla de `CURRENT.md` decia que no quedaba
+  ninguno; en Inicio quedaban tres). Y se quitan dos frases que ya no eran
+  ciertas: «toca el cristal y te cuenta como vas» y la lista sin entreno.
+
+**La cara `cansado` se retira del motor.** Albert borro los cuatro dibujos
+(era la botella y la gota, el mismo dibujo que sediento) y dijo que no se
+usan. Quien llevaba 2 a 9 dias sin apuntar ve ahora el michi de pie, no uno
+cansado: es lo que menos riñe, y `MECANICA.md` §10 dice que el michi nunca
+riñe. `pruebas/cobertura-michi.mjs` y el panel de pruebas dejan de esperarlo.

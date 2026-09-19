@@ -465,3 +465,39 @@ oculto miente en las medidas. Antes de creerse un numero raro, mirar
   de llamarlo «de siempre»** (`git worktree add` a un commit viejo y
   lanzarlo ahí). Y una sesión sin el repositorio delante no debería
   tocar la mecánica: `PROTOCOL.md` ya lo decía.
+
+## Dos reglas razonables que juntas rompen el estado por defecto
+- Que paso: el 2026-09-16 se pidio «asqueado en cuanto haya UNA caca», y ya
+  existia un `Math.ceil` que hacia salir la primera caca en cuanto la
+  barra dejaba de estar llena. Cada regla, sola, era sensata. Juntas: a los
+  5 minutos de limpiar salia otra caca y el michi estaba asqueado casi
+  siempre, y el de pie —lo que Albert queria ver mas— era casi
+  inalcanzable en el uso real. Los tests no lo veian: comprobaban el orden
+  de las caras, no cuanto TIEMPO se ve cada una.
+- Solucion: `Math.floor`, y una prueba que fija que a los 5 minutos de
+  limpiar no hay caca.
+- Como evitarlo: cuando una regla nueva pasa a mandar sobre una cara, mirar
+  cuanto tiempo real se ve cada estado tras cuidar al michi (una tabla de
+  minutos, como la de `SESSION_MAP.md` del 2026-09-19), no solo que todos
+  sean alcanzables. `cobertura-michi` prueba lo segundo, no lo primero.
+
+## Un archivo dejado en `public/` se publica, aunque no lo pidas
+- Que paso: el 2026-09-19 aparecio un QR de PromptPay en `public/karma/`
+  mientras se trabajaba. Llevaba el nombre completo y el numero de
+  identidad nacional de una persona. Estaba a un `git add -A` de un
+  repositorio publico. (Ya habia pasado con el video del envenenamiento,
+  el 2026-09-16.) Luego resulto ser deliberado —su duena lo queria para
+  donativos—, pero eso solo se supo despues: se retiro por precaucion y se
+  volvio a montar con el ok.
+- Como evitarlo: antes de cualquier commit, `git status` y mirar todo lo
+  que salga como sin seguir (`??`). Lo que no se vaya a publicar no vive
+  en `public/`, ni siquiera un rato: va a `../_ARCHIVO/`.
+
+## Un documento de propuestas se queda viejo en silencio
+- Que paso: `SIMPLICIDAD.md` decia que «solo esta hecho el punto 1» y que
+  hacia falta avisar cuando el michi te cubre un dia. Al ir a hacerlo
+  (2026-09-19) resulto que Inicio ya llevaba ese aviso, y que la regla
+  «no queda `dangerouslySetInnerHTML`» era falsa en tres lineas de Inicio.
+- Como evitarlo: antes de construir algo que un documento da por pendiente,
+  mirar la pantalla y buscar en el codigo si ya esta. Y cuando algo de una
+  lista de propuestas se hace, marcarlo en esa lista el mismo dia.

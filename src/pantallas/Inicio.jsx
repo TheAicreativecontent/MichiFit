@@ -23,6 +23,7 @@ import { hoyISO } from '../engine/pacto.js';
 import { sonidos, despertarAudio } from '../mascota/sonido.js';
 import { ESCENAS, porId, escenaAutomatica } from '../mascota/escenas.js';
 import { ANILLO, anilloDe, siguienteIndice, ESPERA_MS } from '../mascota/anillos.js';
+import T from '../i18n/Texto.jsx';
 
 /* ---- PRUEBAS ----------------------------------------------------------
    Panel para ver todos los dibujos del michi sin tener que apuntar datos
@@ -45,7 +46,7 @@ const POSES = [
   { id: null, et: 'de pie' }, { id: 'comiendo', et: 'come' },
   { id: 'entrenando', et: 'entrena' }, { id: 'durmiendo', et: 'duerme' },
   { id: 'andando', et: 'anda' }, { id: 'contento', et: 'contento' },
-  { id: 'triste', et: 'triste' }, { id: 'cansado', et: 'cansado' },
+  { id: 'triste', et: 'triste' },
   { id: 'celebrando', et: 'celebra' },
   /* Faltaban las dos desde siempre, y son justo las que mas cuesta
      provocar con datos de verdad: `asqueado` pide la casa hecha un
@@ -323,9 +324,10 @@ export default function Inicio({ estado, entradas, pacto, onCarino, onCuidar, on
           {ampliado ? '⤡' : '⤢'}
         </button>
         <Ayuda>
-          <p dangerouslySetInnerHTML={{ __html: t('inicio.ayuda1') }} />
-          <p dangerouslySetInnerHTML={{ __html: t('inicio.ayuda2') }} />
-          <p dangerouslySetInnerHTML={{ __html: t('inicio.ayuda3') }} />
+          <T k="inicio.ayuda1" />
+          <T k="inicio.ayuda2" />
+          <T k="inicio.ayuda3" />
+          <T k="inicio.ayuda4" />
         </Ayuda>
       </div>
 

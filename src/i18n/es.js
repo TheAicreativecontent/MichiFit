@@ -70,6 +70,7 @@ export default {
 
   karma: {
     titulo: '💌 Invítame a un café',
+    salir: 'Salir',
     gratis: 'MichiFit es gratis y siempre lo será',
     intro: 'Si la app te ayuda a cuidarte, puedes invitarme a un café. No es obligatorio y no desbloquea nada: es solo una forma de decir gracias 💕',
     cafeTitulo: '☕ Buy Me a Coffee',
@@ -91,6 +92,12 @@ export default {
 
   dia: {
     cerrado: 'Este día ya está cerrado para el objetivo (pasaron más de 3 días), pero el peso sí se puede corregir.',
+    ventana0: 'Hoy es el último día para completarlo. Después ya no cuenta para tu objetivo (el peso sí se puede corregir).',
+    ventana1: 'Puedes completarlo hasta mañana. Después ya no cuenta para tu objetivo (el peso sí se puede corregir).',
+    ventanaN: 'Puedes completarlo durante {n} días más. Después ya no cuenta para tu objetivo (el peso sí se puede corregir).',
+    rangoMenos: 'Cumples el día si no pasas de {max} kcal.',
+    rangoMas: 'Cumples el día si llegas al menos a {min} kcal.',
+    rangoBanda: 'Cumples el día si te quedas entre {min} y {max} kcal.',
     peso: 'Peso',
     pasos: 'Pasos',
     entreno: 'Entreno',
@@ -302,6 +309,8 @@ export default {
         d: 'Ninja estuvo varios días ingresado, y Anna iba a verle cada día al salir del trabajo.' },
       { t: 'La recuperación',
         d: 'Le salvaron la vida. Cuando abrió los ojos, Anna seguía allí, dormida en la silla.' },
+      { t: 'Anna lo cura en casa',
+        d: 'El veterinario pedía 5.000 THB para acabar de curarlo y Anna no tenía tanto dinero. Así que se llevó a Ninja a casa y lo curó ella misma, con mucho cariño.' },
       { t: 'Ninja feliz',
         d: 'Por fin se curó del todo. Y aquel gato que nunca se acercaba a ningún humano ahora se deja mimar, duerme panza arriba y persigue todo lo que se mueve.' },
       { t: 'En casa',
@@ -455,9 +464,10 @@ export default {
   nivelesCorto: { 1: 'BEBÉ', 2: 'JOVEN', 3: 'EN FORMA', 4: 'ATLETA', 5: 'LEYENDA' },
 
   inicio: {
-    ayuda1: 'El michi refleja tu <b>constancia</b>, nunca tu cuerpo. Los tres botones son el mando: el izquierdo abre el menú y pasa de icono, el del medio acepta y el derecho cierra. Toca el cristal y te cuenta cómo vas.',
-    ayuda2: 'Las barras de dentro de la pantalla (HAPPY, WATER y CLEAN) son el <b>cuidado</b> del michi y <b>no puntúan</b>: no dan experiencia ni cuentan para tu objetivo. Están para que apetezca abrir la app un martes sin nada que apuntar.',
-    ayuda3: 'Lo que sí cuenta está <b>debajo</b>: la racha, los pasos, el sueño, la comida y el nivel. Eso sale de lo que tú apuntas, y es lo que de verdad mueve al michi.',
+    ayuda1: 'El michi refleja tu <b>constancia</b>, nunca tu cuerpo. Los tres botones son el mando: el izquierdo abre el menú y pasa de icono, el del medio acepta y el derecho cierra.',
+    ayuda2: 'Los <b>puntitos</b> de dentro de la pantalla (HAPPY, WATER y CLEAN) son el <b>cuidado</b> del michi y <b>no puntúan</b>: no dan experiencia ni cuentan para tu objetivo. Están para que apetezca abrir la app un martes sin nada que apuntar. La barra de nivel de arriba sí cuenta: sube con lo que apuntas.',
+    ayuda3: 'Lo que sí cuenta está <b>debajo</b>: la racha, el entreno, los pasos, la comida, el sueño y el nivel. Eso sale de lo que tú apuntas, y es lo que de verdad mueve al michi.',
+    ayuda4: 'Los <b>corazones</b> son tu racha. Cada 7 días seguidos ganas un <b>escudo</b>, y el escudo cubre solo un día que falles: entonces el corazón sale partido y gris, pero la racha sigue viva. Nunca se compra.',
     hoy: 'Hoy',
     sueno: 'Sueño',
     diaDescanso: 'Día de descanso',
@@ -497,6 +507,7 @@ export default {
     nivel: 'NIVEL',
     max: 'MAX',
     salvado: 'Día salvado por un comodín',
+    notaEscudo: 'Cada escudo cubre un día que falles. Ganas uno cada 7 días seguidos.',
   },
 
   logros: {
