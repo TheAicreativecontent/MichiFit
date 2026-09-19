@@ -1759,6 +1759,15 @@ editor y en «Mi objetivo»; y la nota del escudo más un cuarto párrafo en el
 aviso «el michi te cubrió un día» ya existía, así que se quitó una nota
 duplicada (ver `LESSONS.md`). Se subió como **v0.7.5**.
 
+**Cambios de la pareja de Albert, media hora después de lanzar.** Quiso
+otro texto para la viñeta 13, escrito por ella en tailandés (5.000 baht
+**al día**, y que Anna, con lo que sabe de enfermería, compró material y
+suero), y otra foto en el collage. Albert tradujo el texto al castellano y
+se sacaron el inglés, el chino y el japonés. En el tailandés se quitó una
+«นะ» suelta. El collage nuevo pesaba 940 KB y se recomprimió a 240 KB (el
+original, en `IMG/`); como conserva el nombre, caché a v17. Se subió como
+**v0.7.6**.
+
 **Un despiste que se aclaró.** Albert dijo que `michi_sediento-negro` ya
 estaba en `public/michi/`, pero no estaba: lo único nuevo era
 `michi_cansado-negro.png`, que es el mismo dibujo de la botella. Lo

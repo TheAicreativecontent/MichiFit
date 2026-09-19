@@ -82,8 +82,13 @@ de Ninja»**, con el collage de fotos de verdad que hizo Albert y, solo al adopt
 color.
 
 **La 13 (nueva, 2026-09-19) cuenta la etapa que faltaba**, y la propuso la
-pareja de Albert: el veterinario pedía 5.000 THB para acabar de curar a
-Ninja, Anna no tenía tanto dinero y se lo llevó a casa. Va entre «La
+pareja de Albert: el veterinario pedía más de 5.000 baht AL DÍA para
+curarlo del todo, Anna no tenía tanto dinero y, con lo que sabe de
+enfermería, se llevó a Ninja a casa, compró material y suero y lo curó
+ella. **El texto es el que escribió ella en tailandés** (media hora
+después de subirse la primera versión, que era de Albert); el castellano
+es la traducción de Albert, y el inglés, chino y japonés salen de ahí.
+En el tailandés se quitó una «นะ» suelta que sobraba tras «แจ้งว่า». Va entre «La
 recuperación» y «Ninja feliz» (Albert lo confirmó). El archivo se llama
 `12b-cuidados.jpg` y no `13-...` para no renombrar los que ya estaban:
 cambiar el nombre de una imagen obliga a subir la caché. El orden real lo

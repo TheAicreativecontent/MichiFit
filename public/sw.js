@@ -37,6 +37,10 @@
    excepcion, y queda escrita para que no parezca que se subio por
    costumbre. Ver `VERSION.md`. */
 
+/* v17 (2026-09-19, tarde): `ninja/collage.jpg` se sustituye por otra foto
+   de Ninja (mismo nombre, otro contenido: la pareja de Albert queria una
+   distinta). De paso se recomprime de 940 KB a 240 KB para el movil. */
+
 /* v16 (2026-09-19): `gimnasio.png` pasa a ser el gimnasio nuevo de
    Albert (mismo nombre, dibujo distinto) y `michi_cansado-negro.png` se
    volvio a exportar sin el flequillo. La viñeta nueva del comic
@@ -69,7 +73,7 @@
    esto quien ya tuviera la app seguiria viendo los de antes.
 
    v4 fue por lo mismo: `limpiar` paso de cubo a escoba. */
-const CACHE = 'michifit-v16';
+const CACHE = 'michifit-v17';
 
 /* Lo mínimo para arrancar sin red. El resto se va guardando solo según
    se usa: la app es pequeña y se cachea entera en la primera visita. */

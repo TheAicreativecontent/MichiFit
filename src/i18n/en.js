@@ -304,7 +304,7 @@ export default {
       { t: 'Getting better',
         d: 'They saved his life. When he opened his eyes, Anna was still there, asleep in the chair.' },
       { t: 'Healing at home',
-        d: 'The vet asked for 5,000 THB to finish treating him, and Anna did not have that much money. So she took Ninja home and nursed him back to health herself, with lots of love.' },
+        d: 'The vet said a full recovery would cost more than 5,000 baht a day, but Anna did not have enough money. Using her nursing skills, she took Ninja home, bought the supplies and an IV drip, and cared for him herself until he was fully recovered, with all her love.' },
       { t: 'Happy Ninja',
         d: 'At last he made a full recovery. And the cat who never went near any human now lets himself be cuddled, sleeps belly-up and chases everything that moves.' },
       { t: 'Home',

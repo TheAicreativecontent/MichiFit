@@ -7,13 +7,13 @@
 
 ## La estándar, hoy
 
-**v0.7.5** — 19 de septiembre de 2026.
+**v0.7.6** — 19 de septiembre de 2026.
 
 | Dónde | Qué vale |
 |---|---|
-| Etiqueta de Git | `v0.7.5` |
-| `package.json` | `"version": "0.7.5"` |
-| Caché del service worker | `michifit-v16` |
+| Etiqueta de Git | `v0.7.6` |
+| `package.json` | `"version": "0.7.6"` |
+| Caché del service worker | `michifit-v17` |
 | Dentro de la app | Ajustes, última línea |
 | En vivo | https://michifit.vercel.app |
 | Repositorio | https://github.com/TheAicreativecontent/MichiFit |
@@ -84,6 +84,13 @@ Al cerrar una tanda de trabajo que merezca marcarse:
 5. Commit, `git tag -a vX.Y.Z`, y `git push --follow-tags`.
 
 ## Historial
+
+- **v0.7.6** (2026-09-19) — Cambios de la pareja de Albert, media hora
+  después de lanzar: el texto de la viñeta 13 es el que escribió ella en
+  tailandés (más de 5.000 baht al día; Anna, con sus conocimientos de
+  enfermería, compró material y suero y curó a Ninja) y el collage de la
+  última pantalla lleva otra foto, recomprimida de 940 a 240 KB. Caché
+  `michifit-v17`.
 
 - **v0.7.5** (2026-09-19) — La versión que se manda a amigos y familia, con
   el enlace y sin cuentas. Viñeta nueva del cómic («Anna lo cura en

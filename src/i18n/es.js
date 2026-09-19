@@ -310,7 +310,7 @@ export default {
       { t: 'La recuperación',
         d: 'Le salvaron la vida. Cuando abrió los ojos, Anna seguía allí, dormida en la silla.' },
       { t: 'Anna lo cura en casa',
-        d: 'El veterinario pedía 5.000 THB para acabar de curarlo y Anna no tenía tanto dinero. Así que se llevó a Ninja a casa y lo curó ella misma, con mucho cariño.' },
+        d: 'El veterinario les informó de que la recuperación completa costaría más de 5.000 baht al día, pero Anna no tenía suficiente dinero. Aprovechando sus conocimientos de enfermería, se llevó a Ninja a casa, compró el material y el suero, y lo cuidó ella misma hasta que se recuperó por completo, con todo su cariño.' },
       { t: 'Ninja feliz',
         d: 'Por fin se curó del todo. Y aquel gato que nunca se acercaba a ningún humano ahora se deja mimar, duerme panza arriba y persigue todo lo que se mueve.' },
       { t: 'En casa',

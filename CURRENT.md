@@ -12,8 +12,8 @@ enlace, sin cuentas ni usuarios**: quien tenga el link la abre, la
 instala y usa. Lo que queda son retoques y decidir cosas con uso real.
 
 ## Versión y despliegue
-- **Versión estándar: `v0.7.5`** (etiqueta de Git). Ver `VERSION.md`.
-- **Caché del service worker: `michifit-v16`.**
+- **Versión estándar: `v0.7.6`** (etiqueta de Git). Ver `VERSION.md`.
+- **Caché del service worker: `michifit-v17`.**
 - En vivo: https://michifit.vercel.app · cada `git push` a `main`
   despliega solo.
 - Repo público: https://github.com/TheAicreativecontent/MichiFit
@@ -37,7 +37,7 @@ instala y usa. Lo que queda son retoques y decidir cosas con uso real.
 **Última tanda (subida en la `v0.7.5`):**
 - **Viñeta nueva del cómic**, la 13 de 15: «Anna lo cura en casa». El
   veterinario pedía 5.000 THB, Anna no los tenía y se llevó a Ninja a
-  casa. Va entre «La recuperación» y «Ninja feliz». Cinco idiomas.
+  casa (el texto se cambió después: ver la tanda siguiente). Va entre «La recuperación» y «Ninja feliz». Cinco idiomas.
   Imagen: `public/comic/12b-cuidados.jpg` (de `IMG/Comic/Act_09d.jpg`).
 - **Ritmo de las barras: arreglado un fallo de fondo.** Con
   `Math.ceil` la primera caca salía a los **5 minutos** de limpiar, y como
@@ -56,8 +56,7 @@ instala y usa. Lo que queda son retoques y decidir cosas con uso real.
 - `michi_cansado-negro.png` re-exportado por Albert, sin el flequillo.
 - **QR de PromptPay encendido, PRIMERO en Karma** (`ACTIVO = true`,
   `public/karma/promptpay_qr.png`, recorte a logo + código). Es el de la
-  pareja de Albert, para donativos. **Ver el punto 1 de «Qué toca ahora»:
-  falta confirmar con ella antes del push.**
+  pareja de Albert, para donativos. Ella lo confirmó antes de subirlo.
 - **Al terminar el cómic, «Cerrar» y «Saltar» llevan a Karma** (solo al
   revisar la historia; en el primer arranque sigue yendo a la bienvenida).
 - **Los cuatro puntos de simplificar que quedaban (2 a 5 de
@@ -76,12 +75,18 @@ instala y usa. Lo que queda son retoques y decidir cosas con uso real.
   los cinco idiomas (`karma.salir`): quien llega desde el cómic y no sabe
   aún que hay un menú abajo puede volver a Inicio.
 
+**Después de la `v0.7.5` (subido en la `v0.7.6`):**
+- **Viñeta 13 con el texto de la pareja de Albert** (escrito por ella en
+  tailandés: el veterinario pedía más de 5.000 baht al día; Anna, con sus
+  conocimientos de enfermería, se llevó a Ninja, compró material y suero y
+  lo curó) y **foto nueva en el collage** de la última pantalla (Ninja
+  sentado en la cama). El collage se recomprimió de 940 KB a 240 KB;
+  el original de Albert está en `IMG/Ninja_collage_2026-09-19_original.jpg`.
+  Caché `michifit-v17`.
+
 ## Qué toca ahora, por orden
-1. **Nada pendiente de subir.** La `v0.7.5` se subió el 2026-09-19 con la
-   confirmación de Albert y de la dueña del QR de PromptPay (el código lleva
-   dentro su número de identidad; el repo es público y un commit no se
-   retira, y aun así lo quiso). El original entero del QR está fuera del
-   repo, en `../_ARCHIVO/qr-promptpay-sin-publicar/`.
+1. **Nada pendiente de subir.** La `v0.7.6` está en vivo. Ahora toca esperar el
+   feedback de amigos y familia.
 2. **Calibrar con uso real** (amigos y familia): el ritmo de las barras y
    el 95 de `FORMA_CONTENTO`. Cada número está en un solo sitio
    (`engine/cuidados.js`, `engine/constantes.js`).
