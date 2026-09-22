@@ -9,14 +9,14 @@ import T from '../i18n/Texto.jsx';
 import { useT } from '../i18n/index.jsx';
 import { imc, tmb, reposoEfectivo, macros, avisosDeSeguridad, pesoParaIMC, planEnergetico } from '../engine/calculos.js';
 import { IMC_MINIMO_SANO, DEFICIT_MAXIMO } from '../engine/constantes.js';
-import { aCSV, descargar } from '../datos/almacen.js';
+import { aCSV, aJSON, leerBackup, descargar } from '../datos/almacen.js';
 import { leerCSV, fusionar } from '../datos/importar.js';
 import { Titulo } from './Ayuda.jsx';
 import Hoja from './Hoja.jsx';
 import { ESTILOS, COLORES, COLORES_MICHI, APARATO_POR_DEFECTO } from '../mascota/TamagotchiPNG.jsx';
 
-export default function Ajustes({ perfil, entradas, pacto, onCambiar, onReiniciar,
-                                 onImportar, onVerLore }) {
+export default function Ajustes({ perfil, entradas, pacto, datos, onCambiar, onReiniciar,
+                                 onImportar, onRestaurar, onVerLore }) {
   const t = useT();
   const set = (campo) => (e) => {
     const v = e.target.value;
@@ -154,6 +154,8 @@ export default function Ajustes({ perfil, entradas, pacto, onCambiar, onReinicia
              kg: pesoParaIMC(IMC_MINIMO_SANO, perfil.altura).toFixed(1) })}
         </div>
       )}
+
+      <CopiaSeguridad datos={datos} entradas={entradas} onRestaurar={onRestaurar} />
 
       <Importador entradas={entradas} onImportar={onImportar} />
 
@@ -320,6 +322,105 @@ function BorrarTodo({ entradas, onReiniciar }) {
       )}
     </>
   );
+}
+
+/* --- copia de seguridad completa ---
+   El botón de más abajo («Descargar tus datos») solo exporta los días
+   apuntados, en CSV: vale para verlos en una hoja de cálculo, pero
+   restaurarlo no devolvería el perfil, el objetivo ni el color del
+   michi. Esta es la copia ENTERA —perfil, objetivo, cada día apuntado,
+   el michi que elegiste, todo—, pensada para guardarla en el teléfono
+   (o en Drive, o donde sea) y traerla de vuelta si el navegador borra
+   los datos. Es la respuesta a que en el móvil, sobre todo sin instalar
+   la app, el sistema puede limpiar `localStorage` sin avisar. Ver
+   `DECISIONS.md` 2026-09-22.
+
+   Mismo patrón en dos pasos que `Importador`, un poco más abajo: se lee
+   el archivo y se enseña QUÉ va a pasar, y solo después se toca nada.
+   Restaurar SUSTITUYE todo lo que hay ahora, no lo fusiona —al
+   contrario que traer el CSV antiguo—: no tendría sentido fusionar dos
+   perfiles o dos michis de colores distintos. Por eso, si ya hay algo
+   apuntado, se ofrece descargar una copia de eso ANTES de sustituirlo. */
+function CopiaSeguridad({ datos, entradas, onRestaurar }) {
+  const t = useT();
+  const [previo, setPrevio] = useState(null);   // { datos, dias, exportado }
+  const [error, setError] = useState(null);
+  const [hecho, setHecho] = useState(null);
+  const diasActuales = Object.keys(entradas ?? {}).length;
+
+  const elegir = async (e) => {
+    const archivo = e.target.files?.[0];
+    e.target.value = '';
+    if (!archivo) return;
+    setError(null); setHecho(null);
+    try {
+      const leido = leerBackup(await archivo.text());
+      if (!leido.ok) { setError(t('copia.errorFormato')); setPrevio(null); return; }
+      setPrevio(leido);
+    } catch {
+      setError(t('copia.errorFormato'));
+    }
+  };
+
+  const confirmar = () => {
+    onRestaurar(previo.datos);
+    setHecho(previo.dias);
+    setPrevio(null);
+  };
+
+  return (
+    <div className="mf-tarjeta">
+      <h3 className="mf-h3">{t('copia.titulo')}</h3>
+      <T k="copia.intro" className="mf-nota" />
+
+      <button className="mf-boton"
+              onClick={() => descargar(`michifit-copia-${hoyISOLocal()}.json`,
+                aJSON(datos, __VERSION__), 'application/json')}>
+        {t('copia.guardar')}
+      </button>
+
+      <label className="mf-boton comoBoton">
+        {t('copia.restaurar')}
+        <input type="file" accept=".json,application/json" onChange={elegir} hidden />
+      </label>
+
+      {error && <div className="mf-aviso">⚠️ {error}</div>}
+
+      {previo && (
+        <div className="mf-aviso suave">
+          <b>{t('copia.previoDias', { n: previo.dias })}</b>
+          {previo.exportado && ` ${t('copia.previoFecha', { fecha: previo.exportado.slice(0, 10) })}`}
+          <p className="mf-nota" style={{ margin: '8px 0 0' }}>{t('copia.previoSustituye')}</p>
+
+          {diasActuales > 0 && (
+            <button className="mf-boton" style={{ marginTop: 8 }}
+                    onClick={() => descargar('michifit.csv', aCSV(entradas))}>
+              ⬇️ {t('copia.descargaAntes', { n: diasActuales })}
+            </button>
+          )}
+
+          <div className="mf-hoja-pie" style={{ marginTop: 8 }}>
+            <button className="mf-boton" onClick={() => setPrevio(null)}>{t('comun.cancelar')}</button>
+            <button className="mf-boton peligro" onClick={confirmar}>{t('copia.confirmar')}</button>
+          </div>
+        </div>
+      )}
+
+      {hecho != null && (
+        <div className="mf-aviso suave">
+          ✅ {t('copia.hecho', { n: hecho })}
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* Solo para el nombre del archivo: fecha local de HOY en AAAA-MM-DD.
+   `toISOString()` usa UTC y a media noche daría el día equivocado —el
+   mismo motivo por el que `engine/pacto.js` calcula `hoyISO()` a mano. */
+function hoyISOLocal() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
 }
 
 /* --- traer el progreso de la MichiFit antigua ---

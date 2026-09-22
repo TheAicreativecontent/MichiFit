@@ -501,3 +501,23 @@ oculto miente en las medidas. Antes de creerse un numero raro, mirar
 - Como evitarlo: antes de construir algo que un documento da por pendiente,
   mirar la pantalla y buscar en el codigo si ya esta. Y cuando algo de una
   lista de propuestas se hace, marcarlo en esa lista el mismo dia.
+
+## Un campo que cambia de trabajo sin que nadie lo revise
+- Qué pasó: `dormido: abandono >= 2` nació el primer día del proyecto
+  (2026-09-08) para elegir un DIBUJO, sin consecuencias. El 2026-09-11
+  se reusó para BLOQUEAR los tres botones cuando el michi «duerme» —
+  un trabajo mucho más serio, con el mismo umbral de dos días sin
+  tocar nada. Nadie se preguntó entonces si «dos días» seguía siendo
+  razonable para ese uso nuevo, porque el campo ya existía y hacía casi
+  lo que hacía falta. El resultado, descubierto por Albert el
+  2026-09-22: cualquiera que llevara un par de días sin apuntar se
+  encontraba el aparato mudo para siempre, sin ninguna pista de por
+  qué. Iba contra la regla más repetida del proyecto (`MECANICA.md`
+  §10, «no castiga por no abrir la app») y nadie lo vio en catorce días.
+- Cómo evitarlo: cuando un campo que ya existe se reutiliza para un
+  trabajo con consecuencias más serias que el original (aquí: de
+  «qué dibujo pintar» a «bloquear toda la interacción»), tratarlo como
+  si fuera nuevo — releer su definición entera y preguntarse si el
+  umbral sigue teniendo sentido para lo que va a hacer ahora. El
+  nombre del campo (`dormido`) sonaba a la escena correcta y eso bastó
+  para no mirar más allá.

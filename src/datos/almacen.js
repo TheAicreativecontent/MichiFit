@@ -146,6 +146,50 @@ function escapar(v) {
   return /["\n\r,]/.test(t) ? '"' + t.replace(/"/g, '""') + '"' : t;
 }
 
+/* --- copia de seguridad completa ---
+   El CSV de arriba solo exporta `entradas`: sirve para abrirlo en una
+   hoja de cálculo, pero restaurarlo no devolvería el perfil, el
+   objetivo, el color del michi ni qué nivel o qué historia ya viste.
+   Esto es la copia ENTERA, tal cual vive en `localStorage`, pensada
+   para guardarla en el teléfono y traer todo de vuelta si el navegador
+   pierde los datos.
+
+   Por qué hace falta (2026-09-22): en el móvil, sobre todo si la app
+   no está instalada en la pantalla de inicio, el sistema puede borrar
+   `localStorage` sin avisar —falta de espacio, "borrar datos de
+   navegación", o Safari limpiando sitios que llevan días sin abrirse—.
+   Nada de eso pasa por `guardar()`, así que el aviso de "no se puede
+   guardar" no lo ve venir: un día abres la app y ha vuelto a nacer.
+   Ver `DECISIONS.md`. */
+export function aJSON(datos, version = null) {
+  return JSON.stringify({
+    app: 'MichiFit',
+    version,
+    exportado: new Date().toISOString(),
+    datos,
+  }, null, 2);
+}
+
+/* Nunca se fía del archivo: si está editado a mano, es de otra cosa o
+   viene de una versión vieja de la app, `estructuraCompleta` —la misma
+   que ya limpia lo que sale de `localStorage`— rellena lo que falte y
+   descarta lo que no sea del tipo que toca. Restaurar una copia rara
+   no puede dejar la app en blanco. */
+export function leerBackup(texto) {
+  let json;
+  try { json = JSON.parse(texto); } catch { return { ok: false }; }
+  if (!esObjeto(json) || json.app !== 'MichiFit' || !esObjeto(json.datos)) {
+    return { ok: false };
+  }
+  const datos = estructuraCompleta(json.datos);
+  return {
+    ok: true,
+    datos,
+    exportado: typeof json.exportado === 'string' ? json.exportado : null,
+    dias: Object.keys(datos.entradas).length,
+  };
+}
+
 export function descargar(nombre, contenido, tipo = 'text/csv') {
   /* El BOM hace que Excel abra el CSV como UTF-8: sin el, los acentos
      salen rotos al abrirlo en Windows.

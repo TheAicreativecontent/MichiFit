@@ -219,6 +219,22 @@ export function calcularEstado({ pacto, entradas, perfil, carino = [], cuidados 
   const indice = evaluaciones.findIndex((d) => d.hayDatos);
   const abandono = indice === -1 ? evaluaciones.length : indice;
 
+  /* Hasta el 2026-09-22 este objeto llevaba tambien `dormido: abandono
+     >= 2`, y `Inicio.jsx` lo usaba para apagar la pantalla Y bloquear
+     los tres botones —cualquier toque solo «despertaba» sin abrir
+     nunca el anillo, porque `abandono` no cambia por tocar botones,
+     solo por apuntar datos—. Alguien que llevara dos dias sin abrir la
+     app se encontraba el aparato mudo para siempre, sin ninguna pista
+     de por que ni como arreglarlo. Es justo lo que `MECANICA.md` §10
+     promete que esta app NO hace: «no castiga por no abrir la app». El
+     campo nace del primer commit (2026-09-08), de cuando `dormido` solo
+     elegia un DIBUJO en el sistema antiguo de siluetas; nadie lo
+     revisitó cuando los tres botones pasaron a ser la interfaz de
+     verdad (2026-09-11) y heredaron ese mismo campo para bloquear.
+     Ahora dormir es SOLO la accion explicita del anillo (`escenaId ===
+     'dormir'` en Inicio.jsx): el michi no se duerme solo. Ver
+     `DECISIONS.md` 2026-09-22. */
+
   return {
     evaluaciones,
     hoy: evaluaciones[0],
@@ -233,7 +249,6 @@ export function calcularEstado({ pacto, entradas, perfil, carino = [], cuidados 
     cuidado,
     hitosDesbloqueados,
     abandono,
-    dormido: abandono >= 2,
   };
 }
 

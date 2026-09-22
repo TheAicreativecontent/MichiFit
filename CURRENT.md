@@ -1,27 +1,56 @@
 # CURRENT.md — Estado actual
 
-> **Actualizado el 2026-09-19.** Este documento dice cómo está el proyecto
+> **Actualizado el 2026-09-22.** Este documento dice cómo está el proyecto
 > AHORA y qué toca después. Nada más. La bitácora día a día (7 al 19 de
 > septiembre) y las notas de diseño largas viven en `SESSION_MAP.md`, en
 > la sección final «Archivo de CURRENT.md»: allí está todo lo que antes se
 > leía aquí, palabra por palabra.
 
 ## En una frase
-La app está completa y funcionando. **Se lanza a amigos y familia con un
-enlace, sin cuentas ni usuarios**: quien tenga el link la abre, la
-instala y usa. Lo que queda son retoques y decidir cosas con uso real.
+La app está completa y funcionando, en manos de amigos y familia desde
+el 2026-09-19. **Se lanza sin cuentas ni usuarios**: quien tenga el
+link la abre, la instala y usa. Lo que queda son retoques y decidir
+cosas con uso real.
 
 ## Versión y despliegue
-- **Versión estándar: `v0.7.6`** (etiqueta de Git). Ver `VERSION.md`.
-- **Caché del service worker: `michifit-v17`.**
+- **Versión estándar: `v0.7.7`** (etiqueta de Git). Ver `VERSION.md`.
+- **Caché del service worker: `michifit-v17`** (sin cambios de imagen
+  desde la v0.7.6).
 - En vivo: https://michifit.vercel.app · cada `git push` a `main`
   despliega solo.
 - Repo público: https://github.com/TheAicreativecontent/MichiFit
 - `.vercel/` y `.env.local` están en `.gitignore` (el segundo lleva un
   token OIDC). **No subirlos nunca.**
-- Comprobado hoy: los 6 `pruebas/*.mjs` en verde y build limpio.
+- Comprobado hoy: los 7 `pruebas/*.mjs` en verde y build limpio.
 
-## Lo último que se hizo (2026-09-19)
+## Lo último que se hizo (2026-09-22)
+Dos avisos de Albert, dos horas después de lanzar la v0.7.6. Detalle
+completo en `DECISIONS.md` y `SESSION_MAP.md`.
+
+- **El michi ya no se queda dormido y mudo para siempre.** Era un bug
+  de origen (primer commit, 2026-09-08), no un diseño: `calcularEstado`
+  devolvía `dormido: abandono >= 2 días`, y desde el 2026-09-11 eso
+  bloqueaba los tres botones del aparato — cada toque solo «despertaba»
+  la pantalla sin abrir nunca el anillo, porque el abandono no cambia
+  por tocar botones. Quien llevara un par de días sin apuntar se
+  encontraba el aparato mudo, sin ninguna pista de por qué. Iba contra
+  `MECANICA.md` §10 («no castiga por no abrir la app»). Arreglado:
+  dormir es ahora SOLO la acción explícita de pulsar «sueño» en el
+  anillo. Prueba de regresión en `pruebas/cobertura-michi.mjs`.
+- **Copia de seguridad completa, en Ajustes.** El CSV que ya había solo
+  exporta los días apuntados; esta copia nueva (JSON) exporta y
+  restaura perfil, objetivo, cada día y el michi — todo. Es la defensa
+  real contra que el móvil borre `localStorage` sin avisar (falta de
+  espacio, Safari limpiando sitios sin abrir, etc.), que no pasa por
+  `guardar()` y por eso no se podía detectar. Restaurar SUSTITUYE, no
+  fusiona, y ofrece descargar antes lo que hay. `pruebas/backup.mjs`
+  prueba el ida y vuelta y que un archivo raro no rompe la app.
+- **`navigator.storage.persist()` al arrancar**, silencioso: un ruego al
+  navegador para que no limpie el sitio bajo presión de espacio.
+  Complementa la copia de arriba, no la sustituye — Safari no tiene un
+  equivalente exacto.
+
+## Antes de eso (2026-09-19)
 **Sesión larga de la mañana** (detalle en `SESSION_MAP.md`):
 - Simplificar, en el orden de Albert: hábitos (entreno, pasos, comida,
   peso, sueño el último) en Marcador, editor del día y anillo; Logros se
@@ -85,10 +114,13 @@ instala y usa. Lo que queda son retoques y decidir cosas con uso real.
   Caché `michifit-v17`.
 
 ## Qué toca ahora, por orden
-1. **Nada pendiente de subir.** La `v0.7.6` está en vivo. Ahora toca esperar el
-   feedback de amigos y familia.
-2. **Calibrar con uso real** (amigos y familia): el ritmo de las barras y
-   el 95 de `FORMA_CONTENTO`. Cada número está en un solo sitio
+1. **Nada pendiente de subir.** La `v0.7.7` está en vivo. Ahora toca
+   esperar el feedback de amigos y familia — y en particular, con dos
+   avisos ya llegados en dos horas, estar atento a si aparece algo más
+   de este estilo (algo que llevaba semanas roto y nadie lo había
+   probado así).
+2. **Calibrar con uso real**: el ritmo de las barras y el 95 de
+   `FORMA_CONTENTO`. Cada número está en un solo sitio
    (`engine/cuidados.js`, `engine/constantes.js`).
 3. **Mirar cómo lo vive la gente** con lo nuevo de simplicidad: si los
    puntitos se entienden como «cuidado», si la frase de la comida
@@ -141,6 +173,17 @@ en `SESSION_MAP.md`.
 - **Panel de pruebas**: siete toques seguidos en el logo. El panel de
   vista previa del navegador miente en algunas medidas y «lava» el fondo:
   juzgar el aspecto en un navegador de verdad.
+- **El michi solo duerme por la acción explícita del anillo**
+  (`escenaId === 'dormir'` en `Inicio.jsx`). Nunca por abandono/tiempo:
+  eso ya causó un bug real (ver `DECISIONS.md` 2026-09-22). Si algún
+  día alguien quiere una señal visual de «llevas días sin abrir esto»,
+  que NUNCA bloquee los botones — mirar cuánto tiempo real se ve cada
+  estado, no solo si es alcanzable.
+- **Restaurar una copia de seguridad SUSTITUYE, no fusiona.** El botón
+  de Ajustes pasa por `estructuraCompleta` (en `almacen.js`), la misma
+  limpieza que ya protege lo que sale de `localStorage`: un archivo
+  raro no puede dejar la app en blanco, pero tampoco hay que fiarse de
+  su forma sin probarlo — `pruebas/backup.mjs` es el sitio para eso.
 
 ## Notas rápidas
 - La app es pública y multiusuario en el sentido de que no lleva datos de

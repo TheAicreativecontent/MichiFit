@@ -7,12 +7,12 @@
 
 ## La estándar, hoy
 
-**v0.7.6** — 19 de septiembre de 2026.
+**v0.7.7** — 22 de septiembre de 2026.
 
 | Dónde | Qué vale |
 |---|---|
-| Etiqueta de Git | `v0.7.6` |
-| `package.json` | `"version": "0.7.6"` |
+| Etiqueta de Git | `v0.7.7` |
+| `package.json` | `"version": "0.7.7"` |
 | Caché del service worker | `michifit-v17` |
 | Dentro de la app | Ajustes, última línea |
 | En vivo | https://michifit.vercel.app |
@@ -84,6 +84,13 @@ Al cerrar una tanda de trabajo que merezca marcarse:
 5. Commit, `git tag -a vX.Y.Z`, y `git push --follow-tags`.
 
 ## Historial
+
+- **v0.7.7** (2026-09-22) — Dos avisos de Albert, resueltos: el michi ya
+  no se queda dormido y mudo para siempre si llevas días sin abrir la
+  app (era un bug de origen, no un diseño), y hay una copia de
+  seguridad completa en Ajustes (perfil, objetivo, cada día, el michi)
+  para no depender solo de que el móvil no borre `localStorage`. Sin
+  cambios de imagen: caché igual.
 
 - **v0.7.6** (2026-09-19) — Cambios de la pareja de Albert, media hora
   después de lanzar: el texto de la viñeta 13 es el que escribió ella en

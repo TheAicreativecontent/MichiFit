@@ -220,7 +220,7 @@ export default {
   ajustes: {
     titulo: '⚙️ Settings',
     ayuda1: 'Your data and your goals live here. If you have a watch, put in your real averages: they are more accurate than any formula.',
-    ayuda2: 'Everything you note down is saved <b>on this device</b>, not on any server. Download the CSV copy now and then: if you clear your browser data, it goes with it.',
+    ayuda2: 'Everything you note down is saved <b>on this device</b>, not on any server. Save the full backup now and then, further down: if you clear your browser data, or your phone clears it on its own, it all goes with it.',
     sobreTi: 'About you',
     edad: 'Age',
     altura: 'Height',
@@ -373,6 +373,20 @@ export default {
     ph: 'type {dias}',
     confirmar: 'Erase everything',
     volver: 'Better not',
+  },
+
+  copia: {
+    titulo: '💾 Full backup',
+    intro: 'The button below only saves your logged days, to open in a spreadsheet. <b>This backup saves EVERYTHING</b> — profile, goal, michi, every day — in a file you can keep anywhere and bring back if the browser deletes your data.',
+    guardar: '⬇️ Save full backup',
+    restaurar: '📤 Restore a backup',
+    errorFormato: 'That file is not a MichiFit backup, or it is damaged. Try the .json you downloaded from here.',
+    previoDias: 'This backup has {n} logged days.',
+    previoFecha: 'Saved on {fecha}.',
+    previoSustituye: 'Restoring it REPLACES everything you have now: profile, goal and every logged day. This cannot be undone.',
+    descargaAntes: 'Download what I have now first ({n} days)',
+    confirmar: 'Restore and replace everything',
+    hecho: 'Backup restored: {n} days back.',
   },
 
   importar: {

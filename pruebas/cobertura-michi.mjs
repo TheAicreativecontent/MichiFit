@@ -151,6 +151,29 @@ console.log('\nde pie contra sentado y contento (todo atendido, forma 0-100):');
      `contento (${cuenta.contento}) ocupa mas de la escala que de pie (${cuenta.pie})`);
 }
 
+/* La app NUNCA se apaga sola por llevar dias sin abrirla (MECANICA.md
+   §10, «no castiga por no abrir la app»). Hasta el 2026-09-22,
+   `calcularEstado` devolvia un `dormido: abandono >= 2` que
+   `Inicio.jsx` usaba para bloquear los tres botones —cada toque solo
+   «despertaba» sin llegar a abrir el anillo, porque el abandono no
+   cambia por tocar botones, solo por apuntar datos, asi que quien
+   llevara un par de dias sin apuntar se encontraba el aparato mudo
+   PARA SIEMPRE—. Esta prueba fija que ese campo no vuelva: dormir es
+   SOLO una accion explicita (`escenaId === 'dormir'` en Inicio.jsx),
+   nunca un efecto del abandono. Ver `DECISIONS.md` 2026-09-22. */
+console.log('\nel michi no se duerme solo por abandono (regresion 2026-09-22):');
+{
+  const pacto = { dias: {}, comidaKcal: 1800, creado: iso(40) };
+  for (const d of DIAS) pacto.dias[d] = { entreno: false, minEntreno: 0, pasos: 6000 };
+  const perfil = { sexo: 'hombre', edad: 40, altura: 180, pesoActual: 80, pesoMeta: 75 };
+  // Diez dias sin apuntar NADA: el abandono maximo que contempla esta prueba.
+  const estado = M.calcularEstado({ pacto, entradas: {}, perfil, carino: [], cuidados: {} });
+  ok(estado.abandono >= 10, `abandono de verdad tras diez dias sin datos (${estado.abandono})`);
+  ok(!('dormido' in estado),
+    'calcularEstado no devuelve "dormido": ese campo bloqueaba los botones',
+    `calcularEstado sigue devolviendo dormido=${estado.dormido}, que Inicio.jsx podria volver a usar para bloquear`);
+}
+
 /* Las que salen al apuntar algo (duran unos segundos) y las del boton
    azul, que no dependen del estado. */
 for (const a of ['comiendo', 'entrenando', 'celebrando']) vistos.add('michi_' + a);

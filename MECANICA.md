@@ -309,7 +309,10 @@ subir de nivel a mantenerlo y coleccionar.
 
 ## 10 · Lo que esta mecánica NO hace
 
-- No castiga por no abrir la app.
+- No castiga por no abrir la app. Ni siquiera apagando la pantalla: el
+  michi solo se duerme si TÚ pulsas «sueño» en el anillo, nunca por
+  llevar días sin apuntar nada. Hasta el 2026-09-22 no era así — ver
+  `DECISIONS.md`.
 - No enseña un cuerpo gordo o esquelético como juicio sobre el usuario.
 - No usa culpa como motor. El michi nunca reprocha.
 - No tiene monedas, anuncios ni "compra reintentos".

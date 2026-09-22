@@ -1,6 +1,14 @@
 # TODO.md — Backlog
 
 ## Ahora
+- [ ] **Auto-actualizar la copia de seguridad, sin que el usuario la pida
+      cada vez** (idea de Albert, 2026-09-22). Necesitaría la File System
+      Access API (`showSaveFilePicker` + un handle que se reescribe solo),
+      que hoy solo soportan Chrome/Android y de escritorio — Safari en
+      iPhone no la tiene. Mientras tanto está el botón manual de «Guardar
+      copia completa» en Ajustes. Se retoma si algún día Safari la suma, o
+      si se decide dar peor experiencia en iOS a cambio de mejorarla en
+      Android.
 - [x] **El triste y el cansado desentonan** (Albert). Hecho el
       2026-09-17: Albert los redibujó en el mismo estilo, en las cuatro
       model sheets (también la nueva, negra), y `recortar_model_sheets.py`

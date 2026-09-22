@@ -197,7 +197,7 @@ export default function Inicio({ estado, entradas, pacto, onCarino, onCuidar, on
   const escena = (item?.escena ? porId(item.escena) : null)
     ?? porId(escenaId)
     ?? escenaAutomatica(entradaHoy, accion, visual.humor);
-  const dormido = escena.dormido || estado.dormido;
+  const dormido = escena.dormido;
 
   /* Dormido DE VERDAD, que no es lo mismo que `dormido` de arriba.
 
@@ -206,8 +206,18 @@ export default function Inicio({ estado, entradas, pacto, onCarino, onCuidar, on
      aunque el michi esté despierto. Si los botones miraran ese, al
      llegar a «sueño» dejarían de pasar al icono siguiente y se pondrían
      a «despertarlo» — o sea que no se podría dar la vuelta al anillo.
-     Pasó, y solo se vio probándolo. */
-  const dormidoDeVerdad = estado.dormido || escenaId === 'dormir';
+     Pasó, y solo se vio probándolo.
+
+     El michi SOLO se duerme por esta acción explícita —pulsar «sueño»
+     en el anillo—, nunca por llevar días sin abrir la app. Hasta el
+     2026-09-22 también miraba `estado.dormido` (abandono >= 2 días) y
+     eso bloqueaba los tres botones para quien llevara un par de días
+     sin apuntar nada: cada toque solo «despertaba» sin llegar a abrir
+     el anillo, porque el abandono no cambia por tocar botones, solo
+     por apuntar datos — así que el aparato se quedaba mudo para
+     siempre. Iba contra `MECANICA.md` §10 («no castiga por no abrir la
+     app»). Ver `DECISIONS.md` 2026-09-22. */
+  const dormidoDeVerdad = escenaId === 'dormir';
 
   const aNeutral = () => { setAbierto(false); setIndice(0); };
 

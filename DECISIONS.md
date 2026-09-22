@@ -540,3 +540,69 @@ Albert dijo que las cuatro propuestas que quedaban de `SIMPLICIDAD.md`
 usan. Quien llevaba 2 a 9 dias sin apuntar ve ahora el michi de pie, no uno
 cansado: es lo que menos riñe, y `MECANICA.md` §10 dice que el michi nunca
 riñe. `pruebas/cobertura-michi.mjs` y el panel de pruebas dejan de esperarlo.
+
+## 2026-09-22 — El michi que no despertaba, y una copia de seguridad de verdad
+Dos avisos de Albert, dos horas después de lanzar la v0.7.6: «no se guarda
+el progreso en el móvil» y «el michi está durmiendo y no interactúa».
+
+**El michi dormido para siempre: era un bug, no un diseño.** Desde el
+primer commit (2026-09-08), `calcularEstado()` devolvía
+`dormido: abandono >= 2` — dos días sin apuntar NADA. Al principio ese
+campo solo elegía un dibujo, en el sistema antiguo de cinco siluetas. El
+2026-09-11, al convertir los tres botones en la interfaz de verdad, se
+reusó ese mismo campo para BLOQUEAR los botones cuando el michi
+«duerme» — nadie se paró a mirar si el umbral seguía teniendo sentido
+para ese uso nuevo, mucho más serio que elegir un sprite. El resultado:
+quien llevara un par de días sin abrir la app se encontraba la pantalla
+apagada, y cada toque solo la «despertaba» sin llegar a abrir el
+anillo — porque `abandono` no cambia por tocar botones, solo por
+apuntar datos, así que en el siguiente render volvía a estar dormido.
+El aparato se quedaba mudo hasta que alguien apuntara algo por OTRA
+vía (el «+» de abajo, que no pasa por esta lógica) — y nada en la
+pantalla explicaba por qué. Iba derecho contra `MECANICA.md` §10: «no
+castiga por no abrir la app».
+
+Arreglado quitando ese campo del todo: dormir es ahora SOLO la acción
+explícita de pulsar «sueño» en el anillo (`escenaId === 'dormir'`).
+Verificado reproduciendo el bug primero (un perfil sin datos en los
+últimos 3 días, los botones no abrían el anillo) y confirmando después
+que sí lo abren, y que la acción explícita de dormir sigue
+funcionando igual. Prueba de regresión en `pruebas/cobertura-michi.mjs`.
+
+**Copia de seguridad completa, en Ajustes.** El CSV que ya existía solo
+exporta los días apuntados — vale para una hoja de cálculo, pero
+restaurarlo no devuelve el perfil, el objetivo ni el color del michi.
+La causa más probable de «no se guarda en el móvil» no pasa por
+`guardar()` (que ya avisa si falla): en el móvil, sobre todo sin
+instalar la app, el sistema puede limpiar `localStorage` sin avisar —
+falta de espacio, "borrar datos de navegación", o Safari limpiando
+sitios que llevan días sin abrirse—. Nada de eso deja rastro para que
+la app lo detecte.
+
+Se añaden dos cosas, sin tocar cómo se guarda de normal:
+1. `navigator.storage.persist()` al arrancar (best-effort, silencioso):
+   es un ruego al navegador para que no borre el sitio bajo presión de
+   espacio. Chrome suele concederlo si la app está instalada y se usa
+   con cierta frecuencia; Safari no tiene un equivalente exacto, así
+   que esto NO basta por sí solo.
+2. **La copia de seguridad de verdad**: `aJSON`/`leerBackup` en
+   `datos/almacen.js` exportan e importan el estado ENTERO —perfil,
+   objetivo, cada día, el michi, todo—, no solo las entradas. Restaurar
+   SUSTITUYE, no fusiona (fusionar dos perfiles o dos michis de
+   colores distintos no tiene sentido), y por eso se ofrece descargar
+   antes lo que hay, igual que ya hacía `BorrarTodo`. El archivo nunca
+   se acepta a ciegas: pasa por `estructuraCompleta`, la misma limpieza
+   que ya protege lo que sale de `localStorage`, así que una copia
+   rara o de otra versión no puede dejar la app en blanco. Probado en
+   el navegador (restaurar una copia con menos días sustituye todo
+   correctamente) y con `pruebas/backup.mjs` (round-trip, rechazo de lo
+   que no es una copia, limpieza de campos raros).
+
+   No se intentó guardar el archivo solo, sin que el usuario lo pida
+   cada vez (como preguntó Albert, «que se vaya actualizando»): la
+   File System Access API que permitiría eso solo la soporta Chrome/
+   Android, no Safari en iPhone — la mitad de los casos se quedarían
+   sin la mejora y con una falsa sensación de estar cubiertos. Un botón
+   que el usuario pulsa cuando quiere es menos cómodo pero funciona
+   igual en cualquier móvil. Queda anotado en `TODO.md` por si algún
+   día merece revisarse.

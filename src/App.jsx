@@ -56,6 +56,22 @@ export default function App() {
   const t = useT();
   const [datos, setDatos] = useState(leer);
 
+  /* Pide que el navegador NO borre `localStorage` bajo presion de
+     espacio. Es lo unico que el codigo puede hacer contra la causa mas
+     probable de "no se guarda el progreso en el movil": el sistema
+     limpia sitios sin avisar cuando anda justo de espacio, y eso no
+     pasa por `guardar()` de `almacen.js` -no hay error que capturar-.
+
+     Es un ruego, no una orden: cada navegador decide con sus propias
+     reglas (Chrome suele concederlo solo si la app esta instalada y se
+     usa con cierta frecuencia; Safari no tiene un equivalente exacto).
+     Por eso ademas existe la copia de seguridad completa en Ajustes,
+     que es la unica defensa que SI depende de nosotros. Ver
+     `DECISIONS.md` 2026-09-22. */
+  useEffect(() => {
+    navigator.storage?.persist?.().catch(() => {});
+  }, []);
+
   /* La escala del texto vive en el :root, para que la hereden tambien los
      trozos que se pintan fuera de la pagina (modales, avisos). */
   useEffect(() => {
@@ -358,11 +374,16 @@ export default function App() {
         {pestana === 'simular' && <Simulador perfil={datos.perfil} pacto={datos.pacto} />}
         {pestana === 'karma' && <Karma onSalir={() => setPestana('inicio')} />}
         {pestana === 'ajustes' && (
-          <Ajustes perfil={datos.perfil} entradas={datos.entradas} pacto={datos.pacto}
+          <Ajustes perfil={datos.perfil} entradas={datos.entradas} pacto={datos.pacto} datos={datos}
                    onCambiar={(p) => setDatos((d) => ({
                      ...d, perfil: p, pacto: sincronizarPacto(d.pacto, p) }))}
                    onImportar={(entradas) => setDatos((d) => ({ ...d, entradas }))}
                    onReiniciar={() => setDatos(reiniciar())}
+                   /* Restaurar SUSTITUYE todo el estado, tal cual venía en
+                      la copia (ya limpiado por `estructuraCompleta` dentro
+                      de `leerBackup`). No se fusiona con `d`: sería mezclar
+                      dos perfiles o dos objetivos distintos. */
+                   onRestaurar={(nuevo) => setDatos(nuevo)}
                    onVerLore={() => setVerLore(true)} />
         )}
       </main>

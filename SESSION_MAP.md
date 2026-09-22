@@ -1773,6 +1773,72 @@ estaba en `public/michi/`, pero no estaba: lo único nuevo era
 `michi_cansado-negro.png`, que es el mismo dibujo de la botella. Lo
 renombró él después y quedó bien.
 
+## 2026-09-22 — El michi que no despertaba, y una copia de seguridad de verdad
+Dos horas después de que amigos y familia empezaran a usar la
+`v0.7.6`, Albert trajo dos avisos: «no se queda guardado el progreso en
+el móvil» y «el michi está durmiendo y no interactúa». Los dos
+resueltos hoy, subidos como **v0.7.7**.
+
+**El michi dormido, diagnosticado antes de tocar nada.** Se reprodujo
+primero: un perfil de prueba sin datos en los últimos 3 días dejaba la
+pantalla apagada y los tres botones sin efecto —cada toque solo
+«despertaba» la pantalla un instante, sin llegar a abrir el anillo—.
+La causa estaba en `calcularEstado()` (`engine/michi.js`): un campo
+`dormido: abandono >= 2 días` que existe desde el PRIMER commit del
+proyecto (2026-09-08), cuando solo elegía un dibujo en el sistema
+antiguo de siluetas y no tenía ninguna consecuencia. El 2026-09-11, al
+convertir los tres botones en la interfaz de verdad, `Inicio.jsx`
+reusó ese mismo campo para bloquear los botones — y nadie revisó
+entonces si dos días sin apuntar seguía siendo un umbral razonable
+para algo tan serio como apagar toda la interacción. El resultado: el
+aparato se quedaba mudo para siempre, porque `abandono` no cambia por
+tocar botones, solo por apuntar datos, así que en cada render volvía a
+estar «dormido». Iba contra la promesa más repetida del proyecto
+(`MECANICA.md` §10, «no castiga por no abrir la app»), y nadie lo vio
+en catorce días porque nadie había probado la app así.
+
+Arreglado quitando el campo del todo: dormir es ahora SOLO la acción
+explícita de pulsar «sueño» en el anillo. Verificado con el mismo
+perfil de prueba (los botones ya abren el anillo) y comprobando que
+dormir a propósito sigue funcionando igual. Prueba de regresión nueva
+en `pruebas/cobertura-michi.mjs`, que fija que `calcularEstado` no
+vuelva a devolver ese campo.
+
+**La copia de seguridad que faltaba de verdad.** El CSV que ya había en
+Ajustes solo exporta los días apuntados: sirve para una hoja de
+cálculo, pero restaurarlo no devuelve el perfil, el objetivo ni el
+color del michi. Y el aviso de «no se puede guardar» (`avisos.noGuarda`)
+solo salta cuando `guardar()` FALLA en el momento de escribir — no
+cubre el caso real más probable en el móvil: el sistema limpia
+`localStorage` sin avisar entre una sesión y la siguiente (falta de
+espacio, "borrar datos de navegación", o Safari limpiando sitios que
+llevan días sin abrirse), y eso no deja ningún error que la app pueda
+capturar.
+
+Dos piezas nuevas, ninguna toca cómo se guarda de normal:
+`navigator.storage.persist()` al arrancar (un ruego silencioso al
+navegador, best-effort, sin UI) y la copia de seguridad completa en
+Ajustes (`aJSON`/`leerBackup` en `datos/almacen.js`): exporta e importa
+TODO el estado —perfil, objetivo, cada día, el michi—, no solo las
+entradas. Restaurar sustituye, no fusiona (fusionar dos perfiles no
+tiene sentido), y ofrece descargar antes lo que ya había, igual que
+`BorrarTodo`. El archivo nunca se acepta a ciegas: pasa por
+`estructuraCompleta`, la misma limpieza de siempre. Probado en el
+navegador con un backup sintético (restaurar sustituye perfil, objetivo
+y entradas correctamente) y con un archivo basura (error claro, sin
+romper nada), y con `pruebas/backup.mjs` (ida y vuelta exacto, rechazo
+de lo que no es una copia, limpieza de campos raros).
+
+**Lo que se decidió NO hacer:** auto-actualizar el archivo solo, sin
+que el usuario lo pida cada vez (que era la idea original de Albert,
+inspirada en Michi Finanzas). Necesitaría la File System Access API,
+que Safari en iPhone no soporta — la mitad de los casos se quedarían
+sin la mejora real. Queda anotado en `TODO.md` para revisarlo si algún
+día cambia el soporte de navegadores.
+
+Documentos al día: `DECISIONS.md`, `LESSONS.md` (el campo que cambió de
+trabajo sin que nadie lo revisara), `MECANICA.md` §10 y `CURRENT.md`.
+Los 7 `pruebas/*.mjs` (backup.mjs es nuevo) y el build en verde.
 
 ---
 

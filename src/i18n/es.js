@@ -220,7 +220,7 @@ export default {
   ajustes: {
     titulo: '⚙️ Ajustes',
     ayuda1: 'Aquí van tus datos y tus objetivos. Si tienes reloj, pon tus medias reales de gasto: son más exactas que cualquier fórmula.',
-    ayuda2: 'Todo lo que apuntas se guarda <b>en este dispositivo</b>, no en ningún servidor. Descarga la copia en CSV de vez en cuando: si borras los datos del navegador, se van con ellos.',
+    ayuda2: 'Todo lo que apuntas se guarda <b>en este dispositivo</b>, no en ningún servidor. Guarda de vez en cuando la copia de seguridad completa, más abajo: si borras los datos del navegador o el móvil los limpia solo, se van con ellos.',
     sobreTi: 'Sobre ti',
     edad: 'Edad',
     altura: 'Altura',
@@ -382,6 +382,20 @@ export default {
     ph: 'escribe {dias}',
     confirmar: 'Borrar todo',
     volver: 'Mejor no',
+  },
+
+  copia: {
+    titulo: '💾 Copia de seguridad completa',
+    intro: 'El botón de más abajo solo guarda tus días apuntados, para verlos en una hoja de cálculo. <b>Esta copia lo guarda TODO</b> —perfil, objetivo, michi, cada día— en un archivo que puedes guardar donde quieras y traer de vuelta si el navegador borra tus datos.',
+    guardar: '⬇️ Guardar copia completa',
+    restaurar: '📤 Restaurar una copia',
+    errorFormato: 'Ese archivo no es una copia de MichiFit, o está dañado. Prueba con el .json que descargaste desde aquí.',
+    previoDias: 'Esa copia trae {n} días apuntados.',
+    previoFecha: 'Se guardó el {fecha}.',
+    previoSustituye: 'Al restaurarla se SUSTITUYE todo lo que tienes ahora: perfil, objetivo y cada día apuntado. No se puede deshacer.',
+    descargaAntes: 'Descargar antes lo que tengo ahora ({n} días)',
+    confirmar: 'Restaurar y sustituir todo',
+    hecho: 'Copia restaurada: {n} días de vuelta.',
   },
 
   importar: {
