@@ -521,3 +521,22 @@ oculto miente en las medidas. Antes de creerse un numero raro, mirar
   umbral sigue teniendo sentido para lo que va a hacer ahora. El
   nombre del campo (`dormido`) sonaba a la escena correcta y eso bastó
   para no mirar más allá.
+
+## Una regla que se reusa sin revisarse sale mal dos veces, no una
+- Qué pasó: el mismo día del campo `dormido` de arriba, salió también
+  el brinco de celebrar cambiando de fondo a «casa» y volviendo solo.
+  Misma familia de error: una regla escrita el 2026-09-09 para UN caso
+  raro (subir de nivel) se reusó el 2026-09-17 para un caso que pasa
+  muchas veces al día (mimar, dar agua, limpiar, apuntar cualquier
+  dato) sin preguntarse si seguía siendo correcta para ese uso, mucho
+  más frecuente. Las dos veces el síntoma solo se vio con USO REAL Y
+  CONTINUADO —dos días sin abrir la app, o pasear de verdad por el
+  parque un rato— que ninguna prueba manual de un par de minutos
+  reproduce.
+- Cómo evitarlo: cuando algo pasa de ser una excepción rara a algo que
+  ocurre a diario, releerlo como si fuera nuevo (ver la lección de
+  arriba) — y además, si es plausible, probarlo con datos que simulen
+  varios días de uso normal, no solo el camino feliz de "toca el botón
+  una vez y mira qué pasa". `pruebas/cobertura-michi.mjs` ya hacía esto
+  para qué dibujos se ven; ahora también para qué fondo se ve durante
+  cuánto tiempo.

@@ -13,7 +13,7 @@ link la abre, la instala y usa. Lo que queda son retoques y decidir
 cosas con uso real.
 
 ## Versión y despliegue
-- **Versión estándar: `v0.7.7`** (etiqueta de Git). Ver `VERSION.md`.
+- **Versión estándar: `v0.7.8`** (etiqueta de Git). Ver `VERSION.md`.
 - **Caché del service worker: `michifit-v17`** (sin cambios de imagen
   desde la v0.7.6).
 - En vivo: https://michifit.vercel.app · cada `git push` a `main`
@@ -49,6 +49,20 @@ completo en `DECISIONS.md` y `SESSION_MAP.md`.
   navegador para que no limpie el sitio bajo presión de espacio.
   Complementa la copia de arriba, no la sustituye — Safari no tiene un
   equivalente exacto.
+- **El icono de guardar, también en Inicio** (v0.7.8, a los pocos
+  minutos de probar la v0.7.7): junto al zoom y el «?», arriba de la
+  escena — el sitio que se ve nada más abrir la app, para que guardar
+  la copia sea un gesto de todos los días y no algo enterrado en
+  Ajustes. Mismo archivo, mismo botón de siempre por debajo; solo un
+  atajo. Confirmación visual (✅ dos segundos) porque una descarga no
+  siempre se nota en el móvil.
+- **El brinco de celebrar ya no cambia de fondo** (v0.7.8, mismo aviso
+  de Albert: «el michi está andando y al darle mimitos el fondo cambia
+  a casa y luego vuelve al parque»). `escenaAutomatica()` forzaba
+  siempre «casa» para el brinco de mimar/agua/limpiar/apuntar-sin-
+  escena; ahora salta encima de la escena que ya había (parque,
+  gimnasio, cocina, casa), solo con la pose. Prueba de regresión en
+  `pruebas/cobertura-michi.mjs`.
 
 ## Antes de eso (2026-09-19)
 **Sesión larga de la mañana** (detalle en `SESSION_MAP.md`):
@@ -114,7 +128,7 @@ completo en `DECISIONS.md` y `SESSION_MAP.md`.
   Caché `michifit-v17`.
 
 ## Qué toca ahora, por orden
-1. **Nada pendiente de subir.** La `v0.7.7` está en vivo. Ahora toca
+1. **Nada pendiente de subir.** La `v0.7.8` está en vivo. Ahora toca
    esperar el feedback de amigos y familia — y en particular, con dos
    avisos ya llegados en dos horas, estar atento a si aparece algo más
    de este estilo (algo que llevaba semanas roto y nadie lo había
@@ -146,6 +160,9 @@ en `SESSION_MAP.md`.
 - **Imágenes sin hash** (`/michi`, `/fondos`, `/iconos-anillo`, `/karma`,
   `/ninja`): al **cambiar** una, subir `const CACHE` en `public/sw.js`.
   Una imagen nueva no lo necesita. Lo vigila `pruebas/cache-sw.mjs`.
+- **El brinco de celebrar (mimar/agua/limpiar/registrar) no tiene
+  escenario propio: usa el que ya había.** No volver a anclarlo a «casa»
+  a secas (ver `DECISIONS.md` 2026-09-22).
 - **Los 40 michis son dibujo de Albert.** No regenerar `public/michi/`
   con los scripts. Los ajustes de posición se hacen con la propiedad CSS
   `translate` (clase `pose-<nombre>`), **no** con `transform`, que es lo

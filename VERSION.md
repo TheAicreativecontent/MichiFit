@@ -7,12 +7,12 @@
 
 ## La estándar, hoy
 
-**v0.7.7** — 22 de septiembre de 2026.
+**v0.7.8** — 22 de septiembre de 2026.
 
 | Dónde | Qué vale |
 |---|---|
-| Etiqueta de Git | `v0.7.7` |
-| `package.json` | `"version": "0.7.7"` |
+| Etiqueta de Git | `v0.7.8` |
+| `package.json` | `"version": "0.7.8"` |
 | Caché del service worker | `michifit-v17` |
 | Dentro de la app | Ajustes, última línea |
 | En vivo | https://michifit.vercel.app |
@@ -84,6 +84,13 @@ Al cerrar una tanda de trabajo que merezca marcarse:
 5. Commit, `git tag -a vX.Y.Z`, y `git push --follow-tags`.
 
 ## Historial
+
+- **v0.7.8** (2026-09-22) — Dos ajustes más, pedidos por Albert nada más
+  probar la v0.7.7: el icono de guardar copia también en Inicio (junto
+  al zoom y el «?», con un ✅ de confirmación), y el brinco de mimar/
+  agua/limpiar/registrar ya no cambia de fondo — antes, si el michi
+  paseaba en el parque y le dabas cariño, saltaba un instante a «casa»
+  y volvía. Ahora el brinco salta encima de la escena que ya se veía.
 
 - **v0.7.7** (2026-09-22) — Dos avisos de Albert, resueltos: el michi ya
   no se queda dormido y mudo para siempre si llevas días sin abrir la

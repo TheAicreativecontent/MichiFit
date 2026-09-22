@@ -174,6 +174,35 @@ console.log('\nel michi no se duerme solo por abandono (regresion 2026-09-22):')
     `calcularEstado sigue devolviendo dormido=${estado.dormido}, que Inicio.jsx podria volver a usar para bloquear`);
 }
 
+/* El brinco de celebrar salta ENCIMA de la escena que ya se veía, sin
+   cambiar el fondo (regresion 2026-09-22). Hasta entonces siempre
+   saltaba a «casa»: si el michi estaba paseando en el parque (por los
+   pasos de hoy) y le dabas cariño, el fondo cambiaba al salón dos
+   segundos y medio y volvía solo al parque al acabar — un parpadeo
+   que Albert cazó a los minutos de probarlo. */
+console.log('\nel brinco de celebrar no cambia de escenario (regresion 2026-09-22):');
+{
+  const casos = [
+    ['paseando (pasos de hoy)', { pasos: 6000 }, null, 'parque'],
+    ['entrenando (minutos de hoy)', { entrenoMin: 30 }, null, 'gimnasio'],
+    ['sin nada que contar', {}, null, 'casa'],
+    ['con humor (contento)', {}, 'contento', 'casa'],
+  ];
+  for (const [nombre, entradaHoy, humor, escenarioEsperado] of casos) {
+    const base = E.escenaAutomatica(entradaHoy, null, humor);
+    const celebrando = E.escenaAutomatica(entradaHoy, 'celebrando', humor);
+    ok(base.escenario === escenarioEsperado,
+      `${nombre}: la escena de base es «${escenarioEsperado}» (${base.escenario})`,
+      `${nombre}: la escena de base debería ser «${escenarioEsperado}» y sale «${base.escenario}»`);
+    ok(celebrando.escenario === base.escenario,
+      `${nombre}: celebrar mantiene el escenario «${base.escenario}»`,
+      `${nombre}: celebrar cambia el escenario a «${celebrando.escenario}» en vez de quedarse en «${base.escenario}»`);
+    ok(celebrando.pose === 'celebrando',
+      `${nombre}: la pose sí cambia a celebrando`,
+      `${nombre}: la pose no cambia a celebrando (${celebrando.pose})`);
+  }
+}
+
 /* Las que salen al apuntar algo (duran unos segundos) y las del boton
    azul, que no dependen del estado. */
 for (const a of ['comiendo', 'entrenando', 'celebrando']) vistos.add('michi_' + a);

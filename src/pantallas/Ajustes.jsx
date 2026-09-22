@@ -9,7 +9,7 @@ import T from '../i18n/Texto.jsx';
 import { useT } from '../i18n/index.jsx';
 import { imc, tmb, reposoEfectivo, macros, avisosDeSeguridad, pesoParaIMC, planEnergetico } from '../engine/calculos.js';
 import { IMC_MINIMO_SANO, DEFICIT_MAXIMO } from '../engine/constantes.js';
-import { aCSV, aJSON, leerBackup, descargar } from '../datos/almacen.js';
+import { aCSV, aJSON, leerBackup, descargar, hoyISOLocal } from '../datos/almacen.js';
 import { leerCSV, fusionar } from '../datos/importar.js';
 import { Titulo } from './Ayuda.jsx';
 import Hoja from './Hoja.jsx';
@@ -413,14 +413,6 @@ function CopiaSeguridad({ datos, entradas, onRestaurar }) {
       )}
     </div>
   );
-}
-
-/* Solo para el nombre del archivo: fecha local de HOY en AAAA-MM-DD.
-   `toISOString()` usa UTC y a media noche daría el día equivocado —el
-   mismo motivo por el que `engine/pacto.js` calcula `hoyISO()` a mano. */
-function hoyISOLocal() {
-  const d = new Date();
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
 }
 
 /* --- traer el progreso de la MichiFit antigua ---

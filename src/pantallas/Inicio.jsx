@@ -146,9 +146,19 @@ function useZoom(ampliado) {
 }
 
 export default function Inicio({ estado, entradas, pacto, onCarino, onCuidar, onMedir, accion,
-                                pruebas = false, onCerrarPruebas, aparato }) {
+                                pruebas = false, onCerrarPruebas, aparato, onGuardarCopia }) {
   const t = useT();
   const [gesto, setGesto] = useState(null);      // 'mimar' | 'estado' | null
+  /* Confirmación breve al guardar la copia desde aquí: el icono se
+     convierte en un ✓ dos segundos, igual que «Copiar LNURL» en Karma.
+     Sin esto, tocar y no ver nada pasar hace dudar si ha funcionado —
+     una descarga no siempre se nota en el móvil. */
+  const [copiaHecha, setCopiaHecha] = useState(false);
+  const guardarCopia = () => {
+    onGuardarCopia?.();
+    setCopiaHecha(true);
+    setTimeout(() => setCopiaHecha(false), 2000);
+  };
   /* Escena elegida a mano. Ya solo la mueve `dormir`, que desde el
      2026-09-12 es un icono del anillo y no un botón: el ciclo por las
      cinco escenas se fue cuando los botones pasaron a ser la interfaz.
@@ -327,6 +337,19 @@ export default function Inicio({ estado, entradas, pacto, onCarino, onCuidar, on
           única pantalla sin ayuda, y es la que más cosas enseña: ver
           `SIMPLICIDAD.md`—. */}
       <div className="mf-inicio-barra">
+        {/* Guardar la copia de seguridad desde AQUÍ, no solo enterrada en
+            Ajustes: es lo primero que se ve al abrir la app, así que es
+            el sitio donde de verdad se acuerda uno de hacerlo cada día.
+            Mismo icono y mismo archivo que el botón de Ajustes —no es
+            un mecanismo aparte, es un atajo al mismo—. Pedido por
+            Albert el 2026-09-22, después de la copia de seguridad. */}
+        {onGuardarCopia && (
+          <button className="mf-inicio-zoom" onClick={guardarCopia}
+                  aria-label={t(copiaHecha ? 'copia.guardadoIcono' : 'copia.guardarIcono')}
+                  title={t(copiaHecha ? 'copia.guardadoIcono' : 'copia.guardarIcono')}>
+            {copiaHecha ? '✅' : '💾'}
+          </button>
+        )}
         <button className="mf-inicio-zoom" aria-pressed={ampliado}
                 aria-label={t(ampliado ? 'aparato.reducir' : 'aparato.ampliar')}
                 title={t(ampliado ? 'aparato.reducir' : 'aparato.ampliar')}

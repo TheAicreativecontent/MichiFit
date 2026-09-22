@@ -39,10 +39,6 @@ export function siguiente(id) {
    último que apuntaste hoy. Sin datos se queda en casa, que es lo
    honesto — no está paseando si no has andado. */
 export function escenaAutomatica(entradaHoy = {}, accion = null, humor = null) {
-  /* Celebrar no es una escena con escenario propio: es el michi en casa
-     dando saltos. Por eso va aquí y no en la lista de arriba: el botón
-     azul no debe poder ciclar hasta ella. */
-  if (accion === 'celebrando') return { ...porId('casa'), id: 'celebrar', pose: 'celebrando' };
   if (accion === 'entrenando') return porId('entrenar');
   if (accion === 'comiendo') return porId('comer');
 
@@ -52,9 +48,25 @@ export function escenaAutomatica(entradaHoy = {}, accion = null, humor = null) {
      tapaba el humor para el resto de la jornada.
      Lo que hiciste hoy sigue saliendo cuando el michi no tiene nada
      particular que contar, y siempre está a mano en el botón azul. */
-  if (humor) return { ...porId('casa'), pose: humor };
+  const base = humor ? { ...porId('casa'), pose: humor }
+    : (entradaHoy.entrenoMin ?? 0) > 0 ? porId('entrenar')
+    : (entradaHoy.pasos ?? 0) > 0 ? porId('pasear')
+    : porId('casa');
 
-  if ((entradaHoy.entrenoMin ?? 0) > 0) return porId('entrenar');
-  if ((entradaHoy.pasos ?? 0) > 0) return porId('pasear');
-  return porId('casa');
+  /* Celebrar (el brinco corto de mimar/agua/limpiar/apuntar, y el largo
+     de subir de nivel) NO cambia de escenario: salta ENCIMA de lo que ya
+     se estaba viendo, solo con la pose celebrando por encima.
+
+     Hasta el 2026-09-22 saltaba siempre a «casa», daba igual qué hubiera
+     antes: si el michi estaba paseando en el parque (`pasos` de hoy) y
+     mimabas al michi, el fondo cambiaba al del salón dos segundos y
+     medio y volvía solo al parque al acabar — un parpadeo que Albert
+     cazó nada más lanzarlo. La idea original («celebrar no es una
+     escena con escenario propio») seguía siendo la correcta; lo que
+     estaba mal era anclarla a «casa» en vez de a lo que hubiera debajo.
+     No hace falta que vaya antes en la lista para que el botón azul no
+     pueda ciclar hasta ella: sigue sin tener entrada propia en
+     `ESCENAS`, así que `siguiente()` nunca la toca. */
+  if (accion === 'celebrando') return { ...base, id: 'celebrar', pose: 'celebrando' };
+  return base;
 }

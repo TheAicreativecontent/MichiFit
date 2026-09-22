@@ -380,6 +380,8 @@ export default {
     intro: 'The button below only saves your logged days, to open in a spreadsheet. <b>This backup saves EVERYTHING</b> — profile, goal, michi, every day — in a file you can keep anywhere and bring back if the browser deletes your data.',
     guardar: '⬇️ Save full backup',
     restaurar: '📤 Restore a backup',
+    guardarIcono: 'Save a backup of your data',
+    guardadoIcono: 'Saved! ✅',
     errorFormato: 'That file is not a MichiFit backup, or it is damaged. Try the .json you downloaded from here.',
     previoDias: 'This backup has {n} logged days.',
     previoFecha: 'Saved on {fecha}.',

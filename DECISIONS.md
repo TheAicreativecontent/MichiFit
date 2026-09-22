@@ -606,3 +606,68 @@ Se añaden dos cosas, sin tocar cómo se guarda de normal:
    que el usuario pulsa cuando quiere es menos cómodo pero funciona
    igual en cualquier móvil. Queda anotado en `TODO.md` por si algún
    día merece revisarse.
+
+## 2026-09-22 (tarde) — El icono de guardar, también en Inicio
+Albert probó la v0.7.7 y pidió que el icono de guardar copia fuera
+visible «para que el usuario clique en salvar el progreso diario», no
+solo en Ajustes.
+
+**Por qué NO fue en la cabecera.** Es el sitio más obvio a primera
+vista, pero ya va justa: a 320px de ancho (el iPhone SE, el más
+estrecho que sigue en uso) el lema ya envuelve a dos líneas con racha +
+idioma + ajustes. Añadir un cuarto botón redondo la habría desbordado
+en el móvil más pequeño, justo el peor sitio para que pase.
+
+**Dónde fue: la barra de Inicio, junto al zoom y el «?».** Ya existía
+—dos botones redondos de 28px, pensados para crecer— y es lo primero
+que se ve al abrir la app, antes que la cabecera con scroll. Ahí el
+gesto de guardar cae naturalmente al lado de mirar cómo va el michi,
+que es justo el hábito diario que se quiere alimentar. Mismo archivo,
+mismo `aJSON`/`descargar` de Ajustes — no es un mecanismo aparte, es un
+atajo: la lógica vive en `App.jsx` y se pasa a `Inicio.jsx` por prop,
+igual que `onCuidar` o `onCarino`.
+
+**La confirmación de dos segundos** (💾 → ✅ → 💾) es porque una
+descarga no siempre se nota en el móvil —a veces no hay ni una barra de
+progreso—, y un icono que no cambia al tocarlo hace dudar si ha
+funcionado. Mismo patrón que ya usaba «Copiar LNURL» en Karma.
+
+De paso, `hoyISOLocal()` (el nombre del archivo con la fecha local) se
+sacó de `Ajustes.jsx` a `datos/almacen.js`, para que `App.jsx` pudiera
+usarlo también sin duplicarlo.
+
+## 2026-09-22 (tarde, después del icono) — El brinco de celebrar ya no teletransporta al michi
+Tercer aviso de Albert en el mismo día, probando la v0.7.7/8 en el
+móvil: «el michi está andando y cuando le doy al corazón para darle
+mimitos, cambia el fondo al de casa y luego vuelve a ponerse a andar en
+el fondo del parque».
+
+Reproducido leyendo el código, sin necesidad de adivinar: `escenaAutomatica()`
+(`mascota/escenas.js`) atendía la acción `celebrando` —el brinco corto
+que confirma mimar/dar agua/limpiar/apuntar un dato sin escena propia,
+desde el 2026-09-17— devolviendo SIEMPRE `{ ...porId('casa'), pose:
+'celebrando' }`, sin mirar qué escena había antes. Si el michi estaba
+paseando en el parque (por los pasos del día) y le dabas cariño, el
+fondo saltaba a «casa» los 2,6 s que dura el brinco y volvía solo al
+parque al terminar. La misma regla llevaba desde el 2026-09-09 sirviendo
+bien para UNA cosa —subir de nivel, un evento raro— y el 2026-09-17 se
+reusó sin más para el brinco corto, que pasa muchas veces al día y por
+eso el parpadeo se nota.
+
+El comentario original ya decía la intención correcta: «celebrar no es
+una escena con escenario propio». Lo que estaba mal era anclar esa idea
+a «casa» en vez de a lo que hubiera debajo. Arreglado calculando primero
+la escena base (lo mismo que se vería sin celebrar: humor, o lo que se
+ha hecho hoy, o casa) y saltando la pose `celebrando` ENCIMA de esa
+base, sin tocar su escenario. Afecta igual al brinco corto y al largo
+de subir de nivel —comparten el mismo mecanismo—, y los dos salen
+mejor así: subir de nivel en el parque ahora celebra en el parque, no
+te saca de paseo para llevarte a casa un instante.
+
+Prueba de regresión en `pruebas/cobertura-michi.mjs`: para pasear
+(parque), entrenar (gimnasio), nada que contar (casa) y con humor
+(casa), comprueba que `celebrando` mantiene el mismo `escenario` que la
+escena base y solo cambia la `pose`. No se pudo confirmar por captura
+de pantalla en el navegador automatizado —los 2,6 s del brinco son más
+cortos que la vuelta de ida y vuelta de un clic remoto—, así que la
+prueba de verdad es esta, directa sobre la función.

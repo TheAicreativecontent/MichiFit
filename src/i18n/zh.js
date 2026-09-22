@@ -374,6 +374,8 @@ export default {
     intro: '下面的按钮只保存你记录的日子，方便在表格里打开。<b>这份备份保存全部内容</b>——资料、目标、米奇、每一天——存成一个文件，随你保存在哪里，浏览器丢失数据时也能找回来。',
     guardar: '⬇️ 保存完整备份',
     restaurar: '📤 恢复备份',
+    guardarIcono: '保存你的数据备份',
+    guardadoIcono: '已保存！✅',
     errorFormato: '这个文件不是 MichiFit 的备份，或者已损坏。请用从这里下载的 .json 文件试试。',
     previoDias: '这份备份里有 {n} 天的记录。',
     previoFecha: '保存于 {fecha}。',

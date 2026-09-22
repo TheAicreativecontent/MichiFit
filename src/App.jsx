@@ -20,7 +20,7 @@ import { sincronizarPacto } from './engine/calculos.js';
 import { hoyISO } from './engine/pacto.js';
 import { podarCarino } from './engine/felicidad.js';
 import { atender } from './engine/cuidados.js';
-import { leer, guardar, reiniciar } from './datos/almacen.js';
+import { leer, guardar, reiniciar, aJSON, descargar, hoyISOLocal } from './datos/almacen.js';
 import { useT } from './i18n/index.jsx';
 import SelectorIdioma from './i18n/Selector.jsx';
 import './estilos.css';
@@ -356,7 +356,11 @@ export default function App() {
                   aparato={datos.perfil?.aparato}
                   onCarino={registrarCarino} onCuidar={cuidar}
                   onMedir={(campo) => setRegistrando(campo)} accion={accion}
-                  pruebas={pruebas} onCerrarPruebas={() => setPruebas(false)} />
+                  pruebas={pruebas} onCerrarPruebas={() => setPruebas(false)}
+                  /* Mismo archivo que «Guardar copia completa» en
+                     Ajustes: esto es solo un atajo más a mano. */
+                  onGuardarCopia={() => descargar(`michifit-copia-${hoyISOLocal()}.json`,
+                    aJSON(datos, __VERSION__), 'application/json')} />
         )}
         {pestana === 'pacto' && (
           <Pacto pacto={datos.pacto} perfil={datos.perfil} estado={estado}

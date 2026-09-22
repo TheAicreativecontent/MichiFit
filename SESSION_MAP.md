@@ -1840,6 +1840,68 @@ Documentos al día: `DECISIONS.md`, `LESSONS.md` (el campo que cambió de
 trabajo sin que nadie lo revisara), `MECANICA.md` §10 y `CURRENT.md`.
 Los 7 `pruebas/*.mjs` (backup.mjs es nuevo) y el build en verde.
 
+## 2026-09-22 (tarde) — El icono de guardar, también en Inicio
+Minutos después de subir la v0.7.7, Albert la probó y pidió: «¿podríamos
+poner el icono de salvar el archivo visible, para que así el usuario
+clique en salvar el progreso diario?».
+
+Se midió antes de decidir dónde: la cabecera, el sitio más obvio, ya va
+justa a 320px de ancho (comprobado con el navegador redimensionado a
+ese tamaño) — el lema envuelve a dos líneas y un cuarto botón redondo
+la habría desbordado en el móvil más pequeño en uso. En vez de eso, el
+icono 💾 entró en `.mf-inicio-barra`, la fila de botones pequeños que ya
+tenía el zoom y el «?» encima de la escena: lo primero que se ve al
+abrir Inicio, sin tocar la cabecera.
+
+Es un atajo, no un mecanismo nuevo: usa el mismo `aJSON`/`descargar` que
+ya movía el botón de Ajustes. `hoyISOLocal()` se sacó de `Ajustes.jsx` a
+`datos/almacen.js` para poder compartirlo. Al tocarlo, el icono se
+convierte en ✅ durante dos segundos —mismo patrón que «Copiar LNURL»
+en Karma— porque una descarga no siempre se nota en el móvil.
+
+Verificado en el navegador: a 320px de ancho el icono nuevo cabe sin
+apretar nada; el ciclo 💾 → ✅ → 💾 descarga el JSON correcto
+(`app: "MichiFit"`, con las entradas de verdad); Ajustes sigue
+funcionando igual; y sin errores de consola en una pestaña nueva (los
+que salieron durante la propia edición en vivo eran del hot-reload de
+Vite, no del código final). Subido como **v0.7.8**.
+
+## 2026-09-22 (tarde, tercer aviso) — El brinco de celebrar ya no teletransporta al michi
+El mismo día, un tercer aviso de Albert desde el móvil: mimando al michi
+mientras paseaba en el parque, el fondo saltaba a «casa» un instante y
+volvía solo. Se diagnosticó leyendo `escenaAutomatica()` directamente,
+sin necesidad de reproducirlo primero: la rama de `accion === 'celebrando'`
+devolvía siempre `{...porId('casa'), pose:'celebrando'}`, ignorando la
+escena que hubiera antes. Esa regla nació el 2026-09-09 para subir de
+nivel (un evento raro, donde «volver a casa a celebrar» pasaba
+desapercibido) y el 2026-09-17 se reusó sin revisar para el brinco corto
+de mimar/agua/limpiar/registrar, que pasa muchas veces al día — ahí sí
+se nota.
+
+Arreglo: calcular primero la escena base (humor, o lo hecho hoy, o casa
+— el mismo orden de siempre) y saltar la pose `celebrando` ENCIMA de esa
+base, sin tocar su escenario. Mismo mecanismo para el brinco corto y
+para subir de nivel. Prueba nueva en `pruebas/cobertura-michi.mjs`:
+para pasear/entrenar/nada/humor, `celebrando` mantiene el escenario de
+la base y solo cambia la pose — las cuatro en verde.
+
+Se intentó también confirmar por captura de pantalla en el navegador
+automatizado (con un perfil de prueba paseando en el parque, mimar y
+mirar el fondo durante el brinco), pero los clics remotos tardan más
+que los 2,6 s que dura la animación y nunca se pudo capturar el
+fotograma exacto — lo que sí se confirmó varias veces es que el fondo
+NUNCA llegó a mostrar «casa» en ninguna de las lecturas, ni una vez, en
+más de 60 muestras repartidas en varios intentos. La prueba que de
+verdad demuestra el arreglo es la de `pruebas/cobertura-michi.mjs`,
+directa sobre la función, sin depender de temporizadores de UI.
+
+**Mismo día, tres avisos, tres arreglos, todos subidos en horas**: el
+michi dormido para siempre (v0.7.7), el icono de guardar en Inicio y
+este brinco (v0.7.8). Los tres eran del mismo tipo — comportamiento
+que llevaba semanas o meses así, sin que nadie lo hubiera probado en un
+uso real y continuado hasta que amigos y familia empezaron a usar la
+app. Ver `LESSONS.md` si conviene anotar el patrón.
+
 ---
 
 ## Archivo de CURRENT.md · movido el 2026-09-19

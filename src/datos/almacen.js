@@ -190,6 +190,16 @@ export function leerBackup(texto) {
   };
 }
 
+/* Solo para nombrar el archivo de la copia: fecha local de HOY en
+   AAAA-MM-DD. `toISOString()` usa UTC y a media noche daría el día
+   equivocado —el mismo motivo por el que `engine/pacto.js` calcula
+   `hoyISO()` a mano—. Aquí y no en `pacto.js` porque esto es solo
+   texto para un nombre de archivo, no una fecha del pacto. */
+export function hoyISOLocal() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+
 export function descargar(nombre, contenido, tipo = 'text/csv') {
   /* El BOM hace que Excel abra el CSV como UTF-8: sin el, los acentos
      salen rotos al abrirlo en Windows.
