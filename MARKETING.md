@@ -103,5 +103,26 @@ lee el primer renglón.
 - Graba la pantalla directamente sobre https://michifit.vercel.app en
   el móvil, a pantalla completa, para que el vídeo salga ya en formato
   vertical.
-- Evita mostrar tus propios datos si no quieres compartirlos: puedes
-  usar un perfil de prueba nuevo, sin peso real apuntado.
+- Un perfil vacío se ve demasiado vacío para un vídeo: Albert probó
+  ambas versiones (2026-09-23) y grabó con sus propios datos reales a
+  propósito, porque un mes de calendario relleno y una gráfica con
+  curva de verdad transmiten mucho mejor que la app funciona. Decisión
+  consciente, no un descuido — si algún vídeo futuro necesita datos
+  neutros, usar un perfil de prueba nuevo es la alternativa.
+
+## Publicado
+
+**Vídeo 1** (2026-09-23) — `Video_Thai_Spanish.mp4`, 47s, subtítulos en
+tailandés y español superpuestos: Albert a cámara → historia de Ninja
+(el cómic) → demo de la app con datos reales (Mi objetivo, calendario,
+Progreso con la gráfica de constancia) → cierre en Karma con la foto de
+Ninja «Khob Khun Krup». Subido a Reel e Historia de Instagram, y a
+Estado de WhatsApp.
+
+**Plan**: 2 o 3 vídeos en total, uno por semana, para no saturar a
+quien lo vea — pensado sobre todo para conocidos y familiares. Cada uno
+con un enfoque distinto para no repetir lo mismo:
+- Vídeo 1 (hecho): la historia de Ninja + recorrido general de la app.
+- Vídeo 2 (idea, sin decidir): centrado solo en la mecánica del michi,
+  sin repetir la historia de Ninja para quien ya la vio.
+- Vídeo 3 (idea, sin decidir): el progreso real de Albert, antes/después.
