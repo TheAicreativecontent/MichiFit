@@ -15,33 +15,12 @@
 import { useMemo, useState } from 'react';
 import T from '../i18n/Texto.jsx';
 import { useT, useFormato } from '../i18n/index.jsx';
-import { hoyISO, diasDesde, evaluarDia } from '../engine/pacto.js';
+import { hoyISO, diasDesde, diasAtras, claveDia, horasDeSueno, evaluarDia } from '../engine/pacto.js';
 import EditorDia from './EditorDia.jsx';
-import { simular, actividadDelPacto, actividadReciente, planEnergetico } from '../engine/calculos.js';
+import { simular, actividadDelPacto, actividadReciente, planEnergetico, ritmoReal } from '../engine/calculos.js';
 import { Titulo } from './Ayuda.jsx';
-import { DIAS } from '../engine/constantes.js';
+import { DIAS, SUENO_IDEAL } from '../engine/constantes.js';
 import Logros from './Logros.jsx';
-
-
-/* Ritmo real por mínimos cuadrados sobre los pesajes. Más honesto que
-   comparar el primero con el último: un solo día raro no manda. */
-function ritmoReal(pesajes) {
-  if (pesajes.length < 3) return null;
-  const dias = pesajes.map((p) => diasDesde(pesajes[0].fecha, p.fecha));
-  const span = dias[dias.length - 1];
-  if (span < 10) return null;               // menos de 10 días no dice nada
-
-  const n = dias.length;
-  const mx = dias.reduce((a, b) => a + b, 0) / n;
-  const my = pesajes.reduce((a, p) => a + p.peso, 0) / n;
-  let num = 0, den = 0;
-  dias.forEach((d, i) => {
-    num += (d - mx) * (pesajes[i].peso - my);
-    den += (d - mx) ** 2;
-  });
-  if (den === 0) return null;
-  return (num / den) * 7;                    // kg por semana; negativo = bajando
-}
 
 export default function Progreso({ perfil, pacto, entradas, onRegistrar, estado }) {
   const t = useT();
@@ -55,6 +34,38 @@ export default function Progreso({ perfil, pacto, entradas, onRegistrar, estado 
       .sort()
       .map((f) => ({ fecha: f, peso: entradas[f].peso })),
     [entradas]);
+
+  /* Los últimos 7 días de entreno, pasos, comida y sueño, para las
+     gráficas de abajo. Reusa `evaluarDia` —la misma función que ya
+     pinta el calendario— para que «cumplido» signifique EXACTAMENTE lo
+     mismo aquí que en cualquier otra pantalla: entreno cumple por
+     apuntar (no por minutos), la comida por la regla del sentido
+     (`rangoComida`, no solo «por debajo»), etc. Ninguna metrica se
+     reinventa aquí. El sueño no vive en `evaluarDia` (no forma parte
+     del pacto), así que se calcula aparte con la misma regla del
+     Marcador: cumple por apuntar algo, sin importar las horas. */
+  const semana = useMemo(() => {
+    const hoy = hoyISO();
+    const dias = [];
+    for (let i = 6; i >= 0; i--) {
+      const fecha = diasAtras(hoy, i);
+      const entrada = entradas[fecha];
+      const ev = pacto ? evaluarDia({ pacto, entrada, fecha, hoy }) : null;
+      const objEntreno = ev?.objetivos.find((o) => o.id === 'entreno' || o.id === 'descanso');
+      const objPasos = ev?.objetivos.find((o) => o.id === 'pasos');
+      const objComida = ev?.objetivos.find((o) => o.id === 'comida');
+      const horas = horasDeSueno(entrada);
+      dias.push({
+        fecha, letra: t('dias.inicial.' + claveDia(fecha)), esHoy: fecha === hoy,
+        entreno: objEntreno,
+        pasos: objPasos,
+        comida: objComida,
+        sueno: { valor: horas, cumplido: horas != null },
+        abierto: ev?.abierto ?? false,
+      });
+    }
+    return dias;
+  }, [entradas, pacto, t]);
 
   const pesoActual = pesajes.length ? pesajes[pesajes.length - 1].peso : perfil.pesoActual;
   const perdido = (perfil.pesoInicial ?? pesoActual) - pesoActual;
@@ -136,6 +147,7 @@ export default function Progreso({ perfil, pacto, entradas, onRegistrar, estado 
       <Titulo ayuda={<>
           <T k="progreso.ayuda1" />
           <T k="progreso.ayuda2" />
+          <T k="progreso.ayuda4" />
           <T k="progreso.ayuda3" />
         </>}>
         {t('progreso.titulo')}
@@ -203,6 +215,37 @@ export default function Progreso({ perfil, pacto, entradas, onRegistrar, estado 
         )}
       </div>
 
+      {/* Las cuatro gráficas de 7 días. Pedidas por Albert el 2026-09-23,
+          para ver de un vistazo si hay algún hábito flojeando esta
+          semana sin tener que abrir el calendario día a día. Sin
+          macros a propósito: son informativas y no cuentan para nada,
+          así que no pintan aquí — ver `dia.macrosNota`. */}
+      {pacto && (
+        <div className="mf-tarjeta">
+          <h3 className="mf-h3">{t('progreso.semanaTitulo')}</h3>
+          <GraficaSemana titulo={t('dia.entreno')} dias={semana}
+                          valor={(d) => esDescanso(d.entreno) ? null : d.entreno?.valor}
+                          meta={(d) => d.entreno?.objetivo}
+                          estado={(d) => esDescanso(d.entreno)
+                            ? (d.entreno.respetado ? 'ok' : 'parcial')
+                            : estadoDia(d.entreno, d.abierto)}
+                          descanso={(d) => esDescanso(d.entreno)}
+                          formato={(v) => `${Math.round(v)} ${t('comun.min')}`} />
+          <GraficaSemana titulo={t('dia.pasos')} dias={semana}
+                          valor={(d) => d.pasos?.valor} meta={(d) => d.pasos?.objetivo}
+                          estado={(d) => estadoDia(d.pasos, d.abierto)}
+                          formato={(v) => `${Math.round(v)}`} />
+          <GraficaSemana titulo={t('dia.comida')} dias={semana}
+                          valor={(d) => d.comida?.valor} meta={(d) => d.comida?.objetivo}
+                          estado={(d) => estadoDia(d.comida, d.abierto)}
+                          formato={(v) => `${Math.round(v)} ${t('comun.kcal')}`} />
+          <GraficaSemana titulo={t('dia.sueno')} dias={semana}
+                          valor={(d) => d.sueno.valor} meta={() => SUENO_IDEAL}
+                          estado={(d) => d.sueno.valor == null ? (d.abierto ? 'abierto' : 'fallo') : 'ok'}
+                          formato={(v) => `${v} ${t('comun.h')}`} />
+        </div>
+      )}
+
       <Calendario
         mesOffset={mesOffset} setMesOffset={setMesOffset}
         entradas={entradas} pacto={pacto} metaISO={metaISO}
@@ -222,6 +265,65 @@ export default function Progreso({ perfil, pacto, entradas, onRegistrar, estado 
           onCerrar={() => setEditando(null)}
         />
       )}
+    </div>
+  );
+}
+
+/* Mismo criterio que ya usa `Calendario` para colorear un día, pero
+   por METRICA en vez de por el día entero: «ok» cumplido, «parcial»
+   apuntado y no cumplido, «abierto» aún se puede rellenar (dentro de
+   `VENTANA_RETRO`), «fallo» sin datos y ya cerrado —que se pinta
+   NEUTRO, no en rojo, desde el 2026-09-19: no castiga por no apuntar—.
+   Sin objetivo ese día (`o` es `undefined`, antes de que el pacto
+   pidiera nada) cuenta igual que sin datos. */
+function estadoDia(o, abierto) {
+  if (!o || o.valor == null) return abierto ? 'abierto' : 'fallo';
+  return o.cumplido ? 'ok' : 'parcial';
+}
+
+/* El objetivo de «entreno» de un día de descanso es el MISMO array que
+   el de un día de entreno (`evaluarDia` los mete en el mismo sitio,
+   ver `engine/pacto.js`), pero es otra cosa: `cumplido` en un
+   descanso es SIEMPRE `true` —descansar no rompe el día— así que
+   `estadoDia` no vale aquí. Lo que importa es `respetado`: si de
+   verdad descansaste. */
+const esDescanso = (o) => o?.id === 'descanso';
+
+/* ---------------- gráficas de 7 días (entreno, pasos, comida, sueño) ----------------
+   Una fila de 7 barras, oldest-a-hoy, con la altura relativa a la META
+   de ESE día (no al máximo de la semana): así una semana floja se ve
+   floja, no se autoescala para parecer bien. El día de descanso
+   (`descanso`) no tiene meta que valga —«cero minutos» es justo lo que
+   toca— así que sale un puntito en vez de una barra. */
+function GraficaSemana({ titulo, dias, valor, meta, estado, formato, descanso }) {
+  const t = useT();
+  const TOPE = 1.3; // por encima de la meta, la barra ya no crece más
+  return (
+    <div className="mf-semana7">
+      <p className="mf-semana7-titulo">{titulo}</p>
+      <div className="mf-semana7-fila">
+        {dias.map((d, i) => {
+          const v = valor(d);
+          const m = meta(d);
+          const esDescanso = descanso?.(d);
+          const est = estado(d);
+          const pct = esDescanso || v == null || !m ? 0 : Math.min(TOPE, v / m);
+          const titulo = esDescanso ? t('marcador.descanso')
+            : v == null ? t('progreso.calSinDatos') : formato(v);
+          return (
+            <div className="mf-semana7-col" key={i}>
+              <div className="mf-semana7-barra" title={titulo}>
+                {esDescanso ? (
+                  <i className={`punto ${est}`} />
+                ) : (
+                  <i className={est} style={{ height: `${Math.max(6, pct * 100)}%` }} />
+                )}
+              </div>
+              <small className={d.esHoy ? 'hoy' : ''}>{d.letra}</small>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }

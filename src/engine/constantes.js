@@ -186,6 +186,30 @@ export const DIAS_FORMA = 14;      // cumplimiento sostenido
 export const DIAS_ENERGIA = 3;     // actividad reciente
 export const DIAS_ABANDONO = 10;   // sin nada -> esquelético
 
+/* Cuántos días de pesajes entran en el «ritmo real» de Progreso (la
+   regresión de mínimos cuadrados que decide cuántas semanas faltan
+   para la meta). Hasta el 2026-09-23 no había ventana: se miraba TODO
+   el historial desde el primerísimo pesaje. Con un historial largo
+   —típico de quien importó el CSV de la MichiFit antigua, o de
+   cualquiera con meses de datos— eso diluye las últimas semanas de
+   verdad entre meses de datos viejos. Albert perdió peso de verdad esa
+   quincena y la app le seguía prometiendo más de tres meses. Ver
+   `DECISIONS.md` 2026-09-23.
+
+   30 y no menos: por debajo, dos pesajes ruidosos la mueven entera —es
+   la misma razón por la que `DIAS_FORMA` (14) no vale aquí, el peso
+   varía más día a día que el cumplimiento de hábitos—. Y no más,
+   porque cuanto más larga, más se parece al bug que se está
+   arreglando. Súbela si vuelve a notarse ruidosa; bájala si un mes
+   sigue pareciendo demasiado historial viejo. */
+export const DIAS_RITMO_PESO = 30;
+
+/* Horas de sueño «ideales» para pintar la barra de sueño (Marcador) y
+   las gráficas de 7 días (Progreso). Es una referencia, no un umbral
+   de cumplimiento: dormir cumple por APUNTAR, no por llegar a esta
+   cifra (ver `MECANICA.md` §3, 2026-09-18/19). */
+export const SUENO_IDEAL = 8;
+
 /* Desde qué `forma` el michi se sienta contento. Era 70 hasta el
    2026-09-18. Con «entreno y sueño cumplen por apuntar» casi cualquiera
    que apunta algo pasa de 70, y el michi de pie —la cara de reposo—

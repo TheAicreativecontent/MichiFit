@@ -170,10 +170,12 @@ export default {
   },
 
   progreso: {
+    semanaTitulo: '📊 Tus últimos 7 días',
     titulo: '📈 Tu progreso',
     ayuda1: 'La gráfica junta tu <b>peso real</b> con la previsión que sale de tu ritmo actual. La línea de previsión se recalcula sola: si bajas más rápido, se acorta.',
     ayuda2: 'En el calendario puedes tocar cualquier día para apuntar o corregir datos. Los días de hace más de tres se cierran para el objetivo, pero el <b>peso</b> siempre se puede corregir.',
     ayuda3: 'Abajo del todo están tus logros: se consiguen una vez y <b>no se pierden nunca</b>, aunque falles después.',
+    ayuda4: 'Las barras de abajo son los últimos 7 días de entreno, pasos, comida y sueño. Verde es cumplido, amarillo es a medias, gris es sin datos. Sin macros a propósito: no cuentan para nada.',
     pesoActual: 'Peso actual',
     perdidos: 'Perdidos',
     recuperados: 'Recuperados',

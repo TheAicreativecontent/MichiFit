@@ -671,3 +671,49 @@ escena base y solo cambia la `pose`. No se pudo confirmar por captura
 de pantalla en el navegador automatizado —los 2,6 s del brinco son más
 cortos que la vuelta de ida y vuelta de un clic remoto—, así que la
 prueba de verdad es esta, directa sobre la función.
+
+## 2026-09-23 — El bug de las 14,3 semanas, y las gráficas de 7 días
+Albert perdió peso de verdad esa quincena y la app le dijo que le
+quedaban 14,3 semanas para la meta. «Obviamente está mal», y tenía
+razón: no era su impresión, era un bug real de cálculo.
+
+**El bug.** `ritmoReal()` (la regresión de mínimos cuadrados sobre los
+pesajes, en `Progreso.jsx` hasta hoy) miraba TODO el historial desde el
+primerísimo pesaje, sin ventana. Con un historial largo —el típico de
+quien importó el CSV de la MichiFit antigua, como Albert— eso diluye
+las últimas semanas de verdad entre meses de datos viejos (un tramo
+plano, o simplemente ruido). Reproducido con datos sintéticos antes de
+tocar nada: 45 días de meseta seguidos de 15 días bajando de verdad a
+-0,7 kg/semana dan -0,16 kg/semana mirando TODO el historial (unas 22
+semanas para la meta) contra -0,34 a -0,44 kg/semana mirando solo los
+últimos 30 días (8-10 semanas) — el mismo orden de magnitud que
+Albert vio, y en la misma dirección del error.
+
+Arreglo: `ritmoReal()` se movió de `Progreso.jsx` a
+`engine/calculos.js` (para poder probarla con `pruebas/*.mjs`, que
+antes no la cubría — ver `LESSONS.md`) y ahora solo mira los últimos
+`DIAS_RITMO_PESO` días (30, nueva constante en `constantes.js`). Por
+qué 30 y no `DIAS_FORMA` (14, la ventana que ya usan los hábitos): el
+peso varía más día a día que el cumplimiento de un hábito, y con 14
+días dos pesajes ruidosos moverían el ritmo entero. Las reglas de
+siempre —mínimo 3 pesajes, mínimo 10 días de span— no cambian, solo se
+aplican DENTRO de la ventana. Probado con `pruebas/progreso.mjs`:
+reproduce el bug exacto, comprueba que el caso normal (sin historial
+viejo) no cambia, y que los suelos de seguridad siguen ahí.
+
+**Las gráficas de 7 días.** Pedidas por Albert el mismo día: entreno,
+pasos, comida y sueño, sin macros (son informativas y no cuentan para
+nada). Reusan `evaluarDia()` —la misma función que ya pinta el
+calendario— así que «cumplido» significa EXACTAMENTE lo mismo aquí que
+en cualquier otra pantalla: entreno cumple por apuntar (no por
+minutos), la comida por la regla del sentido (`rangoComida`, no solo
+«por debajo»). El sueño no vive en `evaluarDia` (no es parte del
+pacto), así que se calcula aparte con la misma regla del Marcador:
+cumple por apuntar algo, sin importar las horas. Mismo lenguaje de
+color que el calendario —verde/ámbar/gris neutro, nunca rojo
+(`MECANICA.md` §10)—, y el día de descanso sale como un puntito, no
+como una barra a cero (que se leería como un fallo).
+
+`SUENO_IDEAL` (8 horas) se sacó de `Marcador.jsx` a
+`constantes.js` para que las gráficas nuevas la compartan sin
+duplicarla.

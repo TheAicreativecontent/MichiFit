@@ -170,10 +170,12 @@ export default {
   },
 
   progreso: {
+    semanaTitulo: '📊 Your last 7 days',
     titulo: '📈 Your progress',
     ayuda1: 'The chart puts your <b>real weight</b> together with the forecast that comes out of your current pace. The forecast line recalculates itself: if you lose faster, it gets shorter.',
     ayuda2: 'In the calendar you can tap any day to note down or correct data. Days older than three close for the goal, but the <b>weight</b> can always be corrected.',
     ayuda3: 'Right at the bottom are your awards: earned once and <b>never lost</b>, even if you slip later.',
+    ayuda4: 'The bars below are the last 7 days of workouts, steps, food and sleep. Green means done, yellow means halfway, grey means no data. No macros on purpose: they do not count towards anything.',
     pesoActual: 'Current weight',
     perdidos: 'Lost',
     recuperados: 'Regained',

@@ -23,7 +23,28 @@ cosas con uso real.
   token OIDC). **No subirlos nunca.**
 - Comprobado hoy: los 7 `pruebas/*.mjs` en verde y build limpio.
 
-## Lo último que se hizo (2026-09-22)
+## Lo último que se hizo (2026-09-23)
+Un bug de cálculo real y una funcionalidad pedida por Albert, subidos
+juntos como v0.7.9. Detalle completo en `DECISIONS.md`.
+
+- **El bug de las 14,3 semanas: arreglado.** El ritmo real de peso
+  miraba TODO el historial de pesajes desde el primero; con un
+  historial largo (el CSV importado, típicamente) eso diluía las
+  últimas semanas de verdad entre meses de datos viejos. Ahora solo
+  mira los últimos 30 días (`DIAS_RITMO_PESO`). Reproducido con datos
+  sintéticos antes de arreglarlo, y verificado después en la app real:
+  el mismo escenario pasó de mostrar ~22 semanas a 10. `ritmoReal()` se
+  movió de `Progreso.jsx` a `engine/calculos.js`, con prueba nueva en
+  `pruebas/progreso.mjs`.
+- **Cuatro gráficas de 7 días en Progreso**: entreno, pasos, comida y
+  sueño (sin macros, a propósito). Reusan `evaluarDia()`, la misma
+  función del calendario, así que «cumplido» significa lo mismo en
+  toda la app. Mismo lenguaje de color que el calendario (verde/ámbar/
+  gris neutro, nunca rojo).
+- `SUENO_IDEAL` se sacó de `Marcador.jsx` a `constantes.js` para
+  compartirla con las gráficas nuevas.
+
+## Antes de eso (2026-09-22)
 Dos avisos de Albert, dos horas después de lanzar la v0.7.6. Detalle
 completo en `DECISIONS.md` y `SESSION_MAP.md`.
 

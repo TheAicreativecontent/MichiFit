@@ -17,6 +17,7 @@
    ============================================================ */
 
 import { useT } from '../i18n/index.jsx';
+import { SUENO_IDEAL } from '../engine/constantes.js';
 
 const CORAZON = [
   '.XX.XX.',
@@ -49,7 +50,6 @@ const ESCUDO = [
 
 const MAX_CORAZONES = 5;
 const BLOQUES = 10;
-const SUENO_IDEAL = 8;
 
 function Icono({ forma, lleno, color, titulo }) {
   const p = 2;

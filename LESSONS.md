@@ -540,3 +540,18 @@ oculto miente en las medidas. Antes de creerse un numero raro, mirar
   una vez y mira qué pasa". `pruebas/cobertura-michi.mjs` ya hacía esto
   para qué dibujos se ven; ahora también para qué fondo se ve durante
   cuánto tiempo.
+
+## Una función de cálculo que vive en una pantalla no se prueba
+- Qué pasó: `ritmoReal()` era una función local dentro de
+  `Progreso.jsx`, no exportada, no importada por ningún
+  `pruebas/*.mjs`. Diluía el ritmo real con historiales largos desde
+  que existe (2026-09-11), y nadie lo vio hasta que Albert lo notó con
+  sus propios datos el 2026-09-23 — doce días después de que el propio
+  código se revisara a fondo (`CURRENT.md`, auditoría del 2026-09-19)
+  sin que nadie mirara ESTA función en concreto, porque vivía fuera de
+  `engine/` y por tanto fuera del radar de «esto se prueba».
+- Cómo evitarlo: un cálculo con matemáticas de verdad (una regresión,
+  una fórmula, algo que pueda estar sutilmente mal) va en `engine/`,
+  exportado, con su propio `pruebas/*.mjs` — aunque solo lo use una
+  pantalla. Que algo viva «cerca de donde se usa» no es razón para que
+  viva fuera de donde se prueba.

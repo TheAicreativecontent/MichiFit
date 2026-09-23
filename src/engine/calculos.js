@@ -19,8 +19,9 @@ import {
   OBJETIVOS,
   DIAS,
   DIAS_FORMA,
+  DIAS_RITMO_PESO,
 } from './constantes.js';
-import { diasAtras } from './pacto.js';
+import { diasAtras, diasDesde, hoyISO } from './pacto.js';
 
 export const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
 
@@ -322,4 +323,37 @@ export function avisosDeSeguridad({ perfil, comidaKcal, kgPorSemana }) {
   }
 
   return avisos;
+}
+
+/* --- ritmo real de peso (Progreso) ---------------------------
+   Cuánto estás bajando (o subiendo) de verdad, por regresión de
+   mínimos cuadrados sobre tus PESAJES reales. Más honesto que
+   comparar el primero con el último: un solo día raro no manda.
+
+   Mira solo los últimos `DIAS_RITMO_PESO` días, no el historial
+   entero desde el primer pesaje —hasta el 2026-09-23 no había
+   ventana, y eso diluía las últimas semanas de verdad entre meses de
+   datos viejos. Ver el comentario de la constante y `DECISIONS.md`.
+
+   `pesajes` viene ya ordenado por fecha ascendente (así lo entrega
+   `Progreso.jsx`); aquí no se reordena. */
+export function ritmoReal(pesajes, hoy = hoyISO(), ventanaDias = DIAS_RITMO_PESO) {
+  const desde = diasAtras(hoy, ventanaDias);
+  const recientes = pesajes.filter((p) => p.fecha >= desde);
+  if (recientes.length < 3) return null;
+
+  const dias = recientes.map((p) => diasDesde(recientes[0].fecha, p.fecha));
+  const span = dias[dias.length - 1];
+  if (span < 10) return null;                // menos de 10 días no dice nada
+
+  const n = dias.length;
+  const mx = dias.reduce((a, b) => a + b, 0) / n;
+  const my = recientes.reduce((a, p) => a + p.peso, 0) / n;
+  let num = 0, den = 0;
+  dias.forEach((d, i) => {
+    num += (d - mx) * (recientes[i].peso - my);
+    den += (d - mx) ** 2;
+  });
+  if (den === 0) return null;
+  return (num / den) * 7;                    // kg por semana; negativo = bajando
 }

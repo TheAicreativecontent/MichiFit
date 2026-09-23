@@ -7,12 +7,12 @@
 
 ## La estándar, hoy
 
-**v0.7.8** — 22 de septiembre de 2026.
+**v0.7.9** — 23 de septiembre de 2026.
 
 | Dónde | Qué vale |
 |---|---|
-| Etiqueta de Git | `v0.7.8` |
-| `package.json` | `"version": "0.7.8"` |
+| Etiqueta de Git | `v0.7.9` |
+| `package.json` | `"version": "0.7.9"` |
 | Caché del service worker | `michifit-v17` |
 | Dentro de la app | Ajustes, última línea |
 | En vivo | https://michifit.vercel.app |
@@ -84,6 +84,13 @@ Al cerrar una tanda de trabajo que merezca marcarse:
 5. Commit, `git tag -a vX.Y.Z`, y `git push --follow-tags`.
 
 ## Historial
+
+- **v0.7.9** (2026-09-23) — Arreglado el bug de las 14,3 semanas: el
+  ritmo real de peso miraba TODO el historial de pesajes, y con un
+  historial largo (el CSV importado, por ejemplo) las últimas semanas
+  buenas se diluían entre meses de datos viejos. Ahora solo mira los
+  últimos 30 días. Y cuatro gráficas nuevas en Progreso, últimos 7 días
+  de entreno, pasos, comida y sueño, sin macros.
 
 - **v0.7.8** (2026-09-22) — Dos ajustes más, pedidos por Albert nada más
   probar la v0.7.7: el icono de guardar copia también en Inicio (junto

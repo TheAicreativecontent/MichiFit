@@ -1902,6 +1902,45 @@ que llevaba semanas o meses así, sin que nadie lo hubiera probado en un
 uso real y continuado hasta que amigos y familia empezaron a usar la
 app. Ver `LESSONS.md` si conviene anotar el patrón.
 
+## 2026-09-23 — El bug de las 14,3 semanas, cuatro gráficas nuevas, y el vídeo de Ninja
+Albert probó la v0.7.8 unos días y trajo tres cosas: un vídeo de
+Instagram por estructurar, un bug («me dice 14,3 semanas para la meta,
+obviamente está mal») y un encargo (gráficas de 7 días en Progreso).
+
+**`MARKETING.md`**, nuevo: guion de un Reel de ~55 s contando la
+historia real de Ninja y cerrando con la app, más el copy del post y
+los hashtags. Todo con material que ya existe en el repo (viñetas del
+cómic, fotos reales), nada que generar.
+
+**El bug, diagnosticado antes de tocar código.** Se reprodujo con datos
+sintéticos (45 días de meseta, tipo CSV importado, más 15 días bajando
+de verdad) antes de mirar el arreglo: `ritmoReal()` regresaba sobre
+TODO el historial de pesajes, sin ventana, así que un historial largo
+diluía las últimas semanas buenas. El repro dio ~22 semanas mirando
+todo el historial contra 8-10 mirando solo 30 días — el mismo orden
+que Albert vio. Se movió `ritmoReal()` de `Progreso.jsx` (donde no la
+cubría ningún test) a `engine/calculos.js`, con ventana de 30 días
+(`DIAS_RITMO_PESO`, constante nueva) y prueba dedicada,
+`pruebas/progreso.mjs`. Verificado también en la app real con el mismo
+escenario sintético: la cifra bajó de lo que habrían sido ~22 semanas a
+10.
+
+**Las cuatro gráficas de 7 días**, en la misma tanda: entreno, pasos,
+comida y sueño, sin macros. Reusan `evaluarDia()` —la del
+calendario— para que «cumplido» no se reinvente aquí; el sueño se
+calcula aparte porque no vive en el pacto. Mismo lenguaje de color que
+el calendario (verde/ámbar/gris neutro, nunca rojo), y el día de
+descanso sale como un puntito en vez de una barra a cero. `SUENO_IDEAL`
+se sacó de `Marcador.jsx` a `constantes.js` para compartirla.
+
+Verificado en el navegador con un perfil sintético completo (mezcla
+deliberada de días cumplidos, a medias, sin datos y de descanso roto):
+las cuatro gráficas coincidieron exactamente con lo esperado, campo a
+campo, comparando los datos reales de React con lo que debían decir —
+no a ojo en una captura, que en un primer vistazo llevó a una lectura
+equivocada de una de las columnas. También probado con un usuario sin
+ningún dato: no rompe nada, todo sale neutro. Subido como **v0.7.9**.
+
 ---
 
 ## Archivo de CURRENT.md · movido el 2026-09-19
