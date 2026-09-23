@@ -30,6 +30,14 @@ al lado del 💾 y el «?»—. Clase nueva `mf-inicio-flechas` solo en ese
 botón, para no afectar al de guardar copia, que comparte la clase base
 `mf-inicio-zoom`.
 
+## Fuera del código: el vídeo de promoción arrancó
+
+Albert subió el primer vídeo promocional (historia de Ninja + demo con
+sus datos reales, subtítulos en tailandés y español) a Reel e Historia
+de Instagram y a Estado de WhatsApp, el 2026-09-23. Plan: 2 o 3 vídeos
+en total, uno por semana, cada uno con un enfoque distinto. Detalle
+completo, guion y plan en `MARKETING.md`.
+
 ## Antes de eso (2026-09-23, noche — v0.7.13)
 Albert probó la v0.7.12 y pidió otro retoque visual: el botón de
 ampliar/reducir el michi (⤢/⤡ en Inicio, arriba a la derecha del
