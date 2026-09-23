@@ -446,17 +446,13 @@ input[type=range]::-moz-range-thumb {
   font-size: calc(12px * var(--escala)); font-weight: 800; color: var(--tinta-flojo);
   margin: 0 0 8px;
 }
-/* FULL-BLEED: las barras llegan al borde del dispositivo, pedido por
-   Albert el 2026-09-23 («se ven muy pequeñas y apretadas»). El margen
-   negativo cancela el padding de LA TARJETA (18px) Y el de LA PÁGINA
-   (18px, `.mf-pagina`) a la vez —36px en total—, así que este es el
-   único sitio de la app donde un hijo se sale literalmente del huevo
-   de sus dos padres. El padding se vuelve a poner por dentro, para que
-   la primera y la última barra no queden pegadas al cristal del
-   móvil. */
-.mf-graf7-scroll {
-  margin: 0 -36px; padding: 0 18px;
-}
+/* Hasta la v0.7.11 esto era full-bleed (margen negativo cancelando el
+   padding de la tarjeta Y de la página, para llegar al borde del
+   dispositivo). Albert lo probó y pidió lo contrario: un margen a los
+   lados, que las barras no toquen el límite de la tarjeta. Sin
+   márgenes propios, el padding normal de `.mf-tarjeta` (18px) ya hace
+   ese trabajo —igual que cualquier otro contenido de la app—, así que
+   basta con no tocar nada aquí. */
 .mf-graf7-fila {
   display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr);
   /* Siempre el ancho entero, sin scroll: con 30 columnas (30 días) cada

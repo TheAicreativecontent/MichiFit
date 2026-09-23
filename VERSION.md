@@ -7,12 +7,12 @@
 
 ## La estándar, hoy
 
-**v0.7.11** — 23 de septiembre de 2026.
+**v0.7.12** — 23 de septiembre de 2026.
 
 | Dónde | Qué vale |
 |---|---|
-| Etiqueta de Git | `v0.7.11` |
-| `package.json` | `"version": "0.7.11"` |
+| Etiqueta de Git | `v0.7.12` |
+| `package.json` | `"version": "0.7.12"` |
 | Caché del service worker | `michifit-v17` |
 | Dentro de la app | Ajustes, última línea |
 | En vivo | https://michifit.vercel.app |
@@ -84,6 +84,16 @@ Al cerrar una tanda de trabajo que merezca marcarse:
 5. Commit, `git tag -a vX.Y.Z`, y `git push --follow-tags`.
 
 ## Historial
+
+- **v0.7.12** (2026-09-23) — Un retoque más a la gráfica de hábitos,
+  pedido por Albert con una captura suya marcando el problema: las
+  barras llegaban justo al borde de la tarjeta blanca («al límite del
+  contenedor»), sin margen. Era el full-bleed de la v0.7.10 —pensado
+  para que las barras llegaran al borde del DISPOSITIVO— pero también
+  las pegaba al borde de la TARJETA, que es donde de verdad se notaba.
+  Quitado: ahora usa el margen normal de cualquier tarjeta de la app
+  (18px), igual que el resto de Progreso. Sin cambios de imagen: caché
+  igual.
 
 - **v0.7.11** (2026-09-23) — Dos retoques a la gráfica de hábitos de la
   v0.7.10, pedidos por Albert nada más probarla. La vista Año ahora

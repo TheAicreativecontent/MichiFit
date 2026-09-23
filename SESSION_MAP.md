@@ -2028,6 +2028,22 @@ y el resto en neutro, y la vista 30 días cabe entera sin scroll. Los 8
 funciones: viven en `Progreso.jsx`, no en `engine/`). Subido como
 **v0.7.11**.
 
+## 2026-09-23 (más noche) — Margen a los lados de la gráfica de hábitos
+Albert probó la v0.7.11 y mandó una captura con un marco negro dibujado
+a mano, señalando que las barras llegaban justo al borde de la tarjeta
+blanca. Diagnóstico rápido: el full-bleed de `.mf-graf7-scroll`
+(margen negativo -36px + padding 18px) estaba pensado para llegar al
+borde del DISPOSITIVO, pero el cálculo hacía que las barras quedasen
+exactamente pegadas al borde de la TARJETA (0px de margen ahí), que es
+justo donde Albert lo notó. Con las 30 columnas ya sin scroll desde la
+v0.7.11 (barras que se encogen en vez de desbordar), ese full-bleed ya
+no hacía falta para que la gráfica se viera bien — se quitó entero, y
+ahora usa el padding normal de `.mf-tarjeta` (18px), igual que
+cualquier otra tarjeta de Progreso. Verificado en el navegador en los
+tres modos (7 días, 30 días, Año): margen visible en los tres, sin
+scroll, sin bordes tocando el cristal de la tarjeta. Subido como
+**v0.7.12**.
+
 ---
 
 ## Archivo de CURRENT.md · movido el 2026-09-19

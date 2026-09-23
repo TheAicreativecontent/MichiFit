@@ -13,7 +13,7 @@ link la abre, la instala y usa. Lo que queda son retoques y decidir
 cosas con uso real.
 
 ## Versión y despliegue
-- **Versión estándar: `v0.7.11`** (etiqueta de Git). Ver `VERSION.md`.
+- **Versión estándar: `v0.7.12`** (etiqueta de Git). Ver `VERSION.md`.
 - **Caché del service worker: `michifit-v17`** (sin cambios de imagen
   desde la v0.7.6).
 - En vivo: https://michifit.vercel.app · cada `git push` a `main`
@@ -23,7 +23,21 @@ cosas con uso real.
   token OIDC). **No subirlos nunca.**
 - Comprobado hoy: los 8 `pruebas/*.mjs` en verde y build limpio.
 
-## Lo último que se hizo (2026-09-23, noche — v0.7.11)
+## Lo último que se hizo (2026-09-23, noche — v0.7.12)
+Albert probó la v0.7.11 y mandó una captura con un marco negro dibujado
+encima, señalando que las barras de la gráfica de hábitos llegaban
+justo al borde de la tarjeta blanca, sin ningún margen. Era el
+full-bleed de la v0.7.10 (pensado para llegar al borde del
+DISPOSITIVO) pero que de paso también pegaba las barras al borde de la
+TARJETA — que es donde de verdad se notaba «al límite del contenedor».
+Quitado el hack de márgenes negativos en `.mf-graf7-scroll`: ahora usa
+el padding normal de `.mf-tarjeta` (18px), igual que cualquier otra
+tarjeta de la app. La primera versión de este documento decía «pedido
+por Albert: se ven muy pequeñas y apretadas, que ocupen el ancho del
+dispositivo» — con las 30 columnas ya sin scroll desde la v0.7.11, ese
+ancho ya no hacía falta forzarlo hasta el borde físico para verse bien.
+
+## Antes de eso (2026-09-23, tarde-noche — v0.7.11)
 Dos retoques a la gráfica de hábitos, pedidos por Albert nada más
 probar la v0.7.10:
 
@@ -206,7 +220,7 @@ completo en `DECISIONS.md` y `SESSION_MAP.md`.
   Caché `michifit-v17`.
 
 ## Qué toca ahora, por orden
-1. **Nada pendiente de subir.** La `v0.7.11` está en vivo. Ahora toca
+1. **Nada pendiente de subir.** La `v0.7.12` está en vivo. Ahora toca
    esperar el feedback de amigos y familia — y en particular, con
    varios avisos ya llegados en pocos días, estar atento a si aparece
    algo más de este estilo (algo que llevaba semanas roto y nadie lo
