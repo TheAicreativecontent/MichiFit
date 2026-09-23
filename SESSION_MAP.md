@@ -1941,6 +1941,64 @@ no a ojo en una captura, que en un primer vistazo llevó a una lectura
 equivocada de una de las columnas. También probado con un usuario sin
 ningún dato: no rompe nada, todo sale neutro. Subido como **v0.7.9**.
 
+## 2026-09-23 (tarde) — El ritmo de verdad, Progreso reordenado, y Logros a Mi objetivo
+La v0.7.9 no arregló el bug para Albert: seguía viendo 14,3 meses / 62
+semanas con sus datos reales, no sintéticos. Junto con eso, trajo un
+encargo completo para reordenar Progreso, con capturas de referencia
+(Google Fit/Samsung Health) para la gráfica anual.
+
+**El ritmo, diagnosticado con datos reales esta vez.** Albert mandó su
+copia de seguridad real (`michifit-copia-2026-09-23 (2).json`, 19
+pesajes del 5 al 23 de septiembre). No era el tamaño de la ventana —ya
+arreglado en la v0.7.9— sino que la regresión por mínimos cuadrados es
+muy sensible a un solo valor suelto, y su historial real tenía
+justamente eso: 18 días de ruido plano seguidos de una bajada grande el
+último día. Se cambió `ritmoReal()` de mínimos cuadrados a **Theil-Sen**
+(la mediana de las pendientes entre cada par de días de la ventana), que
+ignora ese tipo de valor suelto por construcción. Con los mismos datos
+reales de Albert, la pendiente ahora sale ~0 (correctamente: no hay
+tendencia real establecida todavía), así que la app cae al ritmo
+teórico y da ~7 semanas / 1,6 meses en vez de 62. Prueba de regresión en
+`pruebas/progreso.mjs` con sus fechas y pesos reales.
+
+**Progreso, reordenado exactamente como pidió**: título → cuatro
+recuadros (peso inicial, peso actual, perdidos, hasta la meta —con el
+ritmo real en pequeño dentro de este último recuadro, no un quinto
+recuadro—) → gráfica de peso con la línea de meta → calendario →
+gráfica de hábitos. Todo sigue siendo 100% variable por usuario; los
+números que Albert puso en su mensaje eran solo el ejemplo de
+maquetación, nunca se quemaron en el código.
+
+**Gráfica de hábitos con selector 7 días / 30 días / Año**, a ancho
+completo del dispositivo mediante la técnica de full-bleed que ya usaba
+el calendario (márgenes negativos que cancelan el padding anidado). El
+año agrupa por mes: % de días evaluables con objetivo cumplido, ≥70% se
+pinta verde, y solo aparecen los meses que de verdad tengan datos —si
+solo hay uno, sale solo uno, sin huecos ni meses en blanco. Las
+referencias de Albert (capturas de un tema oscuro estilo Google
+Fit/Samsung Health) se reinterpretaron con los colores de marca de
+MichiFit (verde/ámbar/gris), tal y como pidió explícitamente («con
+nuestros colores de marca»), no copiadas literalmente.
+
+**Logros se mudó de Progreso a Mi objetivo**, al final del todo, con un
+cuarto párrafo de ayuda nuevo explicando que no se pierden nunca.
+
+**Un bug de colisión de CSS, encontrado en la propia verificación**: el
+contenedor nuevo de la gráfica de hábitos usó la clase `mf-semana7`, que
+ya existía —sin relación— para el selector de días de la semana en Mi
+objetivo. Sin scoping de CSS, el contenedor nuevo heredó ese grid de 7
+columnas por accidente y se encogió a un séptimo del ancho. Encontrado
+con `getComputedStyle()` subiendo por los ancestros en la consola del
+navegador, no a ojo. Renombrado a `.mf-graf7*`; la clase original de Mi
+objetivo no se tocó. Ver `LESSONS.md`.
+
+Verificado en el navegador con la copia de seguridad real de Albert
+inyectada en `localStorage`: los cuatro recuadros, la cifra de semanas,
+las tres vistas de la gráfica de hábitos (incluida la anual, que en
+septiembre solo pinta un mes) y Logros en su nuevo sitio, todo
+comprobado uno por uno, no solo el build y los tests. Subido como
+**v0.7.10**.
+
 ---
 
 ## Archivo de CURRENT.md · movido el 2026-09-19

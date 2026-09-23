@@ -19,6 +19,42 @@ const comprobar = (ok, que) => {
   if (!ok) fallos++;
 };
 
+console.log('\n### un solo pesaje raro no tuerce el ritmo entero (regresion 2026-09-23)');
+{
+  // Los pesajes REALES de Albert: 18 dias practicamente planos
+  // (84.15-84.9, sin tendencia clara) y UN dia con -1,5 kg de golpe.
+  // Por minimos cuadrados esto daba -0,05 kg/semana -> 62 semanas para
+  // su meta. Por la mediana de pendientes (Theil-Sen), mucho mas dificil
+  // de mover con un solo pesaje, tiene que dar (casi) cero: no hay
+  // tendencia real todavia, y `realApunta` en Progreso.jsx cae sola al
+  // ritmo teorico en vez de inventarse una fecha.
+  const pesajes = [
+    ['2026-09-05', 84.4], ['2026-09-06', 84.4], ['2026-09-07', 84.4],
+    ['2026-09-08', 84.4], ['2026-09-09', 84.4], ['2026-09-10', 84.4],
+    ['2026-09-11', 84.9], ['2026-09-12', 84.15], ['2026-09-13', 84.5],
+    ['2026-09-14', 84.9], ['2026-09-15', 84.9], ['2026-09-16', 84.75],
+    ['2026-09-17', 84.7], ['2026-09-18', 84.35], ['2026-09-19', 84.3],
+    ['2026-09-20', 84.7], ['2026-09-21', 84.7], ['2026-09-22', 84.7],
+    ['2026-09-23', 83.2],
+  ].map(([fecha, peso]) => ({ fecha, peso }));
+
+  const r = C.ritmoReal(pesajes, '2026-09-23');
+  comprobar(r != null, `sale un numero, no null (${r})`);
+  comprobar(Math.abs(r) < 0.05,
+    `no hay tendencia real todavia, el ritmo queda casi en cero (${r?.toFixed(3)})`,
+    `un solo pesaje raro sigue torciendo el ritmo (${r?.toFixed(3)}), no debería pasar de ±0,05`);
+
+  // Y que quede claro que la mediana no es solo "mas pequeño siempre":
+  // en un historial limpio, sin outliers, tiene que seguir dando
+  // (casi) lo mismo que antes daba minimos cuadrados.
+  const limpio = [];
+  let peso = 80;
+  for (let i = 20; i >= 0; i--) { peso -= 0.5 / 7; limpio.push({ fecha: P.diasAtras('2026-09-23', i), peso: Math.round(peso * 100) / 100 }); }
+  const rLimpio = C.ritmoReal(limpio, '2026-09-23');
+  comprobar(Math.abs(rLimpio - -0.5) < 0.05,
+    `sin outliers, sigue dando el ritmo real (0,5 kg/semana): ${rLimpio?.toFixed(3)}`);
+}
+
 const iso = (n) => P.diasAtras(P.hoyISO(), n);
 
 console.log('\n### un historial largo y plano ya no diluye las ultimas semanas buenas');

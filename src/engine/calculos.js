@@ -326,14 +326,31 @@ export function avisosDeSeguridad({ perfil, comidaKcal, kgPorSemana }) {
 }
 
 /* --- ritmo real de peso (Progreso) ---------------------------
-   Cuánto estás bajando (o subiendo) de verdad, por regresión de
-   mínimos cuadrados sobre tus PESAJES reales. Más honesto que
-   comparar el primero con el último: un solo día raro no manda.
+   Cuánto estás bajando (o subiendo) de verdad, a partir de tus PESAJES
+   reales. Mira solo los últimos `DIAS_RITMO_PESO` días, no el
+   historial entero desde el primer pesaje —hasta el 2026-09-23 no
+   había ventana, y eso diluía las últimas semanas de verdad entre
+   meses de datos viejos. Ver el comentario de la constante.
 
-   Mira solo los últimos `DIAS_RITMO_PESO` días, no el historial
-   entero desde el primer pesaje —hasta el 2026-09-23 no había
-   ventana, y eso diluía las últimas semanas de verdad entre meses de
-   datos viejos. Ver el comentario de la constante y `DECISIONS.md`.
+   La pendiente es la MEDIANA de las pendientes entre TODOS los pares
+   de pesajes (el estimador de Theil-Sen), no una regresión de mínimos
+   cuadrados. Es más trabajo que restar el primero del último, pero
+   hace falta: el peso de un día suelto es ruidoso —agua, comida en el
+   estómago, la hora a la que te pesas— y un solo pesaje raro puede
+   torcer una regresión de mínimos cuadrados ENTERA si cae en un
+   extremo del rango de fechas. Le pasó a Albert el 2026-09-23: 18 días
+   prácticamente planos y UN día con -1,5 kg de golpe (rebote de agua,
+   no un whoosh real) daban por mínimos cuadrados -0,05 kg/semana —62
+   semanas para su meta—, cuando la mediana de pendientes, que necesita
+   que la MAYORÍA de los pares digan lo mismo para moverse, daba 0: no
+   hay tendencia real todavía. Con `realApunta` (en `Progreso.jsx`)
+   filtrando un ritmo tan débil, la app cae sola al ritmo TEÓRICO del
+   objetivo en vez de inventarse una fecha con un solo pesaje raro. Ver
+   `DECISIONS.md` 2026-09-23.
+
+   En un histórico limpio, sin outliers, la mediana de pendientes da
+   prácticamente lo mismo que mínimos cuadrados —no se pierde precisión
+   en el caso normal, solo se gana resistencia en el raro—.
 
    `pesajes` viene ya ordenado por fecha ascendente (así lo entrega
    `Progreso.jsx`); aquí no se reordena. */
@@ -346,14 +363,18 @@ export function ritmoReal(pesajes, hoy = hoyISO(), ventanaDias = DIAS_RITMO_PESO
   const span = dias[dias.length - 1];
   if (span < 10) return null;                // menos de 10 días no dice nada
 
-  const n = dias.length;
-  const mx = dias.reduce((a, b) => a + b, 0) / n;
-  const my = recientes.reduce((a, p) => a + p.peso, 0) / n;
-  let num = 0, den = 0;
-  dias.forEach((d, i) => {
-    num += (d - mx) * (recientes[i].peso - my);
-    den += (d - mx) ** 2;
-  });
-  if (den === 0) return null;
-  return (num / den) * 7;                    // kg por semana; negativo = bajando
+  const pendientes = [];
+  for (let i = 0; i < recientes.length; i++) {
+    for (let j = i + 1; j < recientes.length; j++) {
+      if (dias[j] === dias[i]) continue;      // dos pesajes el mismo día: no aportan pendiente
+      pendientes.push((recientes[j].peso - recientes[i].peso) / (dias[j] - dias[i]));
+    }
+  }
+  if (!pendientes.length) return null;
+  pendientes.sort((a, b) => a - b);
+  const mitad = Math.floor(pendientes.length / 2);
+  const mediana = pendientes.length % 2
+    ? pendientes[mitad]
+    : (pendientes[mitad - 1] + pendientes[mitad]) / 2;
+  return mediana * 7;                        // kg por semana; negativo = bajando
 }

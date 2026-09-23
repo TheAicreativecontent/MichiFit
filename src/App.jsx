@@ -373,7 +373,7 @@ export default function App() {
         )}
         {pestana === 'progreso' && (
           <Progreso perfil={datos.perfil} pacto={datos.pacto} entradas={datos.entradas}
-                    onRegistrar={registrar} estado={estado} />
+                    onRegistrar={registrar} />
         )}
         {pestana === 'simular' && <Simulador perfil={datos.perfil} pacto={datos.pacto} />}
         {pestana === 'karma' && <Karma onSalir={() => setPestana('inicio')} />}

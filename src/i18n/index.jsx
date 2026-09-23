@@ -117,6 +117,9 @@ export function useFormato() {
       fecha: (d, opts = { day: 'numeric', month: 'long', year: 'numeric' }) =>
         (d == null ? '—' : new Intl.DateTimeFormat(loc, opts).format(new Date(d))),
       mes: (d) => new Intl.DateTimeFormat(loc, { month: 'long', year: 'numeric' }).format(new Date(d)),
+      /* Mes corto para la gráfica anual de Progreso ("sept", "oct"):
+         una columna por mes no tiene sitio para el nombre entero. */
+      mesCorto: (d) => new Intl.DateTimeFormat(loc, { month: 'short' }).format(new Date(d)),
     };
   }, [idioma]);
 }

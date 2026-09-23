@@ -717,3 +717,73 @@ como una barra a cero (que se leería como un fallo).
 `SUENO_IDEAL` (8 horas) se sacó de `Marcador.jsx` a
 `constantes.js` para que las gráficas nuevas la compartan sin
 duplicarla.
+
+## El ritmo, otra vez: de mínimos cuadrados a Theil-Sen (v0.7.10, 2026-09-23)
+
+La ventana de 30 días de arriba no bastó: Albert seguía viendo 62
+semanas con SUS datos reales (su copia de seguridad, 19 pesajes). La
+causa no era el tamaño de la ventana sino el estimador: mínimos
+cuadrados (OLS) ajusta la recta que minimiza el error cuadrático, y por
+eso un solo punto lejos de los demás puede arrastrar la pendiente
+entera hacia sí — con 18 días de ruido plano y una bajada grande el
+último día, OLS daba una pendiente casi nula (-0,05 kg/semana), de ahí
+las 62 semanas.
+
+**Arreglo: Theil-Sen.** En vez de una recta de mínimos cuadrados, se
+calcula la pendiente entre CADA PAR de pesajes de la ventana y se toma
+la MEDIANA de todas esas pendientes. Un solo punto raro solo afecta a
+las pendientes que lo incluyen a él; el resto (la mayoría, si el
+historial tiene más de 3-4 puntos) sigue votando por la tendencia real,
+y la mediana ignora minorías. Con los mismos 19 pesajes reales de
+Albert, Theil-Sen da ~0 kg/semana (correcto: 18 días planos no
+establecen ninguna tendencia real todavía), así que la app cae al
+suelo de seguridad ya existente (mínimo 10 días de span con tendencia
+clara) y usa el ritmo TEÓRICO del objetivo en su lugar — que da ~7
+semanas, lo razonable.
+
+Las reglas de siempre no cambian: mínimo 3 pesajes en la ventana,
+mínimo 10 días de span, y si no se cumplen, cae a `teorico`. Solo
+cambia CÓMO se calcula la pendiente cuando sí hay datos suficientes.
+Probado con los datos reales exactos de Albert como fixture en
+`pruebas/progreso.mjs` (no solo datos sintéticos: la lección de la
+v0.7.9 fue que los sintéticos no reproducían esta forma concreta de
+ruido — ver `LESSONS.md`), más un caso limpio sin outliers para
+comprobar que sigue dando el ritmo correcto cuando los datos sí son
+consistentes.
+
+## Progreso reordenado, gráfica anual, y Logros a Mi objetivo (v0.7.10, 2026-09-23)
+
+Encargo completo de Albert el mismo día, con orden explícito y cuatro
+imágenes de referencia (capturas de un Google Fit/Samsung Health-style,
+tema oscuro) para la vista anual.
+
+**Orden fijado**: título → los cuatro recuadros (peso inicial, peso
+actual, perdidos, hasta la meta) → gráfica de peso con la línea de meta
+→ calendario → gráfica de hábitos con selector de periodo. El ritmo
+real semanal se metió DENTRO del recuadro de «hasta la meta», en
+pequeño — Albert fue explícito en que no quería un quinto recuadro.
+
+**Todo variable por usuario, por instrucción explícita de Albert**: los
+números de su mensaje (97,7 kg, 83,2 kg, etc.) eran solo el ejemplo de
+cómo se ve el layout, nunca datos a quemar en el código. La app sigue
+arrancando vacía para cualquiera.
+
+**La gráfica de hábitos, con selector 7 días / 30 días / Año**, a ancho
+completo del dispositivo con la misma técnica full-bleed que ya usaba
+el calendario (márgenes negativos que cancelan el padding anidado de
+`.mf-pagina` + `.mf-tarjeta`, más `overflow-x: auto` cuando hay más de
+7 columnas). El modo Año agrupa por mes: % de días evaluables con
+objetivo cumplido, ≥70% pinta verde (`UMBRAL_MES_OK`), y solo aparecen
+los meses que de verdad tengan algún dato — sin datos de todo el año,
+sin huecos en blanco, exactamente como pidió Albert («si no tenemos
+datos de todos los meses, ponemos sólo los que tengamos»).
+
+**Las referencias de Albert, reinterpretadas, no copiadas.** Pidió
+explícitamente «con nuestros colores de marca de MichiFit», así que la
+paleta es la de siempre (verde/ámbar/gris neutro, nunca rojo —
+`MECANICA.md` §10), no el tema oscuro de las capturas.
+
+**Logros se mueve de Progreso a Mi objetivo**, al final del todo —
+Albert dijo que le sobraban en Progreso; entre quitarlos del todo o
+moverlos, eligió moverlos. `Pacto.jsx` ya recibía la prop `estado` que
+Logros necesita, así que no hizo falta tocar `App.jsx` para pasarla.

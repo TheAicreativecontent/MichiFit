@@ -7,12 +7,12 @@
 
 ## La estándar, hoy
 
-**v0.7.9** — 23 de septiembre de 2026.
+**v0.7.10** — 23 de septiembre de 2026.
 
 | Dónde | Qué vale |
 |---|---|
-| Etiqueta de Git | `v0.7.9` |
-| `package.json` | `"version": "0.7.9"` |
+| Etiqueta de Git | `v0.7.10` |
+| `package.json` | `"version": "0.7.10"` |
 | Caché del service worker | `michifit-v17` |
 | Dentro de la app | Ajustes, última línea |
 | En vivo | https://michifit.vercel.app |
@@ -84,6 +84,20 @@ Al cerrar una tanda de trabajo que merezca marcarse:
 5. Commit, `git tag -a vX.Y.Z`, y `git push --follow-tags`.
 
 ## Historial
+
+- **v0.7.10** (2026-09-23) — Dos cosas más que se vieron nada más
+  probar la v0.7.9. Primera: el ritmo real de peso seguía mal (62
+  semanas con datos reales de Albert) — no era el historial largo, era
+  que un solo pesaje raro (una bajada de golpe el último día) torcía la
+  regresión por mínimos cuadrados entera. Se cambió a Theil-Sen
+  (mediana de pendientes entre pares de días), que ignora ese tipo de
+  valor suelto; con los mismos datos reales ahora da ~7 semanas.
+  Segunda: la pantalla de Progreso reordenada según pidió Albert (los
+  cuatro recuadros con el ritmo dentro del de «hasta la meta», la
+  gráfica de peso debajo, el calendario, y la gráfica de hábitos con
+  selector 7 días / 30 días / año, a ancho completo de dispositivo);
+  y Logros se movió de Progreso a Mi objetivo, al final. Sin cambios de
+  imagen: caché igual.
 
 - **v0.7.9** (2026-09-23) — Arreglado el bug de las 14,3 semanas: el
   ritmo real de peso miraba TODO el historial de pesajes, y con un

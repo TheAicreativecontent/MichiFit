@@ -1,6 +1,6 @@
 # CURRENT.md — Estado actual
 
-> **Actualizado el 2026-09-22.** Este documento dice cómo está el proyecto
+> **Actualizado el 2026-09-23.** Este documento dice cómo está el proyecto
 > AHORA y qué toca después. Nada más. La bitácora día a día (7 al 19 de
 > septiembre) y las notas de diseño largas viven en `SESSION_MAP.md`, en
 > la sección final «Archivo de CURRENT.md»: allí está todo lo que antes se
@@ -13,7 +13,7 @@ link la abre, la instala y usa. Lo que queda son retoques y decidir
 cosas con uso real.
 
 ## Versión y despliegue
-- **Versión estándar: `v0.7.8`** (etiqueta de Git). Ver `VERSION.md`.
+- **Versión estándar: `v0.7.10`** (etiqueta de Git). Ver `VERSION.md`.
 - **Caché del service worker: `michifit-v17`** (sin cambios de imagen
   desde la v0.7.6).
 - En vivo: https://michifit.vercel.app · cada `git push` a `main`
@@ -21,9 +21,45 @@ cosas con uso real.
 - Repo público: https://github.com/TheAicreativecontent/MichiFit
 - `.vercel/` y `.env.local` están en `.gitignore` (el segundo lleva un
   token OIDC). **No subirlos nunca.**
-- Comprobado hoy: los 7 `pruebas/*.mjs` en verde y build limpio.
+- Comprobado hoy: los 8 `pruebas/*.mjs` en verde y build limpio.
 
-## Lo último que se hizo (2026-09-23)
+## Lo último que se hizo (2026-09-23, tarde — v0.7.10)
+El ritmo de la v0.7.9 seguía mal con datos reales, y el reordenamiento
+de Progreso que pidió Albert. Detalle completo en `DECISIONS.md`.
+
+- **El bug del ritmo, de verdad arreglado esta vez.** Con la copia de
+  seguridad real de Albert (19 pesajes, 18 planos/ruidosos y uno con una
+  bajada grande el último día), la regresión por mínimos cuadrados
+  (`ritmoReal`) daba una pendiente casi nula por culpa de ese único
+  valor suelto → 62 semanas. Se cambió a Theil-Sen (la mediana de las
+  pendientes entre cada par de días), que no se deja arrastrar por un
+  solo punto raro. Con los mismos datos reales, ahora cae a ~0 y la app
+  usa el ritmo teórico (el del objetivo), dando ~7 semanas — lo
+  razonable. Prueba de regresión en `pruebas/progreso.mjs` con las
+  fechas y pesos reales de Albert (anonimizado en el comentario si algún
+  día hace falta, pero por ahora sigue el mismo criterio que el resto
+  del repo de llevar sus datos de ejemplo).
+- **Progreso reordenado como pidió Albert**: título → cuatro recuadros
+  (peso inicial, peso actual, perdidos, hasta la meta con el ritmo real
+  en pequeño dentro del mismo recuadro) → gráfica de peso/meta →
+  calendario → gráfica de hábitos. Todo variable por usuario, nada de
+  datos de Albert quemados en el layout (los números de su mensaje eran
+  solo ejemplo de maquetación).
+- **Gráfica de hábitos con selector 7 días / 30 días / Año**, a ancho
+  completo del dispositivo (antes se veía apretada). El año agrupa por
+  mes (% de días con objetivo cumplido, ≥70% = verde) y solo pinta los
+  meses que tengan datos. Inspirado en las referencias de Google
+  Fit/Samsung Health que mandó Albert, pero con los colores de marca de
+  MichiFit (verde/ámbar/gris), no el tema oscuro del original.
+- **Logros se mueve de Progreso a Mi objetivo**, al final del todo — a
+  petición de Albert («me sobran ahí, muévelos»).
+- Bug de colisión de nombres CSS encontrado y arreglado durante la
+  verificación: la clase nueva `.mf-semana7` del gráfico de hábitos
+  coincidía con una clase ya existente, sin relación, del selector de
+  días de la semana en Mi objetivo (`Pacto.jsx`). Renombrada a
+  `.mf-graf7*`. Ver `LESSONS.md`.
+
+## Antes de eso (2026-09-23, mañana — v0.7.9)
 Un bug de cálculo real y una funcionalidad pedida por Albert, subidos
 juntos como v0.7.9. Detalle completo en `DECISIONS.md`.
 
@@ -149,11 +185,11 @@ completo en `DECISIONS.md` y `SESSION_MAP.md`.
   Caché `michifit-v17`.
 
 ## Qué toca ahora, por orden
-1. **Nada pendiente de subir.** La `v0.7.8` está en vivo. Ahora toca
-   esperar el feedback de amigos y familia — y en particular, con dos
-   avisos ya llegados en dos horas, estar atento a si aparece algo más
-   de este estilo (algo que llevaba semanas roto y nadie lo había
-   probado así).
+1. **Nada pendiente de subir.** La `v0.7.10` está en vivo. Ahora toca
+   esperar el feedback de amigos y familia — y en particular, con
+   varios avisos ya llegados en pocos días, estar atento a si aparece
+   algo más de este estilo (algo que llevaba semanas roto y nadie lo
+   había probado así).
 2. **Calibrar con uso real**: el ritmo de las barras y el 95 de
    `FORMA_CONTENTO`. Cada número está en un solo sitio
    (`engine/cuidados.js`, `engine/constantes.js`).
@@ -217,6 +253,11 @@ en `SESSION_MAP.md`.
   día alguien quiere una señal visual de «llevas días sin abrir esto»,
   que NUNCA bloquee los botones — mirar cuánto tiempo real se ve cada
   estado, no solo si es alcanzable.
+- **Nombres de clase CSS son globales, sin scoping.** Antes de poner un
+  nombre nuevo (tipo `mf-algo7`), `grep` en `estilos.css` para
+  comprobar que no existe ya en otra pantalla — si colisiona, el
+  elemento hereda reglas ajenas sin ningún error visible, solo un
+  layout raro. Pasó con `.mf-semana7` (v0.7.10): ver `LESSONS.md`.
 - **Restaurar una copia de seguridad SUSTITUYE, no fusiona.** El botón
   de Ajustes pasa por `estructuraCompleta` (en `almacen.js`), la misma
   limpieza que ya protege lo que sale de `localStorage`: un archivo

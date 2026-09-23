@@ -20,13 +20,15 @@ import EditorDia from './EditorDia.jsx';
 import { simular, actividadDelPacto, actividadReciente, planEnergetico, ritmoReal } from '../engine/calculos.js';
 import { Titulo } from './Ayuda.jsx';
 import { DIAS, SUENO_IDEAL } from '../engine/constantes.js';
-import Logros from './Logros.jsx';
 
-export default function Progreso({ perfil, pacto, entradas, onRegistrar, estado }) {
+export default function Progreso({ perfil, pacto, entradas, onRegistrar }) {
   const t = useT();
   const fmt = useFormato();
   const [mesOffset, setMesOffset] = useState(0);
   const [editando, setEditando] = useState(null);
+  /* '7' | '30' | 'anio': qué ventana enseñan las cuatro gráficas de
+     abajo. Pedido por Albert el 2026-09-23. */
+  const [modo, setModo] = useState('7');
 
   const pesajes = useMemo(() =>
     Object.keys(entradas)
@@ -35,37 +37,17 @@ export default function Progreso({ perfil, pacto, entradas, onRegistrar, estado 
       .map((f) => ({ fecha: f, peso: entradas[f].peso })),
     [entradas]);
 
-  /* Los últimos 7 días de entreno, pasos, comida y sueño, para las
-     gráficas de abajo. Reusa `evaluarDia` —la misma función que ya
-     pinta el calendario— para que «cumplido» signifique EXACTAMENTE lo
-     mismo aquí que en cualquier otra pantalla: entreno cumple por
-     apuntar (no por minutos), la comida por la regla del sentido
-     (`rangoComida`, no solo «por debajo»), etc. Ninguna metrica se
-     reinventa aquí. El sueño no vive en `evaluarDia` (no forma parte
-     del pacto), así que se calcula aparte con la misma regla del
-     Marcador: cumple por apuntar algo, sin importar las horas. */
-  const semana = useMemo(() => {
+  /* Las columnas de las cuatro gráficas de abajo: 7 o 30 días (una
+     columna = un día) o el año (una columna = un mes, resumido).
+     Reusa `evaluarDia` —la misma función que ya pinta el calendario—
+     para que «cumplido» signifique EXACTAMENTE lo mismo aquí que en
+     cualquier otra pantalla. */
+  const columnas = useMemo(() => {
     const hoy = hoyISO();
-    const dias = [];
-    for (let i = 6; i >= 0; i--) {
-      const fecha = diasAtras(hoy, i);
-      const entrada = entradas[fecha];
-      const ev = pacto ? evaluarDia({ pacto, entrada, fecha, hoy }) : null;
-      const objEntreno = ev?.objetivos.find((o) => o.id === 'entreno' || o.id === 'descanso');
-      const objPasos = ev?.objetivos.find((o) => o.id === 'pasos');
-      const objComida = ev?.objetivos.find((o) => o.id === 'comida');
-      const horas = horasDeSueno(entrada);
-      dias.push({
-        fecha, letra: t('dias.inicial.' + claveDia(fecha)), esHoy: fecha === hoy,
-        entreno: objEntreno,
-        pasos: objPasos,
-        comida: objComida,
-        sueno: { valor: horas, cumplido: horas != null },
-        abierto: ev?.abierto ?? false,
-      });
-    }
-    return dias;
-  }, [entradas, pacto, t]);
+    return modo === 'anio'
+      ? mesesDelAnio(pacto, entradas, hoy, fmt)
+      : diasRecientes(modo === '30' ? 30 : 7, pacto, entradas, hoy, t);
+  }, [modo, entradas, pacto, t, fmt]);
 
   const pesoActual = pesajes.length ? pesajes[pesajes.length - 1].peso : perfil.pesoActual;
   const perdido = (perfil.pesoInicial ?? pesoActual) - pesoActual;
@@ -125,7 +107,12 @@ export default function Progreso({ perfil, pacto, entradas, onRegistrar, estado 
      `realApunta` decide TODO lo que depende de «cuál ritmo manda»: el
      número de la celda, su etiqueta, la insignia «según lo que
      apuntas», y qué línea dibuja la gráfica. Antes esas cuatro cosas
-     miraban `real` cada una por su lado y podían desincronizarse. */
+     miraban `real` cada una por su lado y podían desincronizarse.
+
+     Desde el 2026-09-23, `real` ya no es una regresión de mínimos
+     cuadrados: es la mediana de pendientes entre pesajes (Theil-Sen),
+     mucho más resistente a un solo pesaje raro. Ver `ritmoReal` en
+     `engine/calculos.js` y `DECISIONS.md` 2026-09-23. */
   const realApunta = real != null && restante !== 0
     && Math.abs(real) > 0.01 && Math.sign(restante) !== Math.sign(real);
   const ritmo = realApunta ? real : teorico;
@@ -148,20 +135,37 @@ export default function Progreso({ perfil, pacto, entradas, onRegistrar, estado 
           <T k="progreso.ayuda1" />
           <T k="progreso.ayuda2" />
           <T k="progreso.ayuda4" />
-          <T k="progreso.ayuda3" />
         </>}>
         {t('progreso.titulo')}
       </Titulo>
 
-      {/* CUÁNTO FALTA, arriba de todo y grande: es el dato que hace que
-          valga la pena apuntar —"cuántos días me quedan"—, y hasta el
-          2026-09-19 no se veía en ningún sitio como número. Vivía
-          escondido dentro de la gráfica (la posición del trofeo, que
-          además desaparece si la meta cae fuera del tramo visible) y un
-          comentario del código decía que "la fecha ya está escrita en
-          la tarjeta de arriba", pero esa tarjeta nunca la tuvo. Mismo
-          bloque `.mf-meta` que ya usa el Simulador, para que se lea
-          como el mismo dato en las dos pantallas. */}
+      {/* Los cuatro recuadros, 2x2: peso inicial y actual arriba,
+          perdido y lo que falta abajo —con el ritmo pequeñito debajo
+          del número de lo que falta, no como un quinto recuadro—.
+          Orden pedido por Albert el 2026-09-23. */}
+      <div className="mf-rejilla">
+        <Celda n={perfil.pesoInicial != null ? perfil.pesoInicial.toFixed(1) : '—'} u="kg"
+               etiqueta={t('progreso.pesoInicial')} />
+        <Celda n={pesoActual != null ? pesoActual.toFixed(1) : '—'} u="kg" etiqueta={t('progreso.pesoActual')} />
+        <Celda n={(perdido > 0 ? '−' : '') + Math.abs(perdido || 0).toFixed(1)} u="kg"
+               etiqueta={perdido >= 0 ? t('progreso.perdidos') : t('progreso.recuperados')}
+               clase={perdido > 0 ? 'bien' : ''} />
+        {/* Valor absoluto y no `Math.max(0, restante)`: para quien quiere
+            GANAR peso `restante` es negativo mientras falta, y el max lo
+            dejaba siempre en 0,0. Una vez en la meta, 0 de verdad. */}
+        <Celda n={(enMeta ? 0 : Math.abs(restante || 0)).toFixed(1)} u="kg" etiqueta={t('progreso.hastaMeta')}>
+          {ritmo != null && (
+            <small className={`mf-celda-ritmo ${ritmo < 0 ? 'bien' : ''}`}>
+              {t(realApunta ? 'progreso.ritmoReal' : 'progreso.ritmoPrevisto')}: {ritmo.toFixed(2)} {t('comun.kg')}
+            </small>
+          )}
+        </Celda>
+      </div>
+
+      {/* CUÁNTO FALTA, y la gráfica de peso ↔ tiempo con su previsión.
+          Debajo de los cuatro recuadros y antes del calendario, a
+          petición de Albert el 2026-09-23 (antes iba todo esto arriba
+          del todo). */}
       {enMeta ? (
         <div className="mf-meta">
           <b>🎉</b>
@@ -179,20 +183,6 @@ export default function Progreso({ perfil, pacto, entradas, onRegistrar, estado 
           <small>{t('progreso.siguiendoRitmo')}</small>
         </div>
       )}
-
-      <div className="mf-rejilla">
-        <Celda n={pesoActual != null ? pesoActual.toFixed(1) : '—'} u="kg" etiqueta={t('progreso.pesoActual')} />
-        <Celda n={(perdido > 0 ? '−' : '') + Math.abs(perdido || 0).toFixed(1)} u="kg"
-               etiqueta={perdido >= 0 ? t('progreso.perdidos') : t('progreso.recuperados')}
-               clase={perdido > 0 ? 'bien' : ''} />
-        {/* Valor absoluto y no `Math.max(0, restante)`: para quien quiere
-            GANAR peso `restante` es negativo mientras falta, y el max lo
-            dejaba siempre en 0,0. Una vez en la meta, 0 de verdad. */}
-        <Celda n={(enMeta ? 0 : Math.abs(restante || 0)).toFixed(1)} u="kg" etiqueta={t('progreso.hastaMeta')} />
-        <Celda n={ritmo != null ? ritmo.toFixed(2) : '—'} u="kg"
-               etiqueta={realApunta ? t('progreso.ritmoReal') : t('progreso.ritmoPrevisto')}
-               clase={ritmo < 0 ? 'bien' : ''} />
-      </div>
 
       <div className="mf-tarjeta">
         <h3 className="mf-h3">
@@ -215,15 +205,30 @@ export default function Progreso({ perfil, pacto, entradas, onRegistrar, estado 
         )}
       </div>
 
-      {/* Las cuatro gráficas de 7 días. Pedidas por Albert el 2026-09-23,
-          para ver de un vistazo si hay algún hábito flojeando esta
-          semana sin tener que abrir el calendario día a día. Sin
-          macros a propósito: son informativas y no cuentan para nada,
-          así que no pintan aquí — ver `dia.macrosNota`. */}
+      <Calendario
+        mesOffset={mesOffset} setMesOffset={setMesOffset}
+        entradas={entradas} pacto={pacto} metaISO={metaISO}
+        onTocar={setEditando}
+      />
+
+      {/* Las cuatro gráficas, con el selector de ventana. Pedidas por
+          Albert el 2026-09-23, para ver de un vistazo si hay algún
+          hábito flojeando sin tener que abrir el calendario día a día.
+          Sin macros a propósito: son informativas y no cuentan para
+          nada, así que no pintan aquí — ver `dia.macrosNota`. */}
       {pacto && (
         <div className="mf-tarjeta">
-          <h3 className="mf-h3">{t('progreso.semanaTitulo')}</h3>
-          <GraficaSemana titulo={t('dia.entreno')} dias={semana}
+          <div className="mf-graf7-cab">
+            <h3 className="mf-h3">{t('progreso.semanaTitulo')}</h3>
+            <div className="mf-graf7-modos">
+              {['7', '30', 'anio'].map((m) => (
+                <button key={m} className={modo === m ? 'sel' : ''} onClick={() => setModo(m)}>
+                  {t('progreso.modo' + m)}
+                </button>
+              ))}
+            </div>
+          </div>
+          <GraficaSemana titulo={t('dia.entreno')} dias={columnas} modo={modo}
                           valor={(d) => esDescanso(d.entreno) ? null : d.entreno?.valor}
                           meta={(d) => d.entreno?.objetivo}
                           estado={(d) => esDescanso(d.entreno)
@@ -231,32 +236,20 @@ export default function Progreso({ perfil, pacto, entradas, onRegistrar, estado 
                             : estadoDia(d.entreno, d.abierto)}
                           descanso={(d) => esDescanso(d.entreno)}
                           formato={(v) => `${Math.round(v)} ${t('comun.min')}`} />
-          <GraficaSemana titulo={t('dia.pasos')} dias={semana}
+          <GraficaSemana titulo={t('dia.pasos')} dias={columnas} modo={modo}
                           valor={(d) => d.pasos?.valor} meta={(d) => d.pasos?.objetivo}
                           estado={(d) => estadoDia(d.pasos, d.abierto)}
                           formato={(v) => `${Math.round(v)}`} />
-          <GraficaSemana titulo={t('dia.comida')} dias={semana}
+          <GraficaSemana titulo={t('dia.comida')} dias={columnas} modo={modo}
                           valor={(d) => d.comida?.valor} meta={(d) => d.comida?.objetivo}
                           estado={(d) => estadoDia(d.comida, d.abierto)}
                           formato={(v) => `${Math.round(v)} ${t('comun.kcal')}`} />
-          <GraficaSemana titulo={t('dia.sueno')} dias={semana}
-                          valor={(d) => d.sueno.valor} meta={() => SUENO_IDEAL}
-                          estado={(d) => d.sueno.valor == null ? (d.abierto ? 'abierto' : 'fallo') : 'ok'}
-                          formato={(v) => `${v} ${t('comun.h')}`} />
+          <GraficaSemana titulo={t('dia.sueno')} dias={columnas} modo={modo}
+                          valor={(d) => d.sueno.valor} meta={(d) => d.sueno.objetivo ?? SUENO_IDEAL}
+                          estado={(d) => d.sueno.valor == null ? (d.abierto ? 'abierto' : 'fallo') : (d.sueno.cumplido ? 'ok' : 'parcial')}
+                          formato={(v) => `${Math.round(v * 10) / 10} ${t('comun.h')}`} />
         </div>
       )}
-
-      <Calendario
-        mesOffset={mesOffset} setMesOffset={setMesOffset}
-        entradas={entradas} pacto={pacto} metaISO={metaISO}
-        onTocar={setEditando}
-      />
-
-      {/* Logros vivía en su propia pestaña; se fundió aquí el
-          2026-09-19 al simplificar el menú de abajo. Es la sección de
-          abajo del todo a propósito: lo primero es el hábito y la
-          fecha, esto es el extra. */}
-      {estado && <Logros estado={estado} />}
 
       {editando && (
         <EditorDia
@@ -289,40 +282,154 @@ function estadoDia(o, abierto) {
    verdad descansaste. */
 const esDescanso = (o) => o?.id === 'descanso';
 
-/* ---------------- gráficas de 7 días (entreno, pasos, comida, sueño) ----------------
-   Una fila de 7 barras, oldest-a-hoy, con la altura relativa a la META
-   de ESE día (no al máximo de la semana): así una semana floja se ve
-   floja, no se autoescala para parecer bien. El día de descanso
-   (`descanso`) no tiene meta que valga —«cero minutos» es justo lo que
-   toca— así que sale un puntito en vez de una barra. */
-function GraficaSemana({ titulo, dias, valor, meta, estado, formato, descanso }) {
+/* Lo que hace falta de UN día para las cuatro gráficas: los objetivos
+   de `evaluarDia` (entreno/descanso, pasos, comida) más el sueño
+   aparte (no vive en el pacto). Una sola función para que "7 días",
+   "30 días" y "cada día de un mes" —para la vista anual— lean
+   exactamente lo mismo. */
+function diaMetrica(fecha, pacto, entradas, hoy) {
+  const entrada = entradas[fecha];
+  const ev = pacto ? evaluarDia({ pacto, entrada, fecha, hoy }) : null;
+  const horas = horasDeSueno(entrada);
+  return {
+    fecha,
+    entreno: ev?.objetivos.find((o) => o.id === 'entreno' || o.id === 'descanso'),
+    pasos: ev?.objetivos.find((o) => o.id === 'pasos'),
+    comida: ev?.objetivos.find((o) => o.id === 'comida'),
+    sueno: { valor: horas, objetivo: SUENO_IDEAL, cumplido: horas != null },
+    abierto: ev?.abierto ?? false,
+  };
+}
+
+function diasRecientes(n, pacto, entradas, hoy, t) {
+  const dias = [];
+  for (let i = n - 1; i >= 0; i--) {
+    const fecha = diasAtras(hoy, i);
+    dias.push({
+      ...diaMetrica(fecha, pacto, entradas, hoy),
+      letra: t('dias.inicial.' + claveDia(fecha)),
+      esHoy: fecha === hoy,
+    });
+  }
+  return dias;
+}
+
+/* Cuánto de un mes hace falta para que la barra salga «ok»: no exige
+   el 100% de los días (nadie cumple TODOS), pero sí una mayoría clara.
+   Un solo número, en un solo sitio: súbelo o bájalo aquí si el reparto
+   verde/ámbar de la vista anual no cuadra con lo que la gente espera. */
+const UMBRAL_MES_OK = 0.7;
+
+/* Resume los días de un mes en UN solo «objeto tipo día»: cuenta
+   cuántos cumplieron de los que ya se podían evaluar (ni futuros ni
+   «abiertos» todavía) y da el % como si fuera un valor sobre 100. Así
+   `GraficaSemana` no necesita saber si está pintando días o meses: los
+   dos hablan el mismo idioma (`valor`/`objetivo`/`cumplido`). */
+function resumenMes(diasDelMes, accessor, comoDescanso) {
+  let ok = 0, evaluables = 0;
+  for (const d of diasDelMes) {
+    const o = accessor(d);
+    if (comoDescanso && esDescanso(o)) {
+      evaluables++;
+      if (o.respetado) ok++;
+      continue;
+    }
+    if (!o || o.valor == null) {
+      if (!d.abierto) evaluables++;   // sin datos y ya cerrado: cuenta, no suma
+      continue;
+    }
+    evaluables++;
+    if (o.cumplido) ok++;
+  }
+  if (!evaluables) return { valor: null, objetivo: 100, cumplido: false };
+  const pct = ok / evaluables;
+  return { valor: Math.round(pct * 100), objetivo: 100, cumplido: pct >= UMBRAL_MES_OK };
+}
+
+/* Un mes por columna, desde que se creó el objetivo hasta el mes
+   actual. Si la cuenta lleva menos de un año, salen menos de doce
+   columnas —no se rellena con meses vacíos que no existieron—. */
+function mesesDelAnio(pacto, entradas, hoy, fmt) {
+  const desdeISO = pacto?.creado ?? hoy;
+  let cursor = new Date(desdeISO.slice(0, 7) + '-01T12:00:00');
+  const limite = new Date(hoy.slice(0, 7) + '-01T12:00:00');
+  const hoyMes = hoy.slice(0, 7);
+  const meses = [];
+
+  while (cursor <= limite) {
+    const anio = cursor.getFullYear(), mes = cursor.getMonth();
+    const ultimoDia = new Date(anio, mes + 1, 0).getDate();
+    const dias = [];
+    for (let d = 1; d <= ultimoDia; d++) {
+      const fecha = `${anio}-${String(mes + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+      if (fecha > hoy) break;
+      dias.push(diaMetrica(fecha, pacto, entradas, hoy));
+    }
+    const claveMes = `${anio}-${String(mes + 1).padStart(2, '0')}`;
+    meses.push({
+      fecha: claveMes,
+      letra: fmt.mesCorto(cursor).replace('.', ''),
+      esHoy: claveMes === hoyMes,
+      entreno: resumenMes(dias, (d) => d.entreno, true),
+      pasos: resumenMes(dias, (d) => d.pasos, false),
+      comida: resumenMes(dias, (d) => d.comida, false),
+      sueno: resumenMes(dias, (d) => d.sueno, false),
+      abierto: false,
+    });
+    cursor = new Date(anio, mes + 1, 1, 12);
+  }
+  return meses;
+}
+
+/* ---------------- gráficas (7 días, 30 días o meses del año) ----------------
+   Una fila de barras, del más viejo al más reciente, con la altura
+   relativa a la META de esa columna (no al máximo de la fila): así una
+   semana floja se ve floja, no se autoescala para parecer bien. El día
+   de descanso (`descanso`) no tiene meta que valga —«cero minutos» es
+   justo lo que toca— así que sale un puntito en vez de una barra.
+
+   Full-bleed: las barras llegan al borde del dispositivo (`.mf-graf7`
+   cancela el padding de la tarjeta Y el de la página). Pedido por
+   Albert el 2026-09-23, «se ven muy pequeñas y apretadas». Con hasta
+   30 columnas la fila no cabe entera y se desplaza en horizontal —cada
+   barra se queda con un ancho mínimo legible en vez de encogerse hasta
+   ser un hilo—. */
+function GraficaSemana({ titulo, dias, modo, valor, meta, estado, formato, descanso }) {
   const t = useT();
   const TOPE = 1.3; // por encima de la meta, la barra ya no crece más
   return (
-    <div className="mf-semana7">
-      <p className="mf-semana7-titulo">{titulo}</p>
-      <div className="mf-semana7-fila">
-        {dias.map((d, i) => {
-          const v = valor(d);
-          const m = meta(d);
-          const esDescanso = descanso?.(d);
-          const est = estado(d);
-          const pct = esDescanso || v == null || !m ? 0 : Math.min(TOPE, v / m);
-          const titulo = esDescanso ? t('marcador.descanso')
-            : v == null ? t('progreso.calSinDatos') : formato(v);
-          return (
-            <div className="mf-semana7-col" key={i}>
-              <div className="mf-semana7-barra" title={titulo}>
-                {esDescanso ? (
-                  <i className={`punto ${est}`} />
-                ) : (
-                  <i className={est} style={{ height: `${Math.max(6, pct * 100)}%` }} />
-                )}
+    <div className="mf-graf7">
+      <p className="mf-graf7-titulo">{titulo}</p>
+      <div className="mf-graf7-scroll">
+        <div className="mf-graf7-fila" style={{ '--cols': dias.length }}>
+          {dias.map((d, i) => {
+            const v = valor(d);
+            const m = meta(d);
+            const esDescansoDia = descanso?.(d);
+            const est = estado(d);
+            const pct = esDescansoDia || v == null || !m ? 0 : Math.min(TOPE, v / m);
+            /* En la vista anual `valor` ya no está en la unidad de
+               siempre (minutos, pasos, kcal, horas): es un % de días
+               cumplidos ese mes, igual para las cuatro gráficas. El
+               tooltip lo dice como tal en vez de usar `formato`, que
+               asume la unidad nativa del día. */
+            const tituloBarra = esDescansoDia ? t('marcador.descanso')
+              : v == null ? t('progreso.calSinDatos')
+              : modo === 'anio' ? `${Math.round(v)}%` : formato(v);
+            return (
+              <div className="mf-graf7-col" key={i}>
+                <div className="mf-graf7-barra" title={tituloBarra}>
+                  {esDescansoDia ? (
+                    <i className={`punto ${est}`} />
+                  ) : (
+                    <i className={est} style={{ height: `${Math.max(6, pct * 100)}%` }} />
+                  )}
+                </div>
+                <small className={d.esHoy ? 'hoy' : ''}>{d.letra}</small>
               </div>
-              <small className={d.esHoy ? 'hoy' : ''}>{d.letra}</small>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </div>
   );
@@ -514,11 +621,12 @@ function Calendario({ mesOffset, setMesOffset, entradas, pacto, metaISO, onTocar
   );
 }
 
-function Celda({ n, u, etiqueta, clase = '' }) {
+function Celda({ n, u, etiqueta, clase = '', children }) {
   return (
     <div className="mf-celda">
       <b className={clase}>{n} {u && <span style={{ fontSize: 13 }}>{u}</span>}</b>
       <small>{etiqueta}</small>
+      {children}
     </div>
   );
 }

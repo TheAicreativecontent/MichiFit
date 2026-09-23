@@ -555,3 +555,39 @@ oculto miente en las medidas. Antes de creerse un numero raro, mirar
   exportado, con su propio `pruebas/*.mjs` — aunque solo lo use una
   pantalla. Que algo viva «cerca de donde se usa» no es razón para que
   viva fuera de donde se prueba.
+
+## Datos sintéticos prueban la lógica, no si el mundo real la rompe
+- Qué pasó: la v0.7.9 (misma tarde que la lección de arriba) arregló
+  `ritmoReal()` limitando la ventana a 30 días, probado con datos
+  sintéticos inventados a mano. Se dio por resuelto. Horas después
+  Albert seguía viendo 62 semanas con SUS datos reales. La causa era
+  otra distinta: no el tamaño de la ventana, sino que la regresión por
+  mínimos cuadrados es muy sensible a un solo valor suelto, y su
+  historial real tenía justo eso — 18 días de ruido plano y una bajada
+  grande el último día. Ningún dato sintético que yo inventé tenía esa
+  forma concreta, porque inventé datos que probaban LA HIPÓTESIS que ya
+  tenía (ventana larga), no datos que se parecieran a un pesaje humano
+  real.
+- Cómo evitarlo: cuando alguien reporta un número mal con SUS datos,
+  pedir esos datos reales (la copia de seguridad, en este caso) en
+  cuanto una primera hipótesis con datos inventados no basta o queda
+  alguna duda — no seguir adivinando formas de historial hasta dar con
+  una que reproduzca el síntoma. Un dato real rompe hipótesis que uno
+  mismo no sabía que estaba dando por sentadas.
+
+## Un nombre de clase CSS nuevo puede colisionar con uno de otra pantalla
+- Qué pasó: la gráfica nueva de hábitos en `Progreso.jsx` (v0.7.10) usó
+  la clase `mf-semana7` para su contenedor. Esa clase ya existía en
+  `estilos.css`, sin relación, para el selector de días de la semana en
+  `Pacto.jsx` (`display: grid; grid-template-columns: repeat(7, 1fr)`).
+  Sin scoping de CSS en el proyecto (una sola hoja de estilos global),
+  el contenedor nuevo heredó ese grid de 7 columnas por accidente: se
+  encogió a un séptimo del ancho del dispositivo, sin ningún error en
+  consola ni en los tests — solo un layout que se veía mal al probarlo
+  de verdad en el navegador.
+- Cómo evitarlo: antes de escribir un nombre de clase nuevo, `grep -n`
+  en `estilos.css` para comprobar que no existe ya. Si el bug ya
+  ocurrió (un contenedor con un `display`/`grid` que nadie fijó a
+  propósito), `getComputedStyle()` en la consola del navegador y subir
+  por los ancestros hasta encontrar de dónde viene — es más rápido que
+  adivinar leyendo el JSX.

@@ -28,6 +28,7 @@ import { macros } from '../engine/calculos.js';
 import { EditorEjercicios } from './Ejercicios.jsx';
 import { Titulo } from './Ayuda.jsx';
 import ReglaComida from './ReglaComida.jsx';
+import Logros from './Logros.jsx';
 
 export default function Pacto({ pacto, perfil, estado, onCambiar, onCambiarPerfil }) {
   const t = useT();
@@ -51,6 +52,7 @@ export default function Pacto({ pacto, perfil, estado, onCambiar, onCambiarPerfi
           <T k="pacto.ayuda1" />
           <T k="pacto.ayuda2" />
           <T k="pacto.ayuda3" />
+          <T k="pacto.ayuda4" />
         </>}>
         {t('pacto.titulo')}
       </Titulo>
@@ -175,6 +177,11 @@ export default function Pacto({ pacto, perfil, estado, onCambiar, onCambiarPerfi
         </div>
       )}
 
+      {/* Logros vivía al final de Progreso; se mueve aquí, también al
+          final del todo, el 2026-09-23 a petición de Albert. Es la
+          sección de abajo del todo a propósito, igual que antes: lo
+          primero es el objetivo de la semana, esto es el extra. */}
+      {estado && <Logros estado={estado} />}
     </div>
   );
 }
