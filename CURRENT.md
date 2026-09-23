@@ -13,7 +13,7 @@ link la abre, la instala y usa. Lo que queda son retoques y decidir
 cosas con uso real.
 
 ## Versión y despliegue
-- **Versión estándar: `v0.7.13`** (etiqueta de Git). Ver `VERSION.md`.
+- **Versión estándar: `v0.7.14`** (etiqueta de Git). Ver `VERSION.md`.
 - **Caché del service worker: `michifit-v17`** (sin cambios de imagen
   desde la v0.7.6).
 - En vivo: https://michifit.vercel.app · cada `git push` a `main`
@@ -23,7 +23,14 @@ cosas con uso real.
   token OIDC). **No subirlos nunca.**
 - Comprobado hoy: los 8 `pruebas/*.mjs` en verde y build limpio.
 
-## Lo último que se hizo (2026-09-23, noche cerrada — v0.7.13)
+## Lo último que se hizo (2026-09-23, noche cerrada — v0.7.14)
+Último retoque de la tanda, cerrando la sesión: las flechitas (⤢/⤡)
+del botón de ampliar el michi, un poco más grandes —se leían pequeñas
+al lado del 💾 y el «?»—. Clase nueva `mf-inicio-flechas` solo en ese
+botón, para no afectar al de guardar copia, que comparte la clase base
+`mf-inicio-zoom`.
+
+## Antes de eso (2026-09-23, noche — v0.7.13)
 Albert probó la v0.7.12 y pidió otro retoque visual: el botón de
 ampliar/reducir el michi (⤢/⤡ en Inicio, arriba a la derecha del
 aparato) «se mimetiza con el fondo y no se aprecia que es un botón
@@ -231,7 +238,7 @@ completo en `DECISIONS.md` y `SESSION_MAP.md`.
   Caché `michifit-v17`.
 
 ## Qué toca ahora, por orden
-1. **Nada pendiente de subir.** La `v0.7.13` está en vivo. Ahora toca
+1. **Nada pendiente de subir.** La `v0.7.14` está en vivo. Ahora toca
    esperar el feedback de amigos y familia — y en particular, con
    varios avisos ya llegados en pocos días, estar atento a si aparece
    algo más de este estilo (algo que llevaba semanas roto y nadie lo

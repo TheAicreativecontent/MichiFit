@@ -350,7 +350,7 @@ export default function Inicio({ estado, entradas, pacto, onCarino, onCuidar, on
             {copiaHecha ? '✅' : '💾'}
           </button>
         )}
-        <button className="mf-inicio-zoom" aria-pressed={ampliado}
+        <button className="mf-inicio-zoom mf-inicio-flechas" aria-pressed={ampliado}
                 aria-label={t(ampliado ? 'aparato.reducir' : 'aparato.ampliar')}
                 title={t(ampliado ? 'aparato.reducir' : 'aparato.ampliar')}
                 onClick={() => setAmpliado((a) => !a)}>

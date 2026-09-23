@@ -2057,6 +2057,20 @@ usa el botón de guardar copia (💾), mismo cambio de regalo—. Verificado
 en el navegador en los dos estados (normal y ampliado). Subido como
 **v0.7.13**.
 
+## 2026-09-23 (cierre de sesión) — Las flechitas, un poco más grandes
+Último pulido antes de cerrar: Albert dijo que ya se veía mejor el
+botón de ampliar, pero que las flechitas (⤢/⤡) podían ser un poco más
+grandes. Clase `mf-inicio-flechas` añadida solo al botón de ampliar
+(no al de guardar copia, que comparte `mf-inicio-zoom` pero no debía
+cambiar de tamaño): de 15px a 19px. Subido como **v0.7.14**.
+
+Con esto se cierra la sesión larga del 2026-09-23: el bug del ritmo
+(dos intentos, v0.7.9 y v0.7.10), el reordenamiento completo de
+Progreso, y cuatro rondas de pulido fino sobre lo mismo (v0.7.11 a
+v0.7.14) según Albert lo iba probando en el momento. Documentación al
+día, los 8 `pruebas/*.mjs` en verde, build limpio, todo en `main` y
+desplegado.
+
 ---
 
 ## Archivo de CURRENT.md · movido el 2026-09-19

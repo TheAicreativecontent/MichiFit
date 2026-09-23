@@ -7,12 +7,12 @@
 
 ## La estándar, hoy
 
-**v0.7.13** — 23 de septiembre de 2026.
+**v0.7.14** — 23 de septiembre de 2026.
 
 | Dónde | Qué vale |
 |---|---|
-| Etiqueta de Git | `v0.7.13` |
-| `package.json` | `"version": "0.7.13"` |
+| Etiqueta de Git | `v0.7.14` |
+| `package.json` | `"version": "0.7.14"` |
 | Caché del service worker | `michifit-v17` |
 | Dentro de la app | Ajustes, última línea |
 | En vivo | https://michifit.vercel.app |
@@ -84,6 +84,12 @@ Al cerrar una tanda de trabajo que merezca marcarse:
 5. Commit, `git tag -a vX.Y.Z`, y `git push --follow-tags`.
 
 ## Historial
+
+- **v0.7.14** (2026-09-23) — Las flechitas (⤢/⤡) del botón de ampliar
+  el michi, un poco más grandes: se leían pequeñas al lado del 💾 y el
+  «?». Solo ese botón, no el de guardar copia, que comparte la misma
+  clase base. Cierra la tanda de retoques del día. Sin cambios de
+  imagen: caché igual.
 
 - **v0.7.13** (2026-09-23) — El botón de ampliar/reducir el michi (y el
   de guardar copia, que comparte estilo) se confundían con el fondo:
