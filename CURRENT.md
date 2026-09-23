@@ -13,7 +13,7 @@ link la abre, la instala y usa. Lo que queda son retoques y decidir
 cosas con uso real.
 
 ## Versión y despliegue
-- **Versión estándar: `v0.7.10`** (etiqueta de Git). Ver `VERSION.md`.
+- **Versión estándar: `v0.7.11`** (etiqueta de Git). Ver `VERSION.md`.
 - **Caché del service worker: `michifit-v17`** (sin cambios de imagen
   desde la v0.7.6).
 - En vivo: https://michifit.vercel.app · cada `git push` a `main`
@@ -23,7 +23,28 @@ cosas con uso real.
   token OIDC). **No subirlos nunca.**
 - Comprobado hoy: los 8 `pruebas/*.mjs` en verde y build limpio.
 
-## Lo último que se hizo (2026-09-23, tarde — v0.7.10)
+## Lo último que se hizo (2026-09-23, noche — v0.7.11)
+Dos retoques a la gráfica de hábitos, pedidos por Albert nada más
+probar la v0.7.10:
+
+- **Vista Año: los doce meses siempre, con o sin datos.** Antes
+  `mesesDelAnio()` solo generaba columnas desde que se creó el
+  objetivo hasta el mes actual; ahora genera siempre enero-diciembre
+  del año en curso. Los meses sin ningún día evaluable (antes de crear
+  el objetivo, o todavía en el futuro) salen con el mismo color neutro
+  de «sin datos» que ya usaba cualquier día suelto — no hizo falta un
+  estado nuevo. Cuidado al que hubo que prestar atención: los meses
+  ANTERIORES a `pacto.creado` no se evalúan día a día (se saltan,
+  literalmente no se les llama a `evaluarDia`), porque si no saldrían
+  en ámbar «a medias» en vez de neutros — el mismo error de fondo que
+  ya se corrigió una vez para las rachas, el 2026-09-07.
+- **Vista 30 días: sin scroll horizontal.** Las barras ahora se
+  encogen para caber siempre en el ancho del dispositivo (antes tenían
+  un mínimo de 28px y aparecía scroll). Con más de 14 columnas solo se
+  rotula una de cada cinco (más «hoy», siempre visible), para que las
+  letras no se amontonen.
+
+## Antes de eso (2026-09-23, tarde — v0.7.10)
 El ritmo de la v0.7.9 seguía mal con datos reales, y el reordenamiento
 de Progreso que pidió Albert. Detalle completo en `DECISIONS.md`.
 
@@ -185,7 +206,7 @@ completo en `DECISIONS.md` y `SESSION_MAP.md`.
   Caché `michifit-v17`.
 
 ## Qué toca ahora, por orden
-1. **Nada pendiente de subir.** La `v0.7.10` está en vivo. Ahora toca
+1. **Nada pendiente de subir.** La `v0.7.11` está en vivo. Ahora toca
    esperar el feedback de amigos y familia — y en particular, con
    varios avisos ya llegados en pocos días, estar atento a si aparece
    algo más de este estilo (algo que llevaba semanas roto y nadie lo

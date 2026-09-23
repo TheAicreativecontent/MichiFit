@@ -1999,6 +1999,35 @@ septiembre solo pinta un mes) y Logros en su nuevo sitio, todo
 comprobado uno por uno, no solo el build y los tests. Subido como
 **v0.7.10**.
 
+## 2026-09-23 (noche) — Año completo y 30 días sin scroll
+Albert probó la v0.7.10 y pidió dos retoques a la gráfica de hábitos:
+que la vista Año enseñe los doce meses aunque no haya datos («ayuda a
+visualizar el año entero»), y que la vista de 30 días quepa entera sin
+scroll horizontal.
+
+`mesesDelAnio()` pasó de generar solo los meses entre la creación del
+objetivo y hoy a generar siempre enero-diciembre del año en curso. Los
+meses sin días evaluables caen solos en el color «sin datos»
+(`resumenMes` con una lista vacía ya devolvía eso), pero hubo que
+añadir una guardia explícita: los días ANTERIORES a `pacto.creado` dejan
+de pasarse a `evaluarDia` dentro del bucle mensual, porque si no un mes
+entero antes de crear el objetivo salía en ámbar «a medias» —el mismo
+patrón de bug de las rachas del 2026-09-07, esta vez en la vista anual.
+
+El CSS de la fila de barras (`.mf-graf7-fila`) perdió el
+`overflow-x: auto` y el ancho mínimo de 28px por columna: ahora siempre
+ocupa el 100% y las columnas se reparten con `minmax(0, 1fr)`, así que
+30 días caben sin desbordar. Con más de 14 columnas, `GraficaSemana`
+solo rotula una de cada cinco (más «hoy») para que las letras no se
+amontonen entre sí.
+
+Verificado en el navegador con la copia de seguridad real de Albert:
+la vista Año muestra los doce meses con septiembre en verde/ámbar real
+y el resto en neutro, y la vista 30 días cabe entera sin scroll. Los 8
+`pruebas/*.mjs` siguen en verde (no hay prueba dedicada a estas dos
+funciones: viven en `Progreso.jsx`, no en `engine/`). Subido como
+**v0.7.11**.
+
 ---
 
 ## Archivo de CURRENT.md · movido el 2026-09-19

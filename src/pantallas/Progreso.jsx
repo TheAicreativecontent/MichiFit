@@ -346,13 +346,17 @@ function resumenMes(diasDelMes, accessor, comoDescanso) {
   return { valor: Math.round(pct * 100), objetivo: 100, cumplido: pct >= UMBRAL_MES_OK };
 }
 
-/* Un mes por columna, desde que se creó el objetivo hasta el mes
-   actual. Si la cuenta lleva menos de un año, salen menos de doce
-   columnas —no se rellena con meses vacíos que no existieron—. */
+/* Los doce meses del año en curso, de enero a diciembre, para que se
+   vea el año entero de un vistazo (pedido por Albert el 2026-09-23:
+   «que estén las barras ayuda a visualizar el año entero»). Los meses
+   sin ningún día evaluable —antes de crear el objetivo, o todavía en
+   el futuro— salen igual, con el mismo color de «sin datos» que ya usa
+   cualquier día suelto sin apuntar: `resumenMes` con una lista vacía ya
+   devuelve `valor: null`, así que no hace falta un estado nuevo. */
 function mesesDelAnio(pacto, entradas, hoy, fmt) {
-  const desdeISO = pacto?.creado ?? hoy;
-  let cursor = new Date(desdeISO.slice(0, 7) + '-01T12:00:00');
-  const limite = new Date(hoy.slice(0, 7) + '-01T12:00:00');
+  const anio = Number(hoy.slice(0, 4));
+  let cursor = new Date(anio, 0, 1, 12);
+  const limite = new Date(anio, 11, 1, 12);
   const hoyMes = hoy.slice(0, 7);
   const meses = [];
 
@@ -363,6 +367,12 @@ function mesesDelAnio(pacto, entradas, hoy, fmt) {
     for (let d = 1; d <= ultimoDia; d++) {
       const fecha = `${anio}-${String(mes + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
       if (fecha > hoy) break;
+      /* Días de antes de crear el objetivo no cuentan como fallados
+         —ni siquiera existían todavía—: se saltan, no se evalúan. Sin
+         esto, un mes entero anterior al pacto saldría en ámbar («a
+         medias») en vez de neutro, el mismo error que ya se corrigió
+         una vez para las rachas (ver SESSION_MAP.md, 2026-09-07). */
+      if (pacto?.creado && fecha < pacto.creado) continue;
       dias.push(diaMetrica(fecha, pacto, entradas, hoy));
     }
     const claveMes = `${anio}-${String(mes + 1).padStart(2, '0')}`;
@@ -390,13 +400,16 @@ function mesesDelAnio(pacto, entradas, hoy, fmt) {
 
    Full-bleed: las barras llegan al borde del dispositivo (`.mf-graf7`
    cancela el padding de la tarjeta Y el de la página). Pedido por
-   Albert el 2026-09-23, «se ven muy pequeñas y apretadas». Con hasta
-   30 columnas la fila no cabe entera y se desplaza en horizontal —cada
-   barra se queda con un ancho mínimo legible en vez de encogerse hasta
-   ser un hilo—. */
+   Albert el 2026-09-23, «se ven muy pequeñas y apretadas». Nunca hay
+   scroll horizontal —pedido también por Albert el mismo día, para los
+   30 días—: con muchas columnas cada barra se encoge, no se desborda.
+   Con más de un puñado de columnas (los 30 días) las letras de cada
+   una se pisarían, así que solo se rotula una de cada cinco (más
+   «hoy», siempre visible) — de sobra para ubicarse sin abarrotar. */
 function GraficaSemana({ titulo, dias, modo, valor, meta, estado, formato, descanso }) {
   const t = useT();
   const TOPE = 1.3; // por encima de la meta, la barra ya no crece más
+  const step = dias.length > 14 ? 5 : 1;
   return (
     <div className="mf-graf7">
       <p className="mf-graf7-titulo">{titulo}</p>
@@ -416,6 +429,7 @@ function GraficaSemana({ titulo, dias, modo, valor, meta, estado, formato, desca
             const tituloBarra = esDescansoDia ? t('marcador.descanso')
               : v == null ? t('progreso.calSinDatos')
               : modo === 'anio' ? `${Math.round(v)}%` : formato(v);
+            const mostrarEtiqueta = d.esHoy || i % step === 0;
             return (
               <div className="mf-graf7-col" key={i}>
                 <div className="mf-graf7-barra" title={tituloBarra}>
@@ -425,7 +439,7 @@ function GraficaSemana({ titulo, dias, modo, valor, meta, estado, formato, desca
                     <i className={est} style={{ height: `${Math.max(6, pct * 100)}%` }} />
                   )}
                 </div>
-                <small className={d.esHoy ? 'hoy' : ''}>{d.letra}</small>
+                <small className={d.esHoy ? 'hoy' : ''}>{mostrarEtiqueta ? d.letra : ''}</small>
               </div>
             );
           })}

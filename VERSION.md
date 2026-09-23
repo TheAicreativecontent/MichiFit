@@ -7,12 +7,12 @@
 
 ## La estándar, hoy
 
-**v0.7.10** — 23 de septiembre de 2026.
+**v0.7.11** — 23 de septiembre de 2026.
 
 | Dónde | Qué vale |
 |---|---|
-| Etiqueta de Git | `v0.7.10` |
-| `package.json` | `"version": "0.7.10"` |
+| Etiqueta de Git | `v0.7.11` |
+| `package.json` | `"version": "0.7.11"` |
 | Caché del service worker | `michifit-v17` |
 | Dentro de la app | Ajustes, última línea |
 | En vivo | https://michifit.vercel.app |
@@ -84,6 +84,16 @@ Al cerrar una tanda de trabajo que merezca marcarse:
 5. Commit, `git tag -a vX.Y.Z`, y `git push --follow-tags`.
 
 ## Historial
+
+- **v0.7.11** (2026-09-23) — Dos retoques a la gráfica de hábitos de la
+  v0.7.10, pedidos por Albert nada más probarla. La vista Año ahora
+  enseña los doce meses del año en curso siempre, aunque no haya datos
+  (con el color neutro de «sin datos»), para ver el año entero de un
+  vistazo — antes solo salían los meses con algún día evaluable. Y la
+  vista de 30 días ya no hace scroll horizontal: las barras se encogen
+  para caber todas en el ancho del dispositivo, con una de cada cinco
+  etiquetas (más «hoy») para no abarrotar. Sin cambios de imagen: caché
+  igual.
 
 - **v0.7.10** (2026-09-23) — Dos cosas más que se vieron nada más
   probar la v0.7.9. Primera: el ritmo real de peso seguía mal (62

@@ -787,3 +787,33 @@ paleta es la de siempre (verde/ámbar/gris neutro, nunca rojo —
 Albert dijo que le sobraban en Progreso; entre quitarlos del todo o
 moverlos, eligió moverlos. `Pacto.jsx` ya recibía la prop `estado` que
 Logros necesita, así que no hizo falta tocar `App.jsx` para pasarla.
+
+## Año completo y 30 días sin scroll (v0.7.11, 2026-09-23)
+
+Dos retoques a la gráfica de hábitos de la v0.7.10, pedidos por Albert
+nada más probarla.
+
+**Vista Año, los doce meses siempre.** Pidió explícitamente que se
+vieran «aunque no tengamos datos», con el color de «sin datos», «para
+visualizar el año entero». `mesesDelAnio()` ahora genera siempre
+enero-diciembre del año en curso (antes: solo desde `pacto.creado`
+hasta el mes actual). Un mes sin ningún día evaluable ya caía solo en
+el color neutro —`resumenMes([])` devuelve `valor: null`—, así que no
+hizo falta inventar un estado nuevo. Lo que sí hizo falta: una guardia
+para que los días ANTERIORES a `pacto.creado` no se evalúen. Sin ella,
+`evaluarDia` los trata como días normales sin apuntar (no sabe que el
+objetivo ni existía), y un mes entero de antes de crear el objetivo
+salía en ámbar «a medias» en vez de neutro — la misma familia de bug
+que ya se corrigió una vez para las rachas (`SESSION_MAP.md`,
+2026-09-07: «no se contaban como falladas las semanas anteriores a
+crear el pacto», ahora aplicado también a esta vista).
+
+**Vista 30 días, sin scroll horizontal.** Pidió ver el mes entero sin
+desplazarse. `.mf-graf7-fila` perdió el ancho mínimo de 28px por
+columna y el `overflow-x: auto`: ahora siempre ocupa el 100% del
+ancho disponible y dejamos que las columnas se encojan
+(`grid-auto-columns: minmax(0, 1fr)`). Con 30 columnas caben en
+~7-8px cada una. Para que las letras de cada día no se amontonasen
+a ese ancho, `GraficaSemana` ahora solo rotula una de cada cinco
+columnas (más «hoy», siempre visible) cuando hay más de 14 —el mismo
+umbral no afecta a "7 días" (7 columnas) ni a "Año" (máximo 12).
