@@ -2044,6 +2044,19 @@ tres modos (7 días, 30 días, Año): margen visible en los tres, sin
 scroll, sin bordes tocando el cristal de la tarjeta. Subido como
 **v0.7.12**.
 
+## 2026-09-23 (noche cerrada) — El botón de ampliar, más visible
+Último retoque de la tanda: Albert dijo que el botón de ampliar/reducir
+el michi (⤢, arriba del aparato en Inicio) se confundía con el fondo y
+no se notaba que era clicable. Cierto: llevaba `background: var(--chip)`
+(#FBEFE2), casi idéntico al beige de `.mf-pagina`, con un borde de 1px
+en `--linea` que tampoco contrasta mucho contra ese fondo. Se comparó
+con `.mf-cab-boton` (ajustes e idioma en la cabecera), que sí se ve
+bien: fondo blanco (`--papel`) y `box-shadow: var(--sombra-sm)`, sin
+borde. Se aplicó el mismo tratamiento a `.mf-inicio-zoom` —que también
+usa el botón de guardar copia (💾), mismo cambio de regalo—. Verificado
+en el navegador en los dos estados (normal y ampliado). Subido como
+**v0.7.13**.
+
 ---
 
 ## Archivo de CURRENT.md · movido el 2026-09-19

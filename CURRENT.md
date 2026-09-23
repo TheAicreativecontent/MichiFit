@@ -13,7 +13,7 @@ link la abre, la instala y usa. Lo que queda son retoques y decidir
 cosas con uso real.
 
 ## Versión y despliegue
-- **Versión estándar: `v0.7.12`** (etiqueta de Git). Ver `VERSION.md`.
+- **Versión estándar: `v0.7.13`** (etiqueta de Git). Ver `VERSION.md`.
 - **Caché del service worker: `michifit-v17`** (sin cambios de imagen
   desde la v0.7.6).
 - En vivo: https://michifit.vercel.app · cada `git push` a `main`
@@ -23,7 +23,18 @@ cosas con uso real.
   token OIDC). **No subirlos nunca.**
 - Comprobado hoy: los 8 `pruebas/*.mjs` en verde y build limpio.
 
-## Lo último que se hizo (2026-09-23, noche — v0.7.12)
+## Lo último que se hizo (2026-09-23, noche cerrada — v0.7.13)
+Albert probó la v0.7.12 y pidió otro retoque visual: el botón de
+ampliar/reducir el michi (⤢/⤡ en Inicio, arriba a la derecha del
+aparato) «se mimetiza con el fondo y no se aprecia que es un botón
+clicable». Llevaba fondo `--chip` (#FBEFE2), casi el mismo tono crema
+del fondo de la página, con un borde de 1px apenas visible. Ahora
+`.mf-inicio-zoom` usa fondo blanco y sombra suave, igual que
+`.mf-cab-boton` (los botones de ajustes e idioma de la cabecera, que sí
+se distinguen bien). Mismo cambio para el botón de guardar copia (💾),
+que comparte la misma clase.
+
+## Antes de eso (2026-09-23, noche — v0.7.12)
 Albert probó la v0.7.11 y mandó una captura con un marco negro dibujado
 encima, señalando que las barras de la gráfica de hábitos llegaban
 justo al borde de la tarjeta blanca, sin ningún margen. Era el
@@ -220,7 +231,7 @@ completo en `DECISIONS.md` y `SESSION_MAP.md`.
   Caché `michifit-v17`.
 
 ## Qué toca ahora, por orden
-1. **Nada pendiente de subir.** La `v0.7.12` está en vivo. Ahora toca
+1. **Nada pendiente de subir.** La `v0.7.13` está en vivo. Ahora toca
    esperar el feedback de amigos y familia — y en particular, con
    varios avisos ya llegados en pocos días, estar atento a si aparece
    algo más de este estilo (algo que llevaba semanas roto y nadie lo

@@ -7,12 +7,12 @@
 
 ## La estándar, hoy
 
-**v0.7.12** — 23 de septiembre de 2026.
+**v0.7.13** — 23 de septiembre de 2026.
 
 | Dónde | Qué vale |
 |---|---|
-| Etiqueta de Git | `v0.7.12` |
-| `package.json` | `"version": "0.7.12"` |
+| Etiqueta de Git | `v0.7.13` |
+| `package.json` | `"version": "0.7.13"` |
 | Caché del service worker | `michifit-v17` |
 | Dentro de la app | Ajustes, última línea |
 | En vivo | https://michifit.vercel.app |
@@ -84,6 +84,13 @@ Al cerrar una tanda de trabajo que merezca marcarse:
 5. Commit, `git tag -a vX.Y.Z`, y `git push --follow-tags`.
 
 ## Historial
+
+- **v0.7.13** (2026-09-23) — El botón de ampliar/reducir el michi (y el
+  de guardar copia, que comparte estilo) se confundían con el fondo:
+  fondo `--chip` casi del mismo tono crema que el fondo de la página,
+  borde apenas visible. Ahora llevan fondo blanco y sombra, como los
+  botones de la cabecera (ajustes, idioma) — se nota mejor que son
+  botones. Sin cambios de imagen: caché igual.
 
 - **v0.7.12** (2026-09-23) — Un retoque más a la gráfica de hábitos,
   pedido por Albert con una captura suya marcando el problema: las
