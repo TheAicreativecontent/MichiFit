@@ -392,7 +392,7 @@ export default {
 
   copia: {
     titulo: '💾 Copia de seguridad completa',
-    intro: 'El botón de más abajo solo guarda tus días apuntados, para verlos en una hoja de cálculo. <b>Esta copia lo guarda TODO</b> —perfil, objetivo, michi, cada día— en un archivo que puedes guardar donde quieras y traer de vuelta si el navegador borra tus datos.',
+    intro: 'El botón de más abajo solo guarda tus días apuntados, para verlos en una hoja de cálculo. <b>Esta copia lo guarda TODO</b> (perfil, objetivo, michi, cada día) en un archivo que puedes guardar donde quieras y traer de vuelta si el navegador borra tus datos.',
     guardar: '⬇️ Guardar copia completa',
     restaurar: '📤 Restaurar una copia',
     guardarIcono: 'Guardar copia de tus datos',

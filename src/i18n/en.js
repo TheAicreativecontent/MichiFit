@@ -383,7 +383,7 @@ export default {
 
   copia: {
     titulo: '💾 Full backup',
-    intro: 'The button below only saves your logged days, to open in a spreadsheet. <b>This backup saves EVERYTHING</b> — profile, goal, michi, every day — in a file you can keep anywhere and bring back if the browser deletes your data.',
+    intro: 'The button below only saves your logged days, to open in a spreadsheet. <b>This backup saves EVERYTHING</b> (profile, goal, michi, every day) in a file you can keep anywhere and bring back if the browser deletes your data.',
     guardar: '⬇️ Save full backup',
     restaurar: '📤 Restore a backup',
     guardarIcono: 'Save a backup of your data',
