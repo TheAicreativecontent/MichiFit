@@ -16,7 +16,8 @@ cosas con uso real.
 - **Versión estándar: `v0.7.14`** (etiqueta de Git). Ver `VERSION.md`.
 - **Caché del service worker: `michifit-v17`** (sin cambios de imagen
   desde la v0.7.6).
-- En vivo: https://michifit.vercel.app · cada `git push` a `main`
+- En vivo: https://michifit.albertmiarnau.com (desde 2026-10-01; el
+  `michifit.vercel.app` ya no existe) · cada `git push` a `main`
   despliega solo.
 - Repo público: https://github.com/TheAicreativecontent/MichiFit
 - `.vercel/` y `.env.local` están en `.gitignore` (el segundo lleva un
@@ -335,3 +336,9 @@ en `SESSION_MAP.md`.
   pesaje.
 - Sin bloqueadores. (Magnific está conectado pero su plan no da acceso por
   MCP; desde la web funciona.)
+
+## Copys y web (2026-10-01, tarde)
+- Quitados los guiones largos del texto de la copia de seguridad en los 5
+  idiomas. Quedan `—` solo en comentarios y como marcador de «sin dato».
+- En la web de Albert se presenta como «Adopt your own pet cat»: Ninja se
+  adopta, es mascota, no entrenador.

@@ -3268,3 +3268,11 @@ del michi para revisar los dibujos sin apuntar datos reales.
 - Aviso al revisar: el panel de vista previa del navegador **lava toda la
   página** cuando hay una capa fija con opacidad, aunque esté vacía. Es un
   artefacto del panel, no de la CSS. Juzgar el fondo en un navegador de verdad.
+
+## 2026-10-01 (tarde) — Subdominio, banner y copys
+- Contexto: Albert quiso banners de las michi apps en su web y los copys sin
+  guiones largos.
+- Qué se hizo: subdominio `michifit.albertmiarnau.com` en Vercel; texto de la
+  copia de seguridad sin guiones largos (es/en/ja/th/zh), commit `8747bb4`.
+- Qué quedó pendiente: nada.
+- Decisiones tomadas: se habla de MichiFit como «pet cat», no «coach».
